@@ -1,6 +1,9 @@
 
 
-
+# Motivation:
+* Biophysically accurate models are slow. Reduced models are fast.
+Efficient models: GLIF, Izhikitch.
+You could make biophysically accurate models faster, or you could make reduced models more accurate. To make reduced models more accurate, you would find parameterizations of the models that let the models act as better mimics of experiments.
 * Herein we investigate how well Faster models can match experimental recording waveform shapes.
 * The reason why we want to investigate the match:
 - Large scale simulations cant evaluate on a timescale that is meaningful, unless a large ratio of modelled cells are "reduced models"

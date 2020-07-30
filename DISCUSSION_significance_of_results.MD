@@ -3,22 +3,20 @@
 * Within a reasonable parameter range conductance based models are usually close to experimentally observed measurements.
 
 # Patterns of poor model performance in Phenomenological Models.
-* many reduced neural models are far from optimal at any point in parameter space. Optimizing does not significantly improve aggreement. Optimizing does not bring model and experiment close to `Z=0`.
+* many reduced neural models are far from optimal at any point in parameter space. Optimizing does not significantly improve agreement. Optimizing does not bring model and experiment close to `Z=0`.
 
 There is an order of magnitude difference. Between agreement in Rheobase values between the conductance based models and the experimental models. 
 
-For instance conductance based models, tend to have default parameters.
 
-What does it mean.
+## What does it mean.
 
 * In methods I discussed an approach to verifying the optimizer.
 - Specifically, we showed efficient optimizer convergence, when constraints were derived from simulating experiments.
 
-In a simulated experiment, existing models were instantiated using a randomly chosen model parameters.
+When the optimizer setup is cogent because appropriate models and test combinations have been chosen, and because 
 
-<!--The reason for this exercise is-->
+N free_params <= N constraints
 
-In the class of reduced neural models we are optimizing, are not arbitrary waveform generators. The models have intrinsic restrictions that prevent them from matching perfectly with experimental waveforms.
+The optimizer finds a varied set of compromised solutions.
 
-When constraints are derived from model measurements, intrinsic model restrictions no longer apply. Optimized models should match perfectly with the simulated experiments. Failure to match is indicative of two things.
-
+* In order to verify our approach we also re-implemented our code using BluePyOpts select best algorithm, and NSGA2.
