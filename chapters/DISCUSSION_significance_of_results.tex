@@ -1,0 +1,33 @@
+\section{Discussion}
+
+\subsection{Poor Ability of models to Fit Data.}
+\begin{itemize}
+
+
+\item Within a reasonable parameter range conductance based models are usually close to experimentally observed measurements.
+
+\section{A pattern to model fitting inability in Phenomenological Models.}
+* many reduced neural models are far from optimal at any point in parameter space. Optimizing does not significantly improve agreement. Optimizing does not bring model and experiment close to `Z=0`.
+
+\item There is an order of magnitude difference. Between agreement in Rheobase values between the conductance based models and the experimental models. 
+
+\end{itemize}
+
+\section{What does it mean.}
+\begin{itemize}
+
+\item  In methods I discussed an approach to verifying the optimizer.
+- Specifically, we showed efficient optimizer convergence, when constraints were derived from simulating experiments.
+
+When the optimizer setup is cogent because appropriate models and test combinations have been chosen, and because 
+\begin{equation}
+
+N free_params <= N constraints
+\end{equation}
+
+The optimizer finds a varied set of compromised solutions.
+
+\item  In order to verify our approach we also re-implemented our code using BluePyOpts select best algorithm, and NSGA2.
+\end{itemize}
+
+Model constraint combinations give rise to differences in how correlated errors are during gene evolution. 

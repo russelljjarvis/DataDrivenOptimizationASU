@@ -15,9 +15,16 @@ When constraints are derived from model measurements, intrinsic model restrictio
 - Failure to setup tractable optimization problems.
 - When inverting linear equations, finding a unique solution requires that the number of constraining equations is greater than the number of free variables you are solving for:
 
+\section{Verification}
+It was important to be able to create a ground truths that were always possible for the optimizer to match exactly. Often experimental data implies waveform shapes that are beyond the capabilities of the model that is to be fitted. Simulating experimental measurements meant, that model limitations can be understood separately from optimizer limitations.
 
--  N free model parameters << N_constraints
--  In our specific design this expands to:
--  (model parameters + current_value parameter) << N (indipendent and uncorrelated) constraints.
--  
+\section{Optimizer Limitations}
+\begin{itemize}
+    \item 
+\item  N free model parameters << N_constraints
+\item  In our specific design this expands to:
+\item  (model parameters + current_value parameter) << N (indipendent and uncorrelated) constraints.
+\item  
 For the different classes of Reduced Model we show that 
+\end{itemize}
+\end{item}
