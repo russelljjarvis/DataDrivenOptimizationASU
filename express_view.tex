@@ -1,10 +1,10 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
-#\usepackage{markdown}
+\usepackage{graphicx}
 
+\begin{document}
 
-Be sure to copy/paste as much as possible from your prospectus, especially for the introduction, since it was already reasonably polished so there will be less work to do after that. Do now.
-
+\begin{itemize}
 
 \item  Try to organize your sections more hierarchically, so rather than just a bunch of bullet points for the Introduction, group them by topic, and order them how you think they should be presented to the reader.  
 
@@ -12,14 +12,58 @@ Be sure to copy/paste as much as possible from your prospectus, especially for t
 
 \item That mini-introduction can be essentially like the content of the first few cells of some of your notebooks, but you will want to make sure that every sentence is comprehensible to someone who has read and understood the general introduction but otherwise doesn’t have much special expertise other than being a neuroscientists of some kind.
 
-\begin{document}
 
 
 % Explanatory comment Name of section, above call to include.
+Need to explain two things:
+- why optimize, but also why reduced models. Probably why models first.
+
+\item Biophysically accurate models take a significant time and resources to evaluate. A different class of neuronal model, known as a "Reduced model" is comparatively fast to solve especially at a large scale. Some of examples of reduced models are  Speed of simulation is important for learning about the brain. Even in the many valid instances when the complete 3D shape is an integral part of a cortical brain simulation, such simulations are often enriched, by encasing a "core" of biophysically accurate models inside a "shell" of simple fast and reduced Izhikitch, GLIF, or adaptive exponential Wulfram Gerstner models. Further more Izhikivitch, LIF and Andaptive Exponential models are commonly utilized in neuromorphic archictecture.
+
+
+\subitem optimization is an interaction between models and constraints which guides a fitting process. 
+
+\subitem if the combination of models and constraints is bad, then then a tractible error surface will not result.  
+
+\subsubitem Unfortunately, it is not always possible to tell without trying which combinations of A: neural models, and B, constraints will lead to the Genetic Algorithms ability to converge on around the minimal error. 
+
+
+I describe some code implementation experiments were the model/constraint combination lead to DEAP genetic algorithms matching model parameters to constraints and model/constraint selections that lead to optimizer performing no better than a random search of parameter space.
+
+
+\item successful optimization means model objective choices. How model constraint combinations interact cannot always be known in advance, and the interaction has to be explored experimentally.
+
+Efficient model examples: (generalized leaky integrate and fire model) GLIF, Izhikitch. Adaptive Exponential Integrate and fire model, single compartment conductance based model. 
+
+\item You could make biophysically accurate models faster, or you could make reduced models more accurate. To make reduced models more accurate, you would find parameterizations of the models that let the models act as better mimics of experiments.
+\item Herein we investigate how well Faster models can match experimental recording waveform shapes.
+\item The reason why we want to investigate the match:
+\item Large scale simulations cant evaluate on a timescale that is meaningful, unless a large ratio of modelled cells are "reduced models"
+\item Reduced Models already enjoy wide spread usage. We want to investigate if reduced models can be made to be more realistic, by checking if they can mimic data better.
+\item If reduced models can't be made more realistic (herein we show only marginal improvements), we need to show the limitations of reduced cells, with regards to a particular set of tests.
+\item We need to document the approach used, and how the approach contrasts with spike time approaches to model fitting.
+\end{itemize}
+
+\subsection{Optimizing multispiking Behavior}
+\begin{itemize}
+\item First with $2$ constraints, then with $>100$ constraints via the feature extraction suite EFEL
+
+\item This is a two staged approach. 
+\item It uses three step protocols.
+
+\item In a multispiking paradigm you can see a high variance explained ratio of approx $1$.  
+
+\item In this two stage algorithm: I optimize, using constraints: spike count at injection strength $1.5 \times rheobase $, and $3.0 \times rheobase $
+I do a quick check of spike counts at 1.5 and 3.0 rheobase (2 constriants only).
+
+\item In this sceanario Rheobase is soft constraint.  This very rapidly narrows down the solution space using only two uncorrelated errors. In the second notebook I use the standard NU suite, for a lot of generations, you can see a perfect binary match for the passive tests, and a close match for the active tests, but thanks to do things the EFEL way. Our standard suite of tests if only spike-half-width, not spike-base-width. The Izhi models width as thus free to vary at the base, take that into account when eye balling the two graphs and you can see why almost binary match. EFEL does achieve spike width binary matching because it uses both half-width, and base-width. If you look at the last cells you can see I take a correlation matrix of the optimizers errors over its history. The idea is if it's normalized then I can sum the whole matrix and get a single scaler number to show how de-correlated both error sets are over the GA evolution. 
+
+Given that the standard suite of NU tests don't fully constrain the "base spike width" of the waveform which is free to vary, half-spike-width is constrained, it is more appropriate to talk about variance explained of the spike snippet. $variance explained>0.95$ is a useful heurism. Allowing some margin acknowledges that we shouldn't assume we have represented all waveform features that can vary. If you want variance explained ==1   you could optimize using a variance explained cost function, but we don't want to do that. 
+\end{itemize}
 
 \include{chapters/Introduction}
 \include{chapters/METHODS_technical_details_of_the_optimizer}
-\include{chapters/METHODS_verification_of_the_optimizer}
+\include{chapters/RESULTS_verification_of_the_optimizer}
 \include{chapters/RESULTS_large_scale_variance}
 
 
