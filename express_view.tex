@@ -1,37 +1,55 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{enumitem}
 
+
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\cdot$}
+\renewcommand{\labelitemiii}{$\diamond$}
+\renewcommand{\labelitemiv}{$\ast$}
 \begin{document}
 
 \begin{itemize}
+\item[-]  Try to organize your sections more hierarchically, \begin{itemize}
 
-\item  Try to organize your sections more hierarchically, so rather than just a bunch of bullet points for the Introduction, group them by topic, and order them how you think they should be presented to the reader.  
+ \item[-] Rather than just a bunch of bullet points for the Introduction, group them by topic, and order them how you think they should be presented to the reader.  
+\end{itemize}
+
 
 \item Also, you will want both a label general introduction and label general discussion, but also within each chapter you will need a mini-introduction that explains what you are aiming to do or show in that chapter and why. 
 
 \item That mini-introduction can be essentially like the content of the first few cells of some of your notebooks, but you will want to make sure that every sentence is comprehensible to someone who has read and understood the general introduction but otherwise doesn’t have much special expertise other than being a neuroscientists of some kind.
 
 
-
 % Explanatory comment Name of section, above call to include.
 Need to explain two things:
-- why optimize, but also why reduced models. Probably why models first.
+- why optimize, but also why reduced models. Probably why Reduced models first.
+\section{Motivation for Reduced Models of electrically excitable cortical cells}
 
-\item Biophysically accurate models take a significant time and resources to evaluate. A different class of neuronal model, known as a "Reduced model" is comparatively fast to solve especially at a large scale. Some of examples of reduced models are  Speed of simulation is important for learning about the brain. Even in the many valid instances when the complete 3D shape is an integral part of a cortical brain simulation, such simulations are often enriched, by encasing a "core" of biophysically accurate models inside a "shell" of simple fast and reduced Izhikitch, GLIF, or adaptive exponential Wulfram Gerstner models. Further more Izhikivitch, LIF and Andaptive Exponential models are commonly utilized in neuromorphic archictecture.
+\item[-] Biophysically accurate models take a significant time and resources to evaluate. A different class of neuronal model, known as a "Reduced model" is comparatively fast to solve especially, when many models are required to be simulated simultaneously. Some of examples of reduced models are: 
+\subitem AdExp, Izhi, GLIF
+
+\item \section{speed of simulation is important for learning about the brain}. Digital modeling of physical properties of cells is occuring at the mesoscopic scale, however adding microscopic features to simulations significantly increases simulation time. Even when using High Performance Computing a super computer developing simulations involves a model debugging phase and model development and error checking requires simulation output occurs sooner.\\
+\\
+In the instances when the complete three dimensional form of a neuron is an integral part of a brain simulation, such as in the Blue Brain somatosensory cortex model \cite{} and the Allen Institute $V1$ model \cite{}, These simulations are improved by encasing a "core" of biophysically accurate models inside a "shell" of simple fast and reduced Izhi, GLIF, or AdExp models. 
+Encasing a complex core inside a shell of simplified models, solves an "edge effect" problem. The problem is that at the edge of a complex modelled brain region, there is a core of models whose inputs are "extrinsic", or external from the region being modelled. Almost all cortical neurons experience "tonic" synaptic input and these tonic inputs originate from neurons from a different part of the brain. Rather than generating only psuedo random timed inputs to synapses, inputs to V1 also come from a shell of ring neurons. It is there for of interest if these external GLIF models can or should be substituted with optimized Izhikivich and Adexp models, such that even the external shell of the simulation is more realistic.
+
+Furthermore Izhikivitch, GLIF and AdExp models are commonly utilized in neuromorphic archictecture.
 
 
 \subitem optimization is an interaction between models and constraints which guides a fitting process. 
 
 \subitem if the combination of models and constraints is bad, then then a tractible error surface will not result.  
 
-\subsubitem Unfortunately, it is not always possible to tell without trying which combinations of A: neural models, and B, constraints will lead to the Genetic Algorithms ability to converge on around the minimal error. 
+\subsubitem Unfortunately, it is not always possible to know without trying which combinations of \subitem[A]: neural models, and \subitem[B], constraints will lead to the Genetic Algorithms ability to converge on around the minimal error. 
 
+I describe some code implementation experiments were the model/constraint combination lead to DEAP genetic algorithms matching model parameters to constraints and model/constraint selections that lead to optimizer performing only marginally better than a random search of parameter space\\
+\\
+\item If the number of dimensions that are searched exceeds the degree and the effectiveness of constraints, then model optimization is only slightly better than random sampling of solution space.
 
-I describe some code implementation experiments were the model/constraint combination lead to DEAP genetic algorithms matching model parameters to constraints and model/constraint selections that lead to optimizer performing no better than a random search of parameter space.
-
-
-\item successful optimization means model objective choices. How model constraint combinations interact cannot always be known in advance, and the interaction has to be explored experimentally.
+\item \subsection{Successful Optimization} is more likely to come about by a good selection of models and objective function combinations. 
+\item How model constraint combinations interact cannot always be known in advance, and the interaction has to be explored experimentally. Experimenting of model test combinations is what was done in this body of work.
 
 Efficient model examples: (generalized leaky integrate and fire model) GLIF, Izhikitch. Adaptive Exponential Integrate and fire model, single compartment conductance based model. 
 
@@ -56,7 +74,7 @@ Efficient model examples: (generalized leaky integrate and fire model) GLIF, Izh
 \item In this two stage algorithm: I optimize, using constraints: spike count at injection strength $1.5 \times rheobase $, and $3.0 \times rheobase $
 I do a quick check of spike counts at 1.5 and 3.0 rheobase (2 constriants only).
 
-\item In this sceanario Rheobase is soft constraint.  This very rapidly narrows down the solution space using only two uncorrelated errors. In the second notebook I use the standard NU suite, for a lot of generations, you can see a perfect binary match for the passive tests, and a close match for the active tests, but thanks to do things the EFEL way. Our standard suite of tests if only spike-half-width, not spike-base-width. The Izhi models width as thus free to vary at the base, take that into account when eye balling the two graphs and you can see why almost binary match. EFEL does achieve spike width binary matching because it uses both half-width, and base-width. If you look at the last cells you can see I take a correlation matrix of the optimizers errors over its history. The idea is if it's normalized then I can sum the whole matrix and get a single scaler number to show how de-correlated both error sets are over the GA evolution. 
+\item In this sceanario Rheobase is used only as a soft constraint.  By first the model to spike count data we very rapidly narrow down the solution space using only two uncorrelated errors. In the second notebook I use the standard NU suite, for a lot of generations, you can see a perfect binary match for the passive tests, and a close match for the active tests, but thanks to do things the EFEL way. Our standard suite of tests if only spike-half-width, not spike-base-width. The Izhi models width as thus free to vary at the base, take that into account when eye balling the two graphs and you can see why almost binary match. EFEL does achieve spike width binary matching because it uses both half-width, and base-width. If you look at the last cells you can see I take a correlation matrix of the optimizers errors over its history. The idea is if it's normalized then I can sum the whole matrix and get a single scaler number to show how de-correlated both error sets are over the GA evolution. 
 
 Given that the standard suite of NU tests don't fully constrain the "base spike width" of the waveform which is free to vary, half-spike-width is constrained, it is more appropriate to talk about variance explained of the spike snippet. $variance explained>0.95$ is a useful heurism. Allowing some margin acknowledges that we shouldn't assume we have represented all waveform features that can vary. If you want variance explained ==1   you could optimize using a variance explained cost function, but we don't want to do that. 
 \end{itemize}
