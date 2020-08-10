@@ -13,12 +13,17 @@ Some physical properties of neurons can’t be easily measured in experiments. T
 Computational optimization techniques are often specific to a particular type of problem rather than being generalized. However, several notable algorithms have solved a wide range of problems including genetic algorithms and stochastic gradient descent (SGD). The popularity of these two algorithms is due to their robustness. Genetic Algorithms and SGD are able to avoid falsely reporting a local minimum when a more optimal solution is available.\\*
 
 
-Adaptive Exponential \cite{brette2005adaptive}
-
-
-\subsection{Multiobjective optimization} Multi objective optimization problems are a subset of optimization problems, where model fitness is evaluated against multiple independent constraints, rather than just one error. It is often possible to reduce multiple constraints into one constraint by summing the outputs of objective functions together, however the price of reducing multiple errors into one error, is that where multiple and diverse models give satisfactory solutions to the provided constraint, reducing error leads to a situation where a constraint that is easier to satisfy, rapidly drags down the error score and dominates the by contributing lower errors to the sum of error scores.\\
+The Adaptive Exponential Integrate and Fire (Adexp) model \cite{brette2005adaptive}, is another type of reduced neural model. The Adexp model is a special instance of leaky integrate and Fire model, that most often appears with an exponential spike shape. The spiking behavior of the neuron is defined by a type of window based memory into the neurons previous behavior. Adaption is achieved by looking back into a window and counting the number of spikes that occured in say a window of the previous $10ms$. Although this model is potentially fast, often implementations of it are slow due to suboptimal code.\\
 \\
-However, of SGD and NSGA2, only NSGA2 is a natural choice for tackling multi-objective optimization problems. Default implementations of SGD are not able to utilize the principle of non-domination as an optimization strategy.\\
+
+
+\subsection{Multiobjective optimization} Multi objective optimization problems are a subset of optimization problems. In a multiobjective optimisation model fitness is evaluated against multiple independent constraints, rather than just one constraint. \\
+\\
+It is often possible to reduce multiple constraints into one constraint by summing the outputs of objective functions together. There is a price of reducing multiple errors into one error. I will illustrate the problem of multiobjective optimisation. optimization using a sum over multiple error measurements leads to a situation where a single constraint that is easier to satisfy, rapidly drags down the error score and dominates the by contributing lower errors to the sum of error scores. In the worst case, the optimizer achieves perfectly low error on one criteria, and high error on a different set of criteria.\\
+\\
+Additionally problems formulated in a multi-objective paradigm are better able to result in diverse solution sets. where multiple and diverse models give satisfactory solutions to the provided constraint, 
+\\
+However of SGD and NSGA2 only NSGA2 is a natural choice for tackling multi-objective optimization problems. Default implementations of SGD are not able to utilize the principle of non-domination as an optimization strategy.\\
 \\
 There is a great diversity of real biological neurons, all of which differ substantially in their electrical behavior. There are a few different classes of general purpose neuronal models, that can reproduce these different types of electrical behaviours, given appropriate parameterizations of the models.\newline
 \newline
@@ -48,18 +53,35 @@ These multi-compartmental models are based on cables of varying diameters and le
 \newline
 Through jNeuroML, the NeuroML project also provides a simple code interface for generating complex simulator code, so that NeuroML models are readily exchanged between different types of simulators. Model interchange permits cross examination of results as a they vary across simulators, and this interchange promotes the movement of models between languages preferred by different modeling communities, reconciling and unifying their models. Because NeuroML is extensible and component based, it incentivizes a "plug\-in" environment for including pre\-existing model components in models in a different large-scale context.
 
+
+\begin{center}
+\begin{figure}
+
+    \includegraphics[width=0.7\linewidth]{figures/How_Genetic_Alg_Works.png}
+  \caption{Genetic Algorithm Overview}
+  \label{fig:GeneticAlgOver}
+\end{figure}
+  
+\end{center}
+
+In \ref{fig:GeneticAlgOver} I illustrate how a Genetic Algorithm (GA) generally works. The GA's evolution is guided by the application of selective pressure to iterative and refined sampling of the solution space.
+
 \subsection{Significance}
 Beyond experimental error, it is common to observe large variations in measurements of a single electrophysiological entity from neurons of the same classification. As an example, consider that measurements of neuron membrane input resistance may be different when recorded from different samples of the same neuron type. This variation is an essential consideration when evaluating the scientific merit of a computational model of a neuron-type. In this work, we propose to perform a large-scale analysis of model against data agreement and model against model agreement to expose the variation in biophysically realistic neuron models and cortical data. By analyzing the variance in data and among models and linking the variation to specific features and mechanisms, we also will better understand the heterogeneity of experimental measurements from a particular neuron-type. Performing a meta-analysis with a large number of models will provide other insights. We will determine whether there is higher variance in modeled electrical properties versus experimental neurophysiological measurements. We will examine whether an extensive collection of cortical models behaves more similarly to each other than to the data and will answer the question: does the space of all existing single cell models accurately represent the variability in experimental data?
 Similarly, variation in the behavior of cortical neuronal networks is not well quantified. Tremendous research effort has been consumed producing several high-quality, experimentally informed cortical network models. Before creating another elaborate network model, we will determine whether these pre-existing approaches lead to networks with significantly different dynamic properties. Also, we will create an infrastructure that allows scientists to quantify the similarities and differences among networks and their dynamics – both biological and in silico.\newline
 \newline
 Existing data sets are incomplete, consisting of a sparse sampling of cells in the rodent brain. By necessity, models are constrained using these incomplete data sets, leading to compensatory model development that synthesizes missing information. Missing data occurs at multiple levels during network construction including exact neuron to neuron wiring patterns, un-sampled morphologies, unknown synapse activation times, and unknown axon and dendrite synapse locations. Published models should not be regarded as final, but to improve models, it is vital that they are validated against newly-obtained experimental data. The proposed work will facilitate ongoing validation of biophysically realistic models. 
-%%
+\\
 Some electrophysiology data are challenging to integrate into existing models.
 These include data collected from animal species that are not widely used in models such as marmoset, guinea pig, and even humans. 
 Additionally, neuron-type data may come from a human, but the tissue samples may have been extracted from brain tissue in a pathological condition, such as eplipsey or alzheimers disease.
-In practice, open access data is not always useable, as it be derived from multiple species, multiple brain regions and different states of health. We will obtain a better understanding of region-dependent differences and species-dependent differences in order to help researchers map models onto a standardized rodent electrophysiological phenotype space.
-%%
-\subsection{Distinction From Other Approaches}
+\\
+In practice, open access data is not always useable, as it be derived from multiple species, multiple brain regions and different states of health. We will obtain a better understanding of region-dependent differences and species-dependent differences in order to help researchers map models onto a standardized rodent electrophysiological phenotype space.\\
+\\
+\subsection{Distinction of Optimization Approach From Other Approaches}
+
+
+\subsection{Distinction of Large Scale Ananlysis From Other Approaches}
 The large-scale meta-analysis described here has not been performed previously. For the first time, a large number of cortical neuron and neuronal network models are available in the standardized NeuroML format. Although the Allen Institute for Brain Science modeling project and the Blue Brain project both rigorously analyzed their single cell models, to the best of my knowledge there has not been an overarching meta-analysis across different cell and network model sources.\\
 \\
 Similarly, numerous modeling efforts have employed data-driven testing in model development workflows, but all these efforts have been based on non-standard ‘in-house’ model types and execution environments. In contrast, this work proposes to expand a pre-existing standardized model testing space, NeuronUnit, that supports model validation and re-use regardless of the model source. To date various NeuronUnit tests of action potential shape, electrical properties, and single cell morphologies exist; yet these tools are not unified. Some tests of network dynamics also currently exist; however, these tests are not integrated into a unified multiscale workflow. Although the work I describe only concerns single cell models in isolation, significantly, a unified workflow for exploring model data agreement would better locate errors in network behavior which are manifest at the network level but are caused by neuron-type models. \newline
