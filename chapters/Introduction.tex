@@ -3,23 +3,61 @@
 
 \subsubsection{Motivation}
 
+% This section should motivate a few big idea such as:
+% - What do we care about computational models of the brain?
+Diseases of the brain are very widespread and cost world governments a significant amount of money cite WHO
+% https://www.who.int/bulletin/volumes/96/5/17-206599/en/ 
+%The 2015 Global Burden of Disease study estimates that about a third of the population worldwide is affected by mental or neurological disorders across their lifespans
 
+% disorders of the brain rank among the leading causes of ill-health and disability and account for 35% of Europe’s total disease burden with a yearly cost of 800 billion euros, of which 60% are related to direct health care and non-medical costs.4,5 
+
+% The burden is growing
+
+Artificial Intelligence often involves translating neuroscience findings to a recipe or a collection instructions that are understood by computers. For example grid and place cell behavior has spontaneously occurred Aritificial Neural Networks trained to navigate a landscape \cite{banino2018vector}. Computer programmers and electronic engineers want to find out the neural principles that underlie human learning and reasoning, so that these principles can be implemented in an electronic substrate. Improving Artificial Intelligence means that larger amounts of work can potentially get done at a lower cost, but it also we may need may need artificial intelligence to create new science and to solve existential problems facing humanity.
+
+Animal models are neuroscience models of brain diseases and learning, were neural phenomena are investigated by manipulating the conditions of animal brains such that mechanisms thought to underlie the phenomena being investigated are controlled for. Examples include genetically engineering rodents so that an active group expresses beta-amalyoid proteins in the hippocampus inorder to model alzheimers disease in humans.
+
+Another example is when you make it possible for rodents to self administer cocaine. While animal models of human brain diseases are biological, digital models are very elaborate systems of equations that only represent biology. In the rodent model of alzheimers disease, it is possible to investigate rodent behavior for alzheimers symptoms. In the digital model you would look at graphs of neural firing rates, and look for impaired synaptic transmission.
+
+A common type of model of neuroscience model is the animal model.
+animal models have limitations which can make them unfavorable choices. Animal models often involve years of investment, genetic engineering, complex surgery, complicated behavioral learning paradigms. Many things can go wrong while developing an assay, potentially ruining a costly experiment. 
+
+Computational models are desirable because they are potentially highly reproducible.
+% - Why do we care about computational models at the level of neurons?
+
+% - How are neurons modeled (i.e. math and equations)
+
+\subsection{Approaches to modeling}
+% What are 
+% - (Briefly) conductance based models
+Conductance based models are physical models of membrane, that explicitly represent the rate at which ion channels conduct ions, often inside the surface of a 3 dimensional neuron. Each ion channel is modelled by a set of differential equations that represent how conductance changes with time. These models are very slow to solve because they contain so much detailed biophysics. \\
+\\
+% - Reduced models
+Reduced Models by contrast ignore neuron biophysics. The 3D form of real neurons is replaced by a dimensionless point. The electrical behavior of neurons is represented by a very simple equation that takes input parameters, and maps them onto outputs like membrane potential. Its as if a reduced model is a black box representation of a neuon, and the reduced model is a transfer function that maps inputs to outputs. Typically reduced models are very fast to solve.\\
+\\
+% - Kinds of reduced models and what they can do
 %\section{Introduction}
-
+% above.
+% 2-5pages
 \subsection{Model Optimization}
-
+%
 Some physical properties of neurons can’t be easily measured in experiments. These unknown properties limit neuron model completeness, and yet it is possible to infer some unknown measurements by  finding a set of parameters, that help a given model "fit" the data, this process is sometimes called "parameter-fitting". For example, a common approach for approximating unknown ion channel densities is to ‘optimize’ the governing equations so that the evaluated equation  match's pre-existing waveform measurements scientists are confident about. The process of optimization involves what is known as an ‘inverse’ problem where we efficiently and sparsely search for the ‘optimal’ value of an parameter that satisfies the system of equations. Often an optimal value corresponds to a global minimum or maximum value of a function.\\*
- 
+% Describe here what such a function might look like, i.e. what would that function be measuring, generally?
+
+% In this section you should talk more about stochasticity in general.  Imagine first a deterministic gradient descent algorithm and why this might not work (local minima).  Then you can get to genetic algorithms and describe the tradeoff between exploration and exploitation.
+
 Computational optimization techniques are often specific to a particular type of problem rather than being generalized. However, several notable algorithms have solved a wide range of problems including genetic algorithms and stochastic gradient descent (SGD). The popularity of these two algorithms is due to their robustness. Genetic Algorithms and SGD are able to avoid falsely reporting a local minimum when a more optimal solution is available.\\*
 
-
-The Adaptive Exponential Integrate and Fire (Adexp) model \cite{brette2005adaptive}, is another type of reduced neural model. The Adexp model is a special instance of leaky integrate and Fire model, that most often appears with an exponential spike shape. The spiking behavior of the neuron is defined by a type of window based memory into the neurons previous behavior. Adaption is achieved by looking back into a window and counting the number of spikes that occured in say a window of the previous $10ms$. Although this model is potentially fast, often implementations of it are slow due to suboptimal code.\\
+% Move this up to the section on reduced models
+The Adaptive Exponential Integrate and Fire (Adexp) model \cite{brette2005adaptive}, is another type of reduced neural model. The Adexp model is a special instance of leaky integrate and Fire model, that most often appears with an exponential spike shape. The spiking behavior of the neuron is defined by a type of window based memory into the neurons previous behavior. Adaption is achieved by looking back into the window and counting the number of spikes that occurred in the previous $10ms$, for example. Although this model is potentially fast, often python implementations of it are slow due to code that was written to make running populations of many neurons fast, at the expense of running single neurons. Forinstance Brian2, and a related tool neurodynamics, have code for running Adexp neurons, however brian2 has network c-level cython code that interferes with DEAP python code. 
+to sub-optimal code.\\
 \\
 
-
-\subsection{Multiobjective optimization} Multi objective optimization problems are a subset of optimization problems. In a multiobjective optimisation model fitness is evaluated against multiple independent constraints, rather than just one constraint. \\
+% Move this up to precede a description of specific algorithms.  Multiobjective could apply to gradient descent as well.  You can then refer back to this when you talk specifically about algorithms like NSGA in the "genetic optimization" section.
+\subsection{Multiobjective optimization} Multi objective optimization problems are a subset of optimization problems. In a multiobjective optimisation model fitness is evaluated against multiple constraints rather than just one constraint. A constraint is often an implementation of a mathematical function, very often the function seeks to difference a part of a signal that was sampled with a matching part of a known.\\
 \\
-It is often possible to reduce multiple constraints into one constraint by summing the outputs of objective functions together. There is a price of reducing multiple errors into one error. I will illustrate the problem of multiobjective optimisation. optimization using a sum over multiple error measurements leads to a situation where a single constraint that is easier to satisfy, rapidly drags down the error score and dominates the by contributing lower errors to the sum of error scores. In the worst case, the optimizer achieves perfectly low error on one criteria, and high error on a different set of criteria.\\
+It is often possible to reduce multiple constraints into one constraint by summing the outputs of objective functions together. There is a price of reducing multiple errors into one error. I will illustrate the problem of multiobjective optimisation. optimization using a sum over multiple error measurements leads to a situation where a single constraint that is easier to satisfy, rapidly drags down the error score and dominates the overall error reading in this manner. In the worst case, the optimizer achieves perfectly low error on one criteria, and high error on a different set of criteria.\\
+%by contributing lower errors to the sum of error scores. 
 \\
 Additionally problems formulated in a multi-objective paradigm are better able to result in diverse solution sets. where multiple and diverse models give satisfactory solutions to the provided constraint, 
 \\
@@ -30,12 +68,13 @@ There is a great diversity of real biological neurons, all of which differ subst
 An existing class of neuron model type, called The Izhikevich model \cite{izhikevich2003simple} (Iz model) was published with parameter sets believed to make the model outputs accurately align with a variety of real biological cell outputs. However since publication much very specific electro physiological recordings have accumulated, that in someways undermine model/experiment agreement. However it is now possible to constrain the Izhikevich model and find new parameterizations that more allow us to more accurately reproduce more recently published experimental data.\newline
 \newline
 
+% First include a section about NeuronUnit more generally.  NeuronUnit really isn't/wasn't about optimization until your thesis.  
 \subsection{Optimization with NeuronUnit}
 A software tool "NeuronUnit", is able to perform two functions that help with optimization.\\
 \\
 The first function, is the automatic scaling of model outputs, to match the statistical distribution of observed measurements.%
 %
-For example resting membrane potential is measure in $(mV)$, and it may vary according to a distribution with a mean and standard deviation of $(\mu,\sigma)=(-65mV,15mV)$. Additionally an optimizer may sample a model with a membrane potential of $-67mV$. Neuronunit is able to take these parameters together, combine them all into a a Z-score, such a collection of normalized Z-scores provides greater flexibility. In this way NeuronUnit converts a quantitative measure of model/data agreement into a useful error signal. A very natural application of this signal is to guide the process of optimization.\newline 
+For example resting membrane potential is measure in $(mV)$, and it may vary according to a distribution with a mean and standard deviation of $(\mu,\sigma)=(-65mV,15mV)$. Additionally an optimizer may sample a model with a membrane potential of $-67mV$. Neuronunit is able to take these parameters together, combine them all into a a Z-score, such a collection of normalized Z-scores. In this way NeuronUnit converts a quantitative measure of model/data agreement into a useful error signal. A very natural application of this signal is to guide the process of optimization.\newline 
 
 We have used Neuronunit to guide optimization by taking a flexible model types such as Generalized Linear Integrate and Fire model\cite{teeter2018generalized} or the Izh model and then fitted these models using relevant experimental measurements inside our optimization frame work.
 
@@ -46,6 +85,8 @@ Optimized neuron models may vary from their neuron counterparts for several reas
 
 Another potential issue to consider when evaluating the scientific merit of a model is that neurons may have different behaviors under different stimulation paradigms. It might be appropriate to compare modeled behavior against measurements specific to each of two or more distinct modes. In this case, when optimizing single cell models, it’s appropriate to accept a solution set, rather than a single solution. For example, the cerebellar Purkinje cell is sensitive to intricately patterned dendrite input current combinations. Depending on a cell’s recent history of synaptic stimulation, a Purkinje cell may toggle between coincidence detection and integration modes (Ratté, Hong, De Schutter, \& Prescott, 2013).
 \\
+
+% I think you can make this section a bit shorter, and refocus to talk about how one major goal is to build tools that can be integrated into the larger modeling ecosystem.  You could have simply written an optimizer in DEAP using jitted python code, custom for each model type, but then you would not be able to interface with everyone else and no one would be able to make use of your tool.  So talk about the importance of standards and interfacing.  and then introduce these tools as standards and components that you need to be able to work with.  
 \section{Ecosystem of Modelling Resources}
 The NEURON simulator is a software suite that wraps powerful and fast ordinary differential equation solvers based in the C programming language inside a mixed compiled/interpreted environment targeted at research scientists. NEURON is somewhat analogous to older, analog circuit simulators; however, rather than describing complex resistor-capacitor circuits, NEURON instead solves equations for the time varying membrane potential of multi-compartment models.\newline
 \newline
@@ -67,11 +108,14 @@ Through jNeuroML, the NeuroML project also provides a simple code interface for 
 In \ref{fig:GeneticAlgOver} I illustrate how a Genetic Algorithm (GA) generally works. The GA's evolution is guided by the application of selective pressure to iterative and refined sampling of the solution space.
 
 \subsection{Significance}
+% I wouldn't call this section "Significance".  In general, think of these sections as small modules that can be reshuffled and rearranged as needed.  You don't want to pin yourself to describing everything that is "Significant" right here.  In particular, you could call this section "Neuronal diversity".
 Beyond experimental error, it is common to observe large variations in measurements of a single electrophysiological entity from neurons of the same classification. As an example, consider that measurements of neuron membrane input resistance may be different when recorded from different samples of the same neuron type. This variation is an essential consideration when evaluating the scientific merit of a computational model of a neuron-type. In this work, we propose to perform a large-scale analysis of model against data agreement and model against model agreement to expose the variation in biophysically realistic neuron models and cortical data. By analyzing the variance in data and among models and linking the variation to specific features and mechanisms, we also will better understand the heterogeneity of experimental measurements from a particular neuron-type. Performing a meta-analysis with a large number of models will provide other insights. We will determine whether there is higher variance in modeled electrical properties versus experimental neurophysiological measurements. We will examine whether an extensive collection of cortical models behaves more similarly to each other than to the data and will answer the question: does the space of all existing single cell models accurately represent the variability in experimental data?
 Similarly, variation in the behavior of cortical neuronal networks is not well quantified. Tremendous research effort has been consumed producing several high-quality, experimentally informed cortical network models. Before creating another elaborate network model, we will determine whether these pre-existing approaches lead to networks with significantly different dynamic properties. Also, we will create an infrastructure that allows scientists to quantify the similarities and differences among networks and their dynamics – both biological and in silico.\newline
 \newline
+% Shouldn't this be a new section, about data integration?
 Existing data sets are incomplete, consisting of a sparse sampling of cells in the rodent brain. By necessity, models are constrained using these incomplete data sets, leading to compensatory model development that synthesizes missing information. Missing data occurs at multiple levels during network construction including exact neuron to neuron wiring patterns, un-sampled morphologies, unknown synapse activation times, and unknown axon and dendrite synapse locations. Published models should not be regarded as final, but to improve models, it is vital that they are validated against newly-obtained experimental data. The proposed work will facilitate ongoing validation of biophysically realistic models. 
 \\
+% And this can go up into the section about diversity
 Some electrophysiology data are challenging to integrate into existing models.
 These include data collected from animal species that are not widely used in models such as marmoset, guinea pig, and even humans. 
 Additionally, neuron-type data may come from a human, but the tissue samples may have been extracted from brain tissue in a pathological condition, such as eplipsey or alzheimers disease.
@@ -79,6 +123,9 @@ Additionally, neuron-type data may come from a human, but the tissue samples may
 In practice, open access data is not always useable, as it be derived from multiple species, multiple brain regions and different states of health. We will obtain a better understanding of region-dependent differences and species-dependent differences in order to help researchers map models onto a standardized rodent electrophysiological phenotype space.\\
 \\
 \subsection{Distinction of Optimization Approach From Other Approaches}
+% This can be a fusion of your sections about multiobjective optimization, unit testing, and data integration (or whatever set of background items you think is fundamental to understanding the novelty of the work you have done).
+Please elaborate on these limitations in a section called 
+
 
 
 \subsection{Distinction of Large Scale Ananlysis From Other Approaches}
@@ -86,3 +133,5 @@ The large-scale meta-analysis described here has not been performed previously. 
 \\
 Similarly, numerous modeling efforts have employed data-driven testing in model development workflows, but all these efforts have been based on non-standard ‘in-house’ model types and execution environments. In contrast, this work proposes to expand a pre-existing standardized model testing space, NeuronUnit, that supports model validation and re-use regardless of the model source. To date various NeuronUnit tests of action potential shape, electrical properties, and single cell morphologies exist; yet these tools are not unified. Some tests of network dynamics also currently exist; however, these tests are not integrated into a unified multiscale workflow. Although the work I describe only concerns single cell models in isolation, significantly, a unified workflow for exploring model data agreement would better locate errors in network behavior which are manifest at the network level but are caused by neuron-type models. \newline
 \newline
+
+% Add a section about model databases and the opportunities they will make available to you.  Describe how we don't really know whether the models in these databases match the experimental data they claim to recapitulate.  Describe some of the specific challenges in using "in house" data.

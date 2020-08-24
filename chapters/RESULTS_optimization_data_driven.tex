@@ -1,0 +1,11 @@
+\section{Limitations of Existing Approaches} 
+Existing community supported simulated models are problem ridden.
+
+% NEURON version of Izhi model is not as fast as one might expect, this may because of the way we tried to implement the model, by creating and destroying HOC module instances, that contain the model. 
+
+% Nonetheless, 
+Our version of the NEURON-Izhi-model which was derived from a J-NeuroML translation, could not reproduce all of the Izhi original publication figures, because it had two different conflicting sources of capacitance.\\
+\\
+From JNeuro-ML we created NEURON version of Izhikich model, however we were not able to make this model execution times brief enough to be useful for optimization. Although the NEURON simulator is designed to be fast, their may be a cost associated with reloading the NEURON environment many times in fast succession.
+
+This should not go in the general introduction, but in the intro to the appropriate section of the results where you use those models.
