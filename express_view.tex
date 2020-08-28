@@ -9,13 +9,17 @@
 \renewcommand{\labelitemiii}{$\diamond$}
 \renewcommand{\labelitemiv}{$\ast$}
 \begin{document}
+	
+	
+%-1	\part{part}
+%0	\chapter{chapter}
+%1	\section{section}
+%2	\subsection{subsection}
+%3	\subsubsection{subsubsection}
+%4	\paragraph{paragraph}
+%5	\subparagraph{subparagraph}
 
-\begin{itemize}
-\item[-]  Try to organize your sections more hierarchically, \begin{itemize}
-
- \item[-] Rather than just a bunch of bullet points for the Introduction, group them by topic, and order them how you think they should be presented to the reader.  
-\end{itemize}
-
+\chapter*{General Introduction}
 
 \item Also, you will want both a label general introduction and label general discussion, but also within each chapter you will need a mini-introduction that explains what you are aiming to do or show in that chapter and why. 
 
@@ -25,12 +29,12 @@
 % Explanatory comment Name of section, above call to include.
 Need to explain two things:
 - why optimize, but also why reduced models. Probably why Reduced models first.
-\section{Motivation for Reduced Models of electrically excitable cortical cells}
+\subsection*{Motivation for Reduced Models of electrically excitable cortical cells}
 
 \item[-] Biophysically accurate models take a significant time and resources to evaluate. A different class of neuronal model, known as a "Reduced model" is comparatively fast to solve especially, when many models are required to be simulated simultaneously. Some of examples of reduced models are: 
 \subitem AdExp, Izhi, GLIF
 
-\item \section{speed of simulation is important for learning about the brain}. Digital modeling of physical properties of cells is occurring at the mesoscopic scale, however adding microscopic features to simulations significantly increases simulation time. Even when using High Performance Computing developing simulations involves a model error checking phase. Model development development is faster when simulation output occurs sooner.\\
+\subsection*{speed of simulation is important for learning about the brain}. Digital modeling of physical properties of cells is occurring at the mesoscopic scale, however adding microscopic features to simulations significantly increases simulation time. Even when using High Performance Computing developing simulations involves a model error checking phase. Model development development is faster when simulation output occurs sooner.\\
 \\
 The are several valid instances when the complete three dimensional form of a neuron is an integral part of a brain simulation, such as in the Blue Brain somato-sensory cortex model \cite{} and the Allen Institute $V1$ model \cite{}, These simulations are improved by encasing a "core" of biophysically accurate models inside a "shell" of simple fast and reduced Izhi, GLIF, or AdExp models. 
 
@@ -96,11 +100,13 @@ It was found that the standard suite of NU tests don't fully constrain the "base
 \end{itemize}
 
 \include{chapters/Introduction}
+\chapter*{Methods}
 \include{chapters/METHODS_figures}
-
 \include{chapters/METHODS_technical_details_of_the_optimizer}
+\chapter*{Results}
 \include{chapters/RESULTS_verification_of_the_optimizer}
 \include{chapters/RESULTS_large_scale_variance}
+\chapter*{Discussion}
 
 
 \end{document}
