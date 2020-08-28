@@ -10,6 +10,69 @@
 \usepackage{tocloft}
 \usepackage{template_code/asudis}
 
+    %%
+    % begin Used by ipython notebooks converted
+    %%
+
+
+
+
+\usepackage[breakable]{tcolorbox}
+\usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+
+\usepackage{iftex}
+
+
+% Basic figure setup, for now with no caption control since it's done
+% automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+\usepackage{graphicx}
+% Maintain compatibility with old templates. Remove in nbconvert 6.0
+% Ensure that by default, figures have no caption (until we provide a
+% proper Figure object with a Caption API and a way to capture that
+% in the conversion process - todo).
+\usepackage{caption}
+\DeclareCaptionFormat{nocaption}{}
+\captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+\usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+\adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+\usepackage{float}
+\floatplacement{figure}{H} % forces figures to be placed at the correct location
+\usepackage{xcolor} % Allow colors to be defined
+\usepackage{enumerate} % Needed for markdown enumerations to work
+\usepackage{geometry} % Used to adjust the document margins
+\usepackage{amsmath} % Equations
+\usepackage{amssymb} % Equations
+\usepackage{textcomp} % defines textquotesingle
+% Hack from http://tex.stackexchange.com/a/47451/13684:
+
+\usepackage{upquote} % Upright quotes for verbatim code
+\usepackage{eurosym} % defines \euro
+\usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+\usepackage{fancyvrb} % verbatim replacement that allows latex
+\usepackage{grffile} % extends the file name processing of package graphics 
+% to support a larger range
+
+
+% The hyperref package gives us a pdf with properly built
+% internal navigation ('pdf bookmarks' for the table of contents,
+% internal cross-reference links, web links for URLs, etc.)
+\usepackage{hyperref}
+% The default LaTeX title has an obnoxious amount of whitespace. By default,
+% titling removes some of it. It also provides customization options.
+\usepackage{titling}
+\usepackage{longtable} % longtable support required by pandoc >1.10
+\usepackage{booktabs}  % table support for pandoc > 1.12.2
+\usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+\usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+% normalem makes italics be italics, not underlines
+\usepackage{mathrsfs}
+
+%%
+% End Used by ipython notebooks converted
+%%
+    
+
 \begin{document}
 %-----------------------front matter
 \pagenumbering{roman}
@@ -61,14 +124,36 @@
 
 
 \include{chapters/Introduction}
-\include{chapters/METHODS_uniqueness_of_this_approach}
-\include{chapters/METHODS_technical_details_of_the_optimizer}
-\include{chapters/METHODS_verification_of_the_optimizer}
-\include{chapters/Discussion_significance_of_results}
+All of Intro should be chapter 1
+1.1
+1.2...
 
-%\include{chapter4}
-%\include{chapter5}
-%\include{chapter6}
+\include{chapters/METHODS_uniqueness_of_this_approach}
+2.1
+\include{chapters/METHODS_backend_assesment}
+2.2
+\include{chapters/METHODS_technical_details_of_the_optimizer}
+2.3
+\include{chapters/METHODS_verification_of_the_optimizer}
+2.4
+\include{chapters/METHODS_backend_assesment}
+Section 3
+Results
+3.1
+\include{chapters/RESULTS_verification_of_the_optimizer}
+3.2
+Chapter about (difficulty of) recovering averages of parameter sets for models
+- Pick two different parameter sets, each of which can be easily recovered/verified independently
+- Compute features for both, and average features together (like one would imagine is happening for neuroelectro data)
+- Try to recover these averaged features (it could be hard/bad).
+\include{chapters/RESULTS_large_scale_variance}
+3.3
+\include{chapters/NU_BPP_fusion_L5PC}
+Section 4
+4.1
+\include{chapters/Discussion_significance_of_results}
+Section 5
+Optional conclusion
 %-----------------------back matter
 {\singlespace
 % Making the references a "part" rather than a chapter gets it indented at

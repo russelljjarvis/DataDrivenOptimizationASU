@@ -62,8 +62,9 @@ I describe some code implementation experiments were the model/constraint combin
 \\
 \item If the number of dimensions that are searched exceeds the degree and the effectiveness of constraints, then model optimization is only slightly better than random sampling of solution space.
 
-\item \subsection{Successful Optimization} is more likely to come about by a good selection of models and objective function combinations. 
-\item How model constraint combinations interact cannot always be known in advance, and the interaction has to be explored experimentally. Experimenting of model test combinations is what was done in this body of work.
+\subsection*{Successful Optimization} 
+Successful Optimization is more likely to occur about by a good selection of models and objective function combinations. 
+\item How model constraint combinations interact cannot always be known in advance, and yet the interaction can be assessed by attempting to optimize on the pair. Experimenting of model test combinations is what was done in this body of work.
 
 Efficient model examples: (generalized leaky integrate and fire model) GLIF, Izhikitch. Adaptive Exponential Integrate and fire model, single compartment conductance based model. 
 
@@ -98,10 +99,13 @@ Caption in this figure there is visibly almost perfect agreement between simulat
 
 It was found that the standard suite of NU tests don't fully constrain the "base spike width" of the waveform which is free to vary, half-spike-width is constrained, it is more appropriate to talk about variance explained of the spike snippet. $variance explained>0.95$ is a useful heurism. Allowing some margin acknowledges that we shouldn't assume we have represented all waveform features that can vary. If you want variance explained ==1   you could optimize using a variance explained cost function, but we don't want to do that. 
 \end{itemize}
-
+\chapter*{Introduction}
 \include{chapters/Introduction}
 \chapter*{Methods}
 \include{chapters/METHODS_figures}
+\include{chapters/METHODS_backend_assesment}
+
+
 \include{chapters/METHODS_technical_details_of_the_optimizer}
 \chapter*{Results}
 \include{chapters/RESULTS_verification_of_the_optimizer}
