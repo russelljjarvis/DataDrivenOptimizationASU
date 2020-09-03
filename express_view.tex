@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{report}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{enumitem}
@@ -19,19 +19,21 @@
 %4	\paragraph{paragraph}
 %5	\subparagraph{subparagraph}
 
-\chapter*{General Introduction}
-
+\begin{itemize}
 \item Also, you will want both a label general introduction and label general discussion, but also within each chapter you will need a mini-introduction that explains what you are aiming to do or show in that chapter and why. 
 
 \item That mini-introduction can be essentially like the content of the first few cells of some of your notebooks, but you will want to make sure that every sentence is comprehensible to someone who has read and understood the general introduction but otherwise doesn’t have much special expertise other than being a neuroscientists of some kind.
 
 
 % Explanatory comment Name of section, above call to include.
+\chapter{General Introduction}
+
 Need to explain two things:
-- why optimize, but also why reduced models. Probably why Reduced models first.
+\item[-]
+\item why reduced models, then why optimize.
 \subsection*{Motivation for Reduced Models of electrically excitable cortical cells}
 
-\item[-] Biophysically accurate models take a significant time and resources to evaluate. A different class of neuronal model, known as a "Reduced model" is comparatively fast to solve especially, when many models are required to be simulated simultaneously. Some of examples of reduced models are: 
+\item[-] Biophysically accurate models take a significant time and resources to evaluate. A different class of neuronal model, known as a "Reduced model" is comparatively fast to solve, and this is especially important in contexts, when many models are simulated simultaneously. Some of examples of reduced models are: 
 \subitem AdExp, Izhi, GLIF
 
 \subsection*{speed of simulation is important for learning about the brain}. Digital modeling of physical properties of cells is occurring at the mesoscopic scale, however adding microscopic features to simulations significantly increases simulation time. Even when using High Performance Computing developing simulations involves a model error checking phase. Model development development is faster when simulation output occurs sooner.\\
@@ -89,7 +91,7 @@ Efficient model examples: (generalized leaky integrate and fire model) GLIF, Izh
 \item In this two stage algorithm: I optimize, using constraints: spike count at injection strength $1.5 \times rheobase $, and $3.0 \times rheobase $
 I do a quick check of spike counts at 1.5 and 3.0 rheobase (2 constriants only).
 
-\item In this sceanario Rheobase is used only as a soft constraint. Firstly we optimize the model to spike count data we very rapidly narrow down the solution space using only two errors. \\
+\item In this scenario Rheobase is used only as a soft constraint. Firstly we optimize the model to spike count data we very rapidly narrow down the solution space using only two errors. \\
 \\
 In a second code experiment I use the standard NU suite, for a lot of generations. In the figure below
 %%

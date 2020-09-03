@@ -10,15 +10,23 @@ Diseases of the brain are very widespread and cost world governments a significa
 %The 2015 Global Burden of Disease study estimates that about a third of the population worldwide is affected by mental or neurological disorders across their lifespans
 
 % disorders of the brain rank among the leading causes of ill-health and disability and account for 35% of Europe’s total disease burden with a yearly cost of 800 billion euros, of which 60% are related to direct health care and non-medical costs.4,5 
-
 % The burden is growing
+Neuroscience findings have been translated to recipes or collections instructions that are understood by computers. The results of these algorithms have been recognized as innovations in Artificial Intelligence. In addition to producing actions and goal directed behaviors, mammal brains also perform many signal processing steps that are increasingly understood at  mechanistical and algorithmic levels of description \cite{marr1976understanding}. Innovation in Artificial Intelligence has been achieved by applying just a few such algorithms observed in the brain. For example grid and place cell behavior has spontaneously occurred Artificial Neural Networks trained to navigate a landscape \cite{banino2018vector}. Computer programmers and electronic engineers want to find out the neural principles that underlie human learning and reasoning, so that these principles can be implemented in an electronic substrate. Improving Artificial Intelligence means that larger amounts of work can potentially get done at a lower cost, but it also we may need may need artificial intelligence to create new science and to solve existential problems facing humanity.\\
+\\
+Our medical understanding of brain disease, and digital application of brain algorithms, would likely improve if existing spiking neural network models were both faster and more accurate. Importantly the work I describe in this document, documents tools that improve the speed and accuracy of some neural models. The tool can make some cell models better at mimicing appropriate experiments. By improving single cell models, this tool will likely improve network models. Network models are made of many thousands of reduced cell models, so there constituent behavior is the result of many interactions between reduced cell models.\\ 
+\\
+Animal models are neuroscience models of brain diseases and learning where neural phenomena are investigated by manipulating the conditions in animal brain tissue such that mechanisms thought to underlie the phenomena being investigated are controlled for. 
 
-Artificial Intelligence often involves translating neuroscience findings to a recipe or a collection instructions that are understood by computers. For example grid and place cell behavior has spontaneously occurred Artificial Neural Networks trained to navigate a landscape \cite{banino2018vector}. Computer programmers and electronic engineers want to find out the neural principles that underlie human learning and reasoning, so that these principles can be implemented in an electronic substrate. Improving Artificial Intelligence means that larger amounts of work can potentially get done at a lower cost, but it also we may need may need artificial intelligence to create new science and to solve existential problems facing humanity.
+% Examples include neural recordings from grid cells and place cells in a navigating rodent.
+Examples include a rodent model alzheimers disease in humans. The "model" is formed by 
+genetically engineering rodents so that an active group expresses beta-amalyoid proteins in the hippocampus, as beta-amalyoid plaques are a feature that would be explained by a comprehensive theory of Alzheimers disease. A different example is when circumstances are contrived so that rodents can self administer cocaine, in order to understand the neural mechanics of drug seeking behavior.\\
+\\
+Animal models try to express the essential features of brain phenomena in a different brain in a different animal. Animal models bare a very close resemblense to the conditions they attempt to explain. As both experiment, and phenomena occur in neural tissue. In animal models experimental conditions are created by manipulating neural substrate.\\  
+\\
+In in-silico models systems of equations represent biological processes under investigation. In the rodent model of Alzheimers disease, it is possible to investigate rodent behavior for Alzheimers symptoms. In the digital model you would produce graphs of neural firing rates, which might reveal altered brain dynamics. Animal models have major draw backs. One such problem is, there are major limits on the density, of recording electrode arrays. Another limitation is immune reactivity and glia scars.\\
 
-Animal models are neuroscience models of brain diseases and learning, were neural phenomena are investigated by manipulating the conditions of animal brains such that mechanisms thought to underlie the phenomena being investigated are controlled for. Examples include genetically engineering rodents so that an active group expresses beta-amalyoid proteins in the hippocampus inorder to model alzheimers disease in humans.
-
-Another example is when you make it possible for rodents to self administer cocaine. While animal models of human brain diseases are biological, digital models are very elaborate systems of equations that only represent biology. In the rodent model of alzheimers disease, it is possible to investigate rodent behavior for alzheimers symptoms. In the digital model you would look at graphs of neural firing rates, and look for impaired synaptic transmission.
-
+%and physically blocked synaptic transmission.\\
+\\
 A common type of model of neuroscience model is the animal model. animal models have limitations which can make them unfavorable choices. Animal models often involve years of investment, genetic engineering, complex surgery, complicated behavioral learning paradigms. Many things can go wrong while developing an assay, potentially ruining a costly experiment. 
 
 Computational models are desirable because they are potentially highly reproducible.
@@ -29,26 +37,57 @@ Computational models are desirable because they are potentially highly reproduci
 \subsection{Approaches to modeling}
 % What are 
 % - (Briefly) conductance based models
-Conductance based models are physical models of membrane, that explicitly represent the rate at which ion channels conduct ions, often inside the surface of a 3 dimensional neuron. Each ion channel is modelled by a set of differential equations that represent how conductance changes with time. These models are very slow to solve because they contain so much detailed biophysics. \\
+Conductance based models are electrical and chemical representations of the neurons permeable membrane.  The phosholipid membrane of neurons is covered in a variety of pores called channels and each pore can permit the passage of molecular ions at specific rates, and some times those rates can vary in proportion to other electrical properties in the adjacent membrane. In conductance based models ion channels are represented as differential equations which explicitly represent the rate at which ion channels conduct ions. Conductance based models differ in their spatial extant. In its most basic form a conductance based model, could can be a single point (in this case the model is so abstract that it dispenses with the notion of space in nervous tissue). In a large variety of conductance based models the 3D form of neural membrane is "modelled", but it is approximated by using elaborate systems of 2D branching patterns.\\
+\\
+often inside the surface of a 3 dimensional neuron. Each ion channel is modelled by a set of differential equations that represent how conductance changes with time. These models are very slow to solve because they contain so much detailed biophysics. For instance the thickness of neurons can change along their arbors. Voltage dependant ion channels are distributed along the branching neurite in varying density.\\
 \\
 % - Reduced models
-Reduced Models by contrast ignore neuron biophysics. The 3D form of real neurons is replaced by a dimensionless point. The electrical behavior of neurons is represented by a very simple equation that takes input parameters, and maps them onto outputs like membrane potential. Its as if a reduced model is a black box representation of a neuon, and the reduced model is a transfer function that maps inputs to outputs. Typically reduced models are very fast to solve.\\
-\\
+Reduced Models by contrast ignore neuron biophysics. The 3D form of real neurons is replaced by a dimensionless point. The electrical behavior of neurons is represented by a very simple equation that takes input parameters.
+
+\subsubection{The Leaky Integrate Integrate and Fire Model and GLIF}
+% Natural Progression of model explanation: LIF, GLIF, Adexp, Qaudratic Integrate and fire (izhi).
+
+% Now appropriately situated into  the section on reduced models
+\subsubection{The Adaptive Exponential Integrate and Fire (Adexp) model} \cite{brette2005adaptive}, is another type of reduced neural model. The Adexp model is a special instance of leaky integrate and Fire model which most often appears with an exponential spike shape. The models instantaneous spiking rate is calculated via a consulting finite time "windows" into the neurons recent spike history. Adaption is achieved by looking back into the window and counting the number of spikes that occurred in the previous $10ms$, for example. Although this model is potentially fast, often python implementations of it are slow due to code that was written to make running populations of many neurons fast, at the expense of running single neurons. Forinstance Brian2, and a related tool neurodynamics, have code for running Adexp neurons, however brian2 has network c-level cython code that interferes with DEAP python code. 
+
+The Izhikevich model and the adaptive exponential integrate and fire model, are both related to simple Integrate and Fire model. The Izhikevich model takes a current injection value, and a capacitive current, a membrane potential is created by integrating an equation $\frac{d V_{M}}{dt}$. The Izhikevich model has quadratic multiplicative terms. The GLIF and the AdExp models have exponential multiplicative terms.
+
+
+%quadratic, exponential 
+%and maps them onto outputs like membrane potential. 
+
+%Its as if a reduced model is a black box representation of a neuon, and the reduced model is a transfer function that maps inputs to outputs. Typically reduced models are very fast to solve.\\
+%\\
 % - Kinds of reduced models and what they can do
 %\section{Introduction}
 % above.
 % 2-5pages
 \subsection{Model Optimization}
 %
-Some physical properties of neurons can’t be easily measured in experiments. These unknown properties limit neuron model completeness, and yet it is possible to infer some unknown measurements by  finding a set of parameters, that help a given model "fit" the data, this process is sometimes called "parameter-fitting". For example, a common approach for approximating unknown ion channel densities is to ‘optimize’ the governing equations so that the evaluated equation  match's pre-existing waveform measurements scientists are confident about. The process of optimization involves what is known as an ‘inverse’ problem where we efficiently and sparsely search for the ‘optimal’ value of an parameter that satisfies the system of equations. Often an optimal value corresponds to a global minimum or maximum value of a function.\\*
+Some physical properties of neurons can’t be easily measured in experiments. These unknown properties limit neuron model completeness. It is possible to access missing information by creating "determined" sets equations, that allow researchers to solve for unknown variables, as the number of known conditions on equations out number unknown variables.\\
+\\
+It is possible to infer some unknown measurements by finding a set of parameters that help a given model "fit" or agree with measurements from experiments, this process is sometimes called "parameter-fitting". For example, a common approach for approximating unknown ion channel densities is to ‘optimize’ the governing equations so that the evaluated equation  match's pre-existing waveform measurements scientists are confident about. 
+\\
+The process of optimization involves what is known as an ‘inverse’ problem. A naive approach to solving this inverse optimization problem works on the principle of elimination. A large number of unsatisfactory states must be sampled, to rule out the a current sample is not worse than another sample. Unfortunately solving these equations is sometimes computationally intractable.\\
+
+%for the ‘optimal’ value of an parameter that satisfies the system of equations. An optimal value corresponds to a global minimum or maximum value of a function.\\*
+
+\\
+Fortunately a stochastic technique has emerged where we can efficiently and sparsely search
+
 % Describe here what such a function might look like, i.e. what would that function be measuring, generally?
 
-% In this section you should talk more about stochasticity in general.  Imagine first a deterministic gradient descent algorithm and why this might not work (local minima).  Then you can get to genetic algorithms and describe the tradeoff between exploration and exploitation.
+In the context that I perform model optimization models are injected with specific amounts of current, because neurons are electrically excitable, the neuron soma membrane potential deflects from resting membrane potential in response to current injections.
+
+An error function could be the simple difference between an experimentally measured spike amplitude (the peak of a voltage deflection), and the models peak spike amplitude. The units of both measurements will be milli-volts.  
+
+% In this section you should talk more about stochasticity in general. Imagine first a deterministic gradient descent algorithm and why this might not work (local minima).  Then you can get to genetic algorithms and describe the tradeoff between exploration and exploitation.
 
 Computational optimization techniques are often specific to a particular type of problem rather than being generalized. However, several notable algorithms have solved a wide range of problems including genetic algorithms and stochastic gradient descent (SGD). The popularity of these two algorithms is due to their robustness. Genetic Algorithms and SGD are able to avoid falsely reporting a local minimum when a more optimal solution is available.\\*
+\\
+Stochastic gradient descent, and Genetic Algorithms both utilize concepts like mini-batches, random pertubation (mutation) and combining the concept of average fitness with stochasticity. 
 
-% Move this up to the section on reduced models
-The Adaptive Exponential Integrate and Fire (Adexp) model \cite{brette2005adaptive}, is another type of reduced neural model. The Adexp model is a special instance of leaky integrate and Fire model, that most often appears with an exponential spike shape. The spiking behavior of the neuron is defined by a type of window based memory into the neurons previous behavior. Adaption is achieved by looking back into the window and counting the number of spikes that occurred in the previous $10ms$, for example. Although this model is potentially fast, often python implementations of it are slow due to code that was written to make running populations of many neurons fast, at the expense of running single neurons. Forinstance Brian2, and a related tool neurodynamics, have code for running Adexp neurons, however brian2 has network c-level cython code that interferes with DEAP python code. 
+
 to sub-optimal code.\\
 \\
 
