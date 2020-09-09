@@ -1,10 +1,26 @@
-\section{Limitations of Existing Approaches} 
-Existing community supported simulated models are problem ridden.
+
+\section{Data fitted Results on three classes of model were only modestly good}
+
+To make the argument that limitations in reduced neural models were the cause of modest model/experiment agreement, we first had to rule out alternative possibilities.
+
+One possibility was that the experimental measurements were faulty, and that the measurements were a kind of fiction, that the models shouldn't be able to reproduce. When considering the data sources, the methods of data collection and data quality should be reliable, the one main 
+
+we first needed to rule out that there might be something wrong with the data, we were using to fit models to.
+
+One way thing that we needed to rule out was that the data sources did not reflect bi-modal distributions, since the neuroelectro 
+
+
+
+
+\section{Limitationsdata we were using was the m of Existing Approaches} 
+Existing community supported simulated models were problem ridden, and our own custom methods were used as work arounds.
 
 % NEURON version of Izhi model is not as fast as one might expect, this may because of the way we tried to implement the model, by creating and destroying HOC module instances, that contain the model. 
 
 % Nonetheless, 
-Our version of the NEURON-Izhi-model which was derived from a J-NeuroML translation, could not reproduce all of the Izhi original publication figures, because it had two different conflicting sources of capacitance.\\
+At first we accessed an implementation of the Izhikevich model that was translated from jNEUROML into a NEURON simulator implementation. The problem with this implementation is that it had fragmented the whole Izhikevich model into chattering and non chattering subtypes. The model implementation seemed to have an internal conflict between two capacitive terms. The problem was that the Izhikevich model requires only one capacitive term.
+
+implemented in NEURON which was derived from a J-NeuroML translation, could not reproduce all of the Izhi original publication figures, because it had two different conflicting sources of capacitance.\\
 \\
 From JNeuro-ML we created NEURON version of Izhikich model, however we were not able to make this model execution times brief enough to be useful for optimization. Although the NEURON simulator is designed to be fast, their may be a cost associated with reloading the NEURON environment many times in fast succession.
 

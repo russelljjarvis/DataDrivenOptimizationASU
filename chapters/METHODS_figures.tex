@@ -1,5 +1,22 @@
 
+Move 1.2.2 Distinction of Approaches to here.
 
+\subsection{Solution Diversity in the Multi objective Paradigm}
+
+
+We made a choice in algorithm design that would promote diversity of optimised model solutions.
+
+in the multi objective paradigm.
+
+In an eight objective error function there are eight different ways for one score to be significantly better than the rest of the scores, and many different ways for the sum of two or more scores to be significantly better than one of the error scores. Although you are expecting diverse solutions its often practical to take just pick the most optimal model solution.
+
+But if you were optimizing models that you intend to use to populate brain network simulations, you may actually benefit from multiple parameter sets for each cell.
+
+In order to promote diversity in the models of particular cell types we took on each model parameter and calculated the unique current injection value that would cause that cell to fire a single spike. 
+
+\subsection{Rheobase as a Soft Constraint}
+One major difference in our methodological approach was to promote diversity among candidate solutions to optimisation problems. 
+of rheobase 
 \begin{figure}    
 \begin{center}
 \includegraphics[width=0.7\linewidth]{figures/rheobase_algorithm.png}
