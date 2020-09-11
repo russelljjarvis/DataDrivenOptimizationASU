@@ -20,31 +20,41 @@
 %5	\subparagraph{subparagraph}
 
 \begin{itemize}
-\item Also, you will want both a label general introduction and label general discussion, but also within each chapter you will need a mini-introduction that explains what you are aiming to do or show in that chapter and why. 
+%\item Also, you will want both a label general introduction and label general discussion, but also within each chapter you will need a mini-introduction that explains what you are aiming to do or show in that chapter and why. 
 
-\item That mini-introduction can be essentially like the content of the first few cells of some of your notebooks, but you will want to make sure that every sentence is comprehensible to someone who has read and understood the general introduction but otherwise doesn’t have much special expertise other than being a neuroscientists of some kind.
+%\item That mini-introduction can be essentially like the content of the first few cells of some of your notebooks, but you will want to make sure that every sentence is comprehensible to someone who has read and understood the general introduction but otherwise doesn’t have much special expertise other than being a neuroscientists of some kind.
 
 
 % Explanatory comment Name of section, above call to include.
-\chapter{General Introduction}
+\chapter{Introduction}
 
-Need to explain two things:
-\item[-]
-\item why reduced models, then why optimize.
+%Need to explain two things:
+%\item[-]
+%\item why reduced models, then why optimize.
 \subsection*{Motivation for Reduced Models of electrically excitable cortical cells}
 
-\item[-] Biophysically accurate models take a significant time and resources to evaluate. A different class of neuronal model, known as a "Reduced model" is comparatively fast to solve, and this is especially important in contexts, when many models are simulated simultaneously. Some of examples of reduced models are: 
-\subitem AdExp, Izhi, GLIF
+%\item[-] 
+Biophysically accurate models take a significant time and computer resources to evaluate. A different class of neuronal model, known as a "Reduced model" is comparatively fast to solve. Speed, accuracy are the two biggest constraints in the design of cortical brain models. 
+% Further more reproducibility and accessibility are increasingly regarded as important model design constraints too., and they will also be addressed in this work. 
 
-\subsection*{speed of simulation is important for learning about the brain}. Digital modeling of physical properties of cells is occurring at the mesoscopic scale, however adding microscopic features to simulations significantly increases simulation time. Even when using High Performance Computing developing simulations involves a model error checking phase. Model development development is faster when simulation output occurs sooner.\\
+Brief simulation duration's are critical to brain network simulations, as each of very many models must be evaluated synchronously according to a global network clock, and their is a high dependency between the states of different models. Network simulation is only as fast as the slowest model, because (if you are waiting for one neuron to evaluate, the whole network will need to wait, as its state may depend on that neuron). Since these constraints are in direct conflict with each other, many scientists are interested in the finding the most optimal resolution to this speed/accuracy trade-off.\\ 
 \\
-The are several valid instances when the complete three dimensional form of a neuron is an integral part of a brain simulation, such as in the Blue Brain somato-sensory cortex model \cite{} and the Allen Institute $V1$ model \cite{}, These simulations are improved by encasing a "core" of biophysically accurate models inside a "shell" of simple fast and reduced Izhi, GLIF, or AdExp models. 
-
-Encasing a complex core inside a shell of simplified models mitigates an observable "edge effect" problem. The problem is that simulations concern sub divisions of brain tissue, subdivisions by nature exclude externally sourced synaptic inputs. These synaptic inputs are connections that are severed by the process of making a subdivision. Highly detailed simulations are usually concerned with such subdivisions.
-
+The work herein is aligned with one particular approach to the trade-off. To make data specific versions of simpler models, such that simpler models better mimic experimentally observed electrical measurements. To understand this approach to improving model speed and accuracy, you need to be familiar with the concept of reduced neural models. Some types of neural models are mimic neurons across many different forms and scales.\\
+\\
+Shape, and ephysiology based approach in contrast to a spike timing approach. 
+\\
+Examples of reduced models are:
+Point conductance based model, Adaptive Exponontial Integrate and Fire model, and Izhikevich model, and in fact, these are the only reduced models considered in the scope of this document\\
+% I will discuss each different model in its own section.
+\subsubsection{Importance of Simulation Duration}
+speed of model evaluation is a critical factor for learning things from brain simulations. Digital modeling of physical properties of cells is occurring at the mesoscopic scale, however adding microscopic features to simulations significantly increases simulation time. Even when using High Performance Computing developing simulations involves a debugging errors in different modalities, sometimes the computer program needs correcting, but at other times the scientific expectations about neural dynamics might be wrong. The maths might be wrong. To correct for any mistakes, feedback in the form of observed model behavior, is essential, for the development of the model itself, and short simulation durations are critical to this.\\
+\\
+The are several valid instances when the complete three dimensional form of a neuron is an integral part of a brain simulation, such as in the Blue Brain somato-sensory cortex model \cite{} and the Allen Institute $V1$ model \cite{}, These simulations are improved by encasing a "core" of biophysically accurate models inside a "shell" of simple fast and reduced Izhi, GLIF, or AdExp models.\\ 
+\\
+Encasing a core of complex models inside a shell of simplified models mitigates an observable "edge effect" problem. The problem is that simulations concern sub divisions of brain tissue, subdivisions by nature exclude externally sourced synaptic inputs. These synaptic inputs are connections that are severed by the process of making a subdivision. All published highly detailed simulations to date, have necessitated the simulation of severed volumes of tissue, and this creates another problem to manage.\\
+\\
 %There is a core of models of realistic models who are missing a substantial number of "extrinsic" synaptic inputs. 
-\item 
-\item Almost all cortical neurons experience "tonic" synaptic input and these tonic inputs originate from neurons from a different part of the brain. One strategy for handling inputs that are external to the region of interest, is to simply model spike trains for each input synapse. Modern programming languages have tools that can make matching the synthesis of statistically similar spike trains convenient. One big problem with this approach is it assumes that post synaptic neurons are mainly influenced by the firing rate of inputs, if they pre synaptic neurons are actually conveying important code words via exact interspike intervals, a statistical approach to modelling spike trains would not do.
+Almost all cortical neurons experience "tonic" synaptic input and these tonic inputs originate from neurons from a different part of the brain. One strategy for handling inputs that are external to the region of interest, is to simply model spike trains for each input synapse. Modern programming languages have tools that can make matching the synthesis of statistically similar spike trains convenient. One big problem with this approach is it assumes that post synaptic neurons are mainly influenced by the firing rate of inputs, if they pre synaptic neurons are actually conveying important code words via exact interspike intervals, a statistical approach to modelling spike trains would not do.
 \item 
 \item  An alternative approach is to reduce the complexity of neural models as one exceeds the boundary of the region of interest.
 
