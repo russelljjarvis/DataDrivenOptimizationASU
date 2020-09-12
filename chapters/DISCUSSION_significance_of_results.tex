@@ -1,20 +1,49 @@
 \section{Discussion}
 
-\subsection{Poor Ability of models to Fit Data.}
-\begin{itemize}
+\subsection{Ability of models to Fit Data.}
+%\begin{itemize}
 
-Final list of tests used: RheobaseTest, InputResistanceTest, TimeConstantTest, CapacitanceTest, RestingPotentialTest.
-\item 
-\item Within a reasonable parameter range conductance based models are usually close to experimentally observed measurements.
+Two classes of experimental measurements were used to fit models in conjunction with genetic algorithms. These consisted of four groups of eight neuroelectro observations, and and seven different EFEL measurements that were obtained by sampling Allen Brain Data.
 
-\section{A pattern to model fitting inability in Phenomenological Models.}
-* many reduced neural models are far from optimal at any point in parameter space. Optimizing does not significantly improve agreement. Optimizing does not bring model and experiment close to `Z=0`. There was some model to model variability however.
+It is worth noting that in both sets of measurements, the types of measurements that can guide optimization are significantly smaller subset of measurements of fitness criteria that can be evaluated on the final model.
 
-\item There is an order of magnitude difference. Between agreement in Rheobase values between the conductance based models and the experimental models. 
+Final list of Elephant tests used to guide optimization: 
+\begin{verbatim}
+RheobaseTest, InputResistanceTest, TimeConstantTest, CapacitanceTest, RestingPotentialTest.
+\end{verbatim}
 
-\end{itemize}
+In the Izhikevich model for each of the four different classes of experimental cell types
+The optimizer finds a varied set of solutions, that are each within the range of empirical validity. The general pattern was that Rheobase values needed to be compromised, in order to 
+uncover models that were the fittest with respect to all the other fitness criteria.
 
-\section{What does it mean.}
+In the point conductance model, and the AdExp model, it was typically input resistance tests that experienced "dominated" solutions. 
+
+As indicated by the $chi^{2}$ statistic and $p-value$, many but not all model-test combinations were able approach emperical validity, the pathway to trading off, and letting fitness criteria dominate was different for different model types.
+
+%by all other fitness criteria in order for the optimizer to 
+
+
+
+\begin{verbatim}
+AHP_depth_abs_3.0x,sag_ratio2_3.0x,ohmic_input_resistance_1.5x,peak_voltage_3.0x,voltage_base_3.0x,Spikecount_3.0x,ohmic_input_resistance_vb_ssse_1.5x. 
+\end{verbatim}
+
+The EFEL measurements on Allen Data
+
+
+
+%\item 
+
+%\item Within a reasonable parameter range conductance based models are usually close to experimentally observed measurements.
+
+%\section{A pattern to model fitting inability in Phenomenological Models.}
+%* many reduced neural models are far from optimal at any point in parameter space. Optimizing does not significantly improve agreement. Optimizing does not bring model and experiment close to `Z=0`. There was some model to model variability however.
+
+%\item There is an order of magnitude difference. Between agreement in Rheobase values between the conductance based models and the experimental models. 
+
+%\end{itemize}
+
+%\section{What does it mean.}
 \begin{itemize}
 
 \item  In methods I discussed an approach to verifying the optimizer.
@@ -26,9 +55,8 @@ When the optimizer setup is cogent because appropriate models and test combinati
 N free_params <= N constraints
 \end{equation}
 
-The optimizer finds a varied set of compromised solutions.
 
-\item  In order to verify our approach we also re-implemented our code using BluePyOpts select best algorithm, and NSGA2.
+%\item  In order to verify our approach we also re-implemented our code using BluePyOpts select best algorithm, and NSGA2.
 \end{itemize}
 
-Model constraint combinations give rise to differences in how correlated errors are during gene evolution. 
+%Model constraint combinations give rise to differences in how correlated errors are during gene evolution. 

@@ -1,9 +1,29 @@
 
-\section{Data fitted Results on three classes of model were only modestly good}
+\subsection{Experiment Fitted Results Neuroelectro data, Elephant Tests}
 
-To make the argument that limitations in reduced neural models were the cause of modest model/experiment agreement, we first had to rule out alternative possibilities.
+On three classes of model were only modestly good. Although optimized models were  
 
-One possibility was that the experimental measurements were faulty, and that the measurements were a kind of fiction, that the models shouldn't be able to reproduce. When considering the data sources, the methods of data collection and data quality should be reliable, the one main 
+%https://en.wikipedia.org/wiki/Chi-square_distribution
+%This allows you to state this as a hypothesis test with a p-value.  The chi-square statistic would simply be x=np.sum(zscores**2), and the p-value would be 1-scipy.stats.chi2.cdf(x, 8) where 8 is the number of elephant tests (and Z-scores).  A very small p-value (which would come from very large chi-square statistic, much larger than expected for random variation) %would mean the optimizer was less successful at recovering the true model.
+
+The Izhikevich Model and the Point Conductance Model were able to achieve high p-values, and small chi-squared statistics when seven or eight of the tests were considered together.
+
+For example the Izhikevich model fitted to Hippocampus CA1 pyramidal cell data achieved $ (\chi^{2} ,p-value) =(2.1250913868824415, 0.9769347643323284) $
+
+The olfactory Mitral cell
+$ (\chi^{2} ,p-value) =(2.0190436240810925, 0.9804224622781068) $
+
+and the cerebellum Purkinje cell.
+
+
+For contrast p-value and chi-squared statistics on the best random models were:
+
+%(2.0190436240810925, 0.9804224622781068)r
+\subsection{Data fitted Results on three classes of model were only modestly good for the Izhikevich Model and the Point Conductance Model}
+
+To make the argument that limitations in reduced neural models were the cause of modest model/experiment agreement, we first had to rule out alternative possibilities. One possibility was that the experimental measurements were faulty, and that the measurements were possibly spurious because of in appropriate averaging. It was found that mainly the olfactory bulb mitral cell was prone to having underlying bi-modal data distributions, and this was especially true for resting membrane
+
+that the models shouldn't be able to reproduce. When considering the data sources, the methods of data collection and data quality should be reliable, the one main 
 
 we first needed to exclude the possibility that there might be something wrong with the data, we are fitting models to.
 
