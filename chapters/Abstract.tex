@@ -1,17 +1,40 @@
-% Fulfil and understand the limits of reduced model fitting and agreeing to experiments. As this reduced models are a canonical component of large scale brain simulations, and brain simulations could be improved if maximal model/experiment agreement was satisfied. 
-We wanted to understand the limits of fitting reduced neural models to experimental electrophysiology measurements, and to use this knowledge to acquire the best possible fits between reduced neuron models and experimental electrical measurements.
 
-as best as possible, fit reduced neural models to experimental measurements, and then to understand and describe limitations in models, that stop impede fitting and cause disagreement between models and experimental measurements.
-of the agreement between reduced neural models and experimental data reproduce experimentally observed neural measurements.
-Since This also involved exploring limitations in some types of neural data.
-* Euclidiating the limits of reduced models and the limits of data, that impede model fitting.
-* Euclidiating model measurement challenges (Rheobase as a soft constraint, threshold computations).
-to data. I
-METHODS the methods were numerical simulations of neurons that were integrated into a system of genetic algorithm optimization. We used data sourced from neuroelectro.org, and combined it with a selection custom written differential equation solvers for the AdExp, Izhi models. We used NeuronUnit and standard deviations to compute normalized Z-scores 
+Several constraining factors dominate the design of large scale network simulations of the brain, these are: simulation time, empirical validity, understand-ability and reproducibility. A class of digital neuronal models: "Reduced Neural models", are faster accurate and easier to understand, than multicompartment conductance based models. Reduced models are one of multiple model types used in brain simulations, and they are often utilized on a scale, when poorer standards of model/experiment agreement seem tolerable. Large scale cortical brain simulations could be improved if higher standards of model/experiment agreement were satisfied in these models, allowing large scale brain simulations to be more accurate for the same rapid performance. We used numerical simulations on reduced models inside a genetic algorithm data fitting framework in order to explore the upper limit of model/experimental agreement, and to obtain experimental fits at the highest possible quality. For the three types of reduced neuronal model we were able to obtain models that produced mostly biologically plausible measurements, but almost always one out of eight fitness criteria needed to score poorly in-order to produce an empirically valid cell model. Unsurprisingly Reduced neuronal models were found not to be unlimited in flexibility.\\
+\\
+
+In order to investigate how well reduced models can reproduce experimental data we ran numerical simulations of neurons that were embedded into a system of genetic algorithm optimization. We used data sourced from neuroelectro.org, and combined it with a selection custom written differential equation solvers for the Adaptive Exponential, Izhikevich, and simple conductance based models.\\
+\\
+Among alternative models such as Point-process spike chain surrogates, and  multi compartment conductance models, reduced neuronal models are most often the faster to execute, and easier to understand. Three subtypes of reduced neuronal models, represent a midway point, in terms of their ability to faithfully reproduce experimental findings.
+
+% Reduced models are a crucial component of many large scale brain simulations.
+
+%in these fast to execute models. 
+%We wanted to understand the limits of fitting reduced neural models to experimental electrophysiology measurements, and to use this knowledge to acquire the best possible fits between reduced neuron models and experimental electrical measurements.
+
+
+%. in this class of models. \\
+%\\
+
+%We computed normalized Z-scores.
+
+% * The methods were using a genetic algorithms to solve multiobjective optimization problem. Forward euler solvers
+
+
+% Additionally reduced neuronal models simulate current flow, and thus are compatible with local field potential models. Although they are not spatially 
+
+
+% Fulfil and understand the limits of reduced model fitting and agreeing to experiments. 
+
+%as best as possible, fit reduced neural models to experimental measurements, and then to understand and describe limitations in models, that stop impede fitting and cause disagreement between models and experimental measurements.
+%of the agreement between reduced neural models and experimental data reproduce experimentally observed neural measurements.
+%Since This also involved exploring limitations in some types of neural data.
+%* Euclidiating the limits of reduced models and the limits of data, that impede model fitting.
+%* Euclidiating model measurement challenges (Rheobase as a soft constraint, threshold computations).
+%to data. I
+%METHODS 
 
 % It is not novel to embed numerical model simulation inside genetic algorithms, but it is novel recompute rheobase at every sampled model parameter set, and thus to promote a diverse array of model types to the possibility of single spike waveform shape checking.
 
-* The methods were using a genetic algorithms to solve multiobjective optimization problem. Forward euler solvers
 
 %Your research problem and objectives
 %    Your methods

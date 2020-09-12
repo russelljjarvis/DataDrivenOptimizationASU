@@ -8,6 +8,10 @@
 \renewcommand{\labelitemii}{$\cdot$}
 \renewcommand{\labelitemiii}{$\diamond$}
 \renewcommand{\labelitemiv}{$\ast$}
+\addcontentsline{toc}{part}{REFERENCES}
+\bibliographystyle{chapters/minimal}
+\bibliography{dis}
+
 \begin{document}
 	
 	
@@ -19,98 +23,13 @@
 %4	\paragraph{paragraph}
 %5	\subparagraph{subparagraph}
 
-\begin{itemize}
+%\begin{itemize}
 %\item Also, you will want both a label general introduction and label general discussion, but also within each chapter you will need a mini-introduction that explains what you are aiming to do or show in that chapter and why. 
 
 %\item That mini-introduction can be essentially like the content of the first few cells of some of your notebooks, but you will want to make sure that every sentence is comprehensible to someone who has read and understood the general introduction but otherwise doesn’t have much special expertise other than being a neuroscientists of some kind.
 
 
 % Explanatory comment Name of section, above call to include.
-\chapter{Introduction}
-
-%Need to explain two things:
-%\item[-]
-%\item why reduced models, then why optimize.
-\subsection*{Motivation for Reduced Models of electrically excitable cortical cells}
-
-%\item[-] 
-Biophysically accurate models take a significant time and computer resources to evaluate. A different class of neuronal model, known as a "Reduced model" is comparatively fast to solve. Speed, accuracy are the two biggest constraints in the design of cortical brain models. 
-% Further more reproducibility and accessibility are increasingly regarded as important model design constraints too., and they will also be addressed in this work. 
-
-Brief simulation duration's are critical to brain network simulations, as each of very many models must be evaluated synchronously according to a global network clock, and their is a high dependency between the states of different models. Network simulation is only as fast as the slowest model, because (if you are waiting for one neuron to evaluate, the whole network will need to wait, as its state may depend on that neuron). Since these constraints are in direct conflict with each other, many scientists are interested in the finding the most optimal resolution to this speed/accuracy trade-off.\\ 
-\\
-The work herein is aligned with one particular approach to the trade-off. To make data specific versions of simpler models, such that simpler models better mimic experimentally observed electrical measurements. To understand this approach to improving model speed and accuracy, you need to be familiar with the concept of reduced neural models. Some types of neural models are mimic neurons across many different forms and scales.\\
-\\
-Shape, and ephysiology based approach in contrast to a spike timing approach. 
-\\
-Examples of reduced models are:
-Point conductance based model, Adaptive Exponontial Integrate and Fire model, and Izhikevich model, and in fact, these are the only reduced models considered in the scope of this document\\
-% I will discuss each different model in its own section.
-\subsubsection{Importance of Simulation Duration}
-speed of model evaluation is a critical factor for learning things from brain simulations. Digital modeling of physical properties of cells is occurring at the mesoscopic scale, however adding microscopic features to simulations significantly increases simulation time. Even when using High Performance Computing developing simulations involves a debugging errors in different modalities, sometimes the computer program needs correcting, but at other times the scientific expectations about neural dynamics might be wrong. The maths might be wrong. To correct for any mistakes, feedback in the form of observed model behavior, is essential, for the development of the model itself, and short simulation durations are critical to this.\\
-\\
-The are several valid instances when the complete three dimensional form of a neuron is an integral part of a brain simulation, such as in the Blue Brain somato-sensory cortex model \cite{} and the Allen Institute $V1$ model \cite{}, These simulations are improved by encasing a "core" of biophysically accurate models inside a "shell" of simple fast and reduced Izhi, GLIF, or AdExp models.\\ 
-\\
-Encasing a core of complex models inside a shell of simplified models mitigates an observable "edge effect" problem. The problem is that simulations concern sub divisions of brain tissue, subdivisions by nature exclude externally sourced synaptic inputs. These synaptic inputs are connections that are severed by the process of making a subdivision. All published highly detailed simulations to date, have necessitated the simulation of severed volumes of tissue, and this creates another problem to manage.\\
-\\
-%There is a core of models of realistic models who are missing a substantial number of "extrinsic" synaptic inputs. 
-Almost all cortical neurons experience "tonic" synaptic input and these tonic inputs originate from neurons from a different part of the brain. One strategy for handling inputs that are external to the region of interest, is to simply model spike trains for each input synapse. Modern programming languages have tools that can make matching the synthesis of statistically similar spike trains convenient. One big problem with this approach is it assumes that post synaptic neurons are mainly influenced by the firing rate of inputs, if they pre synaptic neurons are actually conveying important code words via exact interspike intervals, a statistical approach to modelling spike trains would not do.
-\item 
-\item  An alternative approach is to reduce the complexity of neural models as one exceeds the boundary of the region of interest.
-
-%than generating only psuedo random timed inputs to synapses, 
-In the case of the Allen Institute Model, if the region of interest V1 is a "core" of realistic neurons. That is a kernel of realistic neurons encased by a shell of less realistic neurons. Inputs to V1 also come from the outer encasement of neurons. It is therefore of interest if these external GLIF models can or should be substituted with optimized Izhikivich and Adexp models, in case substiting GLIF for Adexp results in an overall more realistic network simulation. that even the external shell of the simulation is more realistic. In network models there are benefits of reduced models compared to merely simulating spike train inputs. One of these benefits is that the firing of reduced neural models can be made to be causal, such that its spike times are not just what statistically matches missing models. Furthermore reduced models can still participate in networks, reduced models can become disconnected or participate in an dynamic assembley. Realistic levels of plasticity of the modelled network is more possible with included reduced models, than statistical surrogates of those models.
-
-Furthermore Izhikivitch, GLIF and AdExp models are commonly utilized in neuromorphic archictecture.
-
-\subitem optimization is an interaction between models and constraints which guides a fitting process. Not all neural models are equally flexible.  
-\item  Both the choice of constraining equations, and the choice of neural models must be favorable in order for models to be fitted to data.
-\item 
-\subitem if the combination of models and constraints is bad, then then a tractible error surface will not result.  
-
-\subsubitem Unfortunately, it is not always possible to know without trying which combinations of \subitem[A]: neural models, and \subitem[B], constraints will lead a tractable error surface that a Genetic Algorithms can use to find a global solution to. As an example consider  
-
-I describe some code implementation experiments were the model/constraint combination lead to DEAP genetic algorithms matching model parameters to constraints and model/constraint selections that lead to optimizer performing only marginally better than a random search of parameter space\\
-\\
-\item If the number of dimensions that are searched exceeds the degree and the effectiveness of constraints, then model optimization is only slightly better than random sampling of solution space.
-
-\subsection*{Successful Optimization} 
-Successful Optimization is more likely to occur about by a good selection of models and objective function combinations. 
-\item How model constraint combinations interact cannot always be known in advance, and yet the interaction can be assessed by attempting to optimize on the pair. Experimenting of model test combinations is what was done in this body of work.
-
-Efficient model examples: (generalized leaky integrate and fire model) GLIF, Izhikitch. Adaptive Exponential Integrate and fire model, single compartment conductance based model. 
-
-\item You could make biophysically accurate models faster, or you could make reduced models more accurate. To make reduced models more accurate, you would find parameterizations of the models that let the models act as better mimics of experiments.
-\item Herein we investigate how well Faster models can match experimental recording waveform shapes.
-\item The reason why we want to investigate the match:
-\item Large scale simulations cant evaluate on a timescale that is meaningful, unless a large ratio of modelled cells are "reduced models"
-\item Reduced Models already enjoy wide spread usage. We want to investigate if reduced models can be made to be more realistic, by checking if they can mimic data better.
-\item If reduced models can't be made more realistic (herein we show only marginal improvements), we need to show the limitations of reduced cells, with regards to a particular set of tests.
-\item We need to document the approach used, and how the approach contrasts with spike time approaches to model fitting.
-\end{itemize}
-
-\subsection{Optimizing multispiking Behavior}
-\begin{itemize}
-\item First with $2$ constraints, then with $>100$ constraints via the feature extraction suite EFEL
-
-\item This is a two staged approach. 
-\item It uses three step protocols.
-
-\item In a multispiking paradigm you can see a high variance explained ratio of approx $1$.  
-
-\item In this two stage algorithm: I optimize, using constraints: spike count at injection strength $1.5 \times rheobase $, and $3.0 \times rheobase $
-I do a quick check of spike counts at 1.5 and 3.0 rheobase (2 constriants only).
-
-\item In this scenario Rheobase is used only as a soft constraint. Firstly we optimize the model to spike count data we very rapidly narrow down the solution space using only two errors. \\
-\\
-In a second code experiment I use the standard NU suite, for a lot of generations. In the figure below
-%%
-% Figure
-%%
-Caption in this figure there is visibly almost perfect agreement between simulated and experiments, and the optimized models, in the passive model behavior, and a close match for the spiking model behavior. There was a standard suite of tests if only spike-half-width, not spike-base-width. The Izhi models width as thus free to vary at the base, take that into account when eye balling the two graphs and you can see why almost binary match. EFEL does achieve spike width binary matching because it uses both half-width, and base-width. If you look at the last cells you can see I take a correlation matrix of the optimizers errors over its history. The idea is if it's normalized then I can sum the whole matrix and get a single scaler number to show how de-correlated both error sets are over the GA evolution. 
-
-It was found that the standard suite of NU tests don't fully constrain the "base spike width" of the waveform which is free to vary, half-spike-width is constrained, it is more appropriate to talk about variance explained of the spike snippet. $variance explained>0.95$ is a useful heurism. Allowing some margin acknowledges that we shouldn't assume we have represented all waveform features that can vary. If you want variance explained ==1   you could optimize using a variance explained cost function, but we don't want to do that. 
-\end{itemize}
 \chapter*{Introduction}
 \include{chapters/Introduction}
 \chapter*{Methods}
@@ -123,6 +42,10 @@ It was found that the standard suite of NU tests don't fully constrain the "base
 \include{chapters/RESULTS_verification_of_the_optimizer}
 \include{chapters/RESULTS_large_scale_variance}
 \chapter*{Discussion}
+
+
+\bibliographystyle{plain} % <===========================================
+\bibliography{\jobname}
 
 
 \end{document}

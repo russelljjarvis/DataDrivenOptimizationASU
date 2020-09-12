@@ -1,19 +1,24 @@
 
-\section{Introduction}
+%\section{Introduction}
 
 \subsubsection{Motivation}
-
 % This section should motivate a few big idea such as:
 % - What do we care about computational models of the brain?
-Diseases of the brain are very widespread and cost world governments a significant amount of money \cite{who}
+Diseases of the brain are very widespread and cost world governments a significant amount of money \cite{who}. Cortical network models have emerged as useful tools to euclidiate brain function in health and disease. Underlying many cortical network models are large numbers of reduced or neuronal models, that either supplament the behavior of multi-compartment conductance based cells, or in some cases completely replace more comprehensive and bottom descriptions of electrically excitable cells.
 % https://www.who.int/bulletin/volumes/96/5/17-206599/en/ 
 %The 2015 Global Burden of Disease study estimates that about a third of the population worldwide is affected by mental or neurological disorders across their lifespans
 
 % disorders of the brain rank among the leading causes of ill-health and disability and account for 35% of Europe’s total disease burden with a yearly cost of 800 billion euros, of which 60% are related to direct health care and non-medical costs.4,5 
 % The burden is growing
-Neuroscience findings have been translated into collections instructions that are understood by computers. The results of these algorithms have been recognized as innovations in Artificial Intelligence. In addition to producing actions and goal directed behaviors, mammal brains execute many signal processing steps that are increasingly understood at  mechanical and algorithmic levels \cite{marr1976understanding}. Innovation in Artificial Intelligence has been achieved by applying just a few such algorithms observed in the brain. For example grid and place cell behavior has spontaneously occurred Artificial Neural Networks trained to navigate a landscape \cite{banino2018vector}. Computer programmers and engineers want to find out the neural principles that underlie human learning and reasoning, so that these principles can be implemented in an electronic substrate. Improvements in AI directly contribute to improvements in robotics, improving Artificial Intelligence means that larger amounts of work can be done at a lower cost, but it also we may need may need artificial intelligence to create new science and to solve existential problems facing humanity.\\
+
+In addition to producing actions and goal directed behaviors, mammal brains execute many signal processing steps that are increasingly understood at mechanical and algorithmic levels \cite{marr1976understanding}. Innovation in Artificial Intelligence has been achieved by applying just a few such algorithms observed in the brain. For examples grid and place cell behavior has spontaneously occurred Artificial Neural Networks trained to navigate a landscape \cite{banino2018vector}. Also consider the recent success of "deep-neural networks" and "recurrent neural networks"
+
+Neuroscience findings have been translated into collections instructions that are understood by computers. The abilities of brain inspired algorithms have sometimes been recognized as innovation in Artificial Intelligence.  Computer programmers and engineers want to find out the neural principles that underlie human learning and reasoning, so that these principles can be implemented in an electronic substrate. Improvements in AI directly contribute to improvements in robotics, improving Artificial Intelligence means that larger amounts of work can be done at a lower cost, but it also we may need may need artificial intelligence to create new science and to solve existential problems facing humanity. Computers and robots are also very good at performing repitative tasks with high precision.\\
 \\
 Our medical understanding of brain disease, and digital application of brain algorithms, would likely improve if existing spiking neural network models were both faster and more accurate. Importantly the work I describe in this document, documents tools that improve the speed and accuracy of some neural models. The tool can make some cell models better at mimicing appropriate experiments. By improving single cell models, this tool will likely improve network models. Network models are made of many thousands of reduced cell models, so there constituent behavior is the result of many interactions between reduced cell models.\\ 
+\\
+
+A common type of model of neuroscience model is the animal model, animal models have limitations which can make them scientifically unfavorable. Animal models often involve years of investment, genetic engineering, complex surgery, complicated behavioral learning paradigms. Many things can go wrong while developing an assay, potentially ruining a costly experiment, and diminishing years of work.\\
 \\
 Animal models are neuroscience models of brain diseases and learning where neural phenomena are investigated by manipulating the conditions in animal brain tissue such that mechanisms thought to underlie the phenomena being investigated are controlled for. 
 
@@ -23,13 +28,13 @@ genetically engineering rodents so that an active group expresses beta-amalyoid 
 \\
 Animal models try to express the essential features of brain phenomena in a different brain in a different animal. Animal models bare a very close resemblense to the conditions they attempt to explain. As both experiment, and phenomena occur in neural tissue. In animal models experimental conditions are created by manipulating neural substrate.\\  
 \\
-In in-silico models systems of equations represent biological processes under investigation. In the rodent model of Alzheimers disease, it is possible to investigate rodent behavior for Alzheimers symptoms. In the digital model you would produce graphs of neural firing rates, which might reveal altered brain dynamics. Animal models have major draw backs. One such problem is, there are major limits on the density, of recording electrode arrays. Another limitation is immune reactivity and glia scars.\\
+In in-silico models systems of differential equations represent biological processes under investigation. The main biological process is current flow.
 
 %and physically blocked synaptic transmission.\\
-\\
-A common type of model of neuroscience model is the animal model. animal models have limitations which can make them unfavorable choices. Animal models often involve years of investment, genetic engineering, complex surgery, complicated behavioral learning paradigms. Many things can go wrong while developing an assay, potentially ruining a costly experiment. 
 
-Computational models are desirable because they are potentially highly reproducible.
+In the rodent model of Alzheimers disease, it is possible to investigate rodent behavior for Alzheimers symptoms. In the digital model you would produce graphs of neural firing rates, which might reveal altered brain dynamics. Animal models have major draw backs. One such problem is, there are major limits on the density of recording electrode arrays. Another limitation is immune reactivity and glia scars.\\
+
+Computational models are desirable because they are relatively cheap, understandable highly reproducible, and ethically favorable. All variables in digital models can be stored and re-used.
 % - Why do we care about computational models at the level of neurons?
 
 % - How are neurons modeled (i.e. math and equations)
@@ -37,8 +42,7 @@ Computational models are desirable because they are potentially highly reproduci
 \subsection{Approaches to modeling}
 % What are 
 % - (Briefly) conductance based models
-Conductance based models are electrical and chemical representations of semi permeable neural membrane.  The phosholipid membrane of neurons is covered in a variety of pores called channels and each pore can permit the passage of molecular ions at specific rates, and some times those rates can vary in proportion to other electrical properties in membrane surface adjacent to the channel. In conductance based models ion channels are represented as differential equations which explicitly represent the rate at which ion channels conduct ions. Conductance based models differ in their spatial extant. In its most basic form a conductance based model, could can be a single point (in this case the model is so abstract that it dispenses with the notion of space in nervous tissue). In a large variety of conductance based models the 3D form of neural membrane is "modelled", but it is approximated by using elaborate systems of 2D branching patterns. \cite{rall1962electrophysiology} Rall pionered the digitization and discretization of 3D hodgkin huxley models. Rall took numerical methods used for modelling heat and electrical conductance in cables, and he showed that you could generalize this approach to 3D trees made from cables.
-\\
+Conductance based models are electrical and chemical representations of semi permeable neural membrane.  The phosholipid membrane of neurons is covered in a variety of pores called channels and each pore can permit the passage of molecular ions at specific rates, and some times those rates can vary in proportion to other electrical properties in membrane surface adjacent to the channel. In conductance based models ion channels are represented as differential equations which explicitly represent the rate at which ion channels conduct ions. Conductance based models differ in their spatial extant. In its most basic form a conductance based model, could can be a single point (in this case the model is so abstract that it dispenses with the notion of space in nervous tissue). In a large variety of conductance based models the 3D form of neural membrane is "modelled", but it is approximated by using elaborate systems of 2D branching patterns. \cite{rall1962electrophysiology} Rall pionered the digitization and discretization of 3D hodgkin huxley models. Rall took numerical methods used for modelling heat and electrical conductance in cables, and he showed that you could generalize this approach to 3D trees made from cables.\\
 \\
 %often inside the surface of a 3 dimensional neuron. 
 Each ion channel is modelled by a set of differential equations that represent how conductance changes with time. In the context of realistic 3D modelling, conductance based model are very slow to solve because they contain so much detailed biophysics. For instance the thickness of neurons can change along their arbors. Voltage dependant ion channels are distributed along the branching neurite in varying density.\\
@@ -46,12 +50,10 @@ Each ion channel is modelled by a set of differential equations that represent h
 % - Reduced models
 Reduced Models by contrast ignore neuron biophysics. The 3D form of real neurons is replaced by a dimensionless point. The electrical behavior of neurons is represented by a very simple equation that takes input parameters.
 
-\subsubection{The Leaky Integrate Integrate and Fire Model and GLIF}
-% Natural Progression of model explanation: LIF, GLIF, Adexp, Qaudratic Integrate and fire (izhi).
-
-% Now appropriately situated into  the section on reduced models
-\subsubection{The Adaptive Exponential Integrate and Fire (Adexp) model} \cite{brette2005adaptive}, is another type of reduced neural model. The Adexp model is a special instance of leaky integrate and Fire model which most often appears with an exponential spike shape. The models instantaneous spiking rate is calculated via a consulting finite time "windows" into the neurons recent spike history. Adaption is achieved by looking back into the window and counting the number of spikes that occurred in the previous $10ms$, for example. Although this model is potentially fast, often python implementations of it are slow due to code that was written to make running populations of many neurons fast, at the expense of running single neurons. Forinstance Brian2, and a related tool neurodynamics, have code for running Adexp neurons, however brian2 has network c-level cython code that interferes with DEAP python code. 
-
+\subsubsection{The Leaky Integrate Integrate and Fire Model and GLIF}
+Natural Progression of model explanation: LIF, GLIF, Adexp, Qaudratic Integrate and fire (izhi). Now appropriately situated into  the section on reduced models
+\subsubsection{The Adaptive Exponential Integrate and Fire (AdExp) model} \cite{brette2005adaptive}, is another type of reduced neural model. The Adexp model is a special instance of leaky integrate and Fire model which most often appears with an exponential spike shape. The models instantaneous spiking rate is calculated via a consulting finite time "windows" into the neurons recent spike history. Adaption is achieved by looking back into the window and counting the number of spikes that occurred in the previous $10ms$, for example. Although this model is potentially fast, often python implementations of it are slow due to code that was written to make running populations of many neurons fast, at the expense of running single neurons. Forinstance Brian2, and a related tool neurodynamics, have code for running Adexp neurons, however brian2 has network c-level cython code that interferes with DEAP python code.\\
+\\
 The Izhikevich model and the adaptive exponential integrate and fire model, are both related to simple Integrate and Fire model. The Izhikevich model takes a current injection value, and a capacitive current, a membrane potential is created by integrating an equation $\frac{d V_{M}}{dt}$. The Izhikevich model has quadratic multiplicative terms. The GLIF and the AdExp models have exponential multiplicative terms.
 
 
@@ -73,8 +75,6 @@ It is possible to infer some unknown measurements by finding a set of parameters
 The process of optimization involves what is known as an ‘inverse’ problem. A naive approach to solving this inverse optimization problem works on the principle of elimination. A large number of unsatisfactory states must be sampled, to rule out the a current sample is not worse than another sample. Unfortunately solving these equations is sometimes computationally intractable.\\
 
 %for the ‘optimal’ value of an parameter that satisfies the system of equations. An optimal value corresponds to a global minimum or maximum value of a function.\\*
-
-\\
 Fortunately a stochastic technique has emerged where we can efficiently and sparsely search
 
 % Describe here what such a function might look like, i.e. what would that function be measuring, generally?
@@ -101,18 +101,19 @@ In the context of genetic algorithms, a gene is the complete set of model parame
 The most important type of cross over to understand is binary cross-over. In a population of genes you can create many pairs of genes. You can take just a few of the possible pairs, and represent the each parameter in the gene as a binary number, then at random bit positions in the number, you can swap the swap or exchange the status of the bit in each gene. It's possible that both bits will be the same such that swapping does nothing, however there are many oppurtunities for this cross over event to occur, and it is not the only possibility to stochastically perturb the value of a gene.
 \subsubsection{mutation}
 Likewise mutation can also be understood in terms of the binary representation of a floating point number. A model parameter can take values in a particular range (0.1$\mu$, 0.5$\mu$). When the parameter value say 0.44 $\mu$ is represented in binary encoding. A bit at a random mutation is simply toggled, the magnitude of mutation in float number depends on the position of the bit that was toggled.
-
+\begin{figure}
 \includegraphics[]{figures/rastagrind.jpg}
+\end{figure}
 
 %optimization
 
 Computational optimization techniques are often specific to a particular type of problem rather than being generalized. However, several notable algorithms have solved a wide range of problems including genetic algorithms and stochastic gradient descent (SGD). The popularity of these two algorithms is due to their robustness. Genetic Algorithms and SGD are able to avoid falsely reporting a local minimum when a more optimal solution is available.\\*
 \\
-Stochastic gradient descent, and Genetic Algorithms both utilize concepts like mini-batches, random pertubation (mutation) and combining the concept of average fitness with stochasticity. 
+Stochastic gradient descent, and Genetic Algorithms both utilize concepts like mini-batches, random pertubation (mutation) and combining the concept of average fitness with stochasticity. \\
 
 
-to sub-optimal code.\\
-\\
+%to sub-optimal code.\\
+%\\
 
 % Move this up to precede a description of specific algorithms.  Multiobjective could apply to gradient descent as well.  You can then refer back to this when you talk specifically about algorithms like NSGA in the "genetic optimization" section.
 \subsection{Multiobjective optimization} Multi objective optimization problems are a subset of optimization problems. In a multiobjective optimisation model fitness is evaluated against multiple constraints rather than just one constraint. A constraint is often an implementation of a mathematical function, very often the function seeks to difference a part of a signal that was sampled with a matching part of a known.\\
@@ -193,5 +194,95 @@ The large-scale meta-analysis described here has not been performed previously. 
 \\
 Similarly, numerous modeling efforts have employed data-driven testing in model development workflows, but all these efforts have been based on non-standard ‘in-house’ model types and execution environments. In contrast, this work proposes to expand a pre-existing standardized model testing space, NeuronUnit, that supports model validation and re-use regardless of the model source. To date various NeuronUnit tests of action potential shape, electrical properties, and single cell morphologies exist; yet these tools are not unified. Some tests of network dynamics also currently exist; however, these tests are not integrated into a unified multiscale workflow. Although the work I describe only concerns single cell models in isolation, significantly, a unified workflow for exploring model data agreement would better locate errors in network behavior which are manifest at the network level but are caused by neuron-type models. \newline
 \newline
+
+\chapter{Introduction}
+
+\subsection*{Motivation for Reduced Models of electrically excitable cortical cells}
+
+Multi-compartment conductance based models consist of fine grained biophysical models of neuron membrane including ion channel conductance, and membrane shape and form. These biophysical models take a significant time and computer resources to evaluate. A different class of neuronal model, known as a "Reduced model" is comparatively fast to solve. Speed, empirical validity, are among the two biggest constraints affecting the design of cortical brain models. 
+% Further more reproducibility and accessibility are increasingly regarded as important model design constraints too., and they will also be addressed in this work. 
+
+Brief duration model evaluations are critical to brain network simulation speed, as each of many models must be evaluated synchronously according to a global network clock, and there is a high dependency between the states of different models. Network simulation is only as fast as the slowest model, because (if you are waiting for one neuron to evaluate, the whole network will need to wait, as its state may depend on that neuron). Since these constraints are in direct conflict with each other, many scientists are interested in the finding the most optimal resolution to this speed/accuracy trade-off.\\ 
+\\
+The work herein is aligned with one particular approach to the trade-off. To make data specific versions of simpler models, such that simpler models better mimic experimentally observed electrical measurements. To understand this approach to improving model speed and accuracy, it is important to be familiar with the concept of reduced neural models. Some types of neural models are mimic neurons across many different forms and scales.\\
+\\
+This approach contrasts with other existing approaches to neuronal model optimization. Shape, and ephysiology based approach in contrast to a spike timing approach. 
+\\
+Examples of reduced models are:
+Point conductance based model, Adaptive Exponential Integrate and Fire model, and Izhikevich model, and in fact, these are the only reduced models considered in the scope of this document.\\
+\\
+These models are easier faster to evaluate, but they are also easier to understand.
+
+% I will discuss each different model in its own section.
+\subsubsection{Importance of Simulation Duration}
+speed of model evaluation is a critical factor for learning things from brain simulations. Digital modeling of physical properties of cells is occurring at the mesoscopic scale, however adding microscopic features to simulations significantly increases simulation time. Even when using High Performance Computing developing simulations involves a debugging errors in different modalities, sometimes the computer program needs correcting, but at other times the scientific expectations about neural dynamics might be wrong. The maths might be wrong. To correct for any mistakes, feedback in the form of observed model behavior, is essential, for the development of the model itself, and short simulation durations are critical to this.\\
+\\
+The are several valid instances when the complete three dimensional form of a neuron is an integral part of a brain simulation, such as in the Blue Brain somato-sensory cortex model \cite{} and the Allen Institute $V1$ model \cite{}, These simulations are improved by encasing a "core" of biophysically accurate models inside a "shell" of simple fast and reduced Izhi, GLIF, or AdExp models.\\ 
+\\
+Encasing a core of complex models inside a shell of simplified models mitigates an observable "edge effect" problem. The problem is that simulations concern sub divisions of brain tissue, subdivisions by nature exclude externally sourced synaptic inputs. These synaptic inputs are connections that are severed by the process of making a subdivision. All published highly detailed simulations to date, have necessitated the simulation of severed volumes of tissue, and this creates another problem to manage.\\
+\\
+%There is a core of models of realistic models who are missing a substantial number of "extrinsic" synaptic inputs. 
+Almost all cortical neurons experience "tonic" synaptic input and these tonic inputs originate from neurons from a different part of the brain. One strategy for handling inputs that are external to the region of interest, is to simply model spike trains for each input synapse. Modern programming languages have tools that can make matching the synthesis of statistically similar spike trains convenient. One big problem with this approach is it assumes that post synaptic neurons are mainly influenced by the firing rate of inputs, if they pre synaptic neurons are actually conveying important code words via exact interspike intervals, a statistical approach to modelling spike trains would not do.
+
+%An alternative approach is to reduce the complexity of neural models as one exceeds the boundary of the region of interest.
+
+%than generating only psuedo random timed inputs to synapses, 
+In the case of the Allen Institute Model, if the region of interest V1 is a "core" of realistic neurons. That is a kernel of realistic neurons encased by a shell of less realistic neurons. Inputs to V1 also come from the outer encasement of neurons. It is therefore of interest if these external GLIF models can or should be substituted with optimized Izhikivich and Adexp models, in case substiting GLIF for Adexp results in an overall more realistic network simulation. that even the external shell of the simulation is more realistic. In network models there are benefits of reduced models compared to merely simulating spike train inputs. One of these benefits is that the firing of reduced neural models can be made to be causal, such that its spike times are not just what statistically matches missing models. Furthermore reduced models can still participate in networks, reduced models can become disconnected or participate in an dynamic assembley. Realistic levels of plasticity of the modelled network is more possible with included reduced models, than statistical surrogates of those models.
+
+Furthermore Izhikivitch, GLIF and AdExp models are commonly utilized in neuromorphic archictecture.
+
+%\subitem 
+optimization is an interaction between models and constraints which guides a fitting process. Not all neural models are equally flexible.  
+%\item  
+Both the choice of constraining equations, and the choice of neural models must be favorable in order for models to be fitted to data.
+%\item 
+%\subitem 
+if the combination of models and constraints is bad, then then a tractible error surface will not result.  
+
+%\subsubitem 
+Unfortunately, it is not always possible to know without trying which combinations of \subitem[A]: neural models, and \subitem[B], constraints will lead a tractable error surface that a Genetic Algorithms can use to find a global solution to. As an example consider  
+
+I describe some code implementation experiments were the model/constraint combination lead to DEAP genetic algorithms matching model parameters to constraints and model/constraint selections that lead to optimizer performing only marginally better than a random search of parameter space\\
+\\
+\item If the number of dimensions that are searched exceeds the degree and the effectiveness of constraints, then model optimization is only slightly better than random sampling of solution space.
+
+\subsection*{Successful Optimization} 
+Successful Optimization is more likely to occur about by a good selection of models and objective function combinations. 
+\item How model constraint combinations interact cannot always be known in advance, and yet the interaction can be assessed by attempting to optimize on the pair. Experimenting of model test combinations is what was done in this body of work.
+
+Efficient model examples: (generalized leaky integrate and fire model) GLIF, Izhikitch. Adaptive Exponential Integrate and fire model, single compartment conductance based model. 
+
+\item You could make biophysically accurate models faster, or you could make reduced models more accurate. To make reduced models more accurate, you would find parameterizations of the models that let the models act as better mimics of experiments.
+\item Herein we investigate how well Faster models can match experimental recording waveform shapes.
+\item The reason why we want to investigate the match:
+\item Large scale simulations cant evaluate on a timescale that is meaningful, unless a large ratio of modelled cells are "reduced models"
+\item Reduced Models already enjoy wide spread usage. We want to investigate if reduced models can be made to be more realistic, by checking if they can mimic data better.
+\item If reduced models can't be made more realistic (herein we show only marginal improvements), we need to show the limitations of reduced cells, with regards to a particular set of tests.
+\item We need to document the approach used, and how the approach contrasts with spike time approaches to model fitting.
+\end{itemize}
+
+\subsection{Optimizing multispiking Behavior}
+\begin{itemize}
+\item First with $2$ constraints, then with $>100$ constraints via the feature extraction suite EFEL
+
+\item This is a two staged approach. 
+\item It uses three step protocols.
+
+\item In a multispiking paradigm you can see a high variance explained ratio of approx $1$.  
+
+\item In this two stage algorithm: I optimize, using constraints: spike count at injection strength $1.5 \times rheobase $, and $3.0 \times rheobase $
+I do a quick check of spike counts at 1.5 and 3.0 rheobase (2 constriants only).
+
+\item In this scenario Rheobase is used only as a soft constraint. Firstly we optimize the model to spike count data we very rapidly narrow down the solution space using only two errors. \\
+\\
+In a second code experiment I use the standard NU suite, for a lot of generations. In the figure below
+%%
+% Figure
+%%
+Caption in this figure there is visibly almost perfect agreement between simulated and experiments, and the optimized models, in the passive model behavior, and a close match for the spiking model behavior. There was a standard suite of tests if only spike-half-width, not spike-base-width. The Izhi models width as thus free to vary at the base, take that into account when eye balling the two graphs and you can see why almost binary match. EFEL does achieve spike width binary matching because it uses both half-width, and base-width. If you look at the last cells you can see I take a correlation matrix of the optimizers errors over its history. The idea is if it's normalized then I can sum the whole matrix and get a single scaler number to show how de-correlated both error sets are over the GA evolution. 
+
+It was found that the elephant/neuroelectro-suite of NU tests don't fully constrain the "base spike width" of the waveform which is free to vary, half-spike-width is constrained, it is more appropriate to talk about variance explained of the spike snippet. $variance explained>0.95$ is a useful heurism. Allowing some margin acknowledges that we shouldn't assume we have represented all waveform features that can vary. If you want variance explained ==1   you could optimize using a variance explained cost function, but we don't want to do that. 
+\end{itemize}
+
 
 % Add a section about model databases and the opportunities they will make available to you.  Describe how we don't really know whether the models in these databases match the experimental data they claim to recapitulate.  Describe some of the specific challenges in using "in house" data.
