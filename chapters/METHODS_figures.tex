@@ -1,12 +1,12 @@
 
-Move 1.2.2 Distinction of Approaches to here.
+%Move 1.2.2 Distinction of Approaches to here.
 
 \subsection{Solution Diversity in the Multi objective Paradigm}
 
 
 We made a choice in algorithm design that would promote diversity of optimised model solutions.
 
-in the multi objective paradigm.
+%in the multi objective paradigm.
 
 In an eight objective error function there are eight different ways for one score to be significantly better than the rest of the scores, and many different ways for the sum of two or more scores to be significantly better than one of the error scores. Although you are expecting diverse solutions its often practical to take just pick the most optimal model solution.
 
@@ -17,9 +17,10 @@ In order to promote diversity in the models of particular cell types we took on 
 \subsection{Rheobase as a Soft Constraint}
 One major difference in our methodological approach was to promote diversity among candidate solutions to optimisation problems. 
 of rheobase 
+%\graphicspath{figures}
 \begin{figure}    
 \begin{center}
-\includegraphics[width=0.7\linewidth]{figures/rheobase_algorithm.png}
+\includegraphics[width=0.7\linewidth]{chapters/figures/rheobase_algorithm.png}
 \caption{We developed a generic algorithm which took models, and found the minimal current injection value that would cause only one spike. The normal structure of this algorithm is a binary search, however we modified the algorithm so it would map onto multiple processors at once. This lead to significant speed ups for multicompartment NEURON models}
 
 \end{center}
@@ -27,8 +28,13 @@ of rheobase
 
 \begin{figure}    
 \begin{center}
-\includegraphics[width=0.7\linewidth]{figures/software_architecture.png}
+\includegraphics[width=0.7\linewidth]{chapters/figures/software_architecture.png}
 \caption{In the process of performing the analysis in this work, we expanded an existing neuron model optimisation frame work BluePyOpt \cite{bluepyopt}, by adding in workflows to handle different and elaborate constraint functions and different and elaborate models. and found the minimal current injection value that would cause only one spike. The normal structure of this algorithm is a binary search, however we modified the algorithm so it would map onto multiple processors at once. This lead to significant speed ups for multicompartment NEURON models}
 
 \end{center}
 \end{figure}
+
+
+
+\includegraphics[width=0.7\linewidth]{chapters/figures/software_architecture}
+

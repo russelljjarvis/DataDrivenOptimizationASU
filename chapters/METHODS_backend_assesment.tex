@@ -86,56 +86,63 @@ Custom implementation JIT enabled implementation: $4.0s$.
 Brian2 taken to find Rheobase: $4.40s$ (serial), $3.976s$ (parallel).
 
 The evaluation times between Brian2 and the custom written
-integrator are similar. Both have average runs of approximately 4 seconds, however the spike shape derived from the custom implementation look more realistic under initial/default paramaterizations, and the realism of default model paramaterization actually has consequences for model optimization speed.\\
+integrator are similar. Both have average rheobase solution times of approximately 4 seconds, however the spike shape derived from the custom written integrator look more realistic under default paramaterizations. The biological plausibility of default model paramaterization has consequences for model optimization speed, because when  models undergo mutation and cross-over the mean of random models regressors towards the default model initialization, and if the default model is a bad fit to data, the average model sampled by the genetic algorithm will also be bad to data.\\
 
-    \begin{center}
-    \begin{figure}
-    \includegraphics{figures/backend_check_files/backend_check_4_2.png}
-    \end{figure}
-    \end{center}
+\begin{center}
+\begin{figure}
+\includegraphics{chapters/figures/backend_check_files/backend_check_4_2.png}
+\caption{Default model parameterization of the custom written integrator}
+\end{figure}
+\end{center}
+
 
 \begin{center}
 \begin{figure}
 
-    \includegraphics{figures/backend_check_files/backend_check_12_10.png}
+    \includegraphics{./chapters/figures/backend_check_files/backend_check_12_10.png}
+\caption{Model parameterization of the brian2 simulator with the customization: interpolated spike height, forced to be above $0mV$}
 \end{figure}
 
 \end{center}
     
 \begin{verbatim}
     272 ms +- 66.5 $/mu$s per loop (mean +- std. dev. of 2 runs, 1 loop each)
-    303 ms +- 10.9 ms per loop (mean +- std. dev. of 2 runs, 1 loop each)
-    342 ms +- 11 ms per loop (mean +- std. dev. of 2 runs, 1 loop each)
 \end{verbatim}
 
 The next model to be evaluated is the NEURON Izhi model. The NEURON Izhi model has various draw backs. 1. It depends on an external file which must be recompiled each time this project is recreated. 2. The build environment of NEURON is non-trivial, and only a super dedicated NEURON modeller would install it on their system. Any performance advantage of using NEURON investment does not exceed the installation cost of installing the program. 3. The model implementation code is less generalizable than than the published Izhi model itself. Where the standard NEURON-NeuroML code only covers the Regular-Spiking model * This is likely due to a name space conflict between Capacitance. Neuron has a `capacitive' mechanism inside modelled Neurons, this particular model has section capacitance as well as an introduced capacitive term inside a C-compiled mechanism. Both contribute to a the membrane
 potential calculation. * The NEURON Izhi model took $78$ seconds to find the rheobase current injection value.
     
-\begin{center}
-    \includegraphics{figures/backend_check_files/backend_check_14_2.png}
-\end{center}
+%\begin{center}
+ %   \includegraphics[width=0.7\textwidth,]{chapters/figures/backend_check_files/backend_check_14_2.png}
+%    \caption{where is picture}
+%\end{center}
 
 
-\begin{verbatim}
-51.79367065 * $pA$
-\end{verbatim}
-        
+\begin{figure}
+    \centering
+    \includegraphics{chapters/normal_distribution.png}
+    \caption{This is your image}
+    \label{fig:my_label}
+\end{figure}
 
+
+$ 51.79367065 * pA $
+
+
+% https://www.overleaf.com/learn/how-to/Images_not_showing_up 
 
 \section{Parallel Rheobase}
 
 
 \begin{figure}    
   \begin{center}
-  \includegraphics[width=0.7\linewidth]{figures/rheobase_algorithm.png}
+  \includegraphics[width=0.7\linewidth]{{figures/rheobase_algorithm.png}}
     \caption{We developed a generic algorithm which took models, and found the minimal current injection value that would cause only one spike. The normal structure of this algorithm is a binary search, however we modified the algorithm so it would map onto multiple processors at once. This lead to significant speed ups for multicompartment NEURON models}
 
   \end{center}
 \end{figure} 
 
-Algorithm was able to speed up this slow NEURON unit code. 73/19
-represents a substantial speed up. of about 3.8. This is consistent with
-previous work
+Algorithm was able to speed up this slow NEURON unit code. $ \frac{73}{19} $ represents a substantial speed up. of about 3.8. This is consistent with previous work
 
 \begin{verbatim}
 \{'value': array(51.79317142) * pA\}
@@ -172,7 +179,7 @@ time taken on block $ 12.6s $
 \end{verbatim}
 
 \begin{center}
-\includegraphics{backend_check_files/backend_check_22_2.png}
+\includegraphics{{backend_check_files/backend_check_22_2.png}}
 \end{center}
 
 \begin{verbatim}
@@ -200,9 +207,13 @@ time taken on block 8.573923826217651
     \end{verbatim}
 
 
-    
+    %\graphicspath{ {../figures/} }
     \begin{center}
-\includegraphics{figures/backend_check_files/backend_check_26_2.png}
+    \begin{figure}
+    \includegraphics{chapters/figures/backend_check_files/backend_check_26_2.png}
+    %kend_check_files/backend_check_26_2.png}
+    \end{figure}
+    
     \end{center}
 \begin{verbatim}
 112.5 pA
