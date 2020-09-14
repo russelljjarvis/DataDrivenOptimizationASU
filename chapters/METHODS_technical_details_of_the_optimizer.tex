@@ -30,9 +30,9 @@ In a large scale analysis of variance between models and data see section large_
 
 \href{run:./RESULTS_large_scale_variance.tex}{RESULTS_large_scale_variance.tex}
 
-
-
+\begin{verbatim}
 'AHP_depth_abs_3.0x','sag_ratio2_3.0x','ohmic_input_resistance_1.5x','sag_ratio2_1.5x','peak_voltage_3.0x','peak_voltage_1.5x','voltage_base_3.0x','voltage_base_1.5x','Spikecount_1.5x','Spikecount_3.0x','ohmic_input_resistance_vb_ssse_1.5x'
+\end{verbatim}
 
 
 \item Unlike in BluePyOpt \cite{Werner} and Allen Institute optimization workflows \cite{gouwens} rheobase current injection was applied is a soft constraint. 
@@ -46,7 +46,7 @@ However, this work differs from other work in that rheobase current injection wa
 
 
 \begin{figure}
-	\includegraphics[width=\maxwidth{\textwidth}]{figures/normal_distribution.png}
+	\includegraphics[width=\maxwidth{\textwidth}]{chapters/figures/normal_distribution.png}
     \caption{Error functions were evaluated with the assistance of a library: \emph{NeuronUnit} 
     were based on finding a normal distribution on electro physiology measurements, 
     and then measuring model outputs and mapping the model behavior onto
