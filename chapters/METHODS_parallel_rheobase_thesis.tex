@@ -1,0 +1,43 @@
+  
+
+    
+    Below I show that for many classes of neuron models using a parallel
+Rheobase algorithm adds a significant speed up to model evaluation. It
+is important to consider that determinig rheobase usually involves
+between 10-35 model simulations at different current injection
+strengths. Where is the remaining error score calculations only invole
+at most one simulation each. Consider an optimization problem where
+there are only eight error scores to calculate, and four of the eight
+errors are for non spiking simulations of less than 500ms, a rheobase
+simulation is for 1200ms, and it involves both non-spiking and
+multi-spiking behavior. Multi-spiking models take longer to simulate
+than non spiking models for technical reasons. In this particular
+instance where finding the unique rheobase value for each different gene
+is important, that rheobase determination is the biggest computational
+bottleneck.
+
+It is also important to consider that the speed of model simulation is
+often determined by the exact parameterization of the model in question.
+During optimization parameterization frequently changes. Multi-spiking
+models that are slower to evaluate are frequently sampled by a genetic
+algorithm optimizer.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+    time taken on block 4.555711984634399
+    time taken on block 18.55247473716736
+    parallel Rheobase search time NEURON  4.831164836883545
+    serial Rheobase search time NEURON  18.69422459602356
+    speed up 3.8695066774170974
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+    time taken on block 0.7909517288208008
+    elapsed serial:  0.7914438247680664
+    time taken on block 0.2581171989440918
+    elapsed parallel:  0.2590057849884033
+    speed up parallel:  3.055699411515084
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
