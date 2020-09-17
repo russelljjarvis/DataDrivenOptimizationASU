@@ -2,19 +2,21 @@
 \subsection{Agreement between Model Electrical Features NeuroElectro Experiment Features}
 
 \begin{markdown}
-### Pipe Tables
-
-- Use `pipeTables` and `tableCaptions` options
-- Available since `markdown` v2.8.0
-
 | Right | Left | Default | Center |
 |------:|:-----|---------|:------:| 
 |  12   |  12  |  12     |   12   | 
 | 123   |  123 |   123   |  123   | 
 |   1   |    1 |     1   |    1   | 
-
-  : Demonstration of pipe table syntax.
 \end{markdown}
+
+
+
+
+\begin{verbatim}
+   chi\_square   p\_value
+    2.125091  0.976935
+\end{verbatim}
+
 
 \setlength{\arrayrulewidth}{1mm}
 \setlength{\tabcolsep}{18pt}
@@ -22,52 +24,20 @@
 
 \begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
  \hline
- \multicolumn{4}{|c|}{Country List} \\
+ \multicolumn{4}{|c|}{Test Suite Results} \\
  \hline
- Country Name     or Area Name& ISO ALPHA 2 Code &ISO ALPHA 3 Code&ISO numeric Code\\
+ NeuroElectro Test Name & observations  & predictions & Z-score \\
  \hline
- Afghanistan   & AF    &AFG&   004\\
- Aland Islands&   AX  & ALA   &248\\
- Albania &AL & ALB&  008\\
- Algeria    &DZ & DZA&  012\\
- American Samoa&   AS  & ASM&016\\
- Andorra& AD  & AND   &020\\
- Angola& AO  & AGO&024\\
+ RheobaseTest   & AF    &AFG&   004\\
+ InputResistanceTest &   AX  & ALA   &248\\
+ TimeConstantTest &AL & ALB&  008\\
+ CapacitanceTest    &DZ & DZA&  012\\
+ RestingPotential &   AS  & ASM&016\\
+ APWidthTest & AD  & AND   &020\\
+ APThresholdTes t& AO  & AGO&024\\
  \hline
 \end{tabular}
 
-\begin{tcolorbox}%[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm]% opacityfill=0]
-\begin{Verbatim}
-   RheobaseTest  InputResistanceTest  TimeConstantTest  CapacitanceTest  
-      1.133177             0.444622          0.450915         0.029973
-
-   RestingPotentialTest  InjectedCurrentAPWidthTest  
-              0.012897                     0.16468
-
-   InjectedCurrentAPAmplitudeTest  InjectedCurrentAPThresholdTest
-                       0.003763                        0.512854
-\end{verbatim}
-\end{tcolorbox}
-
-\begin{verbatim}
-   chi\_square   p\_value
-    2.125091  0.976935
-\end{verbatim}
-
-\begin{tcolorbox}
-%[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\begin{verbatim}
-   RheobaseTest  InputResistanceTest  TimeConstantTest  CapacitanceTest  \textbackslash{}
-0      1.133177             0.444622          0.450915         0.029973
-
-   RestingPotentialTest  InjectedCurrentAPWidthTest  \textbackslash{}
-0              0.012897                     0.16468
-
-   InjectedCurrentAPAmplitudeTest  InjectedCurrentAPThresholdTest
-0                        0.003763                        0.512854
-\end{Verbatim}
-\end{tcolorbox}
-        
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \begin{Verbatim}[commandchars=\\\{\}]
                                          observations  \textbackslash{}
