@@ -362,6 +362,8 @@
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
     
     
+
+\begin{document}
     
     \maketitle
     
@@ -370,10 +372,69 @@
     
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \begin{Verbatim}[commandchars=\\\{\}]
-<pandas.io.formats.style.Styler at 0x7fa398f9ea50>
+name                           Hippocampus CA1 pyramidal cell  \textbackslash{}
+RheobaseTest                                        189.24 pA
+InputResistanceTest                               107.08 Mohm
+TimeConstantTest                                      24.5 ms
+CapacitanceTest                                       89.8 pF
+RestingPotentialTest                                -65.23 mV
+InjectedCurrentAPWidthTest                            1.32 ms
+InjectedCurrentAPAmplitudeTest                       86.36 mV
+InjectedCurrentAPThresholdTest                       -47.6 mV
+
+name                           Cerebellum Purkinje cell  \textbackslash{}
+RheobaseTest                                  680.79 pA
+InputResistanceTest                         142.06 Mohm
+TimeConstantTest                                    NaN
+CapacitanceTest                               620.27 pF
+RestingPotentialTest                          -61.59 mV
+InjectedCurrentAPWidthTest                      0.41 ms
+InjectedCurrentAPAmplitudeTest                 71.23 mV
+InjectedCurrentAPThresholdTest                -46.89 mV
+
+name                           Neocortex pyramidal cell layer 5-6      olf\_mit
+RheobaseTest                                            213.85 pA          NaN
+InputResistanceTest                                   120.67 Mohm  130.08 Mohm
+TimeConstantTest                                         15.73 ms     24.48 ms
+CapacitanceTest                                         150.58 pF    235.75 pF
+RestingPotentialTest                                    -68.25 mV    -58.14 mV
+InjectedCurrentAPWidthTest                                1.21 ms      1.61 ms
+InjectedCurrentAPAmplitudeTest                           80.44 mV      68.4 mV
+InjectedCurrentAPThresholdTest                          -42.74 mV     -38.9 mV
 \end{Verbatim}
 \end{tcolorbox}
         
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textbackslash{}begin\{tabular\}\{lllll\}
+\textbackslash{}toprule
+name \& Hippocampus CA1 pyramidal cell \& Cerebellum Purkinje cell \& Neocortex
+pyramidal cell layer 5-6 \&      olf\textbackslash{}\_mit \textbackslash{}\textbackslash{}
+\textbackslash{}midrule
+RheobaseTest                   \&                      189.24 pA \&
+680.79 pA \&                          213.85 pA \&          NaN \textbackslash{}\textbackslash{}
+InputResistanceTest            \&                    107.08 Mohm \&
+142.06 Mohm \&                        120.67 Mohm \&  130.08 Mohm \textbackslash{}\textbackslash{}
+TimeConstantTest               \&                        24.5 ms \&
+NaN \&                           15.73 ms \&     24.48 ms \textbackslash{}\textbackslash{}
+CapacitanceTest                \&                        89.8 pF \&
+620.27 pF \&                          150.58 pF \&    235.75 pF \textbackslash{}\textbackslash{}
+RestingPotentialTest           \&                      -65.23 mV \&
+-61.59 mV \&                          -68.25 mV \&    -58.14 mV \textbackslash{}\textbackslash{}
+InjectedCurrentAPWidthTest     \&                        1.32 ms \&
+0.41 ms \&                            1.21 ms \&      1.61 ms \textbackslash{}\textbackslash{}
+InjectedCurrentAPAmplitudeTest \&                       86.36 mV \&
+71.23 mV \&                           80.44 mV \&      68.4 mV \textbackslash{}\textbackslash{}
+InjectedCurrentAPThresholdTest \&                       -47.6 mV \&
+-46.89 mV \&                          -42.74 mV \&     -38.9 mV \textbackslash{}\textbackslash{}
+\textbackslash{}bottomrule
+\textbackslash{}end\{tabular\}
+
+    \end{Verbatim}
+
+    \hypertarget{experiment-neocortex-pyramidal-cell-layer-5-6-modelizhikevich}{%
+\section{Experiment: Neocortex pyramidal cell layer 5-6
+Model:IZHikevich}\label{experiment-neocortex-pyramidal-cell-layer-5-6-modelizhikevich}}
+
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \begin{Verbatim}[commandchars=\\\{\}]
    RheobaseTest  InputResistanceTest  TimeConstantTest  CapacitanceTest  \textbackslash{}
@@ -389,71 +450,20 @@
         
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \begin{Verbatim}[commandchars=\\\{\}]
-                                         observations  \textbackslash{}
-RheobaseTest                      213.849583333333 pA
-InputResistanceTest             120.672073643411 Mohm
-TimeConstantTest                  15.7342424242424 ms
-CapacitanceTest                   150.584166666667 pF
-RestingPotentialTest             -68.2481434599156 mV
-InjectedCurrentAPWidthTest        1.20769387755102 ms
-InjectedCurrentAPAmplitudeTest    80.4351020408164 mV
-InjectedCurrentAPThresholdTest   -42.7357232704403 mV
-
-                                              predictions    Z-Scores
-RheobaseTest                             45.0439453125 pA     1.13318
-InputResistanceTest             84.47885606885278 megaohm    0.444622
-TimeConstantTest                    12.284367934517713 ms    0.450915
-CapacitanceTest                      145.4135212781005 pF   0.0299731
-RestingPotentialTest                 -68.3530583578185 mV   0.0128969
-InjectedCurrentAPWidthTest          1.3100000000000003 ms     0.16468
-InjectedCurrentAPAmplitudeTest       80.49511842343712 mV  0.00376319
-InjectedCurrentAPThresholdTest       -38.5050967026868 mV    0.512854
-\end{Verbatim}
-\end{tcolorbox}
-        
-    \hypertarget{izhikevich-model-hippocampus-ca1-pyramidal-experiment.}{%
-\section{Izhikevich model Hippocampus CA1 pyramidal
-experiment.}\label{izhikevich-model-hippocampus-ca1-pyramidal-experiment.}}
-
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\begin{Verbatim}[commandchars=\\\{\}]
-   chi\_square   p\_value
-0    2.125091  0.976935
-\end{Verbatim}
-\end{tcolorbox}
-        
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\begin{Verbatim}[commandchars=\\\{\}]
-                                         observations  \textbackslash{}
-RheobaseTest                                189.24 pA
-InputResistanceTest             107.080327644332 Mohm
-TimeConstantTest                  24.5021946169772 ms
-CapacitanceTest                   89.7960714285714 pF
-RestingPotentialTest             -65.2261863636364 mV
-InjectedCurrentAPWidthTest        1.31895278450363 ms
-InjectedCurrentAPAmplitudeTest     86.364525297619 mV
-InjectedCurrentAPThresholdTest   -47.5985714285714 mV
-
-                                              predictions   Z-Scores
-RheobaseTest                           32.244873046875 pA   0.536865
-InputResistanceTest             97.76274731515429 megaohm   0.100485
-TimeConstantTest                     9.604335816193002 ms   0.717214
-CapacitanceTest                      98.24126346645974 pF   0.133624
-RestingPotentialTest                -65.55690901865944 mV  0.0554458
-InjectedCurrentAPWidthTest          1.2000000000000002 ms    0.16846
-InjectedCurrentAPAmplitudeTest       86.96668801838769 mV  0.0399524
-InjectedCurrentAPThresholdTest      -39.99765398466066 mV    1.12315
-\end{Verbatim}
-\end{tcolorbox}
-        
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\begin{Verbatim}[commandchars=\\\{\}]
-(AnalogSignal with 1 channels of length 130000; units mV; datatype float64
- sampling rate: 100.0 1/ms
- time: 0.0 s to 1.3 s,
- <module 'matplotlib.pyplot' from '/home/user/anaconda3/lib/python3.7/site-
-packages/matplotlib/pyplot.py'>,
- <neuronunit.optimisation.data\_transport\_container.DataTC at 0x7fa34d528310>)
+'\textbackslash{}\textbackslash{}begin\{tabular\}\{llll\}\textbackslash{}n\textbackslash{}\textbackslash{}toprule\textbackslash{}n\{\} \&           observations \&
+predictions \&    Z-Scores \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}midrule\textbackslash{}nRheobaseTest                   \&
+213.849583333333 pA \&                   45.04 pA \&     1.13318
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInputResistanceTest            \&  120.672073643411 Mohm \&
+84.47885606999999 megaohm \&    0.444622 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nTimeConstantTest               \&
+15.7342424242424 ms \&                   12.28 ms \&    0.450915
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nCapacitanceTest                \&    150.584166666667 pF \&
+0.0 pF \&   0.0299731 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nRestingPotentialTest           \&   -68.2481434599156
+mV \&                  -68.35 mV \&   0.0128969 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPWidthTest
+\&    1.20769387755102 ms \&                     0.0 ms \&     0.16468
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPAmplitudeTest \&    80.4351020408164 mV \&
+80.5 mV \&  0.00376319 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPThresholdTest \&   -42.7357232704403
+mV \&                  -38.51 mV \&    0.512854
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}bottomrule\textbackslash{}n\textbackslash{}\textbackslash{}end\{tabular\}\textbackslash{}n'
 \end{Verbatim}
 \end{tcolorbox}
         
@@ -464,7 +474,74 @@ packages/matplotlib/pyplot.py'>,
 
     
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{make_normal_distribution_files/make_normal_distribution_10_2.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{make_normal_distribution_files/make_normal_distribution_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{izhikevich-model-hippocampus-ca1-pyramidal-experiment.}{%
+\section{Izhikevich model Hippocampus CA1 pyramidal
+experiment.}\label{izhikevich-model-hippocampus-ca1-pyramidal-experiment.}}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\begin{Verbatim}[commandchars=\\\{\}]
+'\textbackslash{}\textbackslash{}begin\{tabular\}\{lrr\}\textbackslash{}n\textbackslash{}\textbackslash{}toprule\textbackslash{}n\{\} \&  chi\textbackslash{}\textbackslash{}\_square \&   p\textbackslash{}\textbackslash{}\_value
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}midrule\textbackslash{}n0 \&    2.125091 \&  0.976935
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}bottomrule\textbackslash{}n\textbackslash{}\textbackslash{}end\{tabular\}\textbackslash{}n'
+\end{Verbatim}
+\end{tcolorbox}
+        
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\begin{Verbatim}[commandchars=\\\{\}]
+'\textbackslash{}\textbackslash{}begin\{tabular\}\{llll\}\textbackslash{}n\textbackslash{}\textbackslash{}toprule\textbackslash{}n\{\} \&           observations \&
+predictions \&   Z-Scores \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}midrule\textbackslash{}nRheobaseTest                   \&
+189.24 pA \&                   32.24 pA \&   0.536865 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInputResistanceTest
+\&  107.080327644332 Mohm \&  97.76274731999999 megaohm \&   0.100485
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nTimeConstantTest               \&    24.5021946169772 ms \&
+9.6 ms \&   0.717214 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nCapacitanceTest                \&    89.7960714285714
+pF \&                     0.0 pF \&   0.133624 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nRestingPotentialTest
+\&   -65.2261863636364 mV \&                  -65.56 mV \&  0.0554458
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPWidthTest     \&    1.31895278450363 ms \&
+0.0 ms \&    0.16846 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPAmplitudeTest \&     86.364525297619
+mV \&                   86.97 mV \&  0.0399524
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPThresholdTest \&   -47.5985714285714 mV \&
+-40.0 mV \&    1.12315 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}bottomrule\textbackslash{}n\textbackslash{}\textbackslash{}end\{tabular\}\textbackslash{}n'
+\end{Verbatim}
+\end{tcolorbox}
+        
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\begin{Verbatim}[commandchars=\\\{\}]
+(AnalogSignal with 1 channels of length 130000; units mV; datatype float64
+ sampling rate: 100.0 1/ms
+ time: 0.0 s to 1.3 s,
+ <module 'matplotlib.pyplot' from '/home/user/anaconda3/lib/python3.7/site-
+packages/matplotlib/pyplot.py'>,
+ <neuronunit.optimisation.data\_transport\_container.DataTC at 0x7f9bc749d2d0>)
+\end{Verbatim}
+\end{tcolorbox}
+        
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{make_normal_distribution_files/make_normal_distribution_12_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\begin{Verbatim}[commandchars=\\\{\}]
+(AnalogSignal with 1 channels of length 80000; units mV; datatype float64
+ sampling rate: 100.0 1/ms
+ time: 0.0 s to 0.8 s,
+ <module 'matplotlib.pyplot' from '/home/user/anaconda3/lib/python3.7/site-
+packages/matplotlib/pyplot.py'>)
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{make_normal_distribution_files/make_normal_distribution_13_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -474,8 +551,9 @@ experiment.}\label{conductance-based-model-hippocampus-ca1-pyramidal-experiment.
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \begin{Verbatim}[commandchars=\\\{\}]
-   chi\_square   p\_value
-0   17.216463  0.027932
+'\textbackslash{}\textbackslash{}begin\{tabular\}\{lrr\}\textbackslash{}n\textbackslash{}\textbackslash{}toprule\textbackslash{}n\{\} \&  chi\textbackslash{}\textbackslash{}\_square \&   p\textbackslash{}\textbackslash{}\_value
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}midrule\textbackslash{}n0 \&   17.216463 \&  0.027932
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}bottomrule\textbackslash{}n\textbackslash{}\textbackslash{}end\{tabular\}\textbackslash{}n'
 \end{Verbatim}
 \end{tcolorbox}
         
@@ -483,53 +561,37 @@ experiment.}\label{conductance-based-model-hippocampus-ca1-pyramidal-experiment.
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \begin{Verbatim}[commandchars=\\\{\}]
-   chi\_square   p\_value
-0   17.216463  0.027932
-\end{Verbatim}
-\end{tcolorbox}
-        
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\begin{Verbatim}[commandchars=\\\{\}]
-   RheobaseTest  InputResistanceTest  TimeConstantTest  CapacitanceTest  \textbackslash{}
-0      0.104364              0.26776          0.909698         0.779279
-
-   RestingPotentialTest  InjectedCurrentAPWidthTest  \textbackslash{}
-0              0.263258                    2.539904
-
-   InjectedCurrentAPAmplitudeTest  InjectedCurrentAPThresholdTest
-0                        0.197484                        3.023183
-\end{Verbatim}
-\end{tcolorbox}
-        
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\begin{Verbatim}[commandchars=\\\{\}]
-                                         observations  \textbackslash{}
-RheobaseTest                                189.24 pA
-InputResistanceTest             107.080327644332 Mohm
-TimeConstantTest                  24.5021946169772 ms
-CapacitanceTest                   89.7960714285714 pF
-RestingPotentialTest             -65.2261863636364 mV
-InjectedCurrentAPWidthTest        1.31895278450363 ms
-InjectedCurrentAPAmplitudeTest     86.364525297619 mV
-InjectedCurrentAPThresholdTest   -47.5985714285714 mV
-
-                                               predictions  Z-Scores
-RheobaseTest                                      225.0 pA  0.104364
-InputResistanceTest             130.26055973925207 megaohm   0.26776
-TimeConstantTest                      6.518945502058039 ms  0.909698
-CapacitanceTest                       50.04542829469856 pF  0.779279
-RestingPotentialTest                -63.787552448611955 mV  0.263258
-InjectedCurrentAPWidthTest                         0.25 ms    2.5399
-InjectedCurrentAPAmplitudeTest        89.14231395773962 mV  0.197484
-InjectedCurrentAPThresholdTest      -62.833162761594465 mV   3.02318
+(AnalogSignal with 1 channels of length 32001; units mV; datatype float64
+ sampling rate: 40.0 1/ms
+ time: 0.0 s to 0.800025 s,
+ <module 'matplotlib.pyplot' from '/home/user/anaconda3/lib/python3.7/site-
+packages/matplotlib/pyplot.py'>)
 \end{Verbatim}
 \end{tcolorbox}
         
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{make_normal_distribution_files/make_normal_distribution_18_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{make_normal_distribution_files/make_normal_distribution_18_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\begin{Verbatim}[commandchars=\\\{\}]
+'\textbackslash{}\textbackslash{}begin\{tabular\}\{llll\}\textbackslash{}n\textbackslash{}\textbackslash{}toprule\textbackslash{}n\{\} \&           observations \&
+predictions \&  Z-Scores \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}midrule\textbackslash{}nRheobaseTest                   \&
+189.24 pA \&              225.0 pA \&  0.104364 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInputResistanceTest
+\&  107.080327644332 Mohm \&  130.26055974 megaohm \&   0.26776
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nTimeConstantTest               \&    24.5021946169772 ms \&
+6.52 ms \&  0.909698 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nCapacitanceTest                \&    89.7960714285714
+pF \&                0.0 pF \&  0.779279 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nRestingPotentialTest           \&
+-65.2261863636364 mV \&             -63.79 mV \&  0.263258
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPWidthTest     \&    1.31895278450363 ms \&
+0.0 ms \&    2.5399 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPAmplitudeTest \&     86.364525297619 mV
+\&              89.14 mV \&  0.197484 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPThresholdTest \&
+-47.5985714285714 mV \&             -62.83 mV \&   3.02318
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}bottomrule\textbackslash{}n\textbackslash{}\textbackslash{}end\{tabular\}\textbackslash{}n'
+\end{Verbatim}
+\end{tcolorbox}
+        
     \hypertarget{adaptive-exponential-model-hippocampus-ca1-pyramidal-experiment.}{%
 \section{Adaptive Exponential Model Hippocampus CA1 pyramidal
 Experiment.}\label{adaptive-exponential-model-hippocampus-ca1-pyramidal-experiment.}}
@@ -541,52 +603,33 @@ Experiment.}\label{adaptive-exponential-model-hippocampus-ca1-pyramidal-experime
 
     
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{make_normal_distribution_files/make_normal_distribution_21_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{make_normal_distribution_files/make_normal_distribution_24_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \begin{Verbatim}[commandchars=\\\{\}]
-                    0
-chi\_square  10.232514
-p\_value      0.249084
+'\textbackslash{}\textbackslash{}begin\{tabular\}\{lr\}\textbackslash{}n\textbackslash{}\textbackslash{}toprule\textbackslash{}n\{\} \&          0 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}midrule\textbackslash{}nchi\textbackslash{}\textbackslash{}\_square
+\&  10.232514 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}np\textbackslash{}\textbackslash{}\_value    \&   0.249084
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}bottomrule\textbackslash{}n\textbackslash{}\textbackslash{}end\{tabular\}\textbackslash{}n'
 \end{Verbatim}
 \end{tcolorbox}
         
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \begin{Verbatim}[commandchars=\\\{\}]
-   RheobaseTest  InputResistanceTest  TimeConstantTest  CapacitanceTest  \textbackslash{}
-0      0.104364              0.26776          0.909698         0.779279
-
-   RestingPotentialTest  InjectedCurrentAPWidthTest  \textbackslash{}
-0              0.263258                    2.539904
-
-   InjectedCurrentAPAmplitudeTest  InjectedCurrentAPThresholdTest
-0                        0.197484                        3.023183
-\end{Verbatim}
-\end{tcolorbox}
-        
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\begin{Verbatim}[commandchars=\\\{\}]
-                                         observations  \textbackslash{}
-RheobaseTest                                189.24 pA
-InputResistanceTest             107.080327644332 Mohm
-TimeConstantTest                  24.5021946169772 ms
-CapacitanceTest                   89.7960714285714 pF
-RestingPotentialTest             -65.2261863636364 mV
-InjectedCurrentAPWidthTest        1.31895278450363 ms
-InjectedCurrentAPAmplitudeTest     86.364525297619 mV
-InjectedCurrentAPThresholdTest   -47.5985714285714 mV
-
-                                               predictions  Z-Scores
-RheobaseTest                                      225.0 pA  0.104364
-InputResistanceTest             130.26055973925207 megaohm   0.26776
-TimeConstantTest                      6.518945502058039 ms  0.909698
-CapacitanceTest                       50.04542829469856 pF  0.779279
-RestingPotentialTest                -63.787552448611955 mV  0.263258
-InjectedCurrentAPWidthTest                         0.25 ms    2.5399
-InjectedCurrentAPAmplitudeTest        89.14231395773962 mV  0.197484
-InjectedCurrentAPThresholdTest      -62.833162761594465 mV   3.02318
+'\textbackslash{}\textbackslash{}begin\{tabular\}\{llll\}\textbackslash{}n\textbackslash{}\textbackslash{}toprule\textbackslash{}n\{\} \&           observations \&
+predictions \&  Z-Scores \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}midrule\textbackslash{}nRheobaseTest                   \&
+189.24 pA \&              225.0 pA \&  0.104364 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInputResistanceTest
+\&  107.080327644332 Mohm \&  130.26055974 megaohm \&   0.26776
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nTimeConstantTest               \&    24.5021946169772 ms \&
+6.52 ms \&  0.909698 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nCapacitanceTest                \&    89.7960714285714
+pF \&                0.0 pF \&  0.779279 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nRestingPotentialTest           \&
+-65.2261863636364 mV \&             -63.79 mV \&  0.263258
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPWidthTest     \&    1.31895278450363 ms \&
+0.0 ms \&    2.5399 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPAmplitudeTest \&     86.364525297619 mV
+\&              89.14 mV \&  0.197484 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPThresholdTest \&
+-47.5985714285714 mV \&             -62.83 mV \&   3.02318
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}bottomrule\textbackslash{}n\textbackslash{}\textbackslash{}end\{tabular\}\textbackslash{}n'
 \end{Verbatim}
 \end{tcolorbox}
         
@@ -596,44 +639,25 @@ Model}\label{olfactory-mitral-cell-experiment-izhikevich-model}}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \begin{Verbatim}[commandchars=\\\{\}]
-                   0
-chi\_square  2.019044
-p\_value     0.980422
+'\textbackslash{}\textbackslash{}begin\{tabular\}\{lr\}\textbackslash{}n\textbackslash{}\textbackslash{}toprule\textbackslash{}n\{\} \&         0 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}midrule\textbackslash{}nchi\textbackslash{}\textbackslash{}\_square \&
+2.019044 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}np\textbackslash{}\textbackslash{}\_value    \&  0.980422 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}bottomrule\textbackslash{}n\textbackslash{}\textbackslash{}end\{tabular\}\textbackslash{}n'
 \end{Verbatim}
 \end{tcolorbox}
         
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \begin{Verbatim}[commandchars=\\\{\}]
-   InputResistanceTest  TimeConstantTest  CapacitanceTest  \textbackslash{}
-0             0.209574          0.178053         0.030453
-
-   RestingPotentialTest  InjectedCurrentAPWidthTest  \textbackslash{}
-0              0.297853                     0.19034
-
-   InjectedCurrentAPAmplitudeTest  InjectedCurrentAPThresholdTest
-0                        0.035634                        1.347693
-\end{Verbatim}
-\end{tcolorbox}
-        
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\begin{Verbatim}[commandchars=\\\{\}]
-                                         observations  \textbackslash{}
-InputResistanceTest             130.083333333333 Mohm
-TimeConstantTest                  24.4833333333333 ms
-CapacitanceTest                             235.75 pF
-RestingPotentialTest                    -58.140625 mV
-InjectedCurrentAPWidthTest                    1.61 ms
-InjectedCurrentAPAmplitudeTest                68.4 mV
-InjectedCurrentAPThresholdTest               -38.9 mV
-
-                                               predictions   Z-Scores
-InputResistanceTest             111.76440601217192 megaohm   0.209574
-TimeConstantTest                     26.351190325249217 ms   0.178053
-CapacitanceTest                      235.77444076765715 pF  0.0304534
-RestingPotentialTest                 -59.78177430465574 mV   0.297853
-InjectedCurrentAPWidthTest                         1.54 ms    0.19034
-InjectedCurrentAPAmplitudeTest         68.6158436132009 mV  0.0356342
-InjectedCurrentAPThresholdTest      -30.452468089353545 mV    1.34769
+'\textbackslash{}\textbackslash{}begin\{tabular\}\{llll\}\textbackslash{}n\textbackslash{}\textbackslash{}toprule\textbackslash{}n\{\} \&           observations \&
+predictions \&   Z-Scores \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}midrule\textbackslash{}nInputResistanceTest            \&
+130.083333333333 Mohm \&  111.76440601 megaohm \&   0.209574
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nTimeConstantTest               \&    24.4833333333333 ms \&
+26.35 ms \&   0.178053 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nCapacitanceTest                \&              235.75
+pF \&                0.0 pF \&  0.0304534 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nRestingPotentialTest           \&
+-58.140625 mV \&             -59.78 mV \&   0.297853
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPWidthTest     \&                1.61 ms \&
+0.0 ms \&    0.19034 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPAmplitudeTest \&                68.4
+mV \&              68.62 mV \&  0.0356342 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPThresholdTest \&
+-38.9 mV \&             -30.45 mV \&    1.34769
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}bottomrule\textbackslash{}n\textbackslash{}\textbackslash{}end\{tabular\}\textbackslash{}n'
 \end{Verbatim}
 \end{tcolorbox}
         
@@ -647,9 +671,9 @@ Model}\label{cerebellum-purkinje-cell-experiment-conductance-izhikevich-model}}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 INFO:\_\_main\_\_:gen       nevals  avg     std     min     max
-1       25      279.541 609.858 9.86573 2489.8
+1       25      283.92  609.608 9.86573 2489.8
 gen     nevals  avg     std     min     max
-1       25      279.541 609.858 9.86573 2489.8
+1       25      283.92  609.608 9.86573 2489.8
     \end{Verbatim}
 
     
@@ -657,3 +681,738 @@ gen     nevals  avg     std     min     max
 HBox(children=(FloatProgress(value=0.0, max=200.0), HTML(value='')))
     \end{verbatim}
 
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+INFO:\_\_main\_\_:2         15      207.01  482.108 9.86573 2489.8
+2       15      207.01  482.108 9.86573 2489.8
+INFO:\_\_main\_\_:3         13      234.502 492.021 9.86573 1602.87
+3       13      234.502 492.021 9.86573 1602.87
+INFO:\_\_main\_\_:4         9       400.12  568.1   9.86573 1382.52
+4       9       400.12  568.1   9.86573 1382.52
+INFO:\_\_main\_\_:5         9       42.1292 81.4942 9.86573 362.65
+5       9       42.1292 81.4942 9.86573 362.65
+INFO:\_\_main\_\_:6         12      125.101 265.334 9.83896 1084.62
+6       12      125.101 265.334 9.83896 1084.62
+INFO:\_\_main\_\_:7         14      176.528 324.541 9.83896 1084.62
+7       14      176.528 324.541 9.83896 1084.62
+INFO:\_\_main\_\_:8         14      168.13  297.956 9.83896 983.739
+8       14      168.13  297.956 9.83896 983.739
+INFO:\_\_main\_\_:9         6       75.6847 170.145 9.83896 959.696
+9       6       75.6847 170.145 9.83896 959.696
+INFO:\_\_main\_\_:10        10      24.539  27.7173 9.83896 120.061
+10      10      24.539  27.7173 9.83896 120.061
+INFO:\_\_main\_\_:11        13      19.0063 14.185  9.83896 109.575
+11      13      19.0063 14.185  9.83896 109.575
+INFO:\_\_main\_\_:12        15      24.7802 21.7875 9.83896 109.575
+12      15      24.7802 21.7875 9.83896 109.575
+INFO:\_\_main\_\_:13        9       18.4583 14.0616 9.83896 109.575
+13      9       18.4583 14.0616 9.83896 109.575
+INFO:\_\_main\_\_:14        13      25.5088 25.0195 9.83896 109.575
+14      13      25.5088 25.0195 9.83896 109.575
+INFO:\_\_main\_\_:15        14      17.2214 13.927  9.83896 109.49
+15      14      17.2214 13.927  9.83896 109.49
+INFO:\_\_main\_\_:16        12      20.0097 13.6118 9.83896 108.727
+16      12      20.0097 13.6118 9.83896 108.727
+INFO:\_\_main\_\_:17        10      20.0457 15.8307 9.83896 123.227
+17      10      20.0457 15.8307 9.83896 123.227
+INFO:\_\_main\_\_:18        11      19.9724 5.04978 9.83896 27.3869
+18      11      19.9724 5.04978 9.83896 27.3869
+INFO:\_\_main\_\_:19        11      18.7556 5.27669 9.83896 27.3869
+19      11      18.7556 5.27669 9.83896 27.3869
+INFO:\_\_main\_\_:20        10      16.4503 5.63087 9.8379  26.0222
+20      10      16.4503 5.63087 9.8379  26.0222
+INFO:\_\_main\_\_:21        14      16.0447 14.4164 9.82667 112.713
+21      14      16.0447 14.4164 9.82667 112.713
+INFO:\_\_main\_\_:22        11      17.2675 5.82444 9.82667 26.1394
+22      11      17.2675 5.82444 9.82667 26.1394
+INFO:\_\_main\_\_:23        14      17.3225 13.7425 9.79188 109.666
+23      14      17.3225 13.7425 9.79188 109.666
+INFO:\_\_main\_\_:24        12      13.844  4.9545  9.78662 26.9474
+24      12      13.844  4.9545  9.78662 26.9474
+INFO:\_\_main\_\_:25        11      21.2868 18.2849 9.78662 109.204
+25      11      21.2868 18.2849 9.78662 109.204
+INFO:\_\_main\_\_:26        9       30.0784 32.4958 9.78662 119.808
+26      9       30.0784 32.4958 9.78662 119.808
+INFO:\_\_main\_\_:27        10      23.297  23.8178 9.78662 119.808
+27      10      23.297  23.8178 9.78662 119.808
+INFO:\_\_main\_\_:28        11      37.762  36.5988 9.78662 119.808
+28      11      37.762  36.5988 9.78662 119.808
+INFO:\_\_main\_\_:29        11      25.2323 28.3215 9.77018 110.069
+29      11      25.2323 28.3215 9.77018 110.069
+INFO:\_\_main\_\_:30        13      23.082  17.8696 9.77018 109.589
+30      13      23.082  17.8696 9.77018 109.589
+INFO:\_\_main\_\_:31        10      20.5771 13.599  9.77018 113.177
+31      10      20.5771 13.599  9.77018 113.177
+INFO:\_\_main\_\_:32        10      21.848  19.9603 9.77018 120.752
+32      10      21.848  19.9603 9.77018 120.752
+INFO:\_\_main\_\_:33        8       22.9849 24.0717 9.77018 120.752
+33      8       22.9849 24.0717 9.77018 120.752
+INFO:\_\_main\_\_:34        15      35.1601 37.8068 9.77018 120.752
+34      15      35.1601 37.8068 9.77018 120.752
+INFO:\_\_main\_\_:35        9       20.51   20.6716 9.77018 120.752
+35      9       20.51   20.6716 9.77018 120.752
+INFO:\_\_main\_\_:36        8       24.6134 28.3471 9.77018 120.752
+36      8       24.6134 28.3471 9.77018 120.752
+INFO:\_\_main\_\_:37        11      16.9523 4.40515 9.77018 23.4075
+37      11      16.9523 4.40515 9.77018 23.4075
+INFO:\_\_main\_\_:38        9       13.9423 4.11679 9.77018 23.4075
+38      9       13.9423 4.11679 9.77018 23.4075
+INFO:\_\_main\_\_:39        11      20.4168 23.6391 9.77018 123.668
+39      11      20.4168 23.6391 9.77018 123.668
+INFO:\_\_main\_\_:40        16      22.8917 25.4659 9.77018 108.748
+40      16      22.8917 25.4659 9.77018 108.748
+INFO:\_\_main\_\_:41        12      22.1839 22.2181 9.77018 109.892
+41      12      22.1839 22.2181 9.77018 109.892
+INFO:\_\_main\_\_:42        11      20.4999 18.6051 9.77018 109.51
+42      11      20.4999 18.6051 9.77018 109.51
+INFO:\_\_main\_\_:43        12      16.4739 5.79433 8.99871 24.3879
+43      12      16.4739 5.79433 8.99871 24.3879
+INFO:\_\_main\_\_:44        11      20.1843 14.1645 8.99871 115.655
+44      11      20.1843 14.1645 8.99871 115.655
+INFO:\_\_main\_\_:45        14      19.5847 13.8639 8.99871 109.371
+45      14      19.5847 13.8639 8.99871 109.371
+INFO:\_\_main\_\_:46        12      21.3073 18.399  8.99871 109.371
+46      12      21.3073 18.399  8.99871 109.371
+INFO:\_\_main\_\_:47        10      18.3899 13.8658 8.99871 110.847
+47      10      18.3899 13.8658 8.99871 110.847
+INFO:\_\_main\_\_:48        6       22.9306 22.5527 8.99871 110.847
+48      6       22.9306 22.5527 8.99871 110.847
+INFO:\_\_main\_\_:49        9       16.734  5.11591 8.99871 24.9148
+49      9       16.734  5.11591 8.99871 24.9148
+INFO:\_\_main\_\_:50        13      20.6225 14.6436 8.99871 120.063
+50      13      20.6225 14.6436 8.99871 120.063
+INFO:\_\_main\_\_:51        10      18.6759 14.1524 8.99871 115.124
+51      10      18.6759 14.1524 8.99871 115.124
+INFO:\_\_main\_\_:52        7       22.8539 23.3822 8.99871 115.124
+52      7       22.8539 23.3822 8.99871 115.124
+INFO:\_\_main\_\_:53        10      20.1501 24.0848 8.99871 115.124
+53      10      20.1501 24.0848 8.99871 115.124
+INFO:\_\_main\_\_:54        9       24.2555 26.238  8.99871 115.124
+54      9       24.2555 26.238  8.99871 115.124
+INFO:\_\_main\_\_:55        12      21.8644 23.6619 8.99871 115.124
+55      12      21.8644 23.6619 8.99871 115.124
+INFO:\_\_main\_\_:56        10      16.1381 5.07803 8.97403 24.2595
+56      10      16.1381 5.07803 8.97403 24.2595
+INFO:\_\_main\_\_:57        15      19.5922 19.253  8.97403 117.108
+57      15      19.5922 19.253  8.97403 117.108
+INFO:\_\_main\_\_:58        11      18.7317 13.672  8.97403 110.671
+58      11      18.7317 13.672  8.97403 110.671
+INFO:\_\_main\_\_:59        12      22.4126 26.2311 8.97403 115.654
+59      12      22.4126 26.2311 8.97403 115.654
+INFO:\_\_main\_\_:60        14      30.0021 35.1823 8.97403 115.654
+60      14      30.0021 35.1823 8.97403 115.654
+INFO:\_\_main\_\_:61        13      17.937  14.3607 8.97403 115.654
+61      13      17.937  14.3607 8.97403 115.654
+INFO:\_\_main\_\_:62        14      14.3514 3.03219 8.97403 18.8807
+62      14      14.3514 3.03219 8.97403 18.8807
+INFO:\_\_main\_\_:63        10      17.2147 14.1907 8.97403 115.69
+63      10      17.2147 14.1907 8.97403 115.69
+INFO:\_\_main\_\_:64        14      28.7131 34.2573 8.97403 116.525
+64      14      28.7131 34.2573 8.97403 116.525
+INFO:\_\_main\_\_:65        12      31.0986 34.7546 8.97403 115.69
+65      12      31.0986 34.7546 8.97403 115.69
+INFO:\_\_main\_\_:66        7       23.5958 29.2669 8.97403 112.058
+66      7       23.5958 29.2669 8.97403 112.058
+INFO:\_\_main\_\_:67        14      23.6895 26.2599 8.97403 116.685
+67      14      23.6895 26.2599 8.97403 116.685
+INFO:\_\_main\_\_:68        11      26.0026 31.6885 8.9222  116.685
+68      11      26.0026 31.6885 8.9222  116.685
+INFO:\_\_main\_\_:69        13      37.505  42.1289 8.9222  116.685
+69      13      37.505  42.1289 8.9222  116.685
+INFO:\_\_main\_\_:70        14      22.812  25.5526 8.9222  110.557
+70      14      22.812  25.5526 8.9222  110.557
+INFO:\_\_main\_\_:71        13      21.1707 23.3968 8.9222  119.816
+71      13      21.1707 23.3968 8.9222  119.816
+INFO:\_\_main\_\_:72        12      17.6677 19.0632 8.9222  110.557
+72      12      17.6677 19.0632 8.9222  110.557
+INFO:\_\_main\_\_:73        10      21.1894 26.4885 8.9222  114.841
+73      10      21.1894 26.4885 8.9222  114.841
+INFO:\_\_main\_\_:74        13      34.8292 45.8351 8.9222  206.374
+74      13      34.8292 45.8351 8.9222  206.374
+INFO:\_\_main\_\_:75        15      29.0852 46.1319 8.9222  206.374
+75      15      29.0852 46.1319 8.9222  206.374
+INFO:\_\_main\_\_:76        11      14.1226 3.46284 8.9222  20.2476
+76      11      14.1226 3.46284 8.9222  20.2476
+INFO:\_\_main\_\_:77        12      18.2457 22.9617 8.9222  109.45
+77      12      18.2457 22.9617 8.9222  109.45
+INFO:\_\_main\_\_:78        13      23.6383 28.4745 8.9222  109.45
+78      13      23.6383 28.4745 8.9222  109.45
+INFO:\_\_main\_\_:79        7       21.1749 25.9882 8.9222  109.272
+79      7       21.1749 25.9882 8.9222  109.272
+INFO:\_\_main\_\_:80        13      12.8139 2.91815 8.9222  20.9779
+80      13      12.8139 2.91815 8.9222  20.9779
+INFO:\_\_main\_\_:81        10      16.3021 14.2461 8.9222  112.247
+81      10      16.3021 14.2461 8.9222  112.247
+INFO:\_\_main\_\_:82        10      21.3981 26.6881 8.9222  112.247
+82      10      21.3981 26.6881 8.9222  112.247
+INFO:\_\_main\_\_:83        9       14.2186 13.7497 8.9222  110.107
+83      9       14.2186 13.7497 8.9222  110.107
+INFO:\_\_main\_\_:84        9       15.9469 18.989  8.9222  109.322
+84      9       15.9469 18.989  8.9222  109.322
+INFO:\_\_main\_\_:85        10      17.9036 19.3683 8.9222  111.836
+85      10      17.9036 19.3683 8.9222  111.836
+INFO:\_\_main\_\_:86        19      16.7287 19.0951 8.91984 110.894
+86      19      16.7287 19.0951 8.91984 110.894
+INFO:\_\_main\_\_:87        10      34.7738 37.7158 8.91984 113.524
+87      10      34.7738 37.7158 8.91984 113.524
+INFO:\_\_main\_\_:88        14      66.8974 245.557 8.91984 1780.37
+88      14      66.8974 245.557 8.91984 1780.37
+INFO:\_\_main\_\_:89        12      20.0838 24.377  8.91984 117.529
+89      12      20.0838 24.377  8.91984 117.529
+INFO:\_\_main\_\_:90        9       25.7994 33.0128 8.91984 117.529
+90      9       25.7994 33.0128 8.91984 117.529
+INFO:\_\_main\_\_:91        15      23.3834 26.9578 8.91984 117.529
+91      15      23.3834 26.9578 8.91984 117.529
+INFO:\_\_main\_\_:92        9       28.8581 36.9857 8.91984 115.568
+92      9       28.8581 36.9857 8.91984 115.568
+INFO:\_\_main\_\_:93        4       13.0123 2.37101 8.91984 19.9597
+93      4       13.0123 2.37101 8.91984 19.9597
+INFO:\_\_main\_\_:94        10      15.5574 13.6326 8.91984 108.573
+94      10      15.5574 13.6326 8.91984 108.573
+INFO:\_\_main\_\_:95        13      21.5441 28.8446 8.91984 110.081
+95      13      21.5441 28.8446 8.91984 110.081
+INFO:\_\_main\_\_:96        19      22.9441 29.0497 8.60736 112.29
+96      19      22.9441 29.0497 8.60736 112.29
+INFO:\_\_main\_\_:97        10      23.3785 29.1947 8.60736 112.29
+97      10      23.3785 29.1947 8.60736 112.29
+INFO:\_\_main\_\_:98        15      23.9204 34.9018 8.60736 211.881
+98      15      23.9204 34.9018 8.60736 211.881
+INFO:\_\_main\_\_:99        11      22.2921 28.6672 8.60736 109.611
+99      11      22.2921 28.6672 8.60736 109.611
+INFO:\_\_main\_\_:100       13      23.7713 28.688  8.60736 114.209
+100     13      23.7713 28.688  8.60736 114.209
+INFO:\_\_main\_\_:101       12      22.9048 25.3503 8.60736 109.611
+101     12      22.9048 25.3503 8.60736 109.611
+INFO:\_\_main\_\_:102       10      20.352  19.7693 8.60736 122.017
+102     10      20.352  19.7693 8.60736 122.017
+INFO:\_\_main\_\_:103       9       16.1519 15.4194 8.60736 122.017
+103     9       16.1519 15.4194 8.60736 122.017
+INFO:\_\_main\_\_:104       12      17.8864 21.251  8.60736 122.017
+104     12      17.8864 21.251  8.60736 122.017
+INFO:\_\_main\_\_:105       9       19.4883 24.9547 8.60736 122.017
+105     9       19.4883 24.9547 8.60736 122.017
+INFO:\_\_main\_\_:106       6       20.5816 23.7412 8.60736 122.017
+106     6       20.5816 23.7412 8.60736 122.017
+INFO:\_\_main\_\_:107       7       31.9167 36.8077 8.60736 111.407
+107     7       31.9167 36.8077 8.60736 111.407
+INFO:\_\_main\_\_:108       11      15.962  13.8857 8.59875 109.445
+108     11      15.962  13.8857 8.59875 109.445
+INFO:\_\_main\_\_:109       5       24.2444 28.3875 8.59875 109.445
+109     5       24.2444 28.3875 8.59875 109.445
+INFO:\_\_main\_\_:110       9       22.7189 25.7557 8.59875 109.445
+110     9       22.7189 25.7557 8.59875 109.445
+INFO:\_\_main\_\_:111       10      13.985  4.53602 8.59516 21.5409
+111     10      13.985  4.53602 8.59516 21.5409
+INFO:\_\_main\_\_:112       6       15.0691 4.33493 8.59516 23.2284
+112     6       15.0691 4.33493 8.59516 23.2284
+INFO:\_\_main\_\_:113       13      13.4286 4.64132 8.59516 20.5751
+113     13      13.4286 4.64132 8.59516 20.5751
+INFO:\_\_main\_\_:114       9       12.6221 3.12066 8.59516 19.384
+114     9       12.6221 3.12066 8.59516 19.384
+INFO:\_\_main\_\_:115       15      15.5237 13.885  8.59516 109.604
+115     15      15.5237 13.885  8.59516 109.604
+INFO:\_\_main\_\_:116       16      15.6841 15.2238 8.59516 118.332
+116     16      15.6841 15.2238 8.59516 118.332
+INFO:\_\_main\_\_:117       14      26.707  33.7552 8.59516 118.332
+117     14      26.707  33.7552 8.59516 118.332
+INFO:\_\_main\_\_:118       13      15.2719 5.11842 8.59516 24.0266
+118     13      15.2719 5.11842 8.59516 24.0266
+INFO:\_\_main\_\_:119       10      16.6101 4.97949 8.59516 25.9777
+119     10      16.6101 4.97949 8.59516 25.9777
+INFO:\_\_main\_\_:120       15      18.2758 19.1557 8.55005 111.479
+120     15      18.2758 19.1557 8.55005 111.479
+INFO:\_\_main\_\_:121       11      22.32   26.2055 8.55005 113.959
+121     11      22.32   26.2055 8.55005 113.959
+INFO:\_\_main\_\_:122       11      23.4507 25.3404 8.55005 109.096
+122     11      23.4507 25.3404 8.55005 109.096
+INFO:\_\_main\_\_:123       10      21.9289 25.9787 8.55005 112.572
+123     10      21.9289 25.9787 8.55005 112.572
+INFO:\_\_main\_\_:124       8       42.8185 42.2035 8.55005 119.081
+124     8       42.8185 42.2035 8.55005 119.081
+INFO:\_\_main\_\_:125       6       34.4138 38.9143 8.55005 119.081
+125     6       34.4138 38.9143 8.55005 119.081
+INFO:\_\_main\_\_:126       6       44.7998 44.8949 8.55005 119.081
+126     6       44.7998 44.8949 8.55005 119.081
+INFO:\_\_main\_\_:127       13      41.019  43.894  8.55005 119.31
+127     13      41.019  43.894  8.55005 119.31
+INFO:\_\_main\_\_:128       9       50.6991 48.101  8.55005 119.31
+128     9       50.6991 48.101  8.55005 119.31
+INFO:\_\_main\_\_:129       12      40.3062 62.8821 8.55005 407.982
+129     12      40.3062 62.8821 8.55005 407.982
+INFO:\_\_main\_\_:130       9       26.4623 30.216  8.55005 119.175
+130     9       26.4623 30.216  8.55005 119.175
+INFO:\_\_main\_\_:131       13      21.9961 24.6739 8.55005 119.175
+131     13      21.9961 24.6739 8.55005 119.175
+INFO:\_\_main\_\_:132       9       16.3397 5.07581 8.55005 27.5918
+132     9       16.3397 5.07581 8.55005 27.5918
+INFO:\_\_main\_\_:133       12      20.6579 15.9891 8.55005 128.356
+133     12      20.6579 15.9891 8.55005 128.356
+INFO:\_\_main\_\_:134       9       16.4352 4.20666 8.55005 27.6437
+134     9       16.4352 4.20666 8.55005 27.6437
+INFO:\_\_main\_\_:135       16      15.3622 5.32414 8.55005 27.6581
+135     16      15.3622 5.32414 8.55005 27.6581
+INFO:\_\_main\_\_:136       10      16.2738 3.67655 8.55005 23.9623
+136     10      16.2738 3.67655 8.55005 23.9623
+INFO:\_\_main\_\_:137       8       18.5544 19.4637 8.55005 112.349
+137     8       18.5544 19.4637 8.55005 112.349
+INFO:\_\_main\_\_:138       9       15.9532 5.06357 8.55005 30.6419
+138     9       15.9532 5.06357 8.55005 30.6419
+INFO:\_\_main\_\_:139       14      20.3457 19.6759 8.55005 111.973
+139     14      20.3457 19.6759 8.55005 111.973
+INFO:\_\_main\_\_:140       10      27.9064 55.5132 8.55005 407.663
+140     10      27.9064 55.5132 8.55005 407.663
+INFO:\_\_main\_\_:141       13      19.8246 5.0985  8.55005 27.3894
+141     13      19.8246 5.0985  8.55005 27.3894
+INFO:\_\_main\_\_:142       9       17.0828 6.60893 8.55005 51.5184
+142     9       17.0828 6.60893 8.55005 51.5184
+INFO:\_\_main\_\_:143       12      17.8512 5.36574 8.55005 24.7379
+143     12      17.8512 5.36574 8.55005 24.7379
+INFO:\_\_main\_\_:144       13      21.2485 20.3176 8.55005 123.221
+144     13      21.2485 20.3176 8.55005 123.221
+INFO:\_\_main\_\_:145       12      22.3377 22.5904 8.55005 112.542
+145     12      22.3377 22.5904 8.55005 112.542
+INFO:\_\_main\_\_:146       13      17.123  19.3893 8.55005 112.542
+146     13      17.123  19.3893 8.55005 112.542
+INFO:\_\_main\_\_:147       11      22.5505 28.9342 8.55005 109.558
+147     11      22.5505 28.9342 8.55005 109.558
+INFO:\_\_main\_\_:148       10      16.0147 19.1996 8.54617 109.558
+148     10      16.0147 19.1996 8.54617 109.558
+INFO:\_\_main\_\_:149       10      14.0299 4.65724 8.54617 25.8029
+149     10      14.0299 4.65724 8.54617 25.8029
+INFO:\_\_main\_\_:150       11      13.8972 4.06536 8.54617 22.8956
+150     11      13.8972 4.06536 8.54617 22.8956
+INFO:\_\_main\_\_:151       11      16.8216 4.50465 8.54617 25.5224
+151     11      16.8216 4.50465 8.54617 25.5224
+INFO:\_\_main\_\_:152       10      16.7377 13.855  8.54617 109.26
+152     10      16.7377 13.855  8.54617 109.26
+INFO:\_\_main\_\_:153       9       16.7293 4.12393 8.54617 25.719
+153     9       16.7293 4.12393 8.54617 25.719
+INFO:\_\_main\_\_:154       9       21.1536 20.0358 8.54617 122.16
+154     9       21.1536 20.0358 8.54617 122.16
+INFO:\_\_main\_\_:155       14      20.093  13.9486 8.54617 108.512
+155     14      20.093  13.9486 8.54617 108.512
+INFO:\_\_main\_\_:156       13      23.2424 25.5602 8.54617 108.512
+156     13      23.2424 25.5602 8.54617 108.512
+INFO:\_\_main\_\_:157       8       20.3829 14.6062 8.54617 108.512
+157     8       20.3829 14.6062 8.54617 108.512
+INFO:\_\_main\_\_:158       13      18.2729 14.5468 8.54617 108.512
+158     13      18.2729 14.5468 8.54617 108.512
+INFO:\_\_main\_\_:159       11      20.0713 22.6741 8.54617 111.043
+159     11      20.0713 22.6741 8.54617 111.043
+INFO:\_\_main\_\_:160       9       19.6828 19.7059 8.54617 111.043
+160     9       19.6828 19.7059 8.54617 111.043
+INFO:\_\_main\_\_:161       9       11.5995 1.59496 8.54617 16.215
+161     9       11.5995 1.59496 8.54617 16.215
+INFO:\_\_main\_\_:162       12      11.2836 1.97315 8.54617 16.215
+162     12      11.2836 1.97315 8.54617 16.215
+INFO:\_\_main\_\_:163       15      12.3925 2.79956 8.54617 24.4415
+163     15      12.3925 2.79956 8.54617 24.4415
+INFO:\_\_main\_\_:164       9       16.4481 19.3198 8.54617 110.452
+164     9       16.4481 19.3198 8.54617 110.452
+INFO:\_\_main\_\_:165       14      18.4459 23.4028 8.54617 114.587
+165     14      18.4459 23.4028 8.54617 114.587
+INFO:\_\_main\_\_:166       13      32.719  40.3697 8.49194 114.587
+166     13      32.719  40.3697 8.49194 114.587
+INFO:\_\_main\_\_:167       14      20.2248 26.2236 8.49194 109.605
+167     14      20.2248 26.2236 8.49194 109.605
+INFO:\_\_main\_\_:168       12      12.7214 3.20805 8.49194 19.092
+168     12      12.7214 3.20805 8.49194 19.092
+INFO:\_\_main\_\_:169       10      13.0882 3.67072 8.49194 19.1591
+169     10      13.0882 3.67072 8.49194 19.1591
+INFO:\_\_main\_\_:170       10      15.1249 13.7464 8.49194 109.257
+170     10      15.1249 13.7464 8.49194 109.257
+INFO:\_\_main\_\_:171       10      20.5218 26.0801 8.49194 110.177
+171     10      20.5218 26.0801 8.49194 110.177
+INFO:\_\_main\_\_:172       13      21.0528 26.121  8.49194 110.177
+172     13      21.0528 26.121  8.49194 110.177
+INFO:\_\_main\_\_:173       10      20.1591 26.6005 8.49194 112.59
+173     10      20.1591 26.6005 8.49194 112.59
+INFO:\_\_main\_\_:174       14      21.3472 29.9371 8.49194 112.59
+174     14      21.3472 29.9371 8.49194 112.59
+INFO:\_\_main\_\_:175       13      17.9781 19.8589 8.48093 117.053
+175     13      17.9781 19.8589 8.48093 117.053
+INFO:\_\_main\_\_:176       14      25.8125 29.5425 8.48093 118.762
+176     14      25.8125 29.5425 8.48093 118.762
+INFO:\_\_main\_\_:177       10      17.9903 13.7305 8.31267 111.487
+177     10      17.9903 13.7305 8.31267 111.487
+INFO:\_\_main\_\_:178       11      17.9116 19.1828 8.22454 111.487
+178     11      17.9116 19.1828 8.22454 111.487
+INFO:\_\_main\_\_:179       12      19.894  23.0568 8.22454 111.487
+179     12      19.894  23.0568 8.22454 111.487
+INFO:\_\_main\_\_:180       11      12.9187 3.0609  8.22454 20.1741
+180     11      12.9187 3.0609  8.22454 20.1741
+INFO:\_\_main\_\_:181       12      15.8239 14.0799 8.22454 113.977
+181     12      15.8239 14.0799 8.22454 113.977
+INFO:\_\_main\_\_:182       11      22.4061 54.8355 8.22454 409.63
+182     11      22.4061 54.8355 8.22454 409.63
+INFO:\_\_main\_\_:183       13      13.742  14.1929 8.22454 112.98
+183     13      13.742  14.1929 8.22454 112.98
+INFO:\_\_main\_\_:184       10      32.4464 39.9458 8.22454 114.99
+184     10      32.4464 39.9458 8.22454 114.99
+INFO:\_\_main\_\_:185       10      11.6068 2.33224 8.22454 18.5678
+185     10      11.6068 2.33224 8.22454 18.5678
+INFO:\_\_main\_\_:186       13      12.0766 2.22242 8.22454 18.5678
+186     13      12.0766 2.22242 8.22454 18.5678
+INFO:\_\_main\_\_:187       11      13.2756 13.93   8.22454 110.382
+187     11      13.2756 13.93   8.22454 110.382
+INFO:\_\_main\_\_:188       13      13.8406 13.86   8.22454 110.382
+188     13      13.8406 13.86   8.22454 110.382
+INFO:\_\_main\_\_:189       13      24.1985 78.1102 8.22454 576.055
+189     13      24.1985 78.1102 8.22454 576.055
+INFO:\_\_main\_\_:190       12      23.7189 78.1614 8.22454 576.055
+190     12      23.7189 78.1614 8.22454 576.055
+INFO:\_\_main\_\_:191       16      35.0266 109.343 8.22454 576.055
+191     16      35.0266 109.343 8.22454 576.055
+INFO:\_\_main\_\_:192       11      37.2909 109.682 8.22454 576.055
+192     11      37.2909 109.682 8.22454 576.055
+INFO:\_\_main\_\_:193       13      17.245  19.3599 8.22454 113.329
+193     13      17.245  19.3599 8.22454 113.329
+INFO:\_\_main\_\_:194       11      17.3111 13.8423 8.22454 112.64
+194     11      17.3111 13.8423 8.22454 112.64
+INFO:\_\_main\_\_:195       13      26.5579 34.3514 8.22454 113.647
+195     13      26.5579 34.3514 8.22454 113.647
+INFO:\_\_main\_\_:196       11      21.8896 27.0341 8.22454 113.647
+196     11      21.8896 27.0341 8.22454 113.647
+INFO:\_\_main\_\_:197       14      14.2542 14.0537 8.22454 112.051
+197     14      14.2542 14.0537 8.22454 112.051
+INFO:\_\_main\_\_:198       11      22.0464 29.6033 8.22454 112.051
+198     11      22.0464 29.6033 8.22454 112.051
+INFO:\_\_main\_\_:199       14      18.5966 23.0293 8.22454 112.093
+199     14      18.5966 23.0293 8.22454 112.093
+INFO:\_\_main\_\_:200       16      70.5953 378.404 8.22454 2742.61
+200     16      70.5953 378.404 8.22454 2742.61
+INFO:\_\_main\_\_:Run stopped because of stopping criteria: Max ngen
+Run stopped because of stopping criteria: Max ngen
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\begin{Verbatim}[commandchars=\\\{\}]
+'\textbackslash{}\textbackslash{}begin\{tabular\}\{lr\}\textbackslash{}n\textbackslash{}\textbackslash{}toprule\textbackslash{}n\{\} \&          0 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}midrule\textbackslash{}nchi\textbackslash{}\textbackslash{}\_square
+\&  19.158050 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}np\textbackslash{}\textbackslash{}\_value    \&   0.014037
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}bottomrule\textbackslash{}n\textbackslash{}\textbackslash{}end\{tabular\}\textbackslash{}n'
+\end{Verbatim}
+\end{tcolorbox}
+        
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\begin{Verbatim}[commandchars=\\\{\}]
+'\textbackslash{}\textbackslash{}begin\{tabular\}\{llll\}\textbackslash{}n\textbackslash{}\textbackslash{}toprule\textbackslash{}n\{\} \&           observations \&
+predictions \&    Z-Scores \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}midrule\textbackslash{}nRheobaseTest                   \&
+680.794444444444 pA \&              43.4 pA \&     1.82828
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInputResistanceTest            \&  142.057692307692 Mohm \&  66.98035093
+megaohm \&     1.28589 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nCapacitanceTest                \&            620.2725
+pF \&               0.0 pF \&     3.36264 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nRestingPotentialTest           \&
+-61.5916666666667 mV \&            -61.61 mV \&  0.00292244
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPWidthTest     \&    0.41412962962963 ms \&
+0.0 ms \&    0.316447 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPAmplitudeTest \&    71.2308333333333
+mV \&             71.41 mV \&   0.0145863 \textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}nInjectedCurrentAPThresholdTest \&
+-46.8947619047619 mV \&            -37.79 mV \&     1.65959
+\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}bottomrule\textbackslash{}n\textbackslash{}\textbackslash{}end\{tabular\}\textbackslash{}n'
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \hypertarget{experiment-neocortex-pyramidal-adaptive-exponential-model}{%
+\section{Experiment Neocortex Pyramidal Adaptive Exponential
+Model}\label{experiment-neocortex-pyramidal-adaptive-exponential-model}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+INFO:\_\_main\_\_:gen       nevals  avg     std     min     max
+1       10      5607.98 3653.88 22.4773 8000
+gen     nevals  avg     std     min     max
+1       10      5607.98 3653.88 22.4773 8000
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+HBox(children=(FloatProgress(value=0.0, max=150.0), HTML(value='')))
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+INFO:\_\_main\_\_:2         3       5722.63 3600.84 22.4773 8000
+2       3       5722.63 3600.84 22.4773 8000
+INFO:\_\_main\_\_:3         7       3063.75 3872.32 20.3848 8000
+3       7       3063.75 3872.32 20.3848 8000
+INFO:\_\_main\_\_:4         5       26.4122 4.91972 20.3848 39.6371
+4       5       26.4122 4.91972 20.3848 39.6371
+INFO:\_\_main\_\_:5         7       26.5388 5.97883 20.3848 46.2065
+5       7       26.5388 5.97883 20.3848 46.2065
+INFO:\_\_main\_\_:6         6       28.327  8.48734 20.3848 48.0482
+6       6       28.327  8.48734 20.3848 48.0482
+INFO:\_\_main\_\_:7         4       29.2531 9.00569 20.3848 49.1145
+7       4       29.2531 9.00569 20.3848 49.1145
+INFO:\_\_main\_\_:8         2       32.6484 10.4099 20.3848 49.1145
+8       2       32.6484 10.4099 20.3848 49.1145
+INFO:\_\_main\_\_:9         2       26.1769 8.01597 20.3848 40.717
+9       2       26.1769 8.01597 20.3848 40.717
+INFO:\_\_main\_\_:10        3       29.2804 20.8195 13.6194 117.78
+10      3       29.2804 20.8195 13.6194 117.78
+INFO:\_\_main\_\_:11        3       23.702  8.54202 13.6194 43.4396
+11      3       23.702  8.54202 13.6194 43.4396
+INFO:\_\_main\_\_:12        5       30.9862 20.8934 13.6194 113.919
+12      5       30.9862 20.8934 13.6194 113.919
+INFO:\_\_main\_\_:13        6       63.6435 48.5427 13.6194 119.209
+13      6       63.6435 48.5427 13.6194 119.209
+INFO:\_\_main\_\_:14        6       23.108  21.7573 12.6739 119.209
+14      6       23.108  21.7573 12.6739 119.209
+INFO:\_\_main\_\_:15        7       20.9539 22.7707 12.6739 122.082
+15      7       20.9539 22.7707 12.6739 122.082
+INFO:\_\_main\_\_:16        5       24.3052 20.4388 12.6739 114.481
+16      5       24.3052 20.4388 12.6739 114.481
+INFO:\_\_main\_\_:17        4       14.3883 3.19351 9.99851 22.972
+17      4       14.3883 3.19351 9.99851 22.972
+INFO:\_\_main\_\_:18        4       17.9022 20.2667 8.70459 107.498
+18      4       17.9022 20.2667 8.70459 107.498
+INFO:\_\_main\_\_:19        2       36.2454 40.0268 8.70459 107.498
+19      2       36.2454 40.0268 8.70459 107.498
+INFO:\_\_main\_\_:20        5       36.5688 39.6304 8.70459 107.498
+20      5       36.5688 39.6304 8.70459 107.498
+INFO:\_\_main\_\_:21        4       36.2722 39.9427 8.70459 107.498
+21      4       36.2722 39.9427 8.70459 107.498
+INFO:\_\_main\_\_:22        4       12.0693 3.52839 8.15133 19.1286
+22      4       12.0693 3.52839 8.15133 19.1286
+INFO:\_\_main\_\_:23        5       25.0076 46.0837 8.15133 208.321
+23      5       25.0076 46.0837 8.15133 208.321
+INFO:\_\_main\_\_:24        3       10.2554 2.61486 8.15133 15.5171
+24      3       10.2554 2.61486 8.15133 15.5171
+INFO:\_\_main\_\_:25        4       24.6917 45.9506 8.15133 209.485
+25      4       24.6917 45.9506 8.15133 209.485
+INFO:\_\_main\_\_:26        5       39.3048 61.5619 8.15133 209.485
+26      5       39.3048 61.5619 8.15133 209.485
+INFO:\_\_main\_\_:27        6       48.553  71.7842 8.11121 209.485
+27      6       48.553  71.7842 8.11121 209.485
+INFO:\_\_main\_\_:28        4       829.082 2328.01 8.11121 8000
+28      4       829.082 2328.01 8.11121 8000
+INFO:\_\_main\_\_:29        2       10.6842 2.3152  8.11121 14.1233
+29      2       10.6842 2.3152  8.11121 14.1233
+INFO:\_\_main\_\_:30        5       18.4884 27.9107 7.77902 104.942
+30      5       18.4884 27.9107 7.77902 104.942
+INFO:\_\_main\_\_:31        4       14.1221 20.0697 7.77902 103.705
+31      4       14.1221 20.0697 7.77902 103.705
+INFO:\_\_main\_\_:32        8       36.8686 52.3333 7.77902 203.639
+32      8       36.8686 52.3333 7.77902 203.639
+INFO:\_\_main\_\_:33        6       9.27625 1.04551 7.77902 11.2329
+33      6       9.27625 1.04551 7.77902 11.2329
+INFO:\_\_main\_\_:34        4       9.46445 1.18842 7.7282  11.2329
+34      4       9.46445 1.18842 7.7282  11.2329
+INFO:\_\_main\_\_:35        1       8.31601 0.331203        7.7282  8.75004
+35      1       8.31601 0.331203        7.7282  8.75004
+INFO:\_\_main\_\_:36        2       8.36352 0.497532        7.7282  9.89828
+36      2       8.36352 0.497532        7.7282  9.89828
+INFO:\_\_main\_\_:37        6       13.651  20.3555         7.7282  104.614
+37      6       13.651  20.3555         7.7282  104.614
+INFO:\_\_main\_\_:38        7       8.69603 0.851026        7.7282  10.8787
+38      7       8.69603 0.851026        7.7282  10.8787
+INFO:\_\_main\_\_:39        7       389.427 1701.78         7.57102 8000
+39      7       389.427 1701.78         7.57102 8000
+INFO:\_\_main\_\_:40        4       15.047  21.0086         7.57088 107.596
+40      4       15.047  21.0086         7.57088 107.596
+INFO:\_\_main\_\_:41        5       7.79587 0.324191        7.39615 9.07655
+41      5       7.79587 0.324191        7.39615 9.07655
+INFO:\_\_main\_\_:42        6       12.7445 21.2494         7.39615 107.666
+42      6       12.7445 21.2494         7.39615 107.666
+INFO:\_\_main\_\_:43        4       32.4305 42.1036         7.39615 107.867
+43      4       32.4305 42.1036         7.39615 107.867
+INFO:\_\_main\_\_:44        2       8.74362 1.55291         7.34329 12.2162
+44      2       8.74362 1.55291         7.34329 12.2162
+INFO:\_\_main\_\_:45        5       12.946  20.2741         7.34329 103.362
+45      5       12.946  20.2741         7.34329 103.362
+INFO:\_\_main\_\_:46        5       8.92998 1.68452         7.34329 12.2162
+46      5       8.92998 1.68452         7.34329 12.2162
+INFO:\_\_main\_\_:47        3       8.7266  1.77916         7.34329 12.2162
+47      3       8.7266  1.77916         7.34329 12.2162
+INFO:\_\_main\_\_:48        4       17.6015 28.5762         7.34329 106.862
+48      4       17.6015 28.5762         7.34329 106.862
+INFO:\_\_main\_\_:49        4       54.6277 47.9802         7.34329 106.862
+49      4       54.6277 47.9802         7.34329 106.862
+INFO:\_\_main\_\_:50        6       32.7846 51.0098         7.34329 203.238
+50      6       32.7846 51.0098         7.34329 203.238
+INFO:\_\_main\_\_:51        5       408.349 1697.96         7.34329 8000
+51      5       408.349 1697.96         7.34329 8000
+INFO:\_\_main\_\_:52        2       8.06596 1.17971         7.34329 10.4365
+52      2       8.06596 1.17971         7.34329 10.4365
+INFO:\_\_main\_\_:53        1       9.05095 1.23043         7.34329 10.4365
+53      1       9.05095 1.23043         7.34329 10.4365
+INFO:\_\_main\_\_:54        4       9.31628 0.800372        7.34329 9.86714
+54      4       9.31628 0.800372        7.34329 9.86714
+INFO:\_\_main\_\_:55        5       8.32353 1.01324         7.34329 10.1665
+55      5       8.32353 1.01324         7.34329 10.1665
+INFO:\_\_main\_\_:56        5       18.6601 41.5753         7.34329 204.566
+56      5       18.6601 41.5753         7.34329 204.566
+INFO:\_\_main\_\_:57        3       9.08303 0.64836         7.34329 10.1665
+57      3       9.08303 0.64836         7.34329 10.1665
+INFO:\_\_main\_\_:58        3       9.35262 0.974969        7.34329 9.86714
+58      3       9.35262 0.974969        7.34329 9.86714
+INFO:\_\_main\_\_:59        4       17.5692 30.3722         7.34329 117.83
+59      4       17.5692 30.3722         7.34329 117.83
+INFO:\_\_main\_\_:60        7       43.4825 56.3658         7.34329 210.988
+60      7       43.4825 56.3658         7.34329 210.988
+INFO:\_\_main\_\_:61        4       19.0683 27.7189         7.34329 103.994
+61      4       19.0683 27.7189         7.34329 103.994
+INFO:\_\_main\_\_:62        2       11.2261 3.93473         7.34329 18.482
+62      2       11.2261 3.93473         7.34329 18.482
+INFO:\_\_main\_\_:63        6       397.452 1700.1          7.34329 8000
+63      6       397.452 1700.1          7.34329 8000
+INFO:\_\_main\_\_:64        3       9.49889 2.49835         7.34329 14.8925
+64      3       9.49889 2.49835         7.34329 14.8925
+INFO:\_\_main\_\_:65        3       392.319 1701.13         7.34329 8000
+65      3       392.319 1701.13         7.34329 8000
+INFO:\_\_main\_\_:66        5       9.24319 0.634546        7.34329 9.94003
+66      5       9.24319 0.634546        7.34329 9.94003
+INFO:\_\_main\_\_:67        3       9.50771 0.986844        7.34329 11.3255
+67      3       9.50771 0.986844        7.34329 11.3255
+INFO:\_\_main\_\_:68        4       19.3102 42.6918         7.34329 210.13
+68      4       19.3102 42.6918         7.34329 210.13
+INFO:\_\_main\_\_:69        6       42.9991 71.5079         7.34329 210.13
+69      6       42.9991 71.5079         7.34329 210.13
+INFO:\_\_main\_\_:70        5       19.1053 42.8079         7.34329 210.13
+70      5       19.1053 42.8079         7.34329 210.13
+INFO:\_\_main\_\_:71        3       8.84595 2.71856         7.34329 16.8074
+71      3       8.84595 2.71856         7.34329 16.8074
+INFO:\_\_main\_\_:72        3       10.7054 3.07262         7.34329 16.8074
+72      3       10.7054 3.07262         7.34329 16.8074
+INFO:\_\_main\_\_:73        6       9.31158 1.74306         7.02469 12.5664
+73      6       9.31158 1.74306         7.02469 12.5664
+INFO:\_\_main\_\_:74        3       8.97354 2.04444         7.02469 11.7435
+74      3       8.97354 2.04444         7.02469 11.7435
+INFO:\_\_main\_\_:75        7       14.6458 21.3251         7.02469 109.698
+75      7       14.6458 21.3251         7.02469 109.698
+INFO:\_\_main\_\_:76        2       29.2455 39.0515         7.02469 109.698
+76      2       29.2455 39.0515         7.02469 109.698
+INFO:\_\_main\_\_:77        5       13.4318 20.048          7.02469 102.863
+77      5       13.4318 20.048          7.02469 102.863
+INFO:\_\_main\_\_:78        2       9.95348 0.734787        7.02469 10.5387
+78      2       9.95348 0.734787        7.02469 10.5387
+INFO:\_\_main\_\_:79        6       23.8974 46.5116         7.02469 210.905
+79      6       23.8974 46.5116         7.02469 210.905
+INFO:\_\_main\_\_:80        5       14.3613 21.4132         7.02469 109.92
+80      5       14.3613 21.4132         7.02469 109.92
+INFO:\_\_main\_\_:81        4       10.5387 1.36871         7.02469 12.8076
+81      4       10.5387 1.36871         7.02469 12.8076
+INFO:\_\_main\_\_:82        6       10.0285 2.03828         7.02469 12.8076
+82      6       10.0285 2.03828         7.02469 12.8076
+INFO:\_\_main\_\_:83        6       9.96064 1.26303         7.02469 12.8196
+83      6       9.96064 1.26303         7.02469 12.8196
+INFO:\_\_main\_\_:84        6       9.3661  1.67778         7.02469 12.7508
+84      6       9.3661  1.67778         7.02469 12.7508
+INFO:\_\_main\_\_:85        2       14.487  20.3135         7.02469 105.199
+85      2       14.487  20.3135         7.02469 105.199
+INFO:\_\_main\_\_:86        5       13.1155 20.2626         7.02469 103.633
+86      5       13.1155 20.2626         7.02469 103.633
+INFO:\_\_main\_\_:87        3       13.5352 20.2058         7.02469 103.633
+87      3       13.5352 20.2058         7.02469 103.633
+INFO:\_\_main\_\_:88        4       9.07926 1.2838          7.02469 10.7468
+88      4       9.07926 1.2838          7.02469 10.7468
+INFO:\_\_main\_\_:89        5       22.0104 45.4262         7.02469 204.054
+89      5       22.0104 45.4262         7.02469 204.054
+INFO:\_\_main\_\_:90        8       27.1061 64.8231         7.02469 302.762
+90      8       27.1061 64.8231         7.02469 302.762
+INFO:\_\_main\_\_:91        4       12.8246 21.0211         7.02469 106.71
+91      4       12.8246 21.0211         7.02469 106.71
+INFO:\_\_main\_\_:92        4       13.6578 20.0161         7.02469 102.969
+92      4       13.6578 20.0161         7.02469 102.969
+INFO:\_\_main\_\_:93        5       13.6482 19.9632         7.02469 102.803
+93      5       13.6482 19.9632         7.02469 102.803
+INFO:\_\_main\_\_:94        5       35.4124 52.6608         6.95305 202.588
+94      5       35.4124 52.6608         6.95305 202.588
+INFO:\_\_main\_\_:95        7       44.5781 46.7292         6.95305 109.288
+95      7       44.5781 46.7292         6.95305 109.288
+INFO:\_\_main\_\_:96        5       55.1539 78.4529         6.95305 308.944
+96      5       55.1539 78.4529         6.95305 308.944
+INFO:\_\_main\_\_:97        3       70.0346 47.4289         6.95305 109.288
+97      3       70.0346 47.4289         6.95305 109.288
+INFO:\_\_main\_\_:98        4       26.9466 37.3133         6.92217 103.77
+98      4       26.9466 37.3133         6.92217 103.77
+INFO:\_\_main\_\_:99        5       13.7053 20.1688         6.92217 103.77
+99      5       13.7053 20.1688         6.92217 103.77
+INFO:\_\_main\_\_:100       5       22.8228 32.9451         6.92217 103.77
+100     5       22.8228 32.9451         6.92217 103.77
+INFO:\_\_main\_\_:101       5       59.0006 47.2389         6.92217 109.233
+101     5       59.0006 47.2389         6.92217 109.233
+INFO:\_\_main\_\_:102       3       13.4103 21.4612         6.92217 109.233
+102     3       13.4103 21.4612         6.92217 109.233
+INFO:\_\_main\_\_:103       4       27.6241 39.6049         6.92217 109.233
+103     4       27.6241 39.6049         6.92217 109.233
+INFO:\_\_main\_\_:104       5       32.6757 51.4175         6.92217 203.827
+104     5       32.6757 51.4175         6.92217 203.827
+INFO:\_\_main\_\_:105       2       27.5655 57.2026         6.89934 203.827
+105     2       27.5655 57.2026         6.89934 203.827
+INFO:\_\_main\_\_:106       4       87.7114 93.4457         6.89934 203.827
+106     4       87.7114 93.4457         6.89934 203.827
+INFO:\_\_main\_\_:107       5       21.3531 34.6567         6.87415 107.916
+107     5       21.3531 34.6567         6.87415 107.916
+INFO:\_\_main\_\_:108       5       26.948  48.9465         6.87415 202.602
+108     5       26.948  48.9465         6.87415 202.602
+INFO:\_\_main\_\_:109       2       41.807  46.7587         6.87415 107.916
+109     2       41.807  46.7587         6.87415 107.916
+INFO:\_\_main\_\_:110       7       389.704 1701.72         6.87415 8000
+110     7       389.704 1701.72         6.87415 8000
+INFO:\_\_main\_\_:111       3       7.70975 0.954646        6.87415 11.2705
+111     3       7.70975 0.954646        6.87415 11.2705
+INFO:\_\_main\_\_:112       7       17.6761 28.8056         6.87381 109.344
+112     7       17.6761 28.8056         6.87381 109.344
+INFO:\_\_main\_\_:113       4       23.5703 62.9773         6.87381 305.092
+113     4       23.5703 62.9773         6.87381 305.092
+INFO:\_\_main\_\_:114       7       399.135 1700.12         6.87381 8000
+114     7       399.135 1700.12         6.87381 8000
+INFO:\_\_main\_\_:115       2       8.58558 2.03043         6.87381 11.7293
+115     2       8.58558 2.03043         6.87381 11.7293
+INFO:\_\_main\_\_:116       6       13.1789 20.67           6.87381 104.425
+116     6       13.1789 20.67           6.87381 104.425
+INFO:\_\_main\_\_:117       4       771.738 2345.16         6.87381 8000
+117     4       771.738 2345.16         6.87381 8000
+INFO:\_\_main\_\_:118       4       12.4901 21.177          6.87381 107.119
+118     4       12.4901 21.177          6.87381 107.119
+INFO:\_\_main\_\_:119       6       12.7956 20.224          6.87381 103.192
+119     6       12.7956 20.224          6.87381 103.192
+INFO:\_\_main\_\_:120       5       8.00976 2.19321         6.87381 17.1832
+120     5       8.00976 2.19321         6.87381 17.1832
+INFO:\_\_main\_\_:121       2       11.6608 4.528           6.87381 17.1832
+121     2       11.6608 4.528           6.87381 17.1832
+INFO:\_\_main\_\_:122       5       8.09443 1.34602         6.87381 12.7909
+122     5       8.09443 1.34602         6.87381 12.7909
+INFO:\_\_main\_\_:123       4       12.083  21.2498         6.87381 107.064
+123     4       12.083  21.2498         6.87381 107.064
+INFO:\_\_main\_\_:124       5       36.1444 44.8591         6.87381 107.064
+124     5       36.1444 44.8591         6.87381 107.064
+INFO:\_\_main\_\_:125       6       7.51352 0.760067        6.87381 8.85501
+125     6       7.51352 0.760067        6.87381 8.85501
+INFO:\_\_main\_\_:126       5       7.78911 0.867329        6.87381 10.1224
+126     5       7.78911 0.867329        6.87381 10.1224
+INFO:\_\_main\_\_:127       5       17.0487 29.3618         6.87381 108.094
+127     5       17.0487 29.3618         6.87381 108.094
+INFO:\_\_main\_\_:128       6       398.187 1700.07         6.87381 8000
+128     6       398.187 1700.07         6.87381 8000
+INFO:\_\_main\_\_:129       6       16.878  29.6201         6.87381 108.126
+129     6       16.878  29.6201         6.87381 108.126
+INFO:\_\_main\_\_:130       7       17.6352 29.6111         6.87381 109.372
+130     7       17.6352 29.6111         6.87381 109.372
+INFO:\_\_main\_\_:131       5       9.4488  1.60805         6.87381 11.7461
+131     5       9.4488  1.60805         6.87381 11.7461
+    \end{Verbatim}
+
+    \hypertarget{optimizing-the-izhi-model-remains-an-art-with-human-intervention.}{%
+\section{Optimizing the Izhi model remains an art, with human
+intervention.}\label{optimizing-the-izhi-model-remains-an-art-with-human-intervention.}}
+
+It can not be automated. \# Capacitance is not felt properly, unless
+k,a,b and are right. Spike width and time constant is wrong. The width
+is 3 times too big. and the time constant 3 times too small. It would be
+better to optimize on `C', `Width', `TC'. Alone with just altering `C',
+`k', `b',`a'.
+
+Optimize Rheobase, Input resistance, and AP Threshold seperately.
+
+    \hypertarget{suggesting-vr-does-not-do-anything}{%
+\section{Suggesting vr does not do
+anything}\label{suggesting-vr-does-not-do-anything}}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
