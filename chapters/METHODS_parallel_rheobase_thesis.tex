@@ -31,29 +31,18 @@ During optimization parameterization frequently changes. Multi-spiking
 models that are slower to evaluate are frequently sampled by a genetic
 algorithm optimizer.
 
-\begin{verbatim}[commandchars=\\\{\}]
-    time taken on block 4.555711984634399
-    time taken on block 18.55247473716736
-    parallel Rheobase search time NEURON  4.831164836883545
-    serial Rheobase search time NEURON  18.69422459602356
-    speed up 3.8695066774170974
-\end{verbatim}
-
-\begin{verbatim}[commandchars=\\\{\}]
-    time taken on block 0.7909517288208008
-    elapsed serial:  0.7914438247680664
-    time taken on block 0.2581171989440918
-    elapsed parallel:  0.2590057849884033
-    speed up parallel:  3.055699411515084
-\end{verbatim}
-
-
-
+parallel Rheobase search time NEURON  $4.8$
+serial Rheobase search time NEURON  $18.7$
+Approximate speed up $\times 3.9$
+%time taken on single simulation  0.7909517288208008
+    
+Which model?
+elapsed serial:  $0.7914438247680664$
+elapsed parallel: $ 0.2590057849884033$
+speed up parallel:   $\times 3.0$
 
 Algorithm was able to speed up this slow NEURON unit code. $ \frac{73}{19} $ represents a substantial speed up. of about 3.8. This is consistent with previous work
 
-\begin{verbatim}
-\{'value': array(51.79317142) * pA\}
-\end{verbatim}
+$ array(51.79317142) * pA$
 
 
