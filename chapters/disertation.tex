@@ -12,21 +12,31 @@
 %\graphicspath{{figures}}
 \usepackage{graphicx}
 \usepackage{subfiles} 
+\usepackage{tcolorbox}
+%\usepackage{table}
+%{xcolor}
+%\setlength{\arrayrulewidth}{1mm}
+%\setlength{\tabcolsep}{18pt}
+%\renewcommand{\arraystretch}{2.5}
+%\newcolumntype{s}{>{\columncolor[HTML]{AAACED}} p{3cm}}
 \begin{document}
+%\arrayrulecolor[HTML]{DB5800}
+
 %-----------------------front matter
 \pagenumbering{roman}
-\title{Your Title}
-\author{Your name}
+\title{Data Driven Optimization of Reduced Neural Models}            % If you want to
+
+\author{Russell Jarvis}
 \degreeName{Doctor of Philosophy}
 \paperType{Dissertation}
 \defensemonth{Some month}
 \gradmonth{Some other month}
-\gradyear{Some year}
+\gradyear{2020}
 \chair{Your chair}
 \memberOne{Your first member}
 \memberTwo{Your second member}
-\memberThree{Your third member}
-\memberFour{Your fourth member}
+\memberFour{Yi Zhou}
+\memberThree{James Abbas}
 
 \maketitle
 \doublespace
@@ -58,30 +68,25 @@
 \addtocontents{lof}{Figure~\hfill Page \par}
 %-----------------------body
 \doublespace
-%\pagenumbering{arabic}
-%\include{chapter1}
-%\include{chapter2}
-%\include{chapter3}
-%\include{chapter4}
-%\include{chapter5}
-%\include{chapter6}
-%
-%\cite{brette2005adaptive}
-\begin{figure}
-\includegraphics[]{normal_distribution}
-\end{figure}
-\chapter*{Introduction}
+
+\chapter{Introduction}
 \include{chapters/Introduction}
-\chapter*{Methods}
+\chapter{Methods}
 \include{chapters/METHODS_figures}
 \include{chapters/METHODS_backend_assesment}
-
-
+\include{chapters/METHODS_NElectro_data_thesis}
+\include{chapters/METHODS_pitfalls}
+\include{chapters/METHODS_parallel_rheobase_thesis}
 \include{chapters/METHODS_technical_details_of_the_optimizer}
-\chapter*{Results}
+\include{chapters/METHODS_uniqueness_of_this_approach}
+\chapter{Results}
 \include{chapters/RESULTS_verification_of_the_optimizer}
 \include{chapters/RESULTS_large_scale_variance}
-\chapter*{Discussion}
+\include{chapters/RESULTS_elephant_ne}
+\include{chapters/RESULTS_L5PC_cell}
+\include{chapters/RESULTS_optimization_data_driven}
+
+\chapter{Discussion}
 
 %-----------------------back matter
 {\singlespace

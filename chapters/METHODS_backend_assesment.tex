@@ -64,24 +64,15 @@ time taken on block 3.3625197410583496
 
 \subsection{Compare parallel to serial speeds, and accuracy}
 
-Below is the Brian2/NeuralDynamics AdExp model. In-order to make the spike height greater than $0mV$ it was easier to use computer code to schedule waveform modifications that occur straight after the the brian2 simulation, these scheduled waveform modifictions can be considered part of a peripheral shell of simulation code. In post-processing
-the waveform data type is a Neo Wave form object that is artificially
-shifted above 0mV using code. The code takes additional time to complete
-the algorithm of determining rheobase and displaying results. The time
-of this model is deterimant on multiple factors, as discussed elsewhere,
-execution time is not uniform across model parameterizations. Models
-with multispiking behavior will take longer to solve.
+Below is the Brian2/NeuralDynamics AdExp model. In-order to make the spike height greater than $0mV$ it was easier to use computer code to schedule waveform modifications that occur straight after the the brian2 simulation, these scheduled waveform modifications can be considered part of a peripheral shell of simulation code. In postprocessing
+the waveform data type is a Neo Wave form object that is artificially the algorithm of determining rheobase and displaying results. The time of this model is determined on multiple factors, as discussed elsewhere, execution time is not uniform across model parameterizations. Models with multispiking behavior will take longer to solve.
 
 Simulation times for this model vary, dramatically possibly because of
 lazy evaluation, the simulation times may vary according to what else
-you are running on your computer.
+you are running on your computer. Not all models experience a speed up when executed in parallel, however
+this model was faster in the parallel Rheobase determination algorithm. Some common times are: $3.92,6.75,4.48,5.17$. Mean time was:
 
-Not all models experience a speed up when executed in parallel, however
-this model was faster in the parallel Rheobase determination algorithm.
-
-Some common times are: $3.92,6.75,4.48,5.17$. Mean time was:
-
-\section{Comparison of Times Taken to Find Rheobase}
+\subsection{Comparison of Times Taken to Find Rheobase}
 Custom implementation JIT enabled implementation: $4.0s$. 
 Brian2 taken to find Rheobase: $4.40s$ (serial), $3.976s$ (parallel).
 
@@ -90,7 +81,7 @@ integrator are similar. Both have average rheobase solution times of approximate
 
 \begin{center}
 \begin{figure}
-\includegraphics{chapters/figures/backend_check_files/backend_check_4_2.png}
+\includegraphics{figures/backend_check_files/backend_check_4_2}
 \caption{Default model parameterization of the custom written integrator}
 \end{figure}
 \end{center}
@@ -99,7 +90,7 @@ integrator are similar. Both have average rheobase solution times of approximate
 \begin{center}
 \begin{figure}
 
-    \includegraphics{./chapters/figures/backend_check_files/backend_check_12_10.png}
+\includegraphics{figures/backend_check_files/backend_check_12_10}
 \caption{Model parameterization of the brian2 simulator with the customization: interpolated spike height, forced to be above $0mV$}
 \end{figure}
 
@@ -110,7 +101,8 @@ integrator are similar. Both have average rheobase solution times of approximate
 \end{verbatim}
 
 The next model to be evaluated is the NEURON Izhi model. The NEURON Izhi model has various draw backs. 1. It depends on an external file which must be recompiled each time this project is recreated. 2. The build environment of NEURON is non-trivial, and only a super dedicated NEURON modeller would install it on their system. Any performance advantage of using NEURON investment does not exceed the installation cost of installing the program. 3. The model implementation code is less generalizable than than the published Izhi model itself. Where the standard NEURON-NeuroML code only covers the Regular-Spiking model * This is likely due to a name space conflict between Capacitance. Neuron has a `capacitive' mechanism inside modelled Neurons, this particular model has section capacitance as well as an introduced capacitive term inside a C-compiled mechanism. Both contribute to a the membrane
-potential calculation. * The NEURON Izhi model took $78$ seconds to find the rheobase current injection value.
+potential calculation. * The NEURON Izhi model took $78$ seconds to find the rheobase current injection value $ 51.79367065 * pA $.
+
     
 %\begin{center}
  %   \includegraphics[width=0.7\textwidth,]{chapters/figures/backend_check_files/backend_check_14_2.png}
@@ -118,20 +110,18 @@ potential calculation. * The NEURON Izhi model took $78$ seconds to find the rhe
 %\end{center}
 
 
-\begin{figure}
-    \centering
-    \includegraphics{chapters/normal_distribution.png}
-    \caption{This is your image}
-    \label{fig:my_label}
-\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics{chapters/normal_distribution}
+%    \caption{This is your image%}
+%    \label{fig:my_label}
+%\end{figure}
 
-
-$ 51.79367065 * pA $
 
 
 % https://www.overleaf.com/learn/how-to/Images_not_showing_up 
 
-\section{Parallel Rheobase}
+\section{Parallel Rheobase Solver}
 
 
 \begin{figure}    
@@ -174,33 +164,23 @@ implementation.
 
 %This problem in the default parameterization of the python model was later located in the scale or units of capacitance, if default capacitance parameterization is multiplied by 100.0 the problem goes away.
 
-\begin{verbatim}
 time taken on block $ 12.6s $
-\end{verbatim}
 
 \begin{center}
-\includegraphics{{backend_check_files/backend_check_22_2.png}}
+\includegraphics{figures/backend_check_files/backend_check_22_2}
 \end{center}
 
-\begin{verbatim}
-1.40762329 * pA
-\end{verbatim}
+$ 1.40762329 * pA $
 
 
 \subsection{NEURON versions of single compartment Conducance
 model.}
 
-Conductance based chanels models took approximately the same amount of time to evaluate the Rheobase search algorithm as the python
-implementation.
+Hodgkin Huxley Conductance based channels models took approximately the same amount of time to evaluate the Rheobase search algorithm as the python implementation.
 
-The NEURON implementation was slightly faster, and the default
-parameterization of the model lacked ``ringing'', or below threshold
-oscillations that the Python ODE version had under default conditions.
+%The NEURON implementation was slightly faster, and the default parameterization of the model lacked `ringing'', or below threshold oscillations that the Python ODE version had under default conditions.
 
-This problem in the default parameterization of the python model was
-later located in the scale or units of capacitance, if default
-capacitance parameterization is multiplied by 100.0 the problem goes
-away.
+%This problem in the default parameterization of the python model was later located in the scale or units of capacitance, if default capacitance parameterization is multiplied by 100.0 the problem goes away.
 
     \begin{verbatim}
 time taken on block 8.573923826217651
@@ -210,7 +190,7 @@ time taken on block 8.573923826217651
     %\graphicspath{ {../figures/} }
     \begin{center}
     \begin{figure}
-    \includegraphics{chapters/figures/backend_check_files/backend_check_26_2.png}
+    \includegraphics{figures/backend_check_files/backend_check_26_2}
     %kend_check_files/backend_check_26_2.png}
     \end{figure}
     
@@ -225,31 +205,16 @@ time taken on block 8.573923826217651
 \{'El\_reference': -0.07016548013687134, 'C': 3.990452661875942e-10,
 'init\_threshold': 0.02964956889477108, 'th\_inf': 0.02964956889477108,
 'spike\_cut\_length': 109.5, 'init\_voltage': -35.0, 'R\_input': 910258965.9792937\}
-0.62137434895311 mV 2.7368671294272984 mV
-0.0 mV -0.065 mV
-0.31069759691841936 mV 1.33594806210705 mV
-0.15535922090107404 mV 0.6354885284469255 mV
-0.07769003289240137 mV 0.28525876161686337 mV
-0.07769003289240137 mV 0.28525876161686337 mV
 time taken on block 0.23476457595825195
 \end{verbatim}
 
     
 
-    
-    \begin{center}
-    \includegraphics{backend_check_files/backend_check_28_3.png}
-    \end{center}
-    \begin{verbatim}
-    112.5 pA
-    \end{verbatim}
 
-    $0.0 mV$ $-0.065 mV$
+$ 112.5 pA $
+$0.0 mV$ $-0.065 mV$
 
     \begin{verbatim}
-    0.12659285497193595 mV 0.5057737999913468 mV
-    0.3797368751483505 mV 1.6472634104004382 mV
-    0.2531648650601433 mV 1.0765186051958928 mV
     \{'value': array(183.33333333) * pA\}
     \end{verbatim}
 
