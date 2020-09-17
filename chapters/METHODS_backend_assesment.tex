@@ -117,23 +117,6 @@ potential calculation. * The NEURON Izhi model took $78$ seconds to find the rhe
 
 
 % https://www.overleaf.com/learn/how-to/Images_not_showing_up 
-
-\subsubsection{Parallel Rheobase Solver}
-
-
-\begin{figure}    
-  \begin{center}
-  \includegraphics[width=0.7\linewidth]{{figures/rheobase_algorithm.png}}
-    \caption{We developed a generic algorithm which took models, and found the minimal current injection value that would cause only one spike. The normal structure of this algorithm is a binary search, however we modified the algorithm so it would map onto multiple processors at once. This lead to significant speed ups for multicompartment NEURON models}
-
-  \end{center}
-\end{figure} 
-
-Algorithm was able to speed up this slow NEURON unit code. $ \frac{73}{19} $ represents a substantial speed up. of about 3.8. This is consistent with previous work
-
-\begin{verbatim}
-\{'value': array(51.79317142) * pA\}
-\end{verbatim}
         
     The forward Euler python IZhi model is very fast. The forward euler
 implementation utilized Numba JIT. Rheobase is found in under a second,
