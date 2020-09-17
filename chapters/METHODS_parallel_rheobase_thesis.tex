@@ -1,17 +1,26 @@
   
+\subsubsection{Parallel Rheobase Solver}
 
+
+\begin{figure}    
+  \begin{center}
+  \includegraphics[width=0.7\linewidth]{{figures/rheobase_algorithm.png}}
+    \caption{We developed a generic algorithm which took models, and found the minimal current injection value that would cause only one spike. The normal structure of this algorithm is a binary search, however we modified the algorithm so it would map onto multiple processors at once. This lead to significant speed ups for multicompartment NEURON models}
+
+  \end{center}
+\end{figure} 
     
     Below I show that for many classes of neuron models using a parallel
 Rheobase algorithm adds a significant speed up to model evaluation. It
 is important to consider that determinig rheobase usually involves
 between 10-35 model simulations at different current injection
-strengths. Where is the remaining error score calculations only invole
+strengths. Whereas the remaining error score calculations only involve
 at most one simulation each. Consider an optimization problem where
 there are only eight error scores to calculate, and four of the eight
 errors are for non spiking simulations of less than 500ms, a rheobase
 simulation is for 1200ms, and it involves both non-spiking and
 multi-spiking behavior. Multi-spiking models take longer to simulate
-than non spiking models for technical reasons. In this particular
+than non spiking and single spiking models for the simple reason that $\frac{dV_{M}}{dt}$ changes rapidly and solvers that are capable of variable time steps, will not be able to exploit sparse sampling in these rapid changes of  $\frac{dV_{M}}{dt}$. In this particular
 instance where finding the unique rheobase value for each different gene
 is important, that rheobase determination is the biggest computational
 bottleneck.
@@ -38,5 +47,13 @@ algorithm optimizer.
     speed up parallel:  3.055699411515084
 \end{verbatim}
 
+
+
+
+Algorithm was able to speed up this slow NEURON unit code. $ \frac{73}{19} $ represents a substantial speed up. of about 3.8. This is consistent with previous work
+
+\begin{verbatim}
+\{'value': array(51.79317142) * pA\}
+\end{verbatim}
 
 
