@@ -201,7 +201,6 @@ In contrast to reduced models, multi-compartmental models digitally encode the f
 % illustrate how a Genetic Algorithm (GA) generally works.
 \begin{center}
 \begin{figure}
-
     \includegraphics[width=0.7\linewidth]{figures/How_Genetic_Alg_Works.png}
   \caption{Genetic Algorithm Overview}
   \label{fig:GeneticAlgOver}
@@ -209,27 +208,27 @@ In contrast to reduced models, multi-compartmental models digitally encode the f
   
 \end{center}
 
-In \ref{fig:GeneticAlgOver}  Genetic algorithms find satisfactory solutions by incompletely sampling the solution space. Evolution of the algorithm is guided by the combined application of stochastic sampling and selective pressure. Stochasticit contributions to model sampling act as a mild incentive for models to explore regions beyond local minima. Stochasticity is applied in the combined actions of cross-over, and mutation. Model parameterizations are encoded as binary strings called genes. When genes breed, eligible pairs of genes are aligned and at random bit locations, the status of a bit is exchanged.  
+In \ref{fig:GeneticAlgOver}  Genetic algorithms find satisfactory solutions by incompletely sampling the solution space. Evolution of the algorithm is guided by the combined application of stochastic sampling and selective pressure. Stochastic contributions that guide GA sampling incentivise the exploration of regions beyond local minima. Stochasticity is applied in the combined actions of cross-over, and mutation. Model parameterizations are encoded as binary strings called genes. When genes breed, eligible pairs of genes are aligned and at random bit locations, the status of a bit is exchanged.  
 
 %\subsection{Significance}
 % I wouldn't call this section "Significance".  In general, think of these sections as small modules that can be reshuffled and rearranged as needed.  You don't want to pin yourself to describing everything that is "Significant" right here.  In particular, you could call this section "Neuronal diversity".
 
 \subsection{Analysis of Model and Experimental Variance}
-%
-Beyond experimental error, it is common to observe large variations in measurements of a single electrophysiological entity from neurons of the same classification. In another section \href Results I visualization such variation in electrophysiological measurements. As an example, consider that measurements of neuron membrane input resistance may be different when recorded from different instances within the same neuron type. Within sample variation is an essential consideration when evaluating the scientific merit of a computational model of a neuron-type. In conjunction to optimization, we propose to perform a large-scale analysis of model against experiment agreement and model against model agreement to expose the variation in biophysically realistic neuron models and cortical data.\\
+Beyond experimental error, it is common to observe large variations in measurements of a single electrophysiological entity from neurons of the same classification. In another section %\href 
+Results I visualization such variation in electrophysiological measurements. As an example, consider that measurements of neuron membrane input resistance may be different when recorded from different instances within the same neuron type. Within sample variation is an essential consideration when evaluating the scientific merit of a computational model of a neuron-type. In conjunction to optimization, we propose to perform a large-scale analysis of model against experiment agreement and model against model agreement to expose the variation in biophysically realistic neuron models and cortical data.\\
 \\
-By analyzing the variance in experiments and models the heterogeneity of experimental measurements from a particular neuron-type. Performing a meta-analysis with a large number of models will provide other insights. We will determine whether there is higher variance in modeled electrical properties versus experimental neurophysiological measurements. We will examine whether an extensive collection of cortical models behaves more similarly to each other than to the data and will answer the question: does the space of all existing single cell models accurately represent the variability in experimental data?
-
+By analyzing the variance in experiments and models the heterogeneity of experimental measurements from a particular neuron-type. Performing a meta-analysis with a large number of models will provide other insights. We will determine whether there is higher variance in modeled electrical properties versus experimental neurophysiological measurements. We will examine whether an extensive collection of cortical models behaves more similarly to each other than to the data and will answer the question: does the space of all existing single cell models accurately represent the variability in experimental data?\\
+% I didn't do this in thesis work.
 %and linking the variation to specific features and mechanisms, 
-we also will better understand Similarly, variation in the behavior of cortical neuronal networks is not well quantified. Tremendous research effort has been consumed producing several high-quality, experimentally informed cortical network models. Before creating another elaborate network model, we will determine whether these pre-existing approaches lead to networks with significantly different dynamic properties. Also, we will create an infrastructure that allows scientists to quantify the similarities and differences among networks and their dynamics – both biological and in silico.\newline
+%we also will better understand 
+%Similarly, variation in the behavior of cortical neuronal networks is not well quantified. Tremendous research effort has been consumed producing several high-quality, experimentally informed cortical network models. Before creating another elaborate network model, we will determine whether these pre-existing approaches lead to networks with significantly different dynamic properties. Also, we will create an infrastructure that allows scientists to quantify the similarities and differences among networks and their dynamics – both biological and in silico.\newline
 \newline
 % Shouldn't this be a new section, about data integration?
+\subsection{Relationship between Missing Data Imputation and Optimization}
 Existing data sets are incomplete, consisting of a sparse sampling of cells in the rodent brain. By necessity, models are constrained using these incomplete data sets, leading to compensatory model development that synthesizes missing information. Missing data occurs at multiple levels during network construction including exact neuron to neuron wiring patterns, un-sampled morphologies, unknown synapse activation times, and unknown axon and dendrite synapse locations. Published models should not be regarded as final, but to improve models, it is vital that they are validated against newly-obtained experimental data. The proposed work will facilitate ongoing validation of biophysically realistic models. 
 \\
 % And this can go up into the section about diversity
-Some electrophysiology data are challenging to integrate into existing models.
-These include data collected from animal species that are not widely used in models such as marmoset, guinea pig, and even humans. 
-Additionally, neuron-type data may come from a human, but the tissue samples may have been extracted from brain tissue in a pathological condition, such as eplipsey or alzheimers disease.
+Some electrophysiology data are challenging to integrate into existing models. These include data collected from animal species that are not widely used in models such as marmoset, guinea pig, and even humans.  Rarely, neuon-type data may come from a human, but the tissue samples will have been extracted from pathological brain tissue pertaining to conditions, such as eplipsey or Alzheimers disease.
 \\
 In practice, open access data is not always useable, as it be derived from multiple species, multiple brain regions and different states of health. We will obtain a better understanding of region-dependent differences and species-dependent differences in order to help researchers map models onto a standardized rodent electrophysiological phenotype space.\\
 \\

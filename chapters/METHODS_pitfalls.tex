@@ -1,18 +1,20 @@
 
 \subsubsection{Optimization is very sensitive to the selection of Errors used to Guide Optimization}
 
-\begin{itemize}
-    \item[-] Although there is a large variety of possible errors to use, its rarely a good idea to use all of these errors at once.
+Theoretically the largest possible number of constraints would be applied to optimization, because each constraint may provide additional information about the error surface, and may more rapidly exclude great volumes of the solution space. Despite this observation, except in good luck, a successful optimization recipe will not involve the use of all available fitness criterion. This makes the task of model-data fitting far from automatic, in fact human intervention is needed because, not all error signals can be informative guides. 
+
+%\begin{itemize}
+    %\item[-] Although there is a large variety of possible errors to use, its rarely a good idea to use all of these errors at once.
     
     One type of error that is an unreliable guide, is one who, by some minor aspect, contains a reference point, that is construed differently relative to each different model parameterization. In an effort to make computer code run without error, under very many different possible conditions, it is tempting to make model measurements that are not objective and unchanging between models. 
     
     A $V_{T}$ threshold my be computed as $(\frac{1}{10})\frac{dV_{M}}{dt}$.
     
-    If a neuron model has a spike height below $0mV$, you may be tempted to set a spike detectors threshold as a multiple of $\mu_{V_{M}} - \sigma_{{V_{M}}}$, the mean $V_{M} -$ the standard deviation of the $V_{M}$. This would certainly detect spikes with peaks below $0mV$, and it would work for a wide variety of models too, however, the problem is that because the measurement has a dependency that is relative its self, it is less objectively able to distinguish between waveforms from different models.\\
+    If a neuron model has a spike height below $0mV$, you may be tempted to set a spike detectors threshold as a multiple of $\mu_{V_{M}} - \sigma_{{V_{M}}}$, the mean $V_{M} -$ the standard deviation of the $V_{M}$. This would certainly detect spikes with peaks below $0mV$, and it would work for a wide variety of models too, however, the problem is that because the measurement has a dependency that is relative its self, it is less able to objectively assess waveform differences between  different models.\\
     \\
     For example spike width measurements, need to know the time when the peak of a spike occurred such that it can measure the time between $V_{T}$ and $V_{peak}$. If the method for obtaining spike time, adjusts itself to accommodate model specific differences, in the case when spike time is the same between models, some models will say a spike occured a bit later, and others a bit earlier, resulting in an unwarranted difference between measurements, which will misguide optimization. The problem can be compounded because other measurements can depend on this measurement, such as spike height, spike width, and $V_{T}$, all of these depend on the spike detection threshold. Which is now not really constant between models.\\
     \\
-    Another example of this, is recalculating the Rheobase current injection value between different models, there is some error associated with approximating the rheobase current. What is desired is to ascertain the minimal current injection amplitude, which would cause only one spike to fire, but because there is not much time to exhaustively test smaller and smaller values of current amplitude (due to the exploration, exploitation dilemna), one will always settle for an over approximation that is somewhere between enough current to cause one or two spikes. The size of this error will vary between models. In addition to this finite precision error, a measurement that is relative to each model, and not objective between models, is a bad idea for the same reason as the model specific measurement for $V_{T}$.\\
+    Another cause of misguided errors may involve the recalculating the Rheobase current injection value between different models, there is some error associated with approximating the rheobase current. What is desired is to ascertain the minimal current injection amplitude, which would cause only one spike to fire, but because there is not much time to exhaustively test smaller and smaller values of current amplitude (due to the exploration, exploitation dilemma), one will always settle for an over estimate, one that is somewhere between enough current to cause one or two spikes. The size of this error will vary between models. In addition to this finite precision error, a measurement that is relative to each model, and not objective between models, is a bad idea for the same reason as the model specific measurement for $V_{T}$.\\
     \\
     Spike amplitude will be bigger for some models at their rheobase calculation than other models, especially between models of different input Resistance. Input Resistance will succeed in attenuating greater amplitudes of applied current, however, if a the current succeeds at provoking a spike, the voltage deflection will have a larger peak because of Ohms law: $V=IR$. In this case $V_{M}$, specifically the peak of $V_{M}$ deflection is proportionate to current injection amplitude. So models with different amounts of input resistance will also differ in the peak of the rheobase current injection. However because rheobase is re-calculated per model and because there is finite precision in the rheobase error calculating software it is possible that there will be small regions of error surface, that less accurately encode this relationship.\\
     \\ 
@@ -30,11 +32,13 @@
     be to apply a large enough current to invoke spiking in most neurons, and to measure the wave form shape of just one or two spikes in a the resulting spike train.
     
     \subsubsection{Error signals derived from threshold calculations}
-    \begin{itemize}
-    \item[-] A suite of NeuronUnit tests contained two threshold dependent measurements. These were spike half-width, spike height. The treshold was also used to comprize a NU test, so in total three $V_{T}$ measurements were used.
+    %\begin{itemize}
+    %\item[-] 
+    A suite of NeuronUnit tests contained two threshold dependent measurements. These were spike half-width, spike height. The treshold was also used to comprize a NU test, so in total three $V_{T}$ measurements were used.
     
-    \item[-] (Ephysiology Feature Extraction Library \cite{}) EFEL, Allen SDK, and Druckman all contain independently written algorithms for ascertaining modelled neuron $V_{T}$ thresholds calculation code. In all three feature extraction pipelines $V_{T}$ is computed by taking derivative of $V_{M}$
-    \end{itemize}
+    %\item[-] 
+    (Ephysiology Feature Extraction Library \cite{}) EFEL, Allen SDK, and Druckman all contain independently written algorithms for ascertaining modelled neuron $V_{T}$ thresholds calculation code. In all three feature extraction pipelines $V_{T}$ is computed by taking derivative of $V_{M}$
+    %\end{itemize}
     
    Another related pitfall is the relationship between the number of free dimensions in the optimization problem versus the number of reliable errors used to constrain the optimization process.
    
@@ -68,4 +72,4 @@
    
    Ideally each extra $NOBJ$  
 
-\end{itemize}
+%\end{itemize}
