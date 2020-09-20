@@ -2,6 +2,14 @@
     
 
  \section{Model Implementations}   
+
+A constant error warning plagued brian2 investmentallations
+\begin{verbatim}
+Brian2 causes error:
+ ERROR      Brian 2 encountered an unexpected error. If you think this is bug in Brian 2, please report this issue either to the mailing list at <http://groups.google.com/group/brian-development/>, or to the issue tracker at <https://github.com/brian-team/brian2/issues>. Please include this file with debug information in your report: /tmp/brian_debug_t0acbm4l.log  Additionally, you can also include a copy of the script that was run, available at: /tmp/brian_script_juzhsbph.py Thanks! [brian2]
+Traceback (most recent call last):
+\end{verbatim}
+
 To make optimization of models tractable it was important to do ongoing feasibility testing. For example its important to evaluate the the utility of established model implementations, as using these models to optimize may not in fact be feasible.\\ 
 \\
 Despite an a large number of choices of FOSS reduced model
@@ -18,13 +26,13 @@ model is defined in a middle code layer neurodynamics\cite{gerstner2014neuronal}
 \\
 It is very likely, that the model implementation is correct, since Gerstner is an author of one of the original adaptive exponential publications, and the neural dynamics book that the brian2 code is strongly affiliated with. Since Integrate and Fire models don't formally include spikes when an implementation does include spikes, it is an optional add on.\\
 \\
-The AdExp neurodynamics models default implementation causes spikes with peaks below $0mV$, since the AdExp model like all integrate and fire models do not explicitly include spikes\\
+The AdExp neurodynamics models default implementation causes spikes with peaks below $0mV$, since the IZHI model like all integrate and fire models do not explicitly include spikes\\
 \\
 This is not technically wrong, but it violates
 assumptions in the \emph{NeuronUnit} feature extraction protocol. The default spiking behavior, looks odd, and it is simply this poor model definition that is causing a slower optimizer performance. The optimizer takes an unusual waveform shape, and searches for longer in distant
 parameter regions to find a good fit.\\
 \\
-Over  the course of evaluating the brian neural dynamics model \cite{gerstner2014neuronal}. I experienced some phenomena that only occurred in the context of genetic algorithm optimization. The reason why optimization provides a different evaluation context is because, in optimization simulation objects are required to be created and destroyed rapidly and on mass. Brian2 is designed to be an efficient network simulator, the case of being designed for network simulation, may assume you will want to create a lot of neural models that persist efficiently together in memory (this was also a problem with PyNN models). Therefore you might see below, that while only one brian model exists in memory, performance is okay, but when creating and destroying models rapidly and on mass a slow down occurs.\\
+Over the course of evaluating the brian neural dynamics model \cite{gerstner2014neuronal}. I experienced some phenomena that only occurred in the context of genetic algorithm optimization. The reason why optimization provides a different evaluation context is because, in optimization simulation objects are required to be created and destroyed rapidly and on mass. Brian2 is designed to be an efficient network simulator, the case of being designed for network simulation, may assume you will want to create a lot of neural models that persist efficiently together in memory (this was also a problem with PyNN models). Therefore you might see below, that while only one brian model exists in memory, performance is okay, but when creating and destroying models rapidly and on mass a slow down occurs.\\
 \\
 Below I have implemented a python integrator for the Adaptive
 Exponential Integrate and fire model. This solver lead to faster
@@ -36,11 +44,14 @@ parameter values.\\
 Brian2 and sciunits sometimes collided in name space, and logging.
 %\href{https://github.com/scidash/sciunit/pull/124/files/83907ba68740642178ebb91084f6e382e06a43c4#diff-d68791d2ed5dfaa96a900be6180bd950}
 
-\section{Profiling the JIT enabled Adexp Model}
-\begin{verbatim}
-time taken on block 3.3625197410583496
-\end{verbatim}
+\section{Profiling the JIT enabled AdExp Model}
+Mean time taken on single model evaluation:$ 0.0012554397583007812s $
+Mean time taken to compute rheobase:
+$0.183s $
 
+
+Even faster than Izhikevich implementation which was: $ 0.462s $ $  0.002 s$
+Rheobase takes a mean of 15 model evaluations.
 \begin{figure}    
 \begin{center}
 \includegraphics[width=0.25\linewidth]{figures/backend_check_files/backend_check_6_2.png}
