@@ -1,0 +1,205 @@
+
+\subsection{Electrical Features NeuroElectro Experiment Features}
+\subsection{The Experimental Measurements}
+
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lllll}
+\toprule
+name & Hippocampus CA1 pyramidal cell & Cerebellum Purkinje cell & Neocortex pyramidal cell layer 5-6 &      olfactory mitral cell \\ 
+\midrule
+RheobaseTest                   &                     189.24 pA &                680.79 pA &                          213.85 pA &          NaN \\
+InputResistanceTest            &                    107.08 Mohm &              142.06 Mohm &                        120.67 Mohm &  130.08 Mohm \\
+TimeConstantTest               &                        24.5 ms &                      NaN &                           15.73 ms &     24.48 ms \\
+CapacitanceTest                &                        89.8 pF &                620.27 pF &                          150.58 pF &    235.75 pF \\
+RestingPotentialTest           &                      -65.23 mV &                -61.59 mV &                          -68.25 mV &    -58.14 mV \\
+APWidthTest     &                        1.32 ms &                  0.41 ms &                            1.21 ms &      1.61 ms \\
+APAmplitudeTest &                       86.36 mV &                 71.23 mV &                           80.44 mV &      68.4 mV \\
+APThresholdTest &                       -47.6 mV &                -46.89 mV &                          -42.74 mV &     -38.9 mV \\
+\bottomrule
+\end{tabular}}
+\end{table} 
+
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lllll}
+\toprule
+name & Hippocampus CA1 pyramidal cell & Cerebellum Purkinje cell & Neocortex pyramidal cell layer 5-6 &      olf\_mit \\
+\midrule
+RheobaseTest                   &                      189.24 pA &                680.79 pA &                          213.85 pA &          NaN \\
+InputResistanceTest            &                    107.08 Mohm &              142.06 Mohm &                        120.67 Mohm &  130.08 Mohm \\
+TimeConstantTest               &                        24.5 ms &                      NaN &                           15.73 ms &     24.48 ms \\
+CapacitanceTest                &                        89.8 pF &                620.27 pF &                          150.58 pF &    235.75 pF \\
+RestingPotentialTest           &                      -65.23 mV &                -61.59 mV &                          -68.25 mV &    -58.14 mV \\
+InjectedCurrentAPWidthTest     &                        1.32 ms &                  0.41 ms &                            1.21 ms &      1.61 ms \\
+InjectedCurrentAPAmplitudeTest &                       86.36 mV &                 71.23 mV &                           80.44 mV &      68.4 mV \\
+InjectedCurrentAPThresholdTest &                       -47.6 mV &                -46.89 mV &                          -42.74 mV &     -38.9 mV \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Neocortex pyramidal cell layer 5-6, Izhikevich Model}
+$\chi^{2}$
+\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+chi\_square &  1.976320 \\
+p\_value    &  0.981729 \\
+\bottomrule
+
+\end{tabular}
+
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llll}
+\toprule
+{} & observations &    predictions & Z-Scores \\
+\midrule
+RheobaseTest                   &    213.85 pA &       45.04 pA &     1.13 \\
+InputResistanceTest            &  120.67 Mohm &  84.48 megaohm &     0.44 \\
+TimeConstantTest               &     15.73 ms &       12.28 ms &     0.45 \\
+CapacitanceTest                &    150.58 pF &      145.41 pF &     0.03 \\
+RestingPotentialTest           &    -68.25 mV &      -68.35 mV &     0.01 \\
+InjectedCurrentAPWidthTest     &      1.21 ms &        1.31 ms &     0.16 \\
+InjectedCurrentAPAmplitudeTest &     80.44 mV &        80.5 mV &        0 \\
+InjectedCurrentAPThresholdTest &    -42.74 mV &      -38.51 mV &     0.51 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Hippocampus CA1 pyramidal cell, Izhikevich Model}
+$\chi^{2}$
+\begin{tabular}{lrr}
+\toprule
+{} &  chi\_square &   p\_value \\
+\midrule
+0 &    2.125091 &  0.976935 \\
+\bottomrule
+\end{tabular}
+
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llll}
+\toprule
+{} & observations &    predictions & Z-Scores \\
+\midrule
+RheobaseTest                   &    189.24 pA &       32.24 pA &     0.54 \\
+InputResistanceTest            &  107.08 Mohm &  97.76 megaohm &      0.1 \\
+TimeConstantTest               &      24.5 ms &         9.6 ms &     0.72 \\
+CapacitanceTest                &      89.8 pF &       98.24 pF &     0.13 \\
+RestingPotentialTest           &    -65.23 mV &      -65.56 mV &     0.06 \\
+InjectedCurrentAPWidthTest     &      1.32 ms &         1.2 ms &     0.17 \\
+InjectedCurrentAPAmplitudeTest &     86.36 mV &       86.97 mV &     0.04 \\
+InjectedCurrentAPThresholdTest &     -47.6 mV &       -40.0 mV &     1.12 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Hippocampus CA1 pyramidal cell, Conductance Model}
+$\chi^{2}$
+\begin{tabular}{lrr}
+\toprule
+{} &  chi\_square &   p\_value \\
+\midrule
+0 &   17.216463 &  0.027932 \\
+\bottomrule
+\end{tabular}
+
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llll}
+\toprule
+{} & observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest                   &    189.24 pA &        225.0 pA &      0.1 \\
+InputResistanceTest            &  107.08 Mohm &  130.26 megaohm &     0.27 \\
+TimeConstantTest               &      24.5 ms &         6.52 ms &     0.91 \\
+CapacitanceTest                &      89.8 pF &        50.05 pF &     0.78 \\
+RestingPotentialTest           &    -65.23 mV &       -63.79 mV &     0.26 \\
+InjectedCurrentAPWidthTest     &      1.32 ms &         0.25 ms &     2.54 \\
+InjectedCurrentAPAmplitudeTest &     86.36 mV &        89.14 mV &      0.2 \\
+InjectedCurrentAPThresholdTest &     -47.6 mV &       -62.83 mV &     3.02 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Hippocampus CA1 pyramidal cell, Adaptive Exponential Model}
+$\chi^{2}$
+\begin{tabular}{lr}
+\toprule
+{} &          0 \\
+\midrule
+chi\_square &  10.232514 \\
+p\_value    &   0.249084 \\
+\bottomrule
+\end{tabular}
+
+
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llll}
+\toprule
+{} & observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest                   &    189.24 pA &        225.0 pA &      0.1 \\
+InputResistanceTest            &  107.08 Mohm &  130.26 megaohm &     0.27 \\
+TimeConstantTest               &      24.5 ms &         6.52 ms &     0.91 \\
+CapacitanceTest                &      89.8 pF &        50.05 pF &     0.78 \\
+RestingPotentialTest           &    -65.23 mV &       -63.79 mV &     0.26 \\
+InjectedCurrentAPWidthTest     &      1.32 ms &         0.25 ms &     2.54 \\
+InjectedCurrentAPAmplitudeTest &     86.36 mV &        89.14 mV &      0.2 \\
+InjectedCurrentAPThresholdTest &     -47.6 mV &       -62.83 mV &     3.02 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Olfactory Mitral Cell Izhikevich Model}
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llll}
+\toprule
+{} & observations &     predictions & Z-Scores \\
+\midrule
+InputResistanceTest            &  130.08 Mohm &  111.76 megaohm &     0.21 \\
+TimeConstantTest               &     24.48 ms &        26.35 ms &     0.18 \\
+CapacitanceTest                &    235.75 pF &       235.77 pF &     0.03 \\
+RestingPotentialTest           &    -58.14 mV &       -59.78 mV &      0.3 \\
+InjectedCurrentAPWidthTest     &      1.61 ms &         1.54 ms &     0.19 \\
+InjectedCurrentAPAmplitudeTest &      68.4 mV &        68.62 mV &     0.04 \\
+InjectedCurrentAPThresholdTest &     -38.9 mV &       -30.45 mV &     1.35 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+\subsubsection{Cerebellum Purkinje cell Experiment Conductance Izhikevich Model}\begin{tabular}{lr}
+\toprule
+{} &          0 \\
+\midrule
+chi\_square &  19.158050 \\
+p\_value    &   0.014037 \\
+\bottomrule
+\end{tabular}
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llll}
+\toprule
+{} & observations &    predictions & Z-Scores \\
+\midrule
+RheobaseTest                   &    680.79 pA &        43.4 pA &     1.83 \\
+InputResistanceTest            &  142.06 Mohm &  66.98 megaohm &     1.29 \\
+CapacitanceTest                &    620.27 pF &       68.27 pF &     3.36 \\
+RestingPotentialTest           &    -61.59 mV &      -61.61 mV &        0 \\
+InjectedCurrentAPWidthTest     &      0.41 ms &        0.48 ms &     0.32 \\
+InjectedCurrentAPAmplitudeTest &     71.23 mV &       71.41 mV &     0.01 \\
+InjectedCurrentAPThresholdTest &    -46.89 mV &      -37.79 mV &     1.66 \\
+\bottomrule
+\end{tabular}}
+\end{table}
