@@ -1,0 +1,106 @@
+\subsection{Allen Experimental Measurements}\begin{tabular}{lll}
+\toprule
+name &      471819401 &      482493761 \\
+\midrule
+RheobaseTest         &       190.0 pA &        70.0 pA \\
+TimeConstantTest     &        13.8 ms &        24.4 ms \\
+RestingPotentialTest &       -77.5 mV &       -71.6 mV \\
+InputResistanceTest  &  132.0 megaohm &  258.0 megaohm \\
+\bottomrule
+\end{tabular}
+\subsection{482493761 AdExp} scores, agreement\begin{tabular}{lllll}
+\toprule
+{} & RheobaseTest & TimeConstantTest & RestingPotentialTest & InputResistanceTest \\
+\midrule
+observations &      70.0 pA &          24.4 ms &             -71.6 mV &       258.0 megaohm \\
+predictions  &     64.93 pA &         24.96 ms &            -71.71 mV &      257.76 megaohm \\
+Z-Scores     &         0.06 &             0.01 &                    0 &                   0 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+chi\_square &  0.003602 \\
+p\_value    &  1.000000 \\
+\bottomrule
+\end{tabular}
+optimal model parameters\begin{tabular}{lrrrrrrrrrrr}
+\toprule
+{} &          cm &  v\_spike &    v\_reset &     v\_rest &     tau\_m &         a &         b &  delta\_T &      tau\_w &   v\_thresh &  spike\_delta \\
+\midrule
+0 &  168.423986 &   -140.0 & -86.772208 & -75.676054 &  42.58874 &  1.936759 & -0.101238 &  19.0018 &  24.158265 & -49.511691 &    18.847281 \\
+\bottomrule
+\end{tabular}
+\subsection{482493761 Izhikevich} scores, agreement\begin{tabular}{lllll}
+\toprule
+{} & RheobaseTest & TimeConstantTest & RestingPotentialTest & InputResistanceTest \\
+\midrule
+observations &      70.0 pA &          24.4 ms &             -71.6 mV &       258.0 megaohm \\
+predictions  &      6.67 pA &         22.92 ms &            -58.02 mV &      178.32 megaohm \\
+Z-Scores     &         1.01 &             0.02 &                 0.08 &                0.28 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+chi\_square &  1.095571 \\
+p\_value    &  0.997569 \\
+\bottomrule
+\end{tabular}
+optimal model parameters\begin{tabular}{lrrrrrrrrr}
+\toprule
+{} &           C &         k &         vr &         vt &      vPeak &         a &        b &          c &          d \\
+\midrule
+0 &  127.255501 &  0.727107 & -58.022589 & -49.441359 &  42.020586 &  0.063064 & -1.92806 & -53.658557 &  48.709306 \\
+\bottomrule
+\end{tabular}
+\subsection{471819401 AdExp} scores, agreement\begin{tabular}{lllll}
+\toprule
+{} & RheobaseTest & TimeConstantTest & RestingPotentialTest & InputResistanceTest \\
+\midrule
+observations &     190.0 pA &          13.8 ms &             -77.5 mV &       132.0 megaohm \\
+predictions  &    188.96 pA &         14.55 ms &            -77.91 mV &      128.53 megaohm \\
+Z-Scores     &            0 &             0.02 &                    0 &                0.02 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+chi\_square &  0.000814 \\
+p\_value    &  1.000000 \\
+\bottomrule
+\end{tabular}
+optimal model parameters\begin{tabular}{lrrrrrrrrrrr}
+\toprule
+{} &          cm &  v\_spike &    v\_reset &     v\_rest &      tau\_m &         a &         b &    delta\_T &      tau\_w &  v\_thresh &  spike\_delta \\
+\midrule
+0 &  214.608189 &      NaN & -86.871708 & -78.604657 &  59.400749 &  4.541127 &  0.005564 &  14.940933 &  11.348319 & -44.16836 &    30.379544 \\
+\bottomrule
+\end{tabular}
+\subsection{482493761 Izhikevich} scores, agreement\begin{tabular}{lllll}
+\toprule
+{} & RheobaseTest & TimeConstantTest & RestingPotentialTest & InputResistanceTest \\
+\midrule
+observations &     190.0 pA &          13.8 ms &             -77.5 mV &       132.0 megaohm \\
+predictions  &     25.16 pA &         15.13 ms &            -56.97 mV &      109.13 megaohm \\
+Z-Scores     &         0.95 &             0.03 &                 0.11 &                0.15 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lr}
+\toprule
+{} &        0 \\
+\midrule
+chi\_square &  0.99858 \\
+p\_value    &  0.99858 \\
+\bottomrule
+\end{tabular}
+optimal model parameters\begin{tabular}{lrrrrrrrrr}
+\toprule
+{} &           C &         k &         vr &         vt &      vPeak &         a &         b &          c &           d \\
+\midrule
+0 &  191.509247 &  0.707369 & -56.971092 & -48.027762 &  42.030036 &  0.045553 &  2.065377 & -52.782656 &  111.007817 \\
+\bottomrule
+\end{tabular}
