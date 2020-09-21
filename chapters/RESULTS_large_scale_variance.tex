@@ -1,36 +1,48 @@
 
-\section{chapter over view}
+\subsection{chapter over view}
 \begin{itemize}
-
 \item to assess the accuracy of current neural modelling work we explored:
 \item variance in models
 \item variance in experiments,  
 \item variance in the combined set of models and experiments.
-
-
 \end{itemize}
-
-
-\title{Cortical Model and Cortical Experiment Agreement}
     % combine this discussion with model repurposing discussion.
-Models and Data can agree and disagree in many different ways, therefore we would like to identify important sources of model/data disagreement. Better awareness of model/data disagreement informs a related question: "In  cortical neuron models which segmented pieces of a voltage recording waveform should the optimizer act on?"
 
-\section{Features} Consider a voltage recording at the location of the membrane of a neuron. Teams of researchers have already segmented voltage recordings into labelled sections, each section has a classification that is based on the shape of waveform in a limited region. Rather than specifying by name each measurement it is often useful to refer collectively to these measurable shapes as "features". In multivariate analysis I look at hundreds of these waveform features. 
+
+\subsection{Cortical Model and Cortical Experiment Agreement}
+Models and experimental measurements can agree and disagree in many different ways, therefore we would like to identify important sources of model/data disagreement. Better awareness of model/data disagreement informs a related question: "In  cortical neuron models which segmented pieces of a voltage recording waveform should the optimizer act on?"
+
+\subsection{Features} Consider a voltage recording at the location of the membrane of a neuron. Teams of researchers have already segmented voltage recordings into labelled sections, each section has a classification that is based on the shape of waveform in a limited region. Rather than specifying by name each measurement it is often useful to refer collectively to these measurable shapes as "features". In multivariate analysis I look at hundreds of these waveform features. 
 
 Specifically below, I describe some neuronal model features that agreed well with experiments, and some features that disagreed less well.
 
 %\includegraphics[]{chapters/app_tex/Allen_rush}
+\begin{figure}    
+    \begin{center}
+    
+    \includegraphics[width=1.0\linewidth]{figures/multi_spiking_large_allen}
+    \end{center}
+    \caption{An example of a multispiking waveform used as a basis for the Allen Brain Insistute cell types data base. Publication Gouwens rat }
+
+\end{figure}    
+\begin{figure}    
+    \begin{center}
+    
+    \includegraphics[width=1.0\linewidth]{figures/multi_spiking_large_bbp}
+    \end{center}
+    \caption{An example of a multispiking waveform used as a basis for the Blue Brain Project. Publication Jouvanile rat }
+\end{figure}    
 
 %\end{tcolorbox}
 \begin{figure}    
 \begin{center}
 
-\includegraphics[width=0.7\linewidth]{figures/cortical_model_data_agreement_52_1.png}
+\includegraphics[width=1.0\linewidth]{figures/cortical_model_data_agreement_52_1.png}
 \end{center}
 \end{figure}    
 \begin{figure}    
 \begin{center}
-\includegraphics[width=0.7\linewidth]{figures/cortical_model_data_agreement_54_1.png}
+\includegraphics[width=1.0\linewidth]{figures/cortical_model_data_agreement_54_1.png}
 \end{center}
 \end{figure}    
 
