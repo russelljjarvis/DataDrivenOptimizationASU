@@ -1,0 +1,57 @@
+
+
+
+In reduced neuronal It was found that the electrical properties of cells:
+ (Rheobase, input resistance, membrane time constant,Resting Potential, Capicitance)
+
+ did not encode the above threshold spiking behavior of neurons, when neurons were undergoing a multispiking stimulus regime.
+
+ forinstance in Allen cell '482493761' injecting a current of 
+ specified by $ current = {'amplitude':110*pq.pA,'duration':1100*pq.ms,'delay':100*pq.ms} $
+ should elicit a spike count of $3$, in an optimized Izhikevich model that has good agreement with all values except for Rheobase these values it produces 33 spikes.
+
+
+ You can imagine that in cells, that have been optimized to rheobase only, that current spike count relationship might be more 
+ accurate and faithful to the experiment.
+
+In cell 471819401 , 290 pA causes 20 spikes,
+in the optimized Adaptive Exponential model 290
+specified by $ current = {'amplitude':290*pq.pA,'duration':1100*pq.ms,'delay':100*pq.ms} $
+caused only $5$$ spikes. 
+
+and in the Izhikevich model $59$
+RheobaseTest	TimeConstantTest	RestingPotentialTest	InputResistanceTest
+observations	70.0 pA	24.4 ms	-71.6 mV	132.0 megaohm
+predictions	234.67 pA	31.31 ms	-72.08 mV	130.26 megaohm
+Z-Scores	3.98	0.09	0	0.01
+
+Another way of writing this is that fitting a model to electrical properties of cells, does not
+garuntee that the cell is fitted to multispiking behavior, at current injection virtual experiments with larger amounts of injected current.
+A model fitted to one "sweep" is a model of only that sweep. 
+
+If you apply the sweep fitted model to a different current injection value, you will not get the expected waveform shape fitted.
+because even though one may have optimized to the shape of a single spike, and the membrane time constant, and input resistance should have a bearing
+ on spike width and spike height respectively. Since spike width is dependant on membrane time constant, and input resistance, you 
+ would expect that spike frequency and therefore firing rate, should be proportionately related to 
+ to the membrane spike width, and therefore membrane capacitance. However, in reduced neuronal models, this was found
+ to be not strictly the case.
+
+ The Rheobase value is the biggest determinant of how current injection values map onto spike counts.
+
+
+ Arguably then only the rheobase current injection value is important for fitting to Reduced Neuronal Models in order to make networks of Reduced Neuronal cells behave more realistically.
+ It is unclear, however, what the relationship is between synaptic current and electrode current. Synaptic current is distributed, but electrode current is focused on a single point.
+ If both are distal to the axon hillock, both synaptic current, and injected currents may behave in a similar way.
+
+
+ These model parameters do not encode the spike frequency.
+you didn't optimize to the spike count at different injection values.
+
+Therefore in order to make realistic network models that make use of reduced models, 
+one should have a firing rate, and some sweep data, of cellular behavior with the same spike frequency.
+one can then fit simple multi-spiking waveform measurements to the models.
+
+Surprisingly some types of spiking information, like spike rate, and multispiking height, spike adaption.
+Are easier for reduced models to fit. I show this in some simulated data, virtual experiments.
+
+With spike counts, and spike frequencies, 
