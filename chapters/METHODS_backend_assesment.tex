@@ -1,17 +1,20 @@
 
     
 
- \section{Model Implementations}   
+ \subsubsection{Model Implementations}   
  
  %Without over stating things, 
- Much of the value of this thesis effort to the neuroscience modelling community comes from the contribution of two fast python model simulations. Because these simulations are written in python, the model implementations are easy to understand and dispatch, because the models are fast they are useful in both network contexts, and optimization contexts.
+ When regarding this thesis effort and its contribution to knowledge, 
+ much of the value to the neuroscience modelling community comes from the implementation  of two fast python model simulations. Because these simulations are written in python, the code that implementations them is easy to understand and dispatch, because the models are fast they are useful in both network contexts, and optimization contexts. To
  
-A component of this thesis:
-\href{https://github.com/russelljjarvis/IzhikevichModel}
+%A component of this work is the numba jit enabled Izhikevich model, which I plan to push to the Open Source Brain %\href{https://github.com/russelljjarvis/IzhikevichModel.git}
 
 
-
-A constant error warning plagued brian2 investmentallations
+\subsubsection{Why Existing Approaches Were Not workable}
+The author experimented with writing
+PyNN, brain2, NEURON, jNeuroML-2.
+ 
+A constant error warning plagued brian2 investmentallations was.
 \begin{verbatim}
 Brian2 causes error:
  ERROR      Brian 2 encountered an unexpected error. If you think this is bug in Brian 2, please report this issue either to the mailing list at <http://groups.google.com/group/brian-development/>, or to the issue tracker at <https://github.com/brian-team/brian2/issues>. Please include this file with debug information in your report: /tmp/brian_debug_t0acbm4l.log  Additionally, you can also include a copy of the script that was run, available at: /tmp/brian_script_juzhsbph.py Thanks! [brian2]
@@ -185,46 +188,49 @@ time taken on block 8.573923826217651
 
 
     %\graphicspath{ {../figures/} }
-    \begin{center}
-    \begin{figure}
-    \includegraphics{figures/backend_check_files/backend_check_26_2}
+%    \begin{center}
+%    \begin{figure}
+%    \includegraphics{figures/backend_check_files/backend_check_26_2}
     %kend_check_files/backend_check_26_2.png}
-    \end{figure}
+%    \end{figure}
     
-    \end{center}
-\begin{verbatim}
-112.5 pA
-'value': array(1.40645904) * pA
-\end{verbatim}
+%    \end{center}
+%\begin{verbatim}
+% 112.5 pA
+%'value': array(1.40645904) * pA
+%\end{verbatim}
 
+% parameters of an adaptive exponential model
+%\begin{verbatim}
+%\{'El\_reference': -0.07016548013687134, %'C': 3.990452661875942e-10%,
+%'init\_threshold': 0.02964956889477108, %'th\_inf': 0.02964956889477108,
+%'spike\_cut\_length': 109.5, %'init\_voltage': -35.0, 'R\_input': %910258965.9792937\}
+%\end{verbatim}
+$ Rheobase = 112.5pA $
 
-\begin{verbatim}
-\{'El\_reference': -0.07016548013687134, 'C': 3.990452661875942e-10,
-'init\_threshold': 0.02964956889477108, 'th\_inf': 0.02964956889477108,
-'spike\_cut\_length': 109.5, 'init\_voltage': -35.0, 'R\_input': 910258965.9792937\}
-time taken on block 0.23476457595825195
-\end{verbatim}
+time taken to execute this model.
+$ 0.23476457595825195 $
 
     
 
 
-$ 112.5 pA $
-$0.0 mV$ $-0.065 mV$
+%$ 112.5 pA $
+%$0.0 mV$ $-0.065 mV$
 
-    \begin{verbatim}
-    \{'value': array(183.33333333) * pA\}
-    \end{verbatim}
+%    \begin{verbatim}
+%    \{'value': array(183.33333333) * pA\}
+%    \end{verbatim}
 
-\begin{verbatim}
-array(112.5) * pA
-\end{verbatim}
+%\begin{verbatim}
+%array(112.5) * pA
+%\end{verbatim}
 
 
-\begin{verbatim}
-    0.017240506310425608 mV -0.08583939747094235 mV
-    0.017240506310425608 mV -0.08583939747094235 mV
-\end{verbatim}
+%\begin{verbatim}
+%    0.017240506310425608 mV -0.08583939747094235 mV
+%    0.017240506310425608 mV% -0.08583939747094235 mV
+%\end{verbatim}
 
-    \begin{center}
-    \includegraphics{figures/backend_check_files/backend_check_32_2.png}
-    \end{center}
+    %\begin{center}
+    %\includegraphics{figures/backend_check%_files/backend_check_32_2.png}
+    %\end{center}
