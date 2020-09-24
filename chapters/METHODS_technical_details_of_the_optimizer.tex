@@ -1,8 +1,26 @@
 \section*{Technical Details of the Optimizer}
 \begin{itemize}
 \item Experimental Recording Features from Neuroelectro. And some from the Allen SDK.
-\item The algorithms IBEA and NSGA2 seem to result in similar optimization convergence speeds, and similar solution quality.
+\item 
 \end{itemize}
+
+Four factors neeeded to be controlled for, before we locate the cause of poor model/experiment fits. Those factors were: the informativeness of measurement errors, the performance of the optimizer, data quality, and model quality.
+
+The digital models we used were known to not be perfectly faithful to real cells, they are not flexible enough to be fitted to all experimental waveforms. Additionally the data sources may also have some fidelity problems, it was necessary to create data source independent "ground truths", by synthesising plausible data, with the digital models, and optimizing against these ground truths. Because the DEAP genetic algorithm, has been shown to be able solve Rastrigrins function, we expect that our derivative frame work, should be able to fit to simulated data sources, with a high degree of precision, and that is what we found.
+
+
+
+We had to show that the optimizer was capable of producing perfect fits under ideal circumstances. We showed that the measurements the genetic algorithm was using were able to act as informative guides. 
+
+Since we are confident about the optimizers ability to fit to synthesized data
+
+It is possible that some selections of experimental data, might be supurious or compromised in some way.  
+
+The algorithms IBEA and NSGA2 seem to result in different optimization convergence speeds, and similar solution quality, but this varied in a problem specific manner. Generally it was found that IBEA produced better results faster, although, often it could produce solutions that were significantly dominated in one error score.
+
+Typical model parameters were number of generations $(NGEN=150$, population size:$MU=25$. There was plenty of opportunities to change these parameters,  values of $NGEN$ and $MU$ as small as $(10,10)$ were tolerable under some limited circumstances, and also multiobjective optimizations with $NOBJ>25$ demanded $NGEN=200$, and $MU=50$ in order to unearth good results.
+
+
 
 %\item Python, NeuroUnit, 
 
