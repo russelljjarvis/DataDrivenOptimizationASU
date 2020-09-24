@@ -4,7 +4,7 @@
 \item 
 \end{itemize}
 
-Four factors neeeded to be controlled for, before we locate the cause of poor model/experiment fits. Those factors were: the informativeness of measurement errors, the performance of the optimizer, data quality, and model quality.
+Four factors needed to be controlled for, before we locate the cause of poor model/experiment fits. Those factors were: the informativeness of measurement errors, the performance of the optimizer, data quality, and model quality.
 
 The digital models we used were known to not be perfectly faithful to real cells, they are not flexible enough to be fitted to all experimental waveforms. Additionally the data sources may also have some fidelity problems, it was necessary to create data source independent "ground truths", by synthesising plausible data, with the digital models, and optimizing against these ground truths. Because the DEAP genetic algorithm, has been shown to be able solve Rastrigrins function, we expect that our derivative frame work, should be able to fit to simulated data sources, with a high degree of precision, and that is what we found.
 
@@ -20,8 +20,46 @@ The algorithms IBEA and NSGA2 seem to result in different optimization convergen
 
 Typical model parameters were number of generations $(NGEN=150$, population size:$MU=25$. There was plenty of opportunities to change these parameters,  values of $NGEN$ and $MU$ as small as $(10,10)$ were tolerable under some limited circumstances, and also multiobjective optimizations with $NOBJ>25$ demanded $NGEN=200$, and $MU=50$ in order to unearth good results.
 
+As you can see in the graph below when the measurements:time constant, capacitance, Rheobase, Resting potential and Input resistance are used to constrain optimization. 
 
+\begin{longtable}{llll}
+\toprule
+{} &                     observations &    predictions & Z-Scores \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
 
+\bottomrule
+\endlastfoot
+\textbf{RheobaseTest                  } &                         225.0 pA &       225.0 pA &        0 \\
+\textbf{TimeConstantTest              } &                          1.81 ms &        1.75 ms &     0.01 \\
+\textbf{RestingPotentialTest          } &                        -62.88 mV &      -62.88 mV &        0 \\
+\textbf{InputResistanceTest           } &  34339711.37 kg*m**2/(s**3*A**2) &  35.73 megaohm &     0.01 \\
+\textbf{CapacitanceTest               } &          0.0 s**4*A**2/(kg*m**2) &       48.97 pF &     0.03 \\
+\end{longtable}
+
+AP width, amplitude, and AP threshold errors, did not participate in guiding optimization, because as I have explained, those measurements are not objective between model instances, and thus they lead to misleading error measurements. These tables show that the optimizer can re-cover ground truths that are derived from simulated data. This result allows us to confidently argue that in fitted models, the cause of model/experiment disagreement must be located in either the data, or the models, but not the optimization process, or the choice of error signals which are demonstrably sound.
+
+\begin{longtable}{llll}
+\toprule
+{} &                     observations &    predictions & Z-Scores \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+\textbf{InjectedCurrentAPWidthTest    } &                            0.0 s &         0.7 ms &     0.17 \\
+\textbf{InjectedCurrentAPAmplitudeTest} &                        143.62 mV &       80.55 mV &     0.19 \\
+\textbf{InjectedCurrentAPThresholdTest} &                        -39.98 mV &      -39.71 mV &        0 \\
+\end{longtable}
+
+\includegraphics[]{figures/simulated_convergence_performance.png}
+
+\includegraphics[]{figures/simulated_data_convergence_passive_fits.png}
 %\item Python, NeuroUnit, 
 
 \subsection{Model/Test combinations}
