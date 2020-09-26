@@ -11,14 +11,16 @@ A suite of neuronunit tests containing the tests: rheobase value, membrane volta
 
 It is worth noting that the layer 5 neocortical pyramidal neuron was very slow to dispatch relative to the reduced models developed in this thesis work. Where as a typical reduced model described here evaluated in the order of $~0.0025 seconds$, this model on average took $5.74$, for a single run and $34.8$ to solve for the models Rheobase, current.
 
-\begin{table}
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lllllll}
 \toprule
 {} & RheobaseTest & InputResistanceTest & TimeConstantTest & CapacitanceTest & InjectedCurrentAPWidthTest & InjectedCurrentAPThresholdTest \\
 \midrule
 0 &     Z = 0.07 &           Z = -0.90 &         Z = 0.14 &        Z = 1.29 &                  Z = -1.98 &                      Z = -2.09 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 In this pre-optimized model, only the rheobase test, and the time constant test seemed to fall within the range of biological plausibility.
