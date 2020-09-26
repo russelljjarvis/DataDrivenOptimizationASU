@@ -8,12 +8,22 @@ Four factors needed to be controlled for, before we locate the cause of poor mod
 The digital models we used were known to be not flexible enough to match all electrical features from cell experiments all the time; these models are by nature, self-constrained and therefore they cannot to be fitted to all experimental waveforms. Additionally the data sources may also have some fidelity problems, it was necessary to create data source independent "ground truths", by synthesising plausible data, with the digital models, and optimizing against these ground truths. Because the DEAP genetic algorithm, has been shown to be able solve Rastrigrins function, we expect that our derivative frame work, should be able to fit to simulated data sources, with a high degree of precision, and that is what we found.
 
 
-The optimizer was capable of producing perfect fits under ideal circumstances. We showed that the measurements the genetic algorithm was using were able to act as informative guides. Since we are confident about the optimizers ability to fit to synthesized data we can then locate sources of model/data disagreement in other places.
+The optimizer was capable of producing perfect fits under ideal circumstances. We showed that the measurements the genetic algorithm was using were able to act as informative guides. Since we are confident about the optimizers ability to fit to synthesized data we can then locate sources of model/data disagreement in other places. \\ 
+In the subsequent tables and figures when the measurements:time constant, capacitance, Rheobase, Resting potential and Input resistance are used to constrain optimization.
 
-In the subsequent tables and figures when the measurements:time constant, capacitance, Rheobase, Resting potential and Input resistance are used to constrain optimization. \\
+\begin{figure}
+    \centering
+    \includegraphics{figures/optimizer_internal_validation}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
 
-
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
 \begin{tabular}{llll}
+\toprule
+
 %\toprule
 {} &                     observations &    predictions & Z-Scores \\
 %\midrule
@@ -26,7 +36,8 @@ InjectedCurrentAPWidthTest     &                            0.0 s &        1.28 
 InjectedCurrentAPAmplitudeTest &                         80.32 mV &       68.55 mV &     0.06 \\
 InjectedCurrentAPThresholdTest &                        -35.25 mV &      -33.81 mV &     0.02 \\
 %\bottomrule
-\end{tabular}
+\end{tabular}}
+\end{table}
 
 AP width, amplitude, and AP threshold errors, did not participate in guiding optimization, because as I have explained, those measurements are not objective between model instances, and thus they lead to misleading error measurements. These tables show that the optimizer can re-cover ground truths that are derived from simulated data. This result allows us to confidently argue that in fitted models, the cause of model/experiment disagreement must be located in either the data, or the models, but not the optimization process, or the choice of error signals which are demonstrably sound.
 

@@ -5,13 +5,31 @@
  
  %Without over stating things, 
  When regarding this thesis effort and its contribution to knowledge, 
- much of the value to the neuroscience modelling community comes from the implementation  of two fast python neural model simulations. Because these simulations are written in python, the code that implementations them is easy to understand share and execute, because the models are fast they are useful in both network contexts, and optimization contexts. 
+ some of the value to the neuroscience modelling community comes from the implementation of two fast python neural model simulations. Because these simulations are written in python, the code that implementations them is easy to understand share and execute, because the models are fast to dispatch they maybe useful in both network contexts, and optimization contexts where performance is critical. 
  
 %A component of this work is the numba jit enabled Izhikevich model, which I plan to push to the Open Source Brain %\href{https://github.com/russelljjarvis/IzhikevichModel.git}
 
 
 \subsubsection{Why Existing Approaches Were Not workable}
-In this research effort significant time was spent trying to shoe horn pre-existing tools into an optimization frame work. These tools included:  PyNN, brain2, NEURON, jNeuroML-2. However, seveal unexpected road blocks were encontoured on the way.
+In this research effort significant time was spent trying to shoe horn pre-existing tools into an optimization frame work. These tools included:  PyNN, brain2, \emph{NEURON}, jNeuroML-2. However, seveal unexpected road blocks were encontoured on the way.
+ 
+
+There were a cluster of known errors and limitations. 
+ 
+ 
+The \emph{NEURON} implementation of the Izhikevich model is fractured. There are different implementations for different regimes. This meant that switching between model regimes during optimization, would be a non-trivial exercise, and if one succeeded in this exercise, the source code would be highly complicated such that it would not be readable, and it would loose generality, overly customized towards one target model. The NEURON code, needed NMODL files to be compiled for each different regime, and promised performance of the C based NEURON library was not actualized. The only benefit to using this model, was that its parameter ranges are well tested and understood within OSB and NeuroML-2 community.
+
+Because the PyNN implementations of the Izhikevich models are "wrapped" versions of essentially NEURON models, PyNN models still retained the disadvantages of the NEURON models (poor speed) while introducing other problems. PyNN is designed to preference the description and implementation network simulations. A data-type called the "lazy-array" is the most elemental container for neuron models in PyNN, but it is meant to store populations of neurons as opposed to single neurons, as such the lazy-array often slows down and gets in the way of the single neuron simulations, which model fitting depends on.
+%(lazy array evaluation). 
+
+
+
+The described limitations of the 
+
+ 
+\cite{neuralensemble_adexp}
+ 
+\cite{neuralensemble_adexp2}
  
 A constant error warning plagued brian2 investmentallations was.
 \begin{verbatim}
@@ -132,13 +150,12 @@ potential calculation. * The NEURON Izhi model took $78$ seconds to find the rhe
 %    \caption{This is your image%}
 %    \label{fig:my_label}
 %\end{figure}
-
-
+%A tool numba JIT
 
 % https://www.overleaf.com/learn/how-to/Images_not_showing_up 
         
 The forward Euler python IZhi model is very fast. The forward euler
-implementation utilized Numba JIT. Rheobase is found in under a second,
+implementation utilized Numba JIT \cite{lam2015numba}. Rheobase is found in under a second,
 and in many cases close 0.5 seconds. This represents a very dramatic
 speed up. Unlike the NEURON NeuroML implementation of the izhikitich equation,
 this implementation is just as generalizable as the original MATLAB

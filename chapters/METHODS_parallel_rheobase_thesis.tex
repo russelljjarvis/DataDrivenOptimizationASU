@@ -1,6 +1,7 @@
   
 \subsubsection{Parallel Rheobase Solver}
 
+The Rheobase determination algorithm was in fact a specific instance of a more general type of algorithm, one that finds the current injection that causes a pre-determined number of spikes.
 
 \begin{figure}    
   \begin{center}
@@ -10,7 +11,7 @@
   \end{center}
 \end{figure} 
     
-    Below I show that for multi-compartment neuron models using a parallel Rheobase algorithm adds a significant speed up to rheobase solution evaluation. It
+Below I show that for multi-compartment neuron models using a parallel Rheobase algorithm adds a significant speed up to rheobase solution evaluation. It
 is important to consider that determinig rheobase usually involves
 between 10-35 model simulations at different current injection
 strengths. Whereas the remaining error score calculations only involve
@@ -33,15 +34,14 @@ algorithm optimizer.
 parallel Rheobase search time NEURON  $4.8$
 serial Rheobase search time NEURON  $18.7$
 Approximate speed up $\times 3.9$
-%time taken on single simulation  0.7909517288208008
-    
-Which model?
+
+Brian2 adaptive Exponential model   
 elapsed serial:  $0.7914438247680664$
 elapsed parallel: $ 0.2590057849884033$
 speed up parallel:   $\times 3.0$
 
 Algorithm was able to speed up this slow NEURON unit code. $ \frac{73}{19} $ represents a substantial speed up. of about 3.8. This is consistent with previous work
 
-$ array(51.79317142) * pA$
+%$ array(51.79317142) * pA$
 
-
+ 

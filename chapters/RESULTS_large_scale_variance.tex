@@ -9,6 +9,8 @@
     % combine this discussion with model repurposing discussion.
 
 
+Druckmann \cite{druckmann2008evaluating}
+
 \subsection{Cortical Model and Cortical Experiment Agreement}
 Models and experimental measurements can agree and disagree in many different ways, therefore we would like to identify important sources of model/data disagreement. Better awareness of model/data disagreement informs a related question: "In  cortical neuron models which segmented pieces of a voltage recording waveform should the optimizer act on?"
 
@@ -17,21 +19,27 @@ Models and experimental measurements can agree and disagree in many different wa
 Specifically below, I describe some neuronal model features that agreed well with experiments, and some features that disagreed less well.
 
 %\includegraphics[]{chapters/app_tex/Allen_rush}
-\begin{figure}    
+\begin{figure}[h!]
     \begin{center}
     
-    \includegraphics[width=1.0\linewidth]{figures/multi_spiking_large_allen}
-    \end{center}
-    \caption{An example of a multispiking waveform used as a basis for the Allen Brain Insistute cell types data base. Publication Gouwens rat }
+    \includegraphics[width=0.6\linewidth]{figures/multi_spiking_large_allen}
+    \caption{An example of a multispiking waveform used as a basis for the Allen Brain Insistute cell types data base. Publication Gouwens rat \cite{gouwens2018systematic}}
 
-\end{figure}    
-\begin{figure}    
-    \begin{center}
-    
-    \includegraphics[width=1.0\linewidth]{figures/multi_spiking_large_bbp}
     \end{center}
-    \caption{An example of a multispiking waveform used as a basis for the Blue Brain Project. Publication Jouvanile rat }
+    
 \end{figure}    
+
+\begin{figure}[h!]  
+    \begin{center}
+    \caption{An example of a multispiking waveform used as a basis for the Blue Brain Project. Publication Jouvanile rat \cite{toledo}}
+
+
+    \includegraphics[width=0.6\linewidth]{figures/multi_spiking_large_bbp}
+    
+    \end{center}
+\end{figure}    
+
+
 
 %\end{tcolorbox}
 \begin{figure}    
@@ -66,10 +74,10 @@ Specifically below, I describe some neuronal model features that agreed well wit
 \begin{itemize}
 
     \item fast\_trough\_index\_1.5x allen feature
+    \item fast\_trough\_index\_3.0x allen feature
+    \item threshold\_index\_1.5x allen feature
     \item peak\_index\_1.5x allen feature
     \item upstroke\_index\_1.5x allen feature
-    \item threshold\_index\_1.5x allen feature
-    \item fast\_trough\_index\_3.0x allen feature
     \item peak\_index\_3.0x allen feature
     \item upstroke\_index\_3.0x allen feature
     \item threshold\_index\_3.0x allen feature
