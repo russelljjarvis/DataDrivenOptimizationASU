@@ -1,10 +1,10 @@
 
-\subsubsection{Can a Rheobase Fitted model, generalize to other sweeps?}
+\subsubsection{A Rheobase Fitted model, may not generalize to other sweeps}
 No, it cannot reduced neuronal models are only okay at fitting one sweep at a time.
 
-The utility of the Rheobase approach is to demonstrate a work flow. Its possible that some people
-are interested in modelling single spiking behavior efficiently, however, in the context of network simulations,
-You may be better of fitting to a multispiking sweep.
+The utility of the Rheobase approach is to demonstrate a work flow. Its possible that some researchers are interested in modelling single spiking behavior efficiently, however, in the context of network simulations, one may be better of fitting to a multispiking sweep.
+
+
 
 In reduced neuronal It was found that the electrical properties of cells:
  (Rheobase, input resistance, membrane time constant,Resting Potential, Capicitance)
@@ -22,13 +22,15 @@ In reduced neuronal It was found that the electrical properties of cells:
 In cell 471819401 , 290 pA causes 20 spikes,
 in the optimized Adaptive Exponential model 290
 specified by $ current = {'amplitude':290*pq.pA,'duration':1100*pq.ms,'delay':100*pq.ms} $
-caused only $5$$ spikes. 
+caused only $5$ spikes. 
 
 and in the Izhikevich model $59$
+\begin{verbatim}
 RheobaseTest	TimeConstantTest	RestingPotentialTest	InputResistanceTest
 observations	70.0 pA	24.4 ms	-71.6 mV	132.0 megaohm
 predictions	234.67 pA	31.31 ms	-72.08 mV	130.26 megaohm
 Z-Scores	3.98	0.09	0	0.01
+\end{verbatim}
 
 Another way of writing this is that fitting a model to electrical properties of cells, does not
 garuntee that the cell is fitted to multispiking behavior, at current injection virtual experiments with larger amounts of injected current.

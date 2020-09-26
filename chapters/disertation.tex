@@ -9,7 +9,6 @@
 \usepackage{dcolumn,array}
 \usepackage{tocloft}
 \usepackage{template_code/asudis}
-%\graphicspath{{figures}}
 \usepackage{graphicx}
 \usepackage{subfiles} 
 \usepackage{tcolorbox}
@@ -19,8 +18,8 @@
 % Junk that makes notebook importing better
 %%
 \usepackage{caption}
-\DeclareCaptionFormat{nocaption}{}
-\captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+%\DeclareCaptionFormat{nocaption}{}
+%\captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
 
 \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
 \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
@@ -69,11 +68,11 @@
 \defensemonth{November}
 \gradmonth{Some other month}
 \gradyear{2020}
-\chair{Your chair}
-\memberOne{Rick Gerkin}
-\memberTwo{Sharon Crook}
+\chair{Rick Gerkin}
+\chair{Sharon Crook}
 \memberFour{Yi Zhou}
 \memberThree{James Abbas}
+%\memberOne{Rick Gerkin}
 
 \maketitle
 %\doublespace
@@ -123,12 +122,15 @@
 \include{chapters/RESULTS_large_scale_variance}
 \include{chapters/RESULTS_elephant_ne_new}
 \include{chapters/RESULTS_L5PC_cell}
+\include{chapters/RESULTS_allen_multispiking}
+
 \include{chapters/RESULTS_optimization_data_driven}
-\include{chapters/RESULTS_engineering_app}
+\include{chapters/RESULTS_web_app}
+\include{chapters/APPENDIX}
 \include{chapters/FINISHINGUP_links_to_source_codes_of_this_work}
 \include{chapters/acknowlegements}
-
-\chapter{Discussion}
+\chapter{chapters/Discussion_significance_of_results}
+\chapter{chapters/Discussion_target_network_simulations}
 
 %-----------------------back matter
 {\singlespace
@@ -136,8 +138,8 @@
 % level -1 according to the chart: top of page 4 of the document at
 % ftp://tug.ctan.org/pub/tex-archive/macros/latex/contrib/tocloft/tocloft.pdf
 \addcontentsline{toc}{part}{REFERENCES}
-\bibliographystyle{template_code/asudis}
-\bibliography{dis}}
+\bibliographystyle{chapters/asudis}
+\bibliography{chapters/dis}}
 \renewcommand{\chaptername}{APPENDIX}
 \addtocontents{toc}{APPENDIX \par}
 \appendix

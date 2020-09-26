@@ -18,7 +18,12 @@ In the subsequent tables and figures when the measurements:time constant, capaci
     \label{fig:my_label}
 \end{figure}
 
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
 \begin{tabular}{llll}
+\toprule
+
 %\toprule
 {} &                     observations &    predictions & Z-Scores \\
 %\midrule
@@ -31,7 +36,8 @@ InjectedCurrentAPWidthTest     &                            0.0 s &        1.28 
 InjectedCurrentAPAmplitudeTest &                         80.32 mV &       68.55 mV &     0.06 \\
 InjectedCurrentAPThresholdTest &                        -35.25 mV &      -33.81 mV &     0.02 \\
 %\bottomrule
-\end{tabular}
+\end{tabular}}
+\end{table}
 
 AP width, amplitude, and AP threshold errors, did not participate in guiding optimization, because as I have explained, those measurements are not objective between model instances, and thus they lead to misleading error measurements. These tables show that the optimizer can re-cover ground truths that are derived from simulated data. This result allows us to confidently argue that in fitted models, the cause of model/experiment disagreement must be located in either the data, or the models, but not the optimization process, or the choice of error signals which are demonstrably sound.
 
