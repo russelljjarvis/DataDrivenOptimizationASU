@@ -10,12 +10,11 @@
   \end{center}
 \end{figure} 
     
-    Below I show that for many classes of neuron models using a parallel
-Rheobase algorithm adds a significant speed up to model evaluation. It
+    Below I show that for multi-compartment neuron models using a parallel Rheobase algorithm adds a significant speed up to rheobase solution evaluation. It
 is important to consider that determinig rheobase usually involves
 between 10-35 model simulations at different current injection
 strengths. Whereas the remaining error score calculations only involve
-at most one simulation each. Consider an optimization problem where
+at most one model evaluation each. Consider an optimization problem where
 there are only eight error scores to calculate, and four of the eight
 errors are for non spiking simulations of less than 500ms, a rheobase
 simulation is for 1200ms, and it involves both non-spiking and

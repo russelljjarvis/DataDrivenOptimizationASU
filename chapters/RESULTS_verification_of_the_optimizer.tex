@@ -1,7 +1,49 @@
 
+
+
+
+
+Four factors needed to be controlled for, before we locate the cause of poor model/experiment fits. Those factors were: the informativeness of measurement errors, the performance of the optimizer, data quality, and model quality.
+
+The digital models we used were known to be not flexible enough to match all electrical features from cell experiments all the time; these models are by nature, self-constrained and therefore they cannot to be fitted to all experimental waveforms. Additionally the data sources may also have some fidelity problems, it was necessary to create data source independent "ground truths", by synthesising plausible data, with the digital models, and optimizing against these ground truths. Because the DEAP genetic algorithm, has been shown to be able solve Rastrigrins function, we expect that our derivative frame work, should be able to fit to simulated data sources, with a high degree of precision, and that is what we found.
+
+
+The optimizer was capable of producing perfect fits under ideal circumstances. We showed that the measurements the genetic algorithm was using were able to act as informative guides. Since we are confident about the optimizers ability to fit to synthesized data we can then locate sources of model/data disagreement in other places.
+
+In the subsequent tables and figures when the measurements:time constant, capacitance, Rheobase, Resting potential and Input resistance are used to constrain optimization. \\
+
+
+\begin{tabular}{llll}
+%\toprule
+{} &                     observations &    predictions & Z-Scores \\
+%\midrule
+RheobaseTest                   &                         42.59 pA &       42.63 pA &        0 \\
+TimeConstantTest               &                          7.44 ms &        7.41 ms &        0 \\
+RestingPotentialTest           &                        -56.56 mV &      -56.53 mV &        0 \\
+InputResistanceTest            &  61470348.96 kg*m**2/(s**3*A**2) &  61.42 megaohm &        0 \\
+CapacitanceTest                &          0.0 s**4*A**2/(kg*m**2) &      120.73 pF &        0 \\
+InjectedCurrentAPWidthTest     &                            0.0 s &        1.28 ms &     0.05 \\
+InjectedCurrentAPAmplitudeTest &                         80.32 mV &       68.55 mV &     0.06 \\
+InjectedCurrentAPThresholdTest &                        -35.25 mV &      -33.81 mV &     0.02 \\
+%\bottomrule
+\end{tabular}
+
+AP width, amplitude, and AP threshold errors, did not participate in guiding optimization, because as I have explained, those measurements are not objective between model instances, and thus they lead to misleading error measurements. These tables show that the optimizer can re-cover ground truths that are derived from simulated data. This result allows us to confidently argue that in fitted models, the cause of model/experiment disagreement must be located in either the data, or the models, but not the optimization process, or the choice of error signals which are demonstrably sound.
+
+
+\includegraphics[]{figures/simulated_convergence_performance.png}
+
+\includegraphics[]{figures/simulated_data_convergence_passive_fits.png}
+
+
+
+
+
+The design of the optimizer used in this work, computed rheobase for each model, what that means is a new current is required to apply current injection tests to tests that are spiking in nature.\\
+%In the optimizer design used here.
+
 \begin{itemize}
 \item  $N-free-model-parameters << N-constraints$
-\item  In our specific design this expands to:
 \item  $(model parameters + current-injection-value-parameter) << N (independent and uncorrelated)$ constraints.
 \item  For the different classes of Reduced Model we show that the optimizer converges when data is simulated.
 \end{itemize}
@@ -28,14 +70,3 @@ It is more computationally efficient to obtain ground truths by simulating const
 
 It was important to be able to establish ground truths that were always possible for the optimizer to match exactly. Often experimental data implies waveform shapes that are beyond the capabilities of the model that is to be fitted. Simulating experimental measurements meant, that model limitations can be understood separately from optimizer limitations.
 
-\section{Optimizer Limitations}
-
-
-\begin{center}
-    \begin{figure}
-    
-        \includegraphics[width=\linewidth]{figures/correlated_errors.png}
-    
-    	\caption{Test caption}
-    \end{figure}
-\end{center}

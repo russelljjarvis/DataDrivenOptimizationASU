@@ -14,6 +14,7 @@
 \usepackage{subfiles} 
 \usepackage{tcolorbox}
 \usepackage{hyperref}
+\usepackage{sectsty}
 %%
 % Junk that makes notebook importing better
 %%
@@ -41,6 +42,9 @@
 \usepackage{fancyvrb} % verbatim replacement that allows latex
 \usepackage{grffile} % extends the file name processing of package graphics 
 \usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{booktabs}
 
 \usepackage[citations,footnotes,definitionLists,hashEnumerators,smartEllipses,tightLists=false,pipeTables,tableCaptions,hybrid]{markdown}
 %%begin novalidate
@@ -56,7 +60,7 @@
 \begin{document}
 
 %-----------------------front matter
-\pagenumbering{roman}
+\pagenumbering{arabic}
 \title{Data Driven Optimization of Reduced Neural Models}            % If you want to
 
 \author{Russell Jarvis}
@@ -72,7 +76,7 @@
 \memberThree{James Abbas}
 
 \maketitle
-\doublespace
+%\doublespace
 \include{abstract}
 \dedicationpage{}
 \include{ack}
@@ -100,8 +104,10 @@
 % are handled by the fancyhdr code in the asudis.sty file.
 \addtocontents{lof}{Figure~\hfill Page \par}
 %-----------------------body
-\doublespace
+%\doublespace
+\setcounter{secnumdepth}{5}
 
+\allsectionsfont{\raggedright}
 \chapter{Introduction}
 \include{chapters/Introduction}
 \chapter{Methods}
