@@ -11,12 +11,15 @@ The digital models we used were known to be not flexible enough to match all ele
 The optimizer was capable of producing perfect fits under ideal circumstances. We showed that the measurements the genetic algorithm was using were able to act as informative guides. Since we are confident about the optimizers ability to fit to synthesized data we can then locate sources of model/data disagreement in other places. \\ 
 In the subsequent tables and figures when the measurements:time constant, capacitance, Rheobase, Resting potential and Input resistance are used to constrain optimization.
 
+
+
 \begin{figure}
     \centering
     \includegraphics{figures/optimizer_internal_validation}
-    \caption{Caption}
+    \caption{Optimizer evolution, green line tracks evolution of best fitness, blue line average fitness, orange line is worst fitness. GA params, $NGEN=200$, $MU=50$,$cxp=0.3$,$mupb=0.2$ from this plot can see that genes are storing and exploiting information, $cxp+mutpb=0.5$, so $50\%$ of genes are conserved between generations }
     \label{fig:my_label}
 \end{figure}
+
 
 \begin{table}[ht]
 \centering
@@ -41,11 +44,14 @@ InjectedCurrentAPThresholdTest &                        -35.25 mV &      -33.81 
 
 AP width, amplitude, and AP threshold errors, did not participate in guiding optimization, because as I have explained, those measurements are not objective between model instances, and thus they lead to misleading error measurements. These tables show that the optimizer can re-cover ground truths that are derived from simulated data. This result allows us to confidently argue that in fitted models, the cause of model/experiment disagreement must be located in either the data, or the models, but not the optimization process, or the choice of error signals which are demonstrably sound.
 
+%\includegraphics[]{figures/simulated_data_convergence_passive_fits.png}
 
-\includegraphics[]{figures/simulated_convergence_performance.png}
-
-\includegraphics[]{figures/simulated_data_convergence_passive_fits.png}
-
+\begin{figure}
+    \centering
+    \includegraphics[]{figures/passive_model_agreement}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
 
 
 
