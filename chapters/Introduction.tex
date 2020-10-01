@@ -56,7 +56,7 @@ The idea that neurons are the fundamental computational units of the brain dates
 A large fraction of computational models have thus included the neuron, at some level of abstraction.  
 Conventionally, each neuron has been regarded as an independent generator of events (e.g. synaptic conductance's or currents in postsynaptic neurons) and selective receiver of the same events, these inputs summed in some fashion across time and space. 
 
-Although cortical neurons have many interconnections [cite something about cortical connectivity], these connections themselves are plastic, changing with development and learning.
+Although cortical neurons have many interconnections \cite{ball2014rich}, these connections themselves are plastic, changing with development and learning.
 In contrast, the dynamics of the neurons themselves are typically considered less variable over most relevant timescales, i.e. the parameters of the underlying equations may be fixed.
 Consequently by placing static neurons at the center of modeling efforts, and letting only synapses change over time, one can still model a large number of relevant neuroscience problems.
 But just because the modeled neurons are static does not mean they are monolithic: there are many thousands of different classes of neurons, each with its own idiosyncratic dynamics and connectivity.
@@ -105,18 +105,61 @@ Conductance-based models can be complex--both conceptually, in implementation de
 These "Reduced Models" ignore the precise neuron biophysics, usually retaining only the medium-time-scale (milliseconds to tens of milliseconds) dynamics by assuming that anything faster occurs instantaneously and anything slower can be ignored.
 The 3D structure of biological cells is flattened to a point onto which currents impinge and voltages evolve over time. There is a great diversity of real biological neurons, all of which differ substantially in their electrical behavior. There are a few different classes of general purpose neuronal models, that can reproduce these different types of electrical behaviours, given appropriate parameterizations of the models. A selection of key reduced models is described below.
 \subsubsection{The Leaky Integrate and Fire Model}
-....
+%...
 \subsubsection{The Quadratic LIF Model}
-...
+%...
 \subsubsection{The Generalized LIF Model}
-...
-\subsection{Adaptive Exponential Integrate and Fire Model}
-\begin{center}
-$C\frac{d}{Vdt}=-g_{L}(V-E_{L})+
-g_{L} \Delta Texp(V-V_{T} \Delta T)-w+I$
+%%\url{https://www.biorxiv.org/content/10.1101/104703v1.full.pdf}
 
-$\tau_{w}\frac{dw}{dt} = a(V-E_{L})-w $
-\end{center}
+\begin{comment}
+
+\begin{equation}
+V \prime (t) = \frac{1}{C}
+I_{e}(t) + \sigma I_{j}X_{j}I_{j}(t) -1R(V (t)- E_{L}) 
+
+\end{equation}
+
+\begin{equation} 
+s(t) = -bs \theta s(t)  
+\end{equation}
+
+\begin{equation}
+I_{j}(t) = -k_{j} I_{j} (t); j = 1, 2  
+\end{equation}
+
+\begin{equation}
+
+ v(t) = av(V (t) - E_{L}) - bv\theta v(t) 
+\end{equation}
+
+\begin{equation}
+
+V (t+) \leftarrow E_{L} + fv \times (V (t-) - E_{L}) - \delta V 
+\end{equation}
+
+\begin{equation}
+
+s \theta (t+) \leftarrow Θs(t-) + \delta \theta s 
+\end{equation}
+
+\begin{equation}
+I_{j} (t+) \leftarrow fj \times I_{j} (t-) + \delta I_{j}
+\end{equation}
+\begin{equation}
+
+\Theta v (t+) \leftarrow \Theta v(t−) 
+\end{equation}
+\end{comment}
+
+\subsection{Adaptive Exponential Integrate and Fire Model}
+\begin{equation}
+
+C\frac{d}{Vdt}=-g_{L}(V-E_{L})+
+g_{L} \Delta Texp(V-V_{T} \Delta T)-w+I
+
+\tau_{w}\frac{dw}{dt} = a(V-E_{L})-w 
+\end{equation}
+
 The Adaptive Exponential (AdExp) IF model \cite{brette2005adaptive}, is another type of reduced neural model
 The Adexp model is a special instance of leaky integrate and Fire model which most often appears with an exponential spike shape.
 The models instantaneous spiking rate is calculated via a consulting finite time "windows" into the neurons recent spike history.
@@ -124,13 +167,16 @@ Adaptation is achieved by looking back into the window and counting the number o
 \subsubsection{Izhikevich Model}
 An existing class of neuron model type, called The Izhikevich model \cite{izhikevich2003simple} (Iz model) was published with parameter sets believed to make the model outputs accurately align with a variety of real biological cell outputs. However since publication much very specific electrophysiological recordings have accumulated, that in someways undermine model/experiment agreement. However it is now possible to constrain the Izhikevich model and find new parameterizations that more allow us to more accurately reproduce more recently published experimental data.
 The original formulation involves the integration of a quadratic function:
-$\frac{dv}{dt}=0.04v^{2}+5v+140-u+I$
-$\frac{du}{dt} = a(bv-u)$
-$if v>=30mV,
-then v arrow c u arrow u+ d$
+
+\begin{displaymath}
+\frac{dv}{dt}=0.04v^{2}+5v+140-u+I
+\frac{du}{dt} = a(bv-u)
+if v>=30mV,
+\end{displaymath}
+ then $ v \rightarrow c + u 	\rightarrow u+ d$
 However, an alternative implementation is more versatile, as it can be fitted to a wider range of parameters:
 The Izhikevich model and the AdEx model are both related to simple Integrate and Fire model.
-The Izhikevich model takes a current injection value, and a capacitive current, a membrane potential is created by integrating an equation $\frac{d V_{M}}{dt}$.
+The Izhikevich model takes a current injection value, and a capacitive current, a membrane potential is created by integrating an equation $\frac{dV_{M}}{dt}$.
 The Izhikevich model has quadratic multiplicative terms.
 The GLIF and the AdExp models have exponential multiplicative terms.
 
@@ -138,6 +184,10 @@ Network simulation is only as fast as the slowest model, because (if you are wai
 Consequently, replacing biophyshically detailed models with the reduced models described above may be required to complete simulations in a reasonable amount of time.
 However, the accuracy of these models is also paramount.
 Yet there are no reports of large numbers of reduced models with demonstrated agreement with many pieces of experimental data.
+
+Because multi-compartment conductance models represent at their foundation more detailed biophysics, its is tempting to think that this modelling paradigm is likely to produce models that maximally agree with data, however, newer generations of simpler models such as the GLIF model, may actually be better at recapitulating some experimental measurements \cite{meunier2002playing}.
+
+%based models are based on from the botltom up, smaller models like ion channels,
 
 \subsection{Simulation of reduced models}
 Although this model is potentially fast, often python implementations of it are slow due to code that was written to make running populations of many neurons fast, at the expense of running single neurons. 
@@ -199,20 +249,22 @@ The surface described by the function is densely populated by local minima, each
 \subsection{Genetic Algorithms}
 A variety of numerical optimization techniques exist, and which performs best depend on the demands of the problem.
 For functions with many local minima, it is often best to broadly sample the error surface, rather than attempt a "greedy" search for the global minimum.
-Several notable algorithms including genetic algorithms and stochastic gradient descent (SGD) have been developed to address this use case.
+Several notable algorithms including genetic algorithms (Figure \ref{fig:GeneticAlgOver}) and stochastic gradient descent (SGD) have been developed to address this use case.
 Both of these algorithms are able to avoid putting all of their "eggs" in one local minimum "basket", allowing them to discover over many iterations that are a lower minimum is available.
 For example, given enough samples a genetic algorithm will learn the global minimum of the Rastrigin's function, although it is very likely to sample wells spanning many depths of the error function on the way down.
 
 % illustrate how a Genetic Algorithm (GA) generally works.
-\begin{center}
 \begin{figure}
+\begin{center}
+
     \includegraphics[width=0.7\linewidth]{figures/How_Genetic_Alg_Works.png}
   \caption{Genetic algorithms find satisfactory solutions by incompletely sampling the solution space. Evolution of the algorithm is guided by the combined application of stochastic sampling and selective pressure. Stochastic contributions that guide GA sampling incentivise the exploration of regions beyond local minima. Stochasticity is applied in the combined actions of cross-over, and mutation. Model parameterizations are encoded as binary strings called genes. When genes breed, eligible pairs of genes are aligned and at random bit locations, the status of a bit is exchanged.  
 }
   \label{fig:GeneticAlgOver}
+\end{center}
+
 \end{figure}
   
-\end{center}
 
 I use genetic algorithms in the work presented here, and while there are many variations on this approach, they all involve some combination of the following features:
 % My GA picture belongs here
@@ -226,13 +278,15 @@ There are at least two stochastic operations that over time provide a gentle "ex
 Cross-over is the exchange of genes between chromosomes.  In a population of many chromosomes, one can "mate" two of them, producing off-spring which represent a fraction of genes from parent 1 and the remainder from parent 2.  If each chromosome represents two opposing vertices of an n-dimensional hypercube (for n model parameters), then cross-over is capable of producing offspring representing any of the other vertices in that hypercube.
 \subsubsection{Simulated Genetic Mutation}
 A mutation reflects a (random) change to a single gene, i.e. a change to a single model parameter.  In some implementation this is achieved by flipping one bit in the binary representation of the floating-point value of the parameter, with the magnitude of the resulting change in the parameter value depending on which binary digit was flipped.  Often mutation is limited to a particular range for a given parameter.
-\begin{center}
 \begin{figure}
 %width=0.9
-\includegraphics[]{figures/rastagrind}
-\caption{Rastrigin's function is a function that is challenging to optimize, as it contains thousands of local optima which would trap a gradient descent algorithm \cite{Rastrigin_plot}}
-\end{figure}
+\begin{center}
+
+\includegraphics[scale=0.5]{figures/rastagrind}
+\caption{Rastrigin's function is a function that is challenging to optimize, as it contains thousands of local optima which would trap a gradient descent algorithm \cite{rastrigin1974systems}}
 \end{center}
+
+\end{figure}
 
 \subsubsection{Elitism}
 The number of chromosomes in each generation is typically fixed, with some chromosomes in generation $n+1$ coming from crossover of chromosomes in generation n and others from mutation.
@@ -274,7 +328,7 @@ Brute-force exploration of parameter space requires computation time that scales
 
 % First include a section about NeuronUnit more generally.  NeuronUnit really isn't/wasn't about optimization until your thesis.  
 \section{Data Fitting and Optimization with NeuronUnit}
-My lab previously developed a Python package called "SciUnit" for scoring scientific models according to their agreement with various experimentally-derived data (encoded as "validation tests") [cite Omar et al 2014].  These scoring process is the implementation of the objective function that I use here.
+The ASU ICON laboratory previously developed a Python package called "SciUnit" for scoring scientific models according to their agreement with various experimentally-derived data (encoded as "validation tests") \cite{omar2014collaborative}.  These scoring process is the implementation of the objective function that I use here.
 In particular, I used a SciUnit-based python library called "NeuronUnit" which provided a number of such validation tests for neuron models, and developed additional such tests in the course of my research.
 
 \subsection{Constraint scoring}
@@ -359,11 +413,19 @@ I also aimed to catalog such cases and use this knowledge to produce a more robu
 No model--including those that are published-- should not be regarded as final.
 Instead, I aimed to develop tools to improve these models by making them agree with experimental data, in the hopes that such models may be of general use to the neuroscience community in future work.
 
-At best, replacing complex cell models with simplified models is a way to reduce the complexity of electrical brain activity to fundamental mechanisms \cite{teeter2018generalized}, at worst, the simplified cell models, may capture only a subset or a single aspect of important traits such as spike times \cite{hertag2012approximation}. Many approaches to parameter fitting are limited to making models that reproduce spike times \cite{}
+At best, replacing complex cell models with simplified models is a way to reduce the complexity of electrical brain activity to fundamental mechanisms \cite{teeter2018generalized}, at worst, the simplified cell models, may capture only a subset or a single aspect of important traits such as spike times \cite{hertag2012approximation}. %Many approaches to parameter fitting are limited to making models that reproduce spike times \cite{}
 
-A simple way to fit a model to an experiment involves computing the difference or the $RMSE$ between modelled waveforms and recorded waveforms. When comparing two waveforms "proportion of variance explained" $(VE)$ is often used to overcome limitations in RMSE. \cite{schoppe2016measuring}. An alternative to this approach, is to select only a few electrical features from the recorded waveform that are deemed to be important, and to fit to those limited feature sets to experiments instead. A feature based approach to data fitting, is more likely to produce models that are not over-fitted, less fitted to noise, and models which generalize better. For example consider a neuron recording that contains 15 spikes, and a model undergoing fitting to the data which has produced a waveform containing 16 spikes. The VE of these two different waveforms might be quiet low, whereas the waveform shapes between model and experiment might agree on important features, such as spike width and spike height sag ratio, and voltage between spikes.
+A simple way to fit a model to an experiment involves computing the difference between modelled waveforms and recorded waveforms. Computing the root mean square error between the two vectors, might seem like an appropriate approach, however, the $RMSE$  will be unduly more sensitive to spike timing and not as sensitive to agreement in spike shapes that occur at different times. It's very possible that a neuroscientist may care more about modelling the spike shape, than the spike time, and to address this missing need, we have appropriately decided to extract spike shape features from waveforms and to use these as our distance metrics.
+
+
+
+When comparing two waveforms "proportion of variance explained" $(VE)$ is often used to overcome limitations in RMSE. \cite{schoppe2016measuring}. An alternative to this approach, is to select only a few electrical features from the recorded waveform that are deemed to be important, and to fit to those limited feature sets to experiments instead. A feature based approach to data fitting, is more likely to produce models that are not over-fitted, less fitted to noise, and models which generalize better. For example consider a neuron recording that contains $15$ spikes, and a model undergoing fitting to the data which has produced a waveform containing $16$ spikes. The VE of these two different waveforms might be quiet low, whereas the waveform shapes between model and experiment might agree on important features, such as spike width and spike height sag ratio, and voltage between spikes.
 
 
 We chose to fit models to selected electrical features of the waveform, instead of simply fitting voltage traces, by 
 % direct qoute -- "Creating simplified models is a way to reduce the complexity of the brain to its most fundamental mechanisms. In addition to the benefits of clarifying mechanisms for single-neuron behavior, single-neuron models can be used in larger network models that attempt to explain network computation. Thus, many models of a wide range of complexity have been developed to describe and recreate various aspects of neuronal behavior3. For an in-depth characterization of the diversity of neuron models, see the review4, and for their capacity to reproduce spike times see ref. 5.."
 
+
+While there are currently many optimization packages for optimizing models expressed in the language \emph{NEURON} \cite{friedrich2014flexible} \cite{bluepyopt} \cite{neurotune}. To the best of my knowledge few or no python modules exist for the optimization of generic reduced neuronal models.
+
+Some core components of the optimisation procedure detailed here, do not in essence deviate from those described in Druckmann \cite{druckmann2008evaluating} or \cite{bluepyopt}. All three optimisation approaches use a Multi-Objective feature based frame work, all three utilize genetic algorithms, there are however a several key differences, in this work we fit reduced models instead of conductance based models, and in this work seeks to formalize the quality of fits using Z-score, $/chi^{2}$ distributions. Allowing us to compare the overall quality of data driven fits within and between model types (does one model type lead to better fits)?. Additionally, in this body of research we fit models using a novel range of electrical properties. One such property the Firing rate versus current (FI) curve, is optimized with because it is believed to be of more use for producing models that are pre-tuned for networks, because of their ability to fire at prescribed rates for a given amount of excitatory current.

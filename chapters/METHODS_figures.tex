@@ -1,12 +1,14 @@
 
 %Move 1.2.2 Distinction of Approaches to here.
 
-\subsection{Solution Diversity in the Multi objective Paradigm}
+%\subsection{Solution Diversity in the Multi objective Paradigm}
 
 
-We made a choice in algorithm design that would promote diversity of optimised model solutions.
+%We made a choice in algorithm design that would promote diversity of optimised model solutions.
 
 %in the multi objective paradigm.
+
+ 
 
 In an eight objective error function there are eight different ways for one score to be significantly better than the rest of the scores, and many different ways for the sum of two or more scores to be significantly better than one of the error scores. Although you are expecting diverse solutions its often practical to take just pick the most optimal model solution.
 
@@ -20,7 +22,7 @@ of rheobase
 %\graphicspath{figures}
 \begin{figure}    
 \begin{center}
-\includegraphics[width=0.7\linewidth]{figures/rheobase_algorithm}
+\includegraphics[width=0.6\linewidth]{figures/rheobase_algorithm}
 \caption{We developed a generic algorithm which took models, and found the minimal current injection value that would cause only one spike. The normal structure of this algorithm is a binary search, however we modified the algorithm so it would map onto multiple processors at once. This lead to significant speed ups for multicompartment NEURON models}
 
 \end{center}
@@ -28,7 +30,7 @@ of rheobase
 
 \begin{figure}    
 \begin{center}
-\includegraphics[width=1.2\linewidth]{figures/software_architecture}
+\includegraphics[scale=0.5]{figures/software_architecture}
 \caption{In the process of performing the analysis in this work, we expanded an existing neuron model optimisation frame work BluePyOpt \cite{bluepyopt} by incorporating subroutines capable of handling different constraint functions and different models. As described in the diagram above we found the minimal current injection value that would cause only one spike. The normal structure of this algorithm is a binary search, however we modified the algorithm so it would map onto multiple processors at once. This lead to significant speed ups for multicompartment NEURON models}
 
 \end{center}

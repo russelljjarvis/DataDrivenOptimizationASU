@@ -10,10 +10,14 @@
 \usepackage{tocloft}
 \usepackage{template_code/asudis}
 \usepackage{graphicx}
-\usepackage{subfiles} 
+\usepackage{subfigure}
+
+%\usepackage{subfiles} 
 \usepackage{tcolorbox}
 \usepackage{hyperref}
 \usepackage{sectsty}
+\usepackage{subcaption}
+
 %%
 % Junk that makes notebook importing better
 %%
@@ -44,6 +48,7 @@
 \usepackage{graphicx}
 \usepackage{siunitx}
 \usepackage{booktabs}
+\usepackage{comment}
 
 %\usepackage[citations,footnotes,definitionLists,hashEnumerators,smartEllipses,tightLists=false,pipeTables,tableCaptions,hybrid]{markdown}
 %%begin novalidate
@@ -60,6 +65,10 @@
 
 %-----------------------front matter
 \pagenumbering{arabic}
+
+% Ideas for a less boring title.
+%Towards Neuronal Deep Fakes:
+%Neuronal Counterfeits: .
 \title{Data Driven Optimization of Reduced Neural Models}            % If you want to
 
 \author{Russell Jarvis}
@@ -69,7 +78,7 @@
 \gradmonth{Some other month}
 \gradyear{2020}
 \chair{Rick Gerkin}
-\chair{Sharon Crook}
+\memberTwo{Sharon Crook}
 \memberFour{Yi Zhou}
 \memberThree{James Abbas}
 %\memberOne{Rick Gerkin}
@@ -111,7 +120,7 @@
 \include{chapters/Introduction}
 \chapter{Methods}
 \include{chapters/METHODS_figures}
-\include{chapters/METHODS_backend_assesment}
+\include{chapters/METHODS_model_implementation_assesment}
 \include{chapters/METHODS_NElectro_data_thesis}
 \include{chapters/METHODS_pitfalls}
 \include{chapters/METHODS_parallel_rheobase_thesis}
@@ -119,6 +128,8 @@
 \include{chapters/METHODS_uniqueness_of_this_approach}
 \chapter{Results}
 \include{chapters/RESULTS_verification_of_the_optimizer}
+\include{chapters/RESULTS_mean_model_not_eqaul_mean_measurement}
+
 \include{chapters/RESULTS_large_scale_variance}
 \include{chapters/RESULTS_elephant_ne_new}
 \include{chapters/RESULTS_L5PC_cell}
@@ -126,11 +137,16 @@
 
 \include{chapters/RESULTS_optimization_data_driven}
 \include{chapters/RESULTS_web_app}
-\include{chapters/APPENDIX}
-\include{chapters/FINISHINGUP_links_to_source_codes_of_this_work}
-\include{chapters/acknowlegements}
+\chapter{Discussion}
+
 \chapter{chapters/Discussion_significance_of_results}
-\chapter{chapters/Discussion_target_network_simulations}
+\chapter{chapters/Discussiontargetnetworksimulations}
+\include{chapters/FINISHINGUP_links_to_source_codes_of_this_work}
+\chapter{Appendix}
+
+\include{chapters/APPENDIX}
+
+\include{chapters/acknowlegements}
 
 %-----------------------back matter
 {\singlespace

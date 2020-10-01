@@ -4,27 +4,24 @@ No, it cannot reduced neuronal models are only okay at fitting one sweep at a ti
 
 The utility of the Rheobase approach is to demonstrate a work flow. Its possible that some researchers are interested in modelling single spiking behavior efficiently, however, in the context of network simulations, one may be better of fitting to a multispiking sweep.
 
-
-
 In reduced neuronal It was found that the electrical properties of cells:
  (Rheobase, input resistance, membrane time constant,Resting Potential, Capicitance)
 
  did not encode the above threshold spiking behavior of neurons, when neurons were undergoing a multispiking stimulus regime.
 
- forinstance in Allen cell '482493761' injecting a current of 
+ forinstance in Allen cell $482493761$ injecting a current of 
  specified by $ current = {'amplitude':110*pq.pA,'duration':1100*pq.ms,'delay':100*pq.ms} $
- should elicit a spike count of $3$, in an optimized Izhikevich model that has good agreement with all values except for Rheobase these values it produces 33 spikes.
+ should elicit a spike count of $3$, in an optimized Izhikevich model that has good agreement with all values except for Rheobase these values it produces $33$ spikes.
 
+One can imagine that in cells that have been optimized to rheobase only, that current spike count relationship might be more  accurate and faithful to the experiment.
 
- You can imagine that in cells, that have been optimized to rheobase only, that current spike count relationship might be more 
- accurate and faithful to the experiment.
-
-In cell 471819401 , 290 pA causes 20 spikes,
-in the optimized Adaptive Exponential model 290
+In cell 471819401 , $290 pA$ causes $20$ spikes,
+in the optimized Adaptive Exponential model $290$
 specified by $ current = {'amplitude':290*pq.pA,'duration':1100*pq.ms,'delay':100*pq.ms} $
 caused only $5$ spikes. 
 
 and in the Izhikevich model $59$
+
 \begin{verbatim}
 RheobaseTest	TimeConstantTest	RestingPotentialTest	InputResistanceTest
 observations	70.0 pA	24.4 ms	-71.6 mV	132.0 megaohm

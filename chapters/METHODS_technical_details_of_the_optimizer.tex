@@ -1,8 +1,5 @@
 \section*{Technical Details of the Optimizer}
-\begin{itemize}
-\item Experimental Recording Features from Neuroelectro. And some from the Allen SDK.
-\item 
-\end{itemize}
+Experimental Recording Features from Neuroelectro. And some from the Allen Celltypes data-base.
 
 %It was possible that some selections of experimental data, might be supurious or compromised in some way.  
 
@@ -35,10 +32,26 @@ In a large scale analysis of variance between models and data see section large\
 
 %\href{run:./RESULTS_large_scale_variance}{RESULTS_large_scale_variance}
 
-\begin{verbatim}
-'AHP_depth_abs_3.0x','sag_ratio2_3.0x','ohmic_input_resistance_1.5x','sag_ratio2_1.5x','peak_voltage_3.0x','peak_voltage_1.5x','voltage_base_3.0x','voltage_base_1.5x','Spikecount_1.5x','Spikecount_3.0x','ohmic_input_resistance_vb_ssse_1.5x'
-\end{verbatim}
-
+\begin{comment}
+\centering
+\begin{tabular}{l}
+\toprule
+{}  freature  \\
+\midrule
+AHP\_depth\_abs\_3.0x \\
+ sag\_ratio2\_3.0x \\
+$ ohmic_input_resistance\_1.5x$ \\
+$ sag_ratio2\_1.5x$ \\
+$ peak_voltage\_3.0x$ \\
+$ peak_voltage\_1.5x$ \\
+$ voltage_base\_3.0x$ \\
+$ voltage_base\_1.5x$ \\
+$ Spikecount\_1.5x$ \\
+$ Spikecount\_3.0x$ \\
+$ ohmic\_input\_resistance\_vb_ssse_1.5x$ 
+\bottomrule
+\end{tabular}
+\end{comment}
 
 %\item 
 Unlike in BluePyOpt \cite{bluepyopt} and Allen Institute optimization workflows \cite{gouwens} rheobase current injection was applied is a soft constraint. However, this work differs from other work in that rheobase current injection was found for every different model paramerisation.
@@ -49,8 +62,9 @@ spike shape measurements and error functions. We used a set of 8 different exper
 
 
 \begin{figure}
-	\includegraphics[]{figures/normal_distribution}
-    \caption{Error functions were evaluated with the assistance of a library: \emph{NeuronUnit} 
+\begin{center}
+	\includegraphics[0.65]{figures/normal_distribution}
+    \caption{As discussed in the introduction, Error functions were evaluated with the assistance of a library: \emph{NeuronUnit} 
     were based on finding a normal distribution on electro physiology measurements, 
     and then measuring model outputs and mapping the model behavior onto
      a place on the experimental normal distribution. Scores that where closer to the
@@ -59,5 +73,6 @@ spike shape measurements and error functions. We used a set of 8 different exper
 	%\label{figure\arabic{figurecounter}
 	
 \caption{Caption}
+\end{center}
 	
 \end{figure}

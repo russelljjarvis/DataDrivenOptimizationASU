@@ -2,7 +2,9 @@
     
 
  \subsubsection{Model Implementations}   
- 
+ We built faster python implementations of two neuronal models (Izhi model and adaptive Exponential model). One of the implementations was based on MATLAB forward euler implementation of the Izhi model, another implementation of the Adaptive Exponential model came from vectorized python code, which was relatively slow.
+
+Because I was able to use a tool \cite{numba} enables In Time compilation(JIT) , both of these models perform faster than standard neuron simulator versions in brian2 and NEURON.
  %Without over stating things, 
  When regarding this thesis effort and its contribution to knowledge, 
  some of the value to the neuroscience modelling community comes from the implementation of two fast python neural model simulations. Because these simulations are written in python, the code that implementations them is easy to understand share and execute, because the models are fast to dispatch they maybe useful in both network contexts, and optimization contexts where performance is critical. 
@@ -11,7 +13,7 @@
 
 
 \subsubsection{Why Existing Approaches Were Not workable}
-In this research effort significant time was spent trying to shoe horn pre-existing tools into an optimization frame work. These tools included:  PyNN, brain2, \emph{NEURON}, jNeuroML-2. However, seveal unexpected road blocks were encontoured on the way.
+In this research effort significant time was spent shoe-horning pre-existing tools into an optimization frame work, with limited success. These tools included:  PyNN, brain2, \emph{NEURON}, jNeuroML-2. However, seveal unexpected road blocks were encontoured on the way.
  
 
 There were a cluster of known errors and limitations. 
@@ -24,12 +26,17 @@ Because the PyNN implementations of the Izhikevich models are "wrapped" versions
 
 
 
-The described limitations of the 
+%The described limitations of the 
+%https://github.com/NeuralEnsemble/PyNN/issues/370$%}, journal={GitHub}, author={Davison A}
+%}
 
- 
-\cite{neuralensemble_adexp}
- 
-\cite{neuralensemble_adexp2}
+
+%@misc{neuralensembleadexp, title={pyNN.neuron %implementation of AdExp is unstable, gives poor results  Issue $#266 · NeuralEnsemble/PyNN$}, url={$https://github.com/NeuralEnsemble/PyNN/issues/266$}, journal={GitHub}, author={Davison A.}
+%}
+\url{https://github.com/NeuralEnsemble/PyNN/issues/370} 
+%\cite{neuralensemble_adexp}
+\url{https://github.com/NeuralEnsemble/PyNN/issues/266} 
+%\cite{neuralensemble_adexp2}
  
 A constant error warning plagued brian2 investmentallations was.
 \begin{verbatim}
@@ -76,8 +83,7 @@ Brian2 and sciunits sometimes collided in name space, and logging.
 Mean time taken on single model evaluation:$ 0.0012554397583007812s $
 Mean time taken to compute Rheobase:
 $0.183s $
-This was slightly faster than Izhikevich implementation which was: $ 0.462s $ $  0.002 s$
-Rheobase takes a mean of 15 model evaluations.
+This was slightly faster than Izhikevich implementation which was for total rheobase solution $ 0.462s $ and $  0.002 s$ per run. Solving for Rheobase takes a average of 15 model evaluations.
 %\begin{figure}    
 %\begin{center}
 %\includegraphics[width=0.25\linewidth]{figures/backend_check_files/backend_check_6_2.png}
@@ -113,26 +119,32 @@ Brian2 taken to find Rheobase: $4.40s$ (serial), $3.976s$ (parallel).
 The evaluation times between Brian2 and the custom written
 integrator are similar. Both have average rheobase solution times of approximately 4 seconds, however the spike shape derived from the custom written integrator look more realistic under default paramaterizations. The biological plausibility of default model paramaterization has consequences for model optimization speed, because when  models undergo mutation and cross-over the mean of random models regressors towards the default model initialization, and if the default model is a bad fit to data, the average model sampled by the genetic algorithm will also be bad to data.\\
 
-\begin{center}
 \begin{figure}
-\includegraphics{figures/backend_check_files/backend_check_4_2}
-\caption{Default model parameterization of the custom written integrator}
-\end{figure}
-\end{center}
-
-
 \begin{center}
-\begin{figure}
-
-\includegraphics{figures/backend_check_files/backend_check_12_10}
+\centering
+\begin{subfigure}[]{.5\textwidth}
+  \centering
+\includegraphics[scale=0.45]{figures/backend_check_files/backend_check_12_10}
 \caption{Model parameterization of the brian2 simulator with the customization: interpolated spike height, forced to be above $0mV$}
+
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[scale=0.45]{figures/backend_check_files/backend_check_4_2}
+    \caption{Default model parameterization of the custom written integrator}
+  \label{fig:sub2}
+\end{subfigure}
+\caption{Comparison between two Adxaptive Exponential Implementations}
+\label{fig:test}
+\end{center}
 \end{figure}
 
-\end{center}
+
+
+
     
-\begin{verbatim}
-    272 ms +- 66.5 $/mu$s per loop (mean +- std. dev. of 2 runs, 1 loop each)
-\end{verbatim}
+$272 ms +- 66.5 $/mu$s per loop (mean +- std. dev. of 2 runs, 1$ loop each)
 
 The next model to be evaluated is the NEURON Izhi model. The NEURON Izhi model has various draw backs. 1. It depends on an external file which must be recompiled each time this project is recreated. 2. The build environment of NEURON is non-trivial, and only a super dedicated NEURON modeller would install it on their system. Any performance advantage of using NEURON investment does not exceed the installation cost of installing the program. 3. The model implementation code is less generalizable than than the published Izhi model itself. Where the standard NEURON-NeuroML code only covers the Regular-Spiking model * This is likely due to a name space conflict between Capacitance. Neuron has a `capacitive' mechanism inside modelled Neurons, this particular model has section capacitance as well as an introduced capacitive term inside a C-compiled mechanism. Both contribute to a the membrane
 potential calculation. * The NEURON Izhi model took $78$ seconds to find the rheobase current injection value $ 51.79367065 * pA $.
@@ -198,6 +210,7 @@ Hodgkin Huxley Conductance based channels models took approximately the same amo
 time taken on block 8.573923826217651
     \end{verbatim}
 
+The author also engineered GLIF model support for $NeuronUnit$ tests. In practice these models where hard to configure without expert knowledge, GLIF models contain the most parameters of all models, and many of these parameters are vectors, not scalars. GLIF models do not visualy spike which makes debugging their behavior very difficult. None the less GLIF models where among the fastest to evaluate, and the author had success in making fitting these models to Allen Rheobase data.
 
     %\graphicspath{ {../figures/} }
 %    \begin{center}

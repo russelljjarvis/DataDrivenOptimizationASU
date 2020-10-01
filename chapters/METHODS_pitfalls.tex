@@ -58,14 +58,67 @@ Theoretically the largest possible number of constraints would be applied to opt
    Without some first prior knowledge of the error surface, a likely outcome is to attempt optimize on uninformative surfaces. If an uninformative surface is applied, it does not mean that the genetic algorithm will not succeed, it only means that the performance of the GA may be only marginally better than random sampling, or exhaustive search of the error surface.\\
    \\
    Random sampling, sounds bad, however, if the best random solution is digitally stored, and the number of samples applied is less than the possible number of samples in an exhaustive search, random sampling may better resolve the exploitation/exploration dilemna than both gradient descent, and exhaustive search.
-      \begin{figure}
+{ \hspace*{\fill} \\}      
 
-   \includegraphics[]{figures/pond_ripple_surface.png}
-     \caption{In the case of pond ripples the cost function is defined so that the maxima is the optimal location on the surface. Ripples on a body of water are more challenging to optimize, as the water surfaces are approxmiately flat on the large scale, yet on the small scale maximas will be temporary preoccupy the GAs learning, but outside of those peaks, there is little large scale information to utilize. }
+In the figures below, I describe the spectrum of error surface quality.
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+     \includegraphics[scale=0.65]{figures/pond_ripple_surface.png}
+     \captionof{figure}{In the case of pond ripples the cost function is defined so that the maxima is the optimal location on the surface. Ripples on a body of water are more challenging to optimize, as the water surfaces are approximately flat on the large scale, yet on the small scale maximas will be temporary preoccupy the GAs learning, but outside of those peaks, there is little large scale information to utilize. }
+      
+      \label{fig:test1}
+    \end{minipage}%
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[scale=0.85]{figures/parameter_b_hopeless_surface2.png}
+      \captionof{figure}{Similarily parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different model parameterisation of \emph{a}, this resultd in a highly rippled error surface, densely populated by local minima, and with only a very shallow global convex shape}
+      \label{fig:test2}
+    \end{minipage}
+\end{figure}
 
-      \end{figure}
 
-   
+% Note Help wanted making a professional version, of this known to be unattractive draft/concept figure.
+\begin{figure}
+\centering
+
+      \label{fig:test1}
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[scale=0.85]{figures/worst_error_surfaces.jpg}
+      \captionof{figure}{Rastrigrins function describes a challenging error surface, but one with learnable global features that a genetic algorithm can exploit. It's important to note that there are much worse error surfaces, and these may show up in practice. The first type has actively misleading local and global information. In this context learning is a disadvantage, if the optimizer "learns", then it actually slows obtaining an optimal solution. The second type of error surface (actually a 1D (and upside down) cross section of the 2D pond picture, only actively misleads locally, globally it simply contains no helpful global information. Learning will not be of any assistance in obtaining the optima, but also learning won't actively be a disadvantage either, the Genetic Algorithm, will simply behave as a random sampling/testing algorithm, the GA will find the optimum in time, but possibly not as quickly or reliabley as exhaustive search would. 
+      
+      The second figure is a cross section of the pond ripple argument}
+      \label{fig:test2}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}
+\centering
+
+
+    
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[scale=0.85]{figures/parameter_b_hopeless_surface.png}
+      \captionof{figure}{Similarily parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different model parameterisation of \emph{a}, this resultd in a highly rippled error surface, densely populated by local minima, and with only a very shallow global convex shape}
+      \label{fig:test2}
+    \end{minipage}
+
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[scale=0.85]{figures/parameter_b_friendly_surface.png}
+      \captionof{figure}{This is an example of a useable and tractable error surface, it has learnable global and local information, as long as not all error surfaces in the multiobjective collection of constraints, this surface is likely to be a valueable addition to the optimizer suite}
+      \label{fig:test2}
+    \end{minipage}
+
+
+\end{figure}
+
+
+
+     
    When considering 2D relationships between single parameters and single objective functions, ideally each objective function might contribute helpful information, that on mass boosts the total amount of helpful information. For-instance some 2D error mappings, may contain one or more local minima, but in the same region a different error mapping could lack the well, meaning that at least one out of two error functions contribute incentive to stride across a minima. The mapping that contains wells, might still be useful to guide optimization, as it may also lack minima in regions were the counterpart has them, additionally the counterpart mapping may have regions of $~0.0$ gradient where the other mapping contains significant gradient.\\
    \\
    It is almost impossible to make progress without some prior knowledge of the error surfaces, as knowledge of the error surface is a prerequisite for constraining optimization. Not all surfaces, provide equally useful information. There are spectrums of surface quality between convex traingular or parabolic depressions acting as the best solution surfaces, and flat functions 

@@ -10,12 +10,45 @@ The digital models we used were known to be not flexible enough to match all ele
 
 The optimizer was capable of producing perfect fits under ideal circumstances. We showed that the measurements the genetic algorithm was using were able to act as informative guides. Since we are confident about the optimizers ability to fit to synthesized data we can then locate sources of model/data disagreement in other places. \\ 
 In the subsequent tables and figures when the measurements:time constant, capacitance, Rheobase, Resting potential and Input resistance are used to constrain optimization.
+\begin{figure}
+    \centering
+    \includegraphics{figures/radar_coordinates.png}
+    \caption{This radar plot of model parameters, reveals two mutually inclusive sets, both model parameter values 1 randomly selected, 2 found by the optimizer closely match.}
+    \label{fig:my_label}
+\end{figure}
 
 
+%coincide 
+\begin{figure}
+    \centering
+    \includegraphics{figures/simulated_data_stats.png}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics{figures/optimizer_internal_validation}
+    \includegraphics{figures/simulated_data_supra_threshold.png}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics{figures/simulated_data_sub_threshold.png}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{figures/sim}
+    \caption{Optimizer evolution, green line tracks evolution of best fitness, blue line average fitness, orange line is worst fitness. GA params, $NGEN=200$, $MU=50$,$cxp=0.3$,$mupb=0.2$ from this plot can see that genes are storing and exploiting information, $cxp+mutpb=0.5$, so $50\%$ of genes are conserved between generations }
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{figures/optimizer_internal_validation}
     \caption{Optimizer evolution, green line tracks evolution of best fitness, blue line average fitness, orange line is worst fitness. GA params, $NGEN=200$, $MU=50$,$cxp=0.3$,$mupb=0.2$ from this plot can see that genes are storing and exploiting information, $cxp+mutpb=0.5$, so $50\%$ of genes are conserved between generations }
     \label{fig:my_label}
 \end{figure}
@@ -26,19 +59,15 @@ In the subsequent tables and figures when the measurements:time constant, capaci
 \resizebox{\textwidth}{!}{
 \begin{tabular}{llll}
 \toprule
-
-%\toprule
-{} &                     observations &    predictions & Z-Scores \\
-%\midrule
-RheobaseTest                   &                         42.59 pA &       42.63 pA &        0 \\
-TimeConstantTest               &                          7.44 ms &        7.41 ms &        0 \\
-RestingPotentialTest           &                        -56.56 mV &      -56.53 mV &        0 \\
-InputResistanceTest            &  61470348.96 kg*m**2/(s**3*A**2) &  61.42 megaohm &        0 \\
-CapacitanceTest                &          0.0 s**4*A**2/(kg*m**2) &      120.73 pF &        0 \\
-InjectedCurrentAPWidthTest     &                            0.0 s &        1.28 ms &     0.05 \\
-InjectedCurrentAPAmplitudeTest &                         80.32 mV &       68.55 mV &     0.06 \\
-InjectedCurrentAPThresholdTest &                        -35.25 mV &      -33.81 mV &     0.02 \\
-%\bottomrule
+{} &    observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest         &         1.62 pA &         1.62 pA &        0 \\
+TimeConstantTest     &        13.18 ms &        13.18 ms &        0 \\
+RestingPotentialTest &       -77.43 mV &       -77.43 mV &        0 \\
+InputResistanceTest  &  270.84 megaohm &  270.84 megaohm &        0 \\
+CapacitanceTest      &        48.65 pF &        48.65 pF &        0 \\
+FITest               &    [7.51 Hz/pA] &    [7.51 Hz/pA] &        0 \\
+\bottomrule
 \end{tabular}}
 \end{table}
 
@@ -47,9 +76,10 @@ AP width, amplitude, and AP threshold errors, did not participate in guiding opt
 %\includegraphics[]{figures/simulated_data_convergence_passive_fits.png}
 
 \begin{figure}
-    \centering
-    \includegraphics[]{figures/passive_model_agreement}
-    \caption{Caption}
+    \begin{center}
+    \includegraphics[scale=0.65]{figures/passive_model_agreement}
+    \caption{Agreement between a simulated constraint waveform, and an optimized waveform, when both simulated constraint model and optimized model undergo a current injection value of $-10pA$}
+    \end{center}
     \label{fig:my_label}
 \end{figure}
 
@@ -59,11 +89,10 @@ AP width, amplitude, and AP threshold errors, did not participate in guiding opt
 The design of the optimizer used in this work, computed rheobase for each model, what that means is a new current is required to apply current injection tests to tests that are spiking in nature.\\
 %In the optimizer design used here.
 
-\begin{itemize}
-\item  $N-free-model-parameters << N-constraints$
-\item  $(model parameters + current-injection-value-parameter) << N (independent and uncorrelated)$ constraints.
-\item  For the different classes of Reduced Model we show that the optimizer converges when data is simulated.
-\end{itemize}
+$N-free-model-parameters << N-constraints$
+$(model parameters + current-injection-value-parameter) << N$ $(independent and uncorrelated)$ constraints.$
+
+For the different classes of Reduced Model we show that the optimizer converges when data is simulated.
 
 In a simulated experiment, existing models were instantiated using a randomly chosen model parameters.
 
