@@ -1,8 +1,30 @@
+\section{Approach to optimization using NeuronUnit}
+Model optimization follows the following basic approach:
+\begin{enumerate}
+	\item Identify a model class whose parameters are to be optimized, e.g. the Izhikevich model.
+	\item Identify a neuron whose experimental data will be used to guide optimization.
+	\item Identify a suite of tests that can use that experimental data to guide the optimizer.
+	\item Execute optimization of that model class against that suite of tests to return an optimized model.
+\end{enumerate}
+Within these steps are also a number of smaller decisions, including where the experimental data will be obtained and what kind of simulator will be used to run the model.
+Using NeuronUnit, the steps above take the follow pseudo-code form:
+\begin{lstlisting}[language=Python]
+# Import code from NeuronUnit
+from neuronunit.models import MyModelClass
+from neuronunit.tests import MyTestClass1, MyTestClass2, MyTestClass3
+from neuronunit.data import get_data_from_database_x
 
-    
+# Get data about my neuron
+neuron_type = "Russell's neuron"
+neural_data = get_data_from_database_x(neuron_type)
 
- \subsubsection{Model Implementations}   
- We built faster python implementations of two neuronal models (Izhi model and adaptive Exponential model). One of the implementations was based on MATLAB forward euler implementation of the Izhi model, another implementation of the Adaptive Exponential model came from vectorized python code, which was relatively slow.
+
+\end{lstlisting}
+
+
+
+\section{Model Class Implementations}
+Because optimization may involve an extremely large number of independent simulations of the same class of model, each varying only in model parameter values, it is critical that both the overhead for model instantiation and the duration of simulation itself, be as low as possible. We built faster python implementations of two neuronal models (Izhi model and adaptive Exponential model). One of the implementations was based on MATLAB forward euler implementation of the Izhi model, another implementation of the Adaptive Exponential model came from vectorized python code, which was relatively slow.
 
 Because I was able to use a tool \cite{numba} enables In Time compilation(JIT) , both of these models perform faster than standard neuron simulator versions in brian2 and NEURON.
  %Without over stating things, 
@@ -122,19 +144,15 @@ integrator are similar. Both have average rheobase solution times of approximate
 \begin{figure}
 \begin{center}
 \centering
-\begin{subfigure}[]{.5\textwidth}
   \centering
 \includegraphics[scale=0.45]{figures/backend_check_files/backend_check_12_10}
 \caption{Model parameterization of the brian2 simulator with the customization: interpolated spike height, forced to be above $0mV$}
 
   \label{fig:sub1}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[scale=0.45]{figures/backend_check_files/backend_check_4_2}
     \caption{Default model parameterization of the custom written integrator}
   \label{fig:sub2}
-\end{subfigure}
 \caption{Comparison between two Adxaptive Exponential Implementations}
 \label{fig:test}
 \end{center}

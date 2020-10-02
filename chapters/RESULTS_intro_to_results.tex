@@ -1,0 +1,14 @@
+
+
+
+In order to optimize reduced models, it was first necessary to develop optimizer-friendly implementations of these models.  I developed…
+The range of tests available for optimization in NeuronUnit was also incomplete, especially as it focused on passive membrane properties or the shapes of single action potentials.  In order for model output to reflect experimental data, it was also necessary that the timing and patterns of action potentials be assessed and tested.  Therefore, I developed the ability for EFEL features to be calculated on NeuronUnit models. 
+
+This required both the extraction of novel features [Allen, EFEL, etc.] and novel test types: [ISI, AHP\_depth, adaption ratio etc.] Ultimately, I still found that some tests were intractable, because they depended on measured features, relative to some other changeable measurement inside the cell usually $max(\frac{dV_{m}}{dt})/10.$
+
+Multi-core and or multi-threaded optimization requires that information about model properties be shareable between various processor threads. However, some common data types contain information that is not shareable between CPUs, and they must be translated into a globally sharable framework. I created a class, that could translate and envelope only shareable data to solve this problem.
+
+In order to both control optimization parameters and visualize optimization results, I also developed a web application, the application requires no programming skill to use, and it allows a user of the to select among multiple cell specific constraints, and multiple model types. 
+%
+%\begin{comment}
+

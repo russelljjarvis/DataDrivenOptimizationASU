@@ -1,3 +1,4 @@
+\chapter{Introduction}
 \section{Why model the brain?}
 Diseases of the brain are very widespread and cost world governments a significant amount of money \cite{who}.
 The 2015 Global Burden of Disease study estimates that about a third of the population worldwide is affected by mental or neurological disorders across their lifespans
@@ -152,14 +153,14 @@ I_{j} (t+) \leftarrow fj \times I_{j} (t-) + \delta I_{j}
 \end{comment}
 
 \subsection{Adaptive Exponential Integrate and Fire Model}
-\begin{equation}
-
-C\frac{d}{Vdt}=-g_{L}(V-E_{L})+
-g_{L} \Delta Texp(V-V_{T} \Delta T)-w+I
-
+\begin{comment}
+$ C\frac{d}{Vdt}=-g_{L}(V-E_{L})+
+g_{L} \Delta Texp(V-V_{T} \Delta T)-w+I 
+$
+$
 \tau_{w}\frac{dw}{dt} = a(V-E_{L})-w 
-\end{equation}
-
+$
+\end{comment}
 The Adaptive Exponential (AdExp) IF model \cite{brette2005adaptive}, is another type of reduced neural model
 The Adexp model is a special instance of leaky integrate and Fire model which most often appears with an exponential spike shape.
 The models instantaneous spiking rate is calculated via a consulting finite time "windows" into the neurons recent spike history.

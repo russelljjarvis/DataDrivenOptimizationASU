@@ -16,7 +16,7 @@
 \usepackage{tcolorbox}
 \usepackage{hyperref}
 \usepackage{sectsty}
-\usepackage{subcaption}
+%\usepackage{subcaption}
 
 %%
 % Junk that makes notebook importing better
@@ -49,6 +49,7 @@
 \usepackage{siunitx}
 \usepackage{booktabs}
 \usepackage{comment}
+\usepackage{listings}
 
 %\usepackage[citations,footnotes,definitionLists,hashEnumerators,smartEllipses,tightLists=false,pipeTables,tableCaptions,hybrid]{markdown}
 %%begin novalidate
@@ -77,8 +78,9 @@
 \defensemonth{November}
 \gradmonth{Some other month}
 \gradyear{2020}
-\chair{Rick Gerkin}
-\memberTwo{Sharon Crook}
+%https://tex.stackexchange.com/questions/450198/change-one-chair-for-two-cochair
+\cochair{Sharon Crook}
+\cochair{Rick Gerkin}
 \memberFour{Yi Zhou}
 \memberThree{James Abbas}
 %\memberOne{Rick Gerkin}
@@ -116,17 +118,11 @@
 \setcounter{secnumdepth}{5}
 
 \allsectionsfont{\raggedright}
-\chapter{Introduction}
-\include{chapters/Introduction}
-\chapter{Methods}
-\include{chapters/METHODS_figures}
-\include{chapters/METHODS_model_implementation_assesment}
-\include{chapters/METHODS_NElectro_data_thesis}
-\include{chapters/METHODS_pitfalls}
-\include{chapters/METHODS_parallel_rheobase_thesis}
-\include{chapters/METHODS_technical_details_of_the_optimizer}
-\include{chapters/METHODS_uniqueness_of_this_approach}
+\include{chapters/introduction}
+\include{chapters/methods}
 \chapter{Results}
+\include{chapters/RESULTS_intro_to_results}
+
 \include{chapters/RESULTS_verification_of_the_optimizer}
 \include{chapters/RESULTS_mean_model_not_eqaul_mean_measurement}
 
@@ -139,8 +135,8 @@
 \include{chapters/RESULTS_web_app}
 \chapter{Discussion}
 
-\chapter{chapters/Discussion_significance_of_results}
-\chapter{chapters/Discussiontargetnetworksimulations}
+\include{chapters/DISCUSSION_significance_of_results}
+\include{chapters/DISCUSSION_target_network_simulations}
 \include{chapters/FINISHINGUP_links_to_source_codes_of_this_work}
 \chapter{Appendix}
 

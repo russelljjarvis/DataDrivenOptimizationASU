@@ -8,6 +8,11 @@
 %%%
 \subsection{Ability of models to Fit Allen Institute Data Electrical features from single cells.}
 
+Although not yet employed here Stratified K-means cross validation provides a framework for producing a canonical set of fitness criteria, criteria that can train models to partially satisfy multiple experimental protocols, rather than just one particular experiment.
+
+The approach would simply involve starting with a wide set of supra and sub threshold experiments, and systematically shuffling the objectives into "validation" and "train" sets. Cross-Validation may provide a strategy for dealing severly conflicted fitness criteria, such as the rheobase test. If models fail to recapitulate a test, beyond the important insight that models reduce don't agree with Rheobase experiments, while they are held against other electrical constraints, its is important to find out, if training models to fit tests, that they can't satisfy harms the models ability to generalize and satisfy the majority of other tests. It would be better instead to document the model weakness, and drop Rheobase from collections of constraints.
+
+%, but towards satisfying multiple protocols. We have already seen in the m
 
 \subsection{Ability of models to Fit NeuroElectro Literature statistics (NeuroElectro).}
 %\begin{itemize}
@@ -54,9 +59,8 @@ The EFEL measurements on Allen Data
 \item  In methods I discussed an approach to verifying the optimizer.
 $-$ Specifically, we showed efficient optimizer convergence when constraints were derived from simulating experiments.
 
-When the optimizer setup is cogent because appropriate models and test combinations have been chosen, and because 
-
-$N free_params <= N constraints$
+%When the optimizer setup is cogent because appropriate models and test combinations have been chosen, and because
+%$N_{free_params} <= N_{constraints}$
 
 
 %\item  In order to verify our approach we also re-implemented our code using BluePyOpts select best algorithm, and NSGA2.
@@ -76,6 +80,9 @@ We have used NeuronUnit to guide optimization by taking a flexible model types s
 
 %As an example, select Best (IBEA) was used to optimize models in conjunction with data driven tests based on pooled data from NeuroElectro.org \cite{tripathy2014neuroelectro}. A variety of compact and fast single compartment models were used to explore model optimization. Figure 4 demonstrates test error at the beginning of the optimization process for models with randomly sampled parameters and the smaller error following optimization. Figure 5 shows the evolution of the error during the optimization process\\
 %\\
+
+Pyramidal neurons should not be considered as inter-changable units, between different animals and across different brain regions. Experiments that span multiple mammal species, and different brain regions suggest that there is too much variation in structure and dynamics of the pyramidal cells even inside the same layer layer to consider pyramidal cells as sub-serving a generic set of roles and capabilities \cite{luebke2017pyramidal}. %Even within humans pyramidal neurons
+
 Optimized neuron models may vary from their neuron counterparts for several reasons. Table 3 shows an example where optimizing the model with respect to the rheobase test comes into conflict with minimizing with respect to input resistance. The solution to the optimization problem consists of two sets of model parameters, which can resolve this conflict differently. Examining the experimental data that these tests were derived from suddenly becomes important. By examining the data, we can see if the rheobase currents and the distributions of input resistance are bi-modal and uniformly distributed. If the data is treated as uni-modal, and the uni-modal mean is used to optimize then the model, then the model is not able to satisfy both constraints simultaneously. In this case, the measurements don’t correspond to neuron data, and the model can’t produce the artificial behavior. When comparing complex data and simple models we find that solutions are better represented using a combination of two optimization solutions.\\
 
 Another potential issue to consider when evaluating the scientific merit of a model is that neurons may have different behaviors under different stimulation paradigms. It might be appropriate to compare modeled behavior against measurements specific to each of two or more distinct modes. In this case, when optimizing single cell models, it’s appropriate to accept a solution set, rather than a single solution. For example, the cerebellar Purkinje cell is sensitive to intricately patterned dendrite input current combinations. Depending on a cell’s recent history of synaptic stimulation, a Purkinje cell may toggle between coincidence detection and integration modes \cite{ratte2013impact}.
@@ -115,7 +122,8 @@ When using Allen experimental data to create multi-spiking tests, there was the 
 
 and there is also the potential to check the variance explained ratio of tests. In such a multispiking paradigm the highest possible variance explained ratio of approx $1$. 
 
-Caption in this figure there is visibly almost perfect  agreement between simulated and experiments and the optimized models, in the passive experimental conditions, and a close match for the spiking model behavior. There was a standard suite of tests if only spike-half-width, not spike-base-width. The Izhikevich models width as thus free to vary at the base, take that into account when eye balling the two graphs and you can see why almost binary match. EFEL does achieve spike width binary matching because it uses both half-width, and base-width. If you look at the last cells you can see I take a correlation matrix of the optimizers errors over its history. The idea is if it's normalized then I can sum the whole matrix and get a single scaler number to show how uncorrelated both error sets are over the GA evolution. 
+
+There is visibly almost perfect  agreement between simulated and experiments and the optimized models, in the passive experimental conditions, and a close match for the spiking model behavior. There was a standard suite of tests if only spike-half-width, not spike-base-width. The Izhikevich models width as thus free to vary at the base, take that into account when eye balling the two graphs and you can see why almost binary match. EFEL does achieve spike width binary matching because it uses both half-width, and base-width. If you look at the last cells you can see I take a correlation matrix of the optimizers errors over its history. The idea is if it's normalized then I can sum the whole matrix and get a single scaler number to show how uncorrelated both error sets are over the GA evolution. 
 
 It was found that the elephant/neuroelectro-suite of NU tests don't fully constrain the spike width at the base of neuron action potential waveform. Since the base of the waveform was unconstrained, it was free to vary, half-spike-width is constrained, it is more appropriate to talk about variance explained of the spike snippet. $variance explained>0.95$ is a useful heuristic. Allowing some margin acknowledges that we shouldn't assume we have represented all waveform features that can vary. If you want $variance explained==1$   
 you could optimize using a variance explained 
