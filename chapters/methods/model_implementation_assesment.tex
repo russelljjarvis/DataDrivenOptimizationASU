@@ -8,20 +8,20 @@ Model optimization follows the following basic approach:
 \end{enumerate}
 Within these steps are also a number of smaller decisions, including where the experimental data will be obtained and what kind of simulator will be used to run the model.
 Using NeuronUnit, the steps above take the follow pseudo-code form:
-\begin{lstlisting}[language=Python]
+\begin{lstlisting}[language=python]
 # Import code from NeuronUnit
+from sciunit import TestSuite
 from neuronunit.models import MyModelClass
 from neuronunit.tests import MyTestClass1, MyTestClass2, MyTestClass3
 from neuronunit.data import get_data_from_database_x
 
 # Get data about my neuron
-neuron_type = "Russell's neuron"
+neuron_type = "Layer 5 pyramidal Neuron"
 neural_data = get_data_from_database_x(neuron_type)
-
-
+test1 = MyTestClass1(observation=neural_data)
+test_suite = TestSuite([test1, test2, test3])
+results = test_suite.optimize(model)
 \end{lstlisting}
-
-
 
 \section{Model Class Implementations}
 Because optimization may involve an extremely large number of independent simulations of the same class of model, each varying only in model parameter values, it is critical that both the overhead for model instantiation and the duration of simulation itself, be as low as possible. We built faster python implementations of two neuronal models (Izhi model and adaptive Exponential model). One of the implementations was based on MATLAB forward euler implementation of the Izhi model, another implementation of the Adaptive Exponential model came from vectorized python code, which was relatively slow.

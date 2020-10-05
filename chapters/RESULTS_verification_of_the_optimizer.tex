@@ -19,12 +19,7 @@ In the subsequent tables and figures when the measurements:time constant, capaci
 
 
 %coincide 
-\begin{figure}
-    \centering
-    \includegraphics{figures/simulated_data_stats.png}
-    \caption{Caption}
-    \label{fig:my_label}
-\end{figure}
+
 
 \begin{figure}
     \centering
@@ -41,7 +36,7 @@ In the subsequent tables and figures when the measurements:time constant, capaci
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.7]{figures/sim}
+  \includegraphics{figures/simulated_data_stats.png}
     \caption{Optimizer evolution, green line tracks evolution of best fitness, blue line average fitness, orange line is worst fitness. GA params, $NGEN=200$, $MU=50$,$cxp=0.3$,$mupb=0.2$ from this plot can see that genes are storing and exploiting information, $cxp+mutpb=0.5$, so $50\%$ of genes are conserved between generations }
     \label{fig:my_label}
 \end{figure}
@@ -89,8 +84,8 @@ AP width, amplitude, and AP threshold errors, did not participate in guiding opt
 The design of the optimizer used in this work, computed rheobase for each model, what that means is a new current is required to apply current injection tests to tests that are spiking in nature.\\
 %In the optimizer design used here.
 
-$N-free-model-parameters << N-constraints$
-$(model parameters + current-injection-value-parameter) << N$ $(independent and uncorrelated)$ constraints.$
+%$N-free-model-parameters << N-constraints$
+%$(model parameters + %current-injection-value-parameter) << N$ $(independent and uncorrelated)$ constraints.
 
 For the different classes of Reduced Model we show that the optimizer converges when data is simulated.
 

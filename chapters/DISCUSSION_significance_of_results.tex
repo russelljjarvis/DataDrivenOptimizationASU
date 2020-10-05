@@ -1,5 +1,10 @@
 \section{Discussion}
 
+\subsubsection{Conflicts in Models Between Experimental Constraints}
+
+Conflicts between Rheobase value and other static electrical measurements were observed in NeuroElectro and Allen measurements. When optimizing against literature derived averaged measurements, and Allen Brain single cell observations, it was common to experience a conflicted ability for a given model to satisfy all constraints simultaneously. 
+
+Models seemed to have particular difficulty in recapitulating an accurate fit for rheobase, while simultaneously satisfying the all of the other fitness criteria: time constant, input resistance, capacitance, resting membrane potential and FISlope. 
 
 \subsection{Ability of models to Fit Allen Institute Data (sweeps).}
 %%%
@@ -8,9 +13,9 @@
 %%%
 \subsection{Ability of models to Fit Allen Institute Data Electrical features from single cells.}
 
-Although not yet employed here Stratified K-means cross validation provides a framework for producing a canonical set of fitness criteria, criteria that can train models to partially satisfy multiple experimental protocols, rather than just one particular experiment.
+Although not yet employed here Stratified K-means cross validation provides a framework for producing a canonical set of fitness criteria, criteria that can train models to best satisfy multiple experimental protocols, rather than just one particular experiment.
 
-The approach would simply involve starting with a wide set of supra and sub threshold experiments, and systematically shuffling the objectives into "validation" and "train" sets. Cross-Validation may provide a strategy for dealing severly conflicted fitness criteria, such as the rheobase test. If models fail to recapitulate a test, beyond the important insight that models reduce don't agree with Rheobase experiments, while they are held against other electrical constraints, its is important to find out, if training models to fit tests, that they can't satisfy harms the models ability to generalize and satisfy the majority of other tests. It would be better instead to document the model weakness, and drop Rheobase from collections of constraints.
+The approach would  involve starting with a wide set of supra and sub threshold experiments, and systematically shuffling the objectives into "validation" and "train" sets. Cross-Validation may provide a strategy for dealing with  conflicted fitness criteria, such as the rheobase test. If models fail to recapitulate a test, beyond the important insight that  reduced models don't agree with Rheobase experiments, while they are held against other electrical constraints, its is important to find out, if training models to fit tests, which we know they models cannot align to, harms the models ability to generalize and satisfy the majority of other tests. If its the case, that trying to satisfy rheobase tests, harms the generalizability of a model, it would be better to instead document the model weakness, and drop Rheobase from collection of optimization constraints.
 
 %, but towards satisfying multiple protocols. We have already seen in the m
 

@@ -11,6 +11,7 @@ $\chi^{2}=\Sigma zscores^{2} $
 %https://en.wikipedia.org/wiki/Chi-square_distribution
 %This allows you to state this as a hypothesis test with a p-value.  The chi-square statistic would simply be , and the p-value would be 1-scipy.stats.chi2.cdf(x, 8) where 8 is the number of elephant tests (and Z-scores).  A very small p-value (which would come from very large chi-square statistic, much larger than expected for random variation) %would mean the optimizer was less successful at recovering the true model.
 
+See appendix:\ref{table:static_electrical_properties}
 The Izhikevich Model and the Point Conductance Model were able to achieve high p-values, and small chi-squared statistics when seven or eight of the tests were considered together.
 
 For example the Izhikevich model fitted to Hippocampus CA1 pyramidal cell data achieved $ (\chi^{2} ,p-value) =(2.1250913868824415, 0.9769347643323284) $
@@ -18,13 +19,10 @@ For example the Izhikevich model fitted to Hippocampus CA1 pyramidal cell data a
 The olfactory Mitral cell
 $ (\chi^{2} ,p-value) =(2.0190436240810925, 0.9804224622781068) $
 
-and the cerebellum Purkinje cell.
-
-
-For contrast p-value and chi-squared statistics on the best random models were:
+and the cerebellum Purkinje cell. For contrast p-value and chi-squared statistics on the best random models were:
 
 %(2.0190436240810925, 0.9804224622781068)r
-\subsection{Data fitted Results on three classes of model were only modestly good for the Izhikevich Model and the Point Conductance Model}
+\subsection{Data fitted Results on four different classes of model were only modestly good for the Izhikevich Model and the Point Conductance Model}
 
 To make the argument that limitations in reduced neural models were the cause of modest model/experiment agreement, we first had to rule out alternative possibilities. One possibility was that the experimental measurements were faulty, and that the measurements were possibly spurious because of in appropriate averaging. It was found that mainly the olfactory bulb mitral cell was prone to having underlying bi-modal data distributions, and this was especially true for resting membrane
 

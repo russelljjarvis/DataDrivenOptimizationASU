@@ -6,4 +6,15 @@ In addition to the deployment of existing methods to achieve my research goals, 
 \input{chapters/methods/pitfalls}
 \input{chapters/methods/parallel_rheobase_thesis}
 \input{chapters/methods/technical_details_of_the_optimizer}
+
+
+
+\subsubsection{Cortical Model and Cortical Experiment Analysis Methods}
+NeuroML-DB \cite{birgiolas2016rapid} catalogues over 1,500 published models obtained in NeuroML format from Open Source Brain \cite{gleeson2019open}. Complementing OSB, NeuroML-DB provides systematic characterizations of model complexity, electrophysiology, and morphology, making it easy to find, evaluate, and reuse models and their components. We used NeuroML-DB in conjunction with Allen Cell-types to perform a large scale multivariate analysis of the agreement between models and experiments.
+
+A neuron model that perfectly imitated real neuronal electrical behavior in response to any stimulus would not be distinguishable from experiments by any conventional physiological measurement. In order to assess whether existing neuron models approached this standard, we took $972$ existing neuron models from NeuroML-DB.org and subjected them to a standard series of electrophysiological stimuli (somatic current injection waveforms). We also extracted analogous stimulus-evoked recordings of real $448$ in vitro cortical neurons from the Allen Cell Types database. We applied multiple feature extraction algorithms on the physiological responses of both model simulations and experimental recordings in order to characterize variation in behavior with a very high degree of detail spanning over 200 features.
+\subsubsection{Virtual Experiment} 
+Models, and experiments alike all underwent a sweep of current injection values. Significant code logic is applied to machine selecting sweeps that were the closest to $1.0\times $,$1.5\times$ and $3.0 \times$ rheobase, as the sweep data was not pre-labelled in this manner. With the said code logic in place, one could speak of a three step current injection scheme  mutually applied to models and in-vitro experiments. 
+Allen cell types experiments and Blue Brain Experiments both have collections of short pulse current steps, and long pulse current steps. You can see examples of both in this document, for simplicity we used experiments that lasted $3s$ and had $2s$ duration current injection values.
+
 %\input{chapters/METHODS_uniqueness_of_this_approach}

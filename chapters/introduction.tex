@@ -26,10 +26,10 @@ Since network models many consist of many thousands (or more) of cell models, bo
 % https://www.sciencedirect.com/topics/immunology-and-microbiology/whole-cell-patch-clamp
 % Whole Cell Patch Clamp
 
-\subsection{Simulation as Experimental Platform}
+\subsection{Simulation as an Experimental Platform}
 The human brain is inaccessible to many experiments for technical and ethical reasons.
 Neuroscience relies instead on "model systems" for understanding the human brain.
-One such model system is the animal model (or which there are many), chosen due to biological similarities to the organization of the human brain, and the relatively smaller ethical issues associated with experimentation.
+One such model system is the animal model (of which there are many), chosen due to biological similarities to the organization of the human brain, and the relatively smaller ethical issues associated with experimentation.
 However, animal models have limitations which can make them scientifically unfavorable
 Animal models often involve years of investment, genetic engineering, complex surgery, complicated behavioral learning paradigms.
 Many things can go wrong while developing an assay, potentially ruining a costly experiment, and diminishing years of work.
@@ -111,15 +111,13 @@ The 3D structure of biological cells is flattened to a point onto which currents
 %...
 \subsubsection{The Generalized LIF Model}
 %%\url{https://www.biorxiv.org/content/10.1101/104703v1.full.pdf}
-
-\begin{comment}
+% this is not yet correct.
 
 \begin{equation}
-V \prime (t) = \frac{1}{C}
-I_{e}(t) + \sigma I_{j}X_{j}I_{j}(t) -1R(V (t)- E_{L}) 
-
+V \prime (t)=\frac{1}{C} 
 \end{equation}
-
+\begin{equation}
+I_{e}(t) + \sigma I_{j}X_{j}I_{j}(t) -1R(V (t)- E_{L})  \end{equation}
 \begin{equation} 
 s(t) = -bs \theta s(t)  
 \end{equation}
@@ -129,38 +127,30 @@ I_{j}(t) = -k_{j} I_{j} (t); j = 1, 2
 \end{equation}
 
 \begin{equation}
-
  v(t) = av(V (t) - E_{L}) - bv\theta v(t) 
 \end{equation}
 
 \begin{equation}
-
 V (t+) \leftarrow E_{L} + fv \times (V (t-) - E_{L}) - \delta V 
 \end{equation}
 
 \begin{equation}
-
-s \theta (t+) \leftarrow Θs(t-) + \delta \theta s 
+s \theta (t+) \leftarrow \theta s(t-) + \delta \theta s 
 \end{equation}
 
 \begin{equation}
 I_{j} (t+) \leftarrow fj \times I_{j} (t-) + \delta I_{j}
 \end{equation}
 \begin{equation}
-
-\Theta v (t+) \leftarrow \Theta v(t−) 
+\Theta v (t+) \leftarrow \Theta v(t-) 
 \end{equation}
-\end{comment}
 
 \subsection{Adaptive Exponential Integrate and Fire Model}
-\begin{comment}
-$ C\frac{d}{Vdt}=-g_{L}(V-E_{L})+
+\begin{displaymath}
+ C\frac{d}{Vdt}=-g_{L}(V-E_{L})+
 g_{L} \Delta Texp(V-V_{T} \Delta T)-w+I 
-$
-$
 \tau_{w}\frac{dw}{dt} = a(V-E_{L})-w 
-$
-\end{comment}
+\end{displaymath}
 The Adaptive Exponential (AdExp) IF model \cite{brette2005adaptive}, is another type of reduced neural model
 The Adexp model is a special instance of leaky integrate and Fire model which most often appears with an exponential spike shape.
 The models instantaneous spiking rate is calculated via a consulting finite time "windows" into the neurons recent spike history.
@@ -244,8 +234,8 @@ Ideally, this surface is perfectly "convex", meaning that there is a single mini
 
 \subsection{Local Minima} Many real optimization problems have error surfaces that not perfectly convex but are instead actually have a surface shape that is rippled, so that as you travel along the error surface in any direction, you may encounter multiple troughs of similarly low error value (local minima).
 These ripples make navigating the error surface non trivial.
-Rastrigin's function \cite{rastrigin1974systems}  is a function for creating error surfaces to test the robustness of algorithms that attempt to overcome this problem.
-The surface described by the function is densely populated by local minima, each of which is placed on a globally convex envelope, such that the true minimum of Rastrigin's function is at its centre. As a certain number of genes are retained between generations, genes made on previous generations act as a memory of previously sampled error surface. Due to memory of the error surface, the genetic algorithm is able to exploit the global shape of Rastrigrin's function, it should be noted that there are error functions that contain no useful or learn-able information in the error surface. A satisfactory solution to such problems might still be obtained due to the exploratory and stochastic nature of the GA, however, much of the advantage of the genetic algorithm approach is lost, as the approach presupposes learn-able features about error surfaces. 
+Rastrigin's function \cite{rastrigin1974systems}  is a function for creating error surfaces to test the robustness of algorithms that attempt to overcome moderately difficult error surfaces, densely populated with local minima, but with a global convex shape.
+The surface described by the function is densely populated by local minima, each of which is placed on a globally convex envelope, such that the true minimum of Rastrigin's function is at its centre. As a certain number of genes are retained between generations, genes made on previous generations act as memories of previously experienced error surface. Due to this memory effect, the genetic algorithm is able to exploit the global shape of Rastrigrin's function \ref{fig:rastrigin}, it should be noted that there are error functions that contain no useful or learn-able information in the error surface. A satisfactory solution to such problems might still be obtained due to the exploratory and stochastic nature of the GA, however, much of the advantage of the genetic algorithm approach is lost, as the approach presupposes learn-able features about error surfaces. 
 
 \subsection{Genetic Algorithms}
 A variety of numerical optimization techniques exist, and which performs best depend on the demands of the problem.
@@ -285,6 +275,8 @@ A mutation reflects a (random) change to a single gene, i.e. a change to a singl
 
 \includegraphics[scale=0.5]{figures/rastagrind}
 \caption{Rastrigin's function is a function that is challenging to optimize, as it contains thousands of local optima which would trap a gradient descent algorithm \cite{rastrigin1974systems}}
+\label{fig:rastrigin}
+
 \end{center}
 
 \end{figure}
@@ -298,7 +290,7 @@ The degree of elitism essentially controls the amount of evolution that is allow
 In a multi-objective optimisation model fitness is evaluated using multiple "objective functions" of model fitness, each contributing either independently or in conjunction to the error surface.
 Each function may ask a different question about the model; for example, one may ask how well the model reproduces the shapes of action potentials, and another function may ask how well the model reproduces the counts of action potentials.
 The output of each such function is some scalar, with a lower value representing greater model/data agreement, i.e. lower error.
-These functions are sometimes also called constraints.
+These functions are sometimes also called constraints. 
 
 \subsubsection{Weighted optimization} simple strategy is to turn a multi-objective optimization problem into a single objective optimization problem, for example by summing the outputs of objective functions together. 
 This is an extremely common strategy, has been the dominant approach in all neuroscience model optimization efforts to date [cite something here].
@@ -403,12 +395,13 @@ However, since most fast numerical methods are incompatible with missing data, a
 \subsection{Closed Loop Development}
 The speed of simulation is a critical to successful optimization. However, even when using High Performance Computing (HPC) resources, errors may arise, and require special handling or visualizations to diagnose.  
 These errors may even reveal that the model is mis-specified, but this may not be revealed until thousands of simulations have already run.
+
 The ability to address and correct such mistakes, requires rapid and verbose feedback during optimization, as well as simulations of sufficient speed that since error "breakpoints" can be reached in a reasonable amount of time.
 
 \subsection{Successful Optimization} 
 Integrating the above ideas, I aimed to develop a framework for rapid, debuggable optimization of reduced neuron models subject to multiple constraints forged by real experimental data, and to use this framework to optimize and share such models.
 Here I will describe a number of methods and simulation experiments which demonstrate the successful implementation of many of these ideas, focusing on genetic algorithms that retain a diverse set of model parameterizations, potentially reflecting real within-type neuronal diversity.
-The interaction between model constraints cannot always be known in advance, and in fact some constraints are mutually exclusive, causing optimization to fail.
+The interaction between model constraints cannot always be known in advance, and in fact some constraints are mutually exclusive, either causing optimization to fail, or leading to a compromise.
 I also aimed to catalog such cases and use this knowledge to produce a more robust set of constraints, implemented via \emph{NeuronUnit} tests, for future optimization work.
 
 No model--including those that are published-- should not be regarded as final.
@@ -418,9 +411,7 @@ At best, replacing complex cell models with simplified models is a way to reduce
 
 A simple way to fit a model to an experiment involves computing the difference between modelled waveforms and recorded waveforms. Computing the root mean square error between the two vectors, might seem like an appropriate approach, however, the $RMSE$  will be unduly more sensitive to spike timing and not as sensitive to agreement in spike shapes that occur at different times. It's very possible that a neuroscientist may care more about modelling the spike shape, than the spike time, and to address this missing need, we have appropriately decided to extract spike shape features from waveforms and to use these as our distance metrics.
 
-
-
-When comparing two waveforms "proportion of variance explained" $(VE)$ is often used to overcome limitations in RMSE. \cite{schoppe2016measuring}. An alternative to this approach, is to select only a few electrical features from the recorded waveform that are deemed to be important, and to fit to those limited feature sets to experiments instead. A feature based approach to data fitting, is more likely to produce models that are not over-fitted, less fitted to noise, and models which generalize better. For example consider a neuron recording that contains $15$ spikes, and a model undergoing fitting to the data which has produced a waveform containing $16$ spikes. The VE of these two different waveforms might be quiet low, whereas the waveform shapes between model and experiment might agree on important features, such as spike width and spike height sag ratio, and voltage between spikes.
+When comparing two waveforms "proportion of variance explained" $(VE)$ is often used to overcome limitations in RMSE. \cite{schoppe2016measuring}. An alternative to this approach, is to select only a few electrical features from the recorded waveform that are deemed to be important, and to fit to those limited feature sets to experiments instead. A feature based approach to data fitting, is more likely to produce models that are not over-fitted, less fitted to noise, and models which generalize better. For example consider a neuron recording that contains $15$ spikes, and a model undergoing fitting to the data which has produced a waveform containing $16$ spikes. The VE of these two different waveforms might be quiet low, whereas the waveform shapes between model and experiment might agree on important features, such as spike width and height, and the voltage between spikes.
 
 
 We chose to fit models to selected electrical features of the waveform, instead of simply fitting voltage traces, by 
@@ -429,4 +420,4 @@ We chose to fit models to selected electrical features of the waveform, instead 
 
 While there are currently many optimization packages for optimizing models expressed in the language \emph{NEURON} \cite{friedrich2014flexible} \cite{bluepyopt} \cite{neurotune}. To the best of my knowledge few or no python modules exist for the optimization of generic reduced neuronal models.
 
-Some core components of the optimisation procedure detailed here, do not in essence deviate from those described in Druckmann \cite{druckmann2008evaluating} or \cite{bluepyopt}. All three optimisation approaches use a Multi-Objective feature based frame work, all three utilize genetic algorithms, there are however a several key differences, in this work we fit reduced models instead of conductance based models, and in this work seeks to formalize the quality of fits using Z-score, $/chi^{2}$ distributions. Allowing us to compare the overall quality of data driven fits within and between model types (does one model type lead to better fits)?. Additionally, in this body of research we fit models using a novel range of electrical properties. One such property the Firing rate versus current (FI) curve, is optimized with because it is believed to be of more use for producing models that are pre-tuned for networks, because of their ability to fire at prescribed rates for a given amount of excitatory current.
+Some core components of the optimisation procedure detailed here, do not in essence deviate from those described in Druckmann \cite{druckmann2008evaluating} or \cite{bluepyopt}. All three optimisation approaches use a Multi-Objective feature based frame work, all three utilize genetic algorithms, there are however a several key differences, critically in this work we fit reduced models instead of conductance based models, and in this work seeks to formalize the quality of fits using Z-score, $\chi^{2}$ distributions. Allowing us to compare the overall quality of data driven fits within and between model types. This will allow us to answer questions such as: "Does one model type lead to better fits?" and "Are some in-vivo neuron measurements outside of the reduced model parameter scope?" Additionally, in this body of research we fit models using a novel range of electrical properties. One such property the Firing rate versus current (FI) slope, is chosen to guide optimization because it is believed to be of more use for producing models that are pre-tuned for networks. Models that fit the same FI-slope because of their ability to fire at prescribed rates for a given amount of excitatory current. It is important that network neurons are calibrated in this respect, such that the behavior of the modelled network has  balanced firing rate, and realistic Interspike Intervals.

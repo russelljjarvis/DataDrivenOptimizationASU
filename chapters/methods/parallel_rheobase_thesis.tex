@@ -23,7 +23,7 @@ multi-spiking behavior. Multi-spiking models take longer to simulate
 than non spiking and single spiking models for the simple reason that $\frac{dV_{M}}{dt}$ changes rapidly and solvers that are capable of variable time steps, will not be able to exploit sparse sampling in these rapid changes of  $\frac{dV_{M}}{dt}$. In this particular
 instance where finding the unique rheobase value for each different gene
 is important, that rheobase determination is the biggest computational
-bottleneck.
+bottleneck to  optimization, because it implies approximately 20-30 model evaluations.
 
 It is also important to consider that the speed of model simulation is
 often determined by the exact parameterization of the model in question.
@@ -40,8 +40,9 @@ elapsed serial:  $0.7914438247680664$
 elapsed parallel: $ 0.2590057849884033$
 speed up parallel:   $\times 3.0$
 
-Algorithm was able to speed up this slow NEURON unit code. $ \frac{73}{19} $ represents a substantial speed up. of about 3.8. This is consistent with previous work
+Algorithm was able to speed up this slow NEURON unit code. $ \frac{73}{19} $ represents a substantial speed up. of about 3.8. This is consistent with previous work.
 
+This approach solving Rheobase was later generalized to an algorithm find current injection values that would cause any arbitrary number of spikes, as this was necessary for speeding up supra threshold optimizations \url{https://github.com/russelljjarvis/neuronunit/blob/master/neuronunit/tests/target_spike_current.py}.
 %$ array(51.79317142) * pA$
 
  

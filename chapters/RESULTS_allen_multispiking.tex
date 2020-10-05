@@ -1,5 +1,32 @@
 \subsubsection{Gallery of Model Fits to Supra-threshold Experiments}
 
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.5\linewidth]{example-image-a.pdf} 
+        \caption{Generic} \label{fig:timing1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.5\linewidth]{example-image-b.pdf} 
+        \caption{Competitors} \label{fig:timing2}
+    \end{subfigure}
+
+    \vspace{1cm}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.5\linewidth]{example-image-c.pdf} 
+        \caption{Price regulation} \label{fig:timing3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        % just an empty subfigure to shift C below A
+    \end{subfigure}
+    \caption{Some general caption of all the figures. In (\subref{fig:timing1}) you can see a  green square....}
+\end{figure}
+
 % TODO make multi panel.
 
 \begin{figure}
@@ -10,7 +37,7 @@
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.75]{figures/NU_BBP_fusion_L5PC_files/28spikesB95.png}
+    \includegraphics[scale=0.75]{figures/28spikesB95}
     \caption{An adaptive Exponential Model was fitted to both the spike time, and spike shape data in a sweep from Allen specimin id: 476053392} \label{fig:specimen_476053392}
 \end{figure}
 
@@ -29,7 +56,9 @@
 %In experiments, however, when the exactly same stimulus is repeated several times, the voltage traces elicited differ among themselves to a significant degree (Mainen and Sejnowski, 1995; Nowak et al., 1997).
 
 A joint collection of current injections and recordings known as sweeps were taken from a rat somato-sensory hind limb neuron.
-\ref{fig:B95Adexp} is a challenging waveform to fit, as adaption does not predict the penultimate ISI, which is larger than the final one. Although it is not obvious there is relatively high CV. It is probably a bad idea to spend too much time fitting to exact spike times because neurons themselves experience noisy intrinsic currents and they are likely to illicit different spike trains, given presentation of identical stimulus.
+\ref{fig:B95Adexp} is a challenging waveform to fit, as adaption does not predict the final ISI, which is smaller than the penultimate one. 
+
+Although it is not obvious there is significant variation in ISIs (although the range of that variation may be concentrated within a small margin). As noted in the literature \cite{druckmann2007novel} it is probably mis-founded to over fit models to exact spike times because neurons themselves experience noisy intrinsic currents and they are likely to illicit different spike trains, given identical presentation of stimulus. In hind-sight I propose, to optimize on FI-slope and spike rate, while comprimizing on exact spike time agreement.
 
 \begin{figure}
     \centering
