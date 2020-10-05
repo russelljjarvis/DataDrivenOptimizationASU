@@ -8,18 +8,44 @@
 %\subsubsection{%\subsection{Section 2.1}
 %
 %
-\subsubsection{Performance of Layer 5 Pyramidal Neuron Somatosensory on NeuronUnit tests of model data agreement}
-Hind-limb
+\subsubsection{Performance of Layer 5 Pyramidal Neuron Somatosensory model on NeuronUnit tests}
+%Hind-limb
 \cite{van2016bluepyopt}
-To understand the validity of model re-purposing, we tested a model constrained on Layer 5 Somatosensory cortex Pyramidal neurons. A suite of neuronunit tests containing the tests: rheobase value, membrane voltage time constant ($tau_{m})$, input resistance was computed. This multi-compartment, conductance based model served as a useful benchmark, for us to evaluate the relative performance of reduced model fits. originating from the blue brain project \cite{markram2015reconstruction}
+%To understand the validity of model re-purposing, we tested a model constrained on Layer 5 Somatosensory cortex Pyramidal neurons. 
+A suite of neuronunit tests containing the tests: rheobase value, membrane voltage time constant ($tau_{m})$, input resistance was computed. This multi-compartment, conductance based model originating from the blue brain project \cite{markram2015reconstruction}. This model served as a useful benchmark, for us to evaluate the relative performance of reduced model fits. 
 
 
 
 % somatosensory cortex, or cell from the l5 somatosensory rat, hind leg region, so it is probably not comparable to NeuroElectro Data.
 
-Significant development work went into making the model eligible to take NeuronUnit tests, to make this complicated conductance based multi-compartment model interoperable with the neuronunit test judging paradigm. The intention is that by making this model inter-operable with NeuronUnit the model will be able to amenable to different, optimization.
+Significant development work went into making the model eligible to take NeuronUnit tests, and amenable to NeuronUnit driven optimization, to make this complicated conductance based multi-compartment model interoperable with the neuronunit test judging paradigm. The intention is that by making this model inter-operable with NeuronUnit the model will be able to amenable to different, optimization. 
 
-This elaborate biophysical model includes the backpropogating dendritic action potential.
+The model had 
+\begin{figure}
+    \centering
+    \includegraphics{figures/l5pc_before_opt}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/l5pc}
+    \caption{Caption}
+    \label{fig:after_optimization}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/parameters_opt_l5pc.png}
+    \caption{Caption}
+    \label{fig:parameters}
+\end{figure}
+
+This elaborate biophysical model includes the backpropogating dendritic action potential. It has different conductances in each compartment including axons, dendrites, and soma many of these parameters are fixed, but those specified in \ref{fig:parameters} are subject to optimization.
+
 %\url{}
 
 
@@ -66,6 +92,18 @@ As a reference point for understanding
 \end{figure}
 
 
+
+A test suite was constructed using NeuroElectro for the non specific [cortical regions] layer 4/5 cortex pyramidal cell, and we were able to evaluate this layer 5 PC cells against the criteria of the neuroelectro test suite. Note the unnatural looking brief spike duration of the model cell spike  \ref{fig:brief_shape}. It is possible that the majority neuroelectro experiments on the layer 5 pyramidal cell were conducted under room temperature as opposed to body temperature, as there is evidence that the temperature of cortical tissue modulates spike width \cite{goldin2017temperature}, in particular cooling can contract their spike width
+
+%%
+% https://neuroelectro.org/data_table/36261/
+%%
+% from spike width table: 0.65 ± 0.13	1.04 ± 0.25**	0.51 ± 0.03**	0.59 ± 0.06	0.61 ± 0.03
+%%
+%
+
+
+
 \subsubsection{Optimized Results}
 \begin{table}[ht]
 \centering
@@ -85,15 +123,6 @@ InjectedCurrentAPThresholdTest &    -42.74 mV &      -44.863238963316746 mV &   
 \bottomrule
 \end{tabular}}
 \end{table}
-
-A test suite was constructed using NeuroElectro for the layer 4/5 prefrontal cortex neuron pyramidal cell, and we were able to evaluate this layer 5 PC cells against the criteria of the neuroelectr test suite. Note the unnatural looking brief spike duration of the model cell spike  \ref{fig:brief_shape}. It is possible that the majority neuroelectro experiments on the layer 5 pyramidal cell were conducted under room temperature as opposed to body temperature, as there is evidence that the temperature of cortical tissue modulates spike width \cite{goldin2017temperature}, in particular cooling can contract their spike width
-
-%%
-% https://neuroelectro.org/data_table/36261/
-%%
-% from spike width table: 0.65 ± 0.13	1.04 ± 0.25**	0.51 ± 0.03**	0.59 ± 0.06	0.61 ± 0.03
-%%
-%
 
 Due to computational limitations this model was only run for 
 $12$ offspring, and $30$ generation. Actually a minimum of $MU=100$, $NGEN =100$ was prescribed by the scientists who optimized the initial model, however such a large compute job required prohibitive computational resources.
