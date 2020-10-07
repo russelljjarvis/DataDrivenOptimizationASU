@@ -20,22 +20,23 @@ A suite of neuronunit tests containing the tests: rheobase value, membrane volta
 
 Significant development work went into making the model eligible to take NeuronUnit tests, and amenable to NeuronUnit driven optimization, to make this complicated conductance based multi-compartment model interoperable with the neuronunit test judging paradigm. The intention is that by making this model inter-operable with NeuronUnit the model will be able to amenable to different, optimization. 
 
-The model had 
+Before optimization:
 \begin{figure}
     \centering
     \includegraphics{figures/l5pc_before_opt}
     \caption{Caption}
     \label{fig:my_label}
 \end{figure}
-
+After optimization
 
 \begin{figure}
     \centering
     \includegraphics{figures/l5pc}
-    \caption{Caption}
+    \caption{Membrane potential versus time in the layer 5 pyramidal neuron}
     \label{fig:after_optimization}
 \end{figure}
 
+There were two points to this exercise, first, was to show that multi-compartment conductance based models, are very slow to evaluate, and the second point was, that with or without enough time, the results are not necessarily the best, in the realistic model anyway.
 
 \begin{figure}
     \centering
@@ -44,7 +45,7 @@ The model had
     \label{fig:parameters}
 \end{figure}
 
-This elaborate biophysical model includes the backpropogating dendritic action potential. It has different conductances in each compartment including axons, dendrites, and soma many of these parameters are fixed, but those specified in \ref{fig:parameters} are subject to optimization.
+This elaborate biophysical model is the opposite of the reduced models focused on here.  includes the backpropogating dendritic action potential. It has different conductances in each compartment including axons, dendrites, and soma many of these parameters are fixed, but those specified in \ref{fig:parameters} are subject to optimization.
 
 %\url{}
 
@@ -121,7 +122,11 @@ InjectedCurrentAPWidthTest     &      1.21 ms &                    2.075 ms &   
 InjectedCurrentAPAmplitudeTest &     80.44 mV &        63.31628969975701 mV &     -1.343 \\
 InjectedCurrentAPThresholdTest &    -42.74 mV &      -44.863238963316746 mV &    -0.2646 \\
 \bottomrule
+
+\caption{observations, predictions and Z-scores pertaining to the NeuronUnit optimized Layer 5 Pyramidal Neuron}
+\label{tab:l5pc_table}
 \end{tabular}}
+
 \end{table}
 
 Due to computational limitations this model was only run for 

@@ -24,28 +24,29 @@ results = test_suite.optimize(model)
 \end{lstlisting}
 
 \section{Model Class Implementations}
-Because optimization may involve an extremely large number of independent simulations of the same class of model, each varying only in model parameter values, it is critical that both the overhead for model instantiation and the duration of simulation itself, be as low as possible. We built faster python implementations of two neuronal models (Izhi model and adaptive Exponential model). One of the implementations was based on MATLAB forward euler implementation of the Izhi model, another implementation of the Adaptive Exponential model came from vectorized python code, which was relatively slow.
+Because optimization may involve an extremely large number of independent simulations of the same class of model, each varying only in model parameter values, it is critical that both the overhead for model instantiation and the duration of simulation itself, be as low as possible. We built faster python implementations of two neuronal models (Izhikevich model and adaptive Exponential model). One of the implementations was based on MATLAB forward euler implementation of the Izhi model, another implementation of the Adaptive Exponential model came from vectorized python code, which was relatively slow.
 
-Because I was able to use a tool \cite{numba} enables In Time compilation(JIT) , both of these models perform faster than standard neuron simulator versions in brian2 and NEURON.
+I was able to use a tool \cite{numba} enables In Time compilation(JIT), to make both of these models perform faster than standard neuron simulator versions in brian2 and NEURON.
  %Without over stating things, 
- When regarding this thesis effort and its contribution to knowledge, 
- some of the value to the neuroscience modelling community comes from the implementation of two fast python neural model simulations. Because these simulations are written in python, the code that implementations them is easy to understand share and execute, because the models are fast to dispatch they maybe useful in both network contexts, and optimization contexts where performance is critical. 
+ When regarding this thesis effort and its contribution to knowledge, some of the value to the neuroscience modelling community comes from the implementation of two fast python neural model simulations. Because these simulations are written in python, the code that implementations them is easy to understand share and execute, because the models are fast to dispatch they maybe useful in both network contexts, and optimization contexts where performance is critical. 
  
-%A component of this work is the numba jit enabled Izhikevich model, which I plan to push to the Open Source Brain %\href{https://github.com/russelljjarvis/IzhikevichModel.git}
+%A component of this work the Izhikevich model, I plan to push to the Open Source Brain %\href{https://github.com/russelljjarvis/IzhikevichModel.git}
 
 
 \subsubsection{Why Existing Approaches Were Not workable}
-In this research effort significant time was spent shoe-horning pre-existing tools into an optimization frame work, with limited success. These tools included:  PyNN, brain2, \emph{NEURON}, jNeuroML-2. However, seveal unexpected road blocks were encontoured on the way.
+In this research effort significant time was spent shoe-horning pre-existing tools into an optimization frame work, with limited success. These tools included:  PyNN, brain2, \emph{NEURON}, jNeuroML-2. However, several unexpected road blocks were encountered on the way.
  
+When applying reduced models to optimization, there was a cluster of known errors and limitations in pre-existing community standard reduced model simulators. 
 
-There were a cluster of known errors and limitations. 
+To make optimization of models tractable it was important to do ongoing feasibility testing. For example its important to evaluate the the utility of established model implementations, as using these models to optimize may not in fact be feasible.\\ 
+Despite an a large number of choices of FOSS reduced model implementations, many off the shelf implementations were not useful, or significant intervention was required to make some established implementations workable inside an optimization framework. \\
  
- 
-The \emph{NEURON} implementation of the Izhikevich model is fractured. There are different implementations for different regimes. This meant that switching between model regimes during optimization, would be a non-trivial exercise, and if one succeeded in this exercise, the source code would be highly complicated such that it would not be readable, and it would loose generality, overly customized towards one target model. The NEURON code, needed NMODL files to be compiled for each different regime, and promised performance of the C based NEURON library was not actualized. The only benefit to using this model, was that its parameter ranges are well tested and understood within OSB and NeuroML-2 community.
+Some revisions to the Izhikevich model include equation tweaks, in order to let cells better reproduce in-vivo firing dynamics, such as bursting, and re-bound spiking \url{https://github.com/OpenSourceBrain/IzhikevichModel/blob/master/MATLAB/izhi2007.m}. However, when multiple equations, however closely related, are incorporated under the same umbrella, this fractures the implementation of the model into sub-models. The \emph{NEURON} implementation of the Izhikevich model is fractured. There are different implementations for different regimes. This meant that switching between model regimes during optimization would be a non-trivial exercise because the is already splintered between two languages (NEURON, NMODL, python), the source code would be highly complicated such that it would not be readable, and it would loose generality, overly customized towards one target model. The NEURON code, needed NMODL files to be compiled for each different regime, and promised performance of the C based NEURON library was not actualized. The only benefit to using this model, was that its parameter ranges are well tested and understood within OSB and NeuroML-2 community.
 
-Because the PyNN implementations of the Izhikevich models are "wrapped" versions of essentially NEURON models, PyNN models still retained the disadvantages of the NEURON models (poor speed) while introducing other problems. PyNN is designed to preference the description and implementation network simulations. A data-type called the "lazy-array" is the most elemental container for neuron models in PyNN, but it is meant to store populations of neurons as opposed to single neurons, as such the lazy-array often slows down and gets in the way of the single neuron simulations, which model fitting depends on.
+Because the PyNN implementations of the Izhikevich models are "wrapped" versions of essentially NEURON models, PyNN models still retained the disadvantages of the NEURON models (surprisingly poor speed on the Izhikevich model) while introducing other problems. PyNN is designed to preference the description and implementation network simulations. A data-type called a "lazy-array" is the smallest elemental container for neuron models in PyNN, but it is meant to store populations of neurons as opposed to single neurons, as such the lazy-array often slows down and gets in the way of the single neuron simulations, which model fitting depends on.
 %(lazy array evaluation). 
 
+ Sub models $[1-3]$ are really different parameterizations of the same equation, sub-models $[4-7]$ are actually different equations, meaning that there is a total of $4$ Izhikevich sub-models. To permit optimizer access to the broadest range of Izhikevich dynamics, a new meta-parameter $cell_type$, was created. This number ranging $[3-7]$ (unique model equations included only), allows the optimizer to change which Izhikevich sub-model it samples from. Later in on in results, we see that in fact even when fitting to static electrical properties, optimizer access to the broader set of firing regimes improved the quality of fits.
 
 
 %The described limitations of the 
@@ -66,11 +67,6 @@ Brian2 causes error:
  ERROR      Brian 2 encountered an unexpected error. If you think this is bug in Brian 2, please report this issue either to the mailing list at <http://groups.google.com/group/brian-development/>, or to the issue tracker at <https://github.com/brian-team/brian2/issues>. Please include this file with debug information in your report: /tmp/brian_debug_t0acbm4l.log  Additionally, you can also include a copy of the script that was run, available at: /tmp/brian_script_juzhsbph.py Thanks! [brian2]
 Traceback (most recent call last):
 \end{verbatim}
-
-To make optimization of models tractable it was important to do ongoing feasibility testing. For example its important to evaluate the the utility of established model implementations, as using these models to optimize may not in fact be feasible.\\ 
-\\
-Despite an a large number of choices of FOSS reduced model
-implementations, many off the shelf implementations were not useful, or significant intervention was required to make some established implementations workable inside an optimization framework. \\
 \\
 In two classes of model a feasible choice of implementation did not exist and it was easier to re-implement those models. The two models I re-implemented were
 the Adaptive Exponential Integrate and fire Model, and also the IZHI
@@ -91,11 +87,7 @@ parameter regions to find a good fit.\\
 \\
 Over the course of evaluating the brian neural dynamics model \cite{gerstner2014neuronal}. I experienced some phenomena that only occurred in the context of genetic algorithm optimization. The reason why optimization provides a different evaluation context is because, in optimization simulation objects are required to be created and destroyed rapidly and on mass. Brian2 is designed to be an efficient network simulator, the case of being designed for network simulation, may assume you will want to create a lot of neural models that persist efficiently together in memory (this was also a problem with PyNN models). Therefore you might see below, that while only one brian model exists in memory, performance is okay, but when creating and destroying models rapidly and on mass a slow down occurs.\\
 \\
-Below I have implemented a python integrator for the Adaptive
-Exponential Integrate and fire model. This solver lead to faster
-evaluations of current injection experiments. The integrator I developed
-had a $0mV$ spiked when evaluated at default
-parameter values.\\
+Below I have implemented a python integrator for the Adaptive Exponential Integrate and fire model. This solver lead to faster evaluations of current injection experiments. The integrator I developed had a $0mV$ spiked when evaluated at default parameter values.\\
 
 
 Brian2 and sciunits sometimes collided in name space, and logging.
@@ -164,7 +156,7 @@ integrator are similar. Both have average rheobase solution times of approximate
     
 $272 ms +- 66.5 $/mu$s per loop (mean +- std. dev. of 2 runs, 1$ loop each)
 
-The next model to be evaluated is the NEURON Izhi model. The NEURON Izhi model has various draw backs. 1. It depends on an external file which must be recompiled each time this project is recreated. 2. The build environment of NEURON is non-trivial, and only a super dedicated NEURON modeller would install it on their system. Any performance advantage of using NEURON investment does not exceed the installation cost of installing the program. 3. The model implementation code is less generalizable than than the published Izhi model itself. Where the standard NEURON-NeuroML code only covers the Regular-Spiking model * This is likely due to a name space conflict between Capacitance. Neuron has a `capacitive' mechanism inside modelled Neurons, this particular model has section capacitance as well as an introduced capacitive term inside a C-compiled mechanism. Both contribute to a the membrane
+The next model to be evaluated is the NEURON Izhikevich model. The NEURON Izhikevich model has various draw backs. 1. It depends on an external file which must be recompiled each time this project is recreated. 2. The build environment of NEURON is non-trivial, and only a super dedicated NEURON modeller would install it on their system. Any performance advantage of using NEURON investment does not exceed the installation cost of installing the program. 3. The model implementation code is less generalizable than than the published Izhikevich model itself. Where the standard NEURON-NeuroML code only covers the Regular-Spiking model * This is likely due to a name space conflict between Capacitance. Neuron has a `capacitive' mechanism inside modelled Neurons, this particular model has section capacitance as well as an introduced capacitive term inside a C-compiled mechanism. Both contribute to a the membrane
 potential calculation. * The NEURON Izhi model took $78$ seconds to find the rheobase current injection value $ 51.79367065 * pA $.
 
     
@@ -183,13 +175,15 @@ potential calculation. * The NEURON Izhi model took $78$ seconds to find the rhe
 %A tool numba JIT
 
 % https://www.overleaf.com/learn/how-to/Images_not_showing_up 
+
         
-The forward Euler python IZhi model is very fast. The forward euler
+The enabled forward Euler python Izhikevich model was very fast. The forward euler
 implementation utilized Numba JIT \cite{lam2015numba}. Rheobase is found in under a second,
 and in many cases close 0.5 seconds. This represents a very dramatic
 speed up. Unlike the NEURON NeuroML implementation of the izhikitich equation,
 this implementation is just as generalizable as the original MATLAB
-implementation of the izhikitich model.
+implementation of the Izhikevich model, because it was possible to unify the fractured implementations in the one python simulator backend.
+
 
 %\begin{verbatim}
 %  time taken on
@@ -218,7 +212,7 @@ time taken to compute rheobase $ 12.6s $
 \subsection{NEURON versions of single compartment Conducance
 model.}
 
-Hodgkin Huxley Conductance based channels models took approximately the same amount of time to evaluate the Rheobase search algorithm as the python implementation.
+%Hodgkin Huxley Conductance based channels models took approximately the same amount of time to evaluate the Rheobase search algorithm as the python implementation.
 
 %The NEURON implementation was slightly faster, and the default parameterization of the model lacked `ringing'', or below threshold oscillations that the Python ODE version had under default conditions.
 
@@ -228,7 +222,7 @@ Hodgkin Huxley Conductance based channels models took approximately the same amo
 time taken on block 8.573923826217651
     \end{verbatim}
 
-The author also engineered GLIF model support for $NeuronUnit$ tests. In practice these models where hard to configure without expert knowledge, GLIF models contain the most parameters of all models, and many of these parameters are vectors, not scalars. GLIF models do not visualy spike which makes debugging their behavior very difficult. None the less GLIF models where among the fastest to evaluate, and the author had success in making fitting these models to Allen Rheobase data.
+The author also engineered GLIF model support for $NeuronUnit$ tests. In practice these models where hard to configure without expert knowledge, GLIF models contain the most parameters of all models, and many of these parameters are vectors, not scalars. GLIF models do not visually spike which makes debugging their behavior very difficult. %None the less GLIF models where among the fastest to evaluate, and the author had success in making fitting these models to Allen Rheobase data.
 
     %\graphicspath{ {../figures/} }
 %    \begin{center}

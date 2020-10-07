@@ -119,5 +119,12 @@ In the figures below, I describe the spectrum of error surface quality.
      
    When considering 2D relationships between single parameters and single objective functions, ideally each objective function might contribute helpful information, that on mass boosts the total amount of helpful information. For-instance some 2D error mappings, may contain one or more local minima, but in the same region a different error mapping could lack the well, meaning that at least one out of two error functions contribute incentive to stride across a minima. The mapping that contains wells, might still be useful to guide optimization, as it may also lack minima in regions were the counterpart has them, additionally the counterpart mapping may have regions of $~0.0$ gradient where the other mapping contains significant gradient.
    
-   It is almost impossible to make progress without some prior knowledge of the error surfaces, as knowledge of the error surface is a prerequisite for constraining optimization. Not all surfaces, provide equally useful information. There are spectrums of surface quality between convex traingular or parabolic depressions acting as the best solution surfaces, and flat functions 
+   % I am not sure if its impossible to make progress.
+   Through shear luck it is possible to optimize well without prior knowledge of error surfaces, although such a strategy is not recommended. If prior knowledge of an error surface is prohibited, evolutionary algorithms are definitely a more likely to work than gradient descent.
+   
+   In a multi objective paradigm, an optimizer could achieve satisfactory solutions when $\frac{3}{4}$ objectives are cogent. If the $4$th objective is un-informative, but not actively misleading, it may just slow down the speed of convergence.
+   
+   If the $4$ objective is actively misleading, then a genetic algorithm will likely find a satisfactory solution, by compromising with the dominant $3$ objective functions, and also sampling believed to be "bad" surfaces because of mutation and cross over. Speed of convergence should also be expected to be slower than otherwise. With $\frac{2}{4}$ actively misleading error surfaces, optimization is not expected to work, and it may be slower than psuedo random sampling.
+   
+   It is almost impossible to make progress without some prior knowledge of the error surfaces, as knowledge of the error surface is a prerequisite for constraining optimization. Not all surfaces, provide equally useful information. There are spectrums of surface quality between convex traingular or parabolic depressions acting as the best solution surfaces, and flat functions. 
    

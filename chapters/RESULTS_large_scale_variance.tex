@@ -99,11 +99,9 @@ The key advantage of using sparse PCA is the results are readily interpret able.
 
 Sparse PCA yields an interpretable list of features, that build the principle components. This list of features is ranked and sorted with respect to their total contributions to the Eigen Vectors. Since two Eigen Vectors where made these are.
 
-Principle component 1 had non zero loadings for ranked (highest to lowest)
-
-
+Principle component 1 had non zero loadings for ranked (highest to lowest).
 The first Eigen Vector does not facilitate discrimination between models and experiments, but the second Eigen Vector spaces models and experiments into three seperate clusters.
-$
+\begin{verbatim}
 upstroke_t_1.5x allen 
 peak_t_1.5x allen 
 threshold_t_1.5x allen 
@@ -114,7 +112,7 @@ peak_t_3.0x allen
 threshold_t_3.0x allen 
 peak_indices_1.5x efel 
 min_AHP_indices_1.5x efel 
-$
+\end{verbatim}
 
 
 Principle component 2 had non zero loadings for ranked (highest to lowest)
@@ -160,7 +158,8 @@ Although imputation was successfully used to avoid dropping a large number of sa
 There was one group of Allen cell type experiments that clustered on their own, making one set of the cluster.
 
 sparse PCA 2nd Eigen Vector. 
-%Consequently, not a single model neuron produced physiological responses that could be confused with a biological neuron. Was this a defect of the model design (e.g. key mechanisms unaccounted for) or of model parameterization? We found that if we introduced models that were revised via optimization the revised models overlapped with the distribution of biological neurons, and were mostly classified as such. The remaining post-optimization disagreement between models and biological neurons may reflect limitations of model design and can be investigated by probing the key features used by classifiers to distinguish these two populations. 
+%Consequently, not a single model neuron produced physiological responses that could be confused with a biological neuron. Was this a defect of the model design (e.g. key mechanisms unaccounted for) or of model parameterization? We found that if we introduced models that were revised via optimization the revised models overlapped with the distribution of biological neurons, and were mostly classified as such. 
+Disagreement between models and in-vivo neurons may reflect limitations of model design and can be investigated by probing the key features used by classifiers to distinguish these two populations. 
 
 \begin{figure}    
 \begin{center} \includegraphics[width=1.0\linewidth]{figures/cortical_model_data_agreement_52_1}
@@ -189,6 +188,7 @@ sparse PCA 2nd Eigen Vector.
     \caption{Caption}
     \label{fig:from_poster_disagree}
 \end{figure}
+
 
 
 

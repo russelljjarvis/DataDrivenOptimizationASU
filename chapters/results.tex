@@ -1,29 +1,36 @@
-\begin{comment}
 
-Is Optimization possible?
-       %1a. Construction of tests from diverse experimental sources (I wrote the neuroelectro api and its use in neuronunit, and wrote the original Allen one
-       
-       Allen API.
-       
-       %, but you have put in work to create runnable tests from these and other sources).  This is in a sense a method, but you can still report that these tests are runnable, even outside of optimization.
-       1b. Simulated data tests of optimization.  What works?  What doesn’t?  Why (briefly, saving some for discussion)?  NeuroElectro vs Allen also belong here, and fits in with 1a.  You should talk about model means vs means of models (or whatever we are calling it) here, if you have the results for it or think you can in 3 weeks.  You can talk about rippled error surfaces — this is such a deep technical detail that I wouldn’t spend a lot of time on it.  In other words it may be important but it will be almost impossible to follow even if written well.
-2. Results for several optimized models.
-    2a. First just do basic ones (like Izhikevich) for a few cell types, then you can close with L5PC.
-    2b. The app (which supports 2a).
-3. Study of variance between models and data.  The optimized models part of this section is predicated on result 1b (so that optimization results can be believed).  You already have the poster for this.
-\end{comment}
+In order to optimize reduced models, it was first necessary to develop optimizer-friendly implementations of these models. As described in methods, I developed four different optimizer friendly models: Izhikevich model (spanning seven regimes), Adaptive Exponential Integrate and Fire model, and General Leaky Integrate and Fire Model, additionally I included a slower traditional conductance based model, to make some comparisons.
 
-In order to optimize reduced models, it was first necessary to develop optimizer-friendly implementations of these models.  I developed four different optimizer friendly models: Izhikevich model (spanning seven regimes), Adaptive Exponential Integrate and Fire model, and General Leaky Integrate and Fire Model, and a conductance based model.
+The range of tests available for optimization in NeuronUnit was also incomplete, as it was limited to the passive membrane properties or the shapes of single action potentials.  In order for model output to reflect experimental data, it was also necessary that the timing and patterns of action potentials be assessed and tested. 
 
-The range of tests available for optimization in NeuronUnit was also incomplete, especially as it focused on passive membrane properties or the shapes of single action potentials.  In order for model output to reflect experimental data, it was also necessary that the timing and patterns of action potentials be assessed and tested. 
-
-Therefore, I developed the ability for EFEL features to be calculated on NeuronUnit models, as well as tests based on FISlope in Allen celltypes data, and neuroelectro data sources.
-
-This required both the extraction of novel features [EFEL] and novel test types: [ISI, AHP\_depth, adaption ratio etc.] Ultimately, I still found that some tests were intractable, because they depended on measured features, relative to some other changeable measurement inside the cell usually $max(\frac{dV_{m}}{dt})/10.$
+Therefore, I developed the ability for EFEL features to be calculated on NeuronUnit models, as well as tests based on FISlope in Allen celltypes that I collated into dedicatated EFEL/Allen Data test sets. This required both the extraction of novel features \[EFEL\] and novel test types: [ISI, AHP\_depth, adaption ratio etc.]. As described in the introduction, knowledge of error surfaces is helpful for garunteeing a good optimization result. Through human examination of resulting error surfaces, it was found that some of these tests were also intractable, because they depended on measurements that were changeable relative to some other changeable measurement inside the cell usually $max(\frac{dV_{m}}{dt})/10$.
 
 Multi-core and or multi-threaded optimization requires that information about model properties be shareable between various processor threads. However, some common data types contain information that is not shareable between CPUs, and they must be translated into a globally sharable framework. I created a class, that could translate and envelope only shareable data to solve this problem.
 
 In order to both control optimization parameters and visualize optimization results, I also developed a web application, the application requires no programming skill to use, and it allows a user of the to select among multiple cell specific constraints, and multiple model types. Once the user has specified enough parameters to define an optization job, the job can launch, and then return interactive results to the user when the optimization job is complete typically in minutes.
+
+
+The range of tests available for optimization in NeuronUnit was also incomplete, especially as it focused on passive membrane properties or the shapes of single action potentials.  In order for model output to reflect experimental data, it was also necessary that the timing and patterns of action potentials be assessed and tested.  Therefore, I developed the ability for EFEL features to be calculated on NeuronUnit models. 
+
+This required both the extraction of novel features [Allen, EFEL, etc.] and novel test types: [ISI, AHP\_depth, adaption ratio etc.] Ultimately, I still found that some tests were intractable, because they depended on measured features, relative to some other changeable measurement inside the cell usually $max(\frac{dV_{m}}{dt})/10.$
+
+Multi-core and or multi-threaded optimization requires that information about model properties be shareable between various processor threads. However, some common data types contain information that is not shareable between CPUs, and they must be translated into a globally sharable framework. I created a class, that could translate and envelope only shareable data to solve this problem.
+
+In order to both control optimization parameters and visualize optimization results, I also developed a web application, the application requires no programming skill to use, and it allows a user of the to select among multiple cell specific constraints, and multiple model types. 
+%
+%\begin{comment}
+
+
+Is Optimization possible?
+Not all data-sets where equally conducive towards optimization with reduced cells. In particular the cerebellum purkinje cell demands a very high current injection value to elicit a rheobase spike, $680pA$, and the reduced cells were generally not able to model this inhibited behavior.
+
+Previously, the INCF created a model data fitting competition, were participants competed to submit models, that were best able to fit membrane voltage from a variety of suprathreshold current injection experiments. In this competition, unlike in this work the best models had to predict spike time. Within the scope of this project, post-optimization, ranking of the different models in terms of their ability to explain the most in-vivo experiments. 
+
+There are some data sources, that no models seem to do well on, however, the majority of experiments cause good fits, and the models should compete with each other.
+
+Over all the tests, including challenging Cerebellar Purkinje cell, and olfactory bulb mitral cell, actually the Izhikevich model was the top ranking cell, as it was able to perform the best all-round fits. However if you were to remove those two data sets, and evaluated on the remaining 6-8 out of data sets, the Adaptive Exponential model would be a better fit.
+
+
 %
 %\begin{comment}
 
@@ -116,3 +123,43 @@ Neuroelectro lumps together, prefrontal cortex, somatosensory cortex and V1 PC c
 
 This model was pre-optimized to fit to spike times and F/I mainly, and so it should not necessarily be expected to fit other electrical characteristics of the cell. Only the rheobase test, and the time constant test seemed to fall within the range of biological plausibility.
 None the less, this model remains a useful benchmark for reduced neuronal models.
+
+Multi-time scale variants of the adaptive exponential model also won, the INCF competition \cite{incf_multi}.
+
+
+Generally the Izhikevich model was the overall winner, as when averaging across $\chi^{2}$ statistics for 8, tests, the Izhikevich model had the lowest mean $\chi^{2}$, and the highest average $p-value$ however, when regarding each data set as a novel contest, the Adaptive Exponential lost to the Izhikevich model on two or more data sets see appendix table.
+
+Adexp $28.55$ versus 
+Izhikevich $1.39$
+
+The problem was that the Adaptive Exponential failed to find biologically plausible fits on two data sets: olfactory mitral cell and Cerebellum Purkinje cell. however, if you remove these two difficult data sets, and then judge models on 6 of the 8 remaining tests, then the adaptive exponential has the lowest mean $\chi^{2}$ statistic. $AdExp=0.51$	$Izhikevich=0.99$.
+
+Like the AdExp cell, GLIF cell had success only if you consider limited ranges of data. If you consider only Allen cell types sources of data, then the GLIF cell has $\chi^{2}$ values as slightly lower than $1.0$ GLIF 4 Allen Tests only, however, if you include all the 8 tests, then the mean $\chi^{2}$ value is very high. $364.15$
+
+The GLIF cells were able to recapitulate FIslope exactly, however, this caused conflicts with ability to fit time constant, and rheobase values.
+
+The GLIF model was able to optimize cells to be within the biologically plausible range $\chi^{2}<1.0$, however these models were slow, unless $dt>=0.5ms$. and the quality of fits was not astounding, given such slow simulator convergence.
+
+As discussed in methods the Izhikevich model consisted of $4$ unique sub models, it is of interest to know, if allowing the optimizer access to the broader range of firing regimes improved electrical property fits. After consulting the results see \ref{appendix}, we found that in fact, all sub-models excepting for model $6$ (TC - Cat dorsal LGN thalamocortical (TC) cell) were utilized to create best fits. With $4$ Rat barrel cortex Low-threshold  spiking (LTS) interneuron 
+$5$ FS - Layer 5 rat visual cortex fast-spiking (FS) interneuron , used the most often. Interestingly $3$ in this case representing the "regular-spiking" regime all numbers $1-3$ was only used in one fit Allen specimen $id-623960880$.
+
+
+%It was desirable to include this extended range of Izhikevich model behavior
+
+%However, as noted in the introductory material, it i 
+
+
+Previously I mentioned neuronal modelling competitions I have optimize every model against the same data sets in order to assess overall which model is better able to fit to diverse data sets.
+
+
+       %1a. Construction of tests from diverse experimental sources (I wrote the neuroelectro api and its use in neuronunit, and wrote the original Allen one
+       
+       Allen API.
+       
+       %, but you have put in work to create runnable tests from these and other sources).  This is in a sense a method, but you can still report that these tests are runnable, even outside of optimization.
+       1b. Simulated data tests of optimization.  What works?  What doesn’t?  Why (briefly, saving some for discussion)?  NeuroElectro vs Allen also belong here, and fits in with 1a.  You should talk about model means vs means of models (or whatever we are calling it) here, if you have the results for it or think you can in 3 weeks.  You can talk about rippled error surfaces — this is such a deep technical detail that I wouldn’t spend a lot of time on it.  In other words it may be important but it will be almost impossible to follow even if written well.
+2. Results for several optimized models.
+    2a. First just do basic ones (like Izhikevich) for a few cell types, then you can close with L5PC.
+    2b. The app (which supports 2a).
+3. Study of variance between models and data.  The optimized models part of this section is predicated on result 1b (so that optimization results can be believed).  You already have the poster for this.
+

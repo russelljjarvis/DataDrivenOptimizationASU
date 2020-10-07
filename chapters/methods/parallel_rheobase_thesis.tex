@@ -13,14 +13,14 @@ The Rheobase determination algorithm was in fact a specific instance of a more g
     
 Below I show that for multi-compartment neuron models using a parallel Rheobase algorithm adds a significant speed up to rheobase solution evaluation. It
 is important to consider that determinig rheobase usually involves
-between 10-35 model simulations at different current injection
+between $10-35$ model simulations at different current injection
 strengths. Whereas the remaining error score calculations only involve
 at most one model evaluation each. Consider an optimization problem where
 there are only eight error scores to calculate, and four of the eight
 errors are for non spiking simulations of less than 500ms, a rheobase
 simulation is for 1200ms, and it involves both non-spiking and
 multi-spiking behavior. Multi-spiking models take longer to simulate
-than non spiking and single spiking models for the simple reason that $\frac{dV_{M}}{dt}$ changes rapidly and solvers that are capable of variable time steps, will not be able to exploit sparse sampling in these rapid changes of  $\frac{dV_{M}}{dt}$. In this particular
+than non spiking and single spiking models for the simple reason that $\frac{dV_{M}}{dt}$ changes rapidly and solvers that are capable of variable time steps, will not be able to exploit sparse sampling in these rapid changes of $\frac{dV_{M}}{dt}$. In this particular
 instance where finding the unique rheobase value for each different gene
 is important, that rheobase determination is the biggest computational
 bottleneck to  optimization, because it implies approximately 20-30 model evaluations.
@@ -42,7 +42,7 @@ speed up parallel:   $\times 3.0$
 
 Algorithm was able to speed up this slow NEURON unit code. $ \frac{73}{19} $ represents a substantial speed up. of about 3.8. This is consistent with previous work.
 
-This approach solving Rheobase was later generalized to an algorithm find current injection values that would cause any arbitrary number of spikes, as this was necessary for speeding up supra threshold optimizations \url{https://github.com/russelljjarvis/neuronunit/blob/master/neuronunit/tests/target_spike_current.py}.
+This approach solving Rheobase was later coalseced into a more general algorithm. In the supra-threshold optimization domain, it is necessary to find current injection values that would cause any arbitrary number of spikes, as this was necessary for speeding up supra threshold optimizations \url{https://github.com/russelljjarvis/neuronunit/blob/master/neuronunit/tests/target_spike_current.py}.
 %$ array(51.79317142) * pA$
 
  

@@ -23,10 +23,16 @@ The approach would  involve starting with a wide set of supra and sub threshold 
 %\begin{itemize}
 Two classes of experimental measurements were used to fit models in conjunction with genetic algorithms. These consisted of four groups of eight neuroelectro observations, and and $8$ and also $60$ different EFEL measurements that were obtained by sampling Allen Brain sweep Data.
 
+
+When comparing generic single compartment models, to the BBP neocortical layer 5 neuron, one can see that there are often conflicts between Rheobase, FISlope and Time Constant mearurements. As a pattern the conductance based models sampled in this work seemed to have trouble satisfying these three measurements at the same time.
+
+See tables: \ref{tab:conductance_623960880}, \ref{tab:conductance_623893177}, \ref{tab:l5pc_table}
+
+
 % It is worth noting that in both sets of measurements, the types of measurements that can guide optimization are significantly smaller subset of measurements of fitness criteria that can be evaluated on the final model.
 
 Final list of Elephant tests used to guide optimization: 
-\emph{RheobaseTest}, InputResistanceTest, TimeConstantTest, CapacitanceTest, RestingPotentialTest.
+\textbf{RheobaseTest}, InputResistanceTest, TimeConstantTest, CapacitanceTest, RestingPotentialTest.
 
 
 In the Izhikevich model for each of the four different classes of experimental cell types, The optimizer finds a varied set of solutions, that are each within the range of empirical validity. The general pattern was that Rheobase values needed to be compromised, in order to uncover models that were the fittest with respect to all the other fitness criteria.

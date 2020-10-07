@@ -1,40 +1,35 @@
-\subsection{Electrical Features Allen Experiment Features}
-%\subsection{The Experimental Measurements}
 
-\subsubsection{471819401 AdExp scores, agreement}
-\begin{table}[ht]
-\centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{lllll}
+\subsection{Model Fits,}
+\subsubsection{471819401 IZHI}
+
+
+%\begin{table}[ht]
+%\centering
+%\resizebox{\textwidth}{!}{
+%\begin{tabular}{lllll}
+%\toprule
+%\bottomrule
+%\end{tabular}}
+%\end{table} 
+\begin{tabular}{lr}
 \toprule
-{} & RheobaseTest & TimeConstantTest & RestingPotentialTest & InputResistanceTest \\
-\midrule
-observations &     190.0 pA &          13.8 ms &             -77.5 mV &       132.0 megaohm \\
-predictions  &    188.96 pA &         14.55 ms &            -77.91 mV &      128.53 megaohm \\
-Z-Scores     &            0 &             0.02 &                    0 &                0.02 \\
+$\chi^{2}$ &  0.249615 \\
+p\_value    &  0.999991 \\
 \bottomrule
-\end{tabular}}
-\end{table} 
-
-\subsection{Electrical Features NeuroElectro Experiment Features}
-%\subsection{The Experimental Measurements}
-
+\end{tabular}
+\\
+%\textit and \textbf
+\newline
+\textbf{Optimal Model Parameters}
+\newline
 \begin{table}[ht]
 \centering
 \resizebox{\textwidth}{!}{
-
-\begin{tabular}{lllll}
+\begin{tabular}{lrrrrrrrrrr}
 \toprule
-name & Hippocampus CA1 pyramidal cell & Cerebellum Purkinje cell & Neocortex pyramidal cell layer 5-6 &      olfactory mitral cell \\ 
+{} &           C &         k &        vr &         vt &      vPeak &         a &          b &          c &           d &  celltype \\
 \midrule
-RheobaseTest                   &                     189.24 pA &                680.79 pA &                          213.85 pA &          NaN \\
-InputResistanceTest            &                    107.08 Mohm &              142.06 Mohm &                        120.67 Mohm &  130.08 Mohm \\
-TimeConstantTest               &                        24.5 ms &                      NaN &                           15.73 ms &     24.48 ms \\
-CapacitanceTest                &                        89.8 pF &                620.27 pF &                          150.58 pF &    235.75 pF \\
-RestingPotentialTest           &                      -65.23 mV &                -61.59 mV &                          -68.25 mV &    -58.14 mV \\
-APWidthTest     &                        1.32 ms &                  0.41 ms &                            1.21 ms &      1.61 ms \\
-APAmplitudeTest &                       86.36 mV &                 71.23 mV &                           80.44 mV &      68.4 mV \\
-APThresholdTest &                       -47.6 mV &                -46.89 mV &                          -42.74 mV &     -38.9 mV \\
+0 &  198.919612 &  0.718347 & -73.81738 & -43.268924 &  36.359152 &  0.163093 &  14.271092 & -47.109124 &  102.824965 &         5 \\
 \bottomrule
 \end{tabular}}
 \end{table} 
@@ -43,182 +38,733 @@ APThresholdTest &                       -47.6 mV &                -46.89 mV &   
 \centering
 \resizebox{\textwidth}{!}{
 \begin{tabular}{lllll}
-\toprule
-name & Hippocampus CA1 pyramidal cell & Cerebellum Purkinje cell & Neocortex pyramidal cell layer 5-6 &      olf\_mit \\
+\toprule{} &   observations &    predictions & Z-Scores \\
 \midrule
-RheobaseTest                   &                      189.24 pA &                680.79 pA &                          213.85 pA &          NaN \\
-InputResistanceTest            &                    107.08 Mohm &              142.06 Mohm &                        120.67 Mohm &  130.08 Mohm \\
-TimeConstantTest               &                        24.5 ms &                      NaN &                           15.73 ms &     24.48 ms \\
-CapacitanceTest                &                        89.8 pF &                620.27 pF &                          150.58 pF &    235.75 pF \\
-RestingPotentialTest           &                      -65.23 mV &                -61.59 mV &                          -68.25 mV &    -58.14 mV \\
-InjectedCurrentAPWidthTest     &                        1.32 ms &                  0.41 ms &                            1.21 ms &      1.61 ms \\
-InjectedCurrentAPAmplitudeTest &                       86.36 mV &                 71.23 mV &                           80.44 mV &      68.4 mV \\
-InjectedCurrentAPThresholdTest &                       -47.6 mV &                -46.89 mV &                          -42.74 mV &     -38.9 mV \\
+RheobaseTest         &       190.0 pA &       168.1 pA &      0.1 \\
+TimeConstantTest     &        13.8 ms &        8.12 ms &      0.2 \\
+RestingPotentialTest &       -77.5 mV &      -73.82 mV &     0.02 \\
+InputResistanceTest  &  132.0 megaohm &  44.91 megaohm &     0.45 \\
+FITest               &     0.18 Hz/pA &   [0.18 Hz/pA] &        0 \\
+
 \bottomrule
 \end{tabular}}
-\end{table}
+\end{table} 
 
-\subsubsection{Neocortex pyramidal cell layer 5-6, Izhikevich Model}
-$\chi^{2}$
+\subsubsection{482493761 IZHI}\begin{tabular}{lr}
+\toprule
+$\chi^{2}$ &  0.131387 \\
+p\_value    &  0.999999 \\
+\bottomrule
+\end{tabular}
+\\
+\textbf{Optimal Model Parameters} 
+\newline
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &           C &         k &         vr &         vt &      vPeak &         a &         b &          c &           d &  celltype \\
+\midrule
+0 &  199.955407 &  0.700119 & -68.553123 & -48.573483 &  38.892985 &  0.091763 &  1.356771 & -26.787294 &  131.543528 &         5 \\
+\bottomrule
+\end{tabular}}
+\end{table} 
+
+
+\begin{tabular}{llll}
+\toprule
+{} &   observations &   predictions & Z-Scores \\
+\midrule
+RheobaseTest         &        70.0 pA &      70.37 pA &        0 \\
+TimeConstantTest     &        24.4 ms &      12.43 ms &     0.26 \\
+RestingPotentialTest &       -71.6 mV &     -68.55 mV &     0.02 \\
+InputResistanceTest  &  132.0 megaohm &  69.1 megaohm &     0.25 \\
+FITest               &     0.09 Hz/pA &  [0.09 Hz/pA] &     0.01 \\
+\bottomrule
+\end{tabular}
+\subsubsection{623893177 IZHI}
 \begin{tabular}{lr}
 \toprule
 {} &         0 \\
 \midrule
-chi\_square &  1.976320 \\
-p\_value    &  0.981729 \\
-\bottomrule
-
-\end{tabular}
-
-\begin{table}[ht]
-\centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{llll}
-\toprule
-{} & observations &    predictions & Z-Scores \\
-\midrule
-RheobaseTest                   &    213.85 pA &       45.04 pA &     1.13 \\
-InputResistanceTest            &  120.67 Mohm &  84.48 megaohm &     0.44 \\
-TimeConstantTest               &     15.73 ms &       12.28 ms &     0.45 \\
-CapacitanceTest                &    150.58 pF &      145.41 pF &     0.03 \\
-RestingPotentialTest           &    -68.25 mV &      -68.35 mV &     0.01 \\
-InjectedCurrentAPWidthTest     &      1.21 ms &        1.31 ms &     0.16 \\
-InjectedCurrentAPAmplitudeTest &     80.44 mV &        80.5 mV &        0 \\
-InjectedCurrentAPThresholdTest &    -42.74 mV &      -38.51 mV &     0.51 \\
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\subsection{Hippocampus CA1 pyramidal cell, Izhikevich Model}
-$\chi^{2}$
-\begin{tabular}{lrr}
-\toprule
-{} &  chi\_square &   p\_value \\
-\midrule
-0 &    2.125091 &  0.976935 \\
+$\chi^{2}$ &  0.412146 \\
+p\_value    &  0.999936 \\
 \bottomrule
 \end{tabular}
+\emph{Optimal Model Parameters}
 
-\begin{table}[ht]
-\centering
-\resizebox{\textwidth}{!}{
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &           C &      k &         vr &         vt &      vPeak &         a &         b &          c &         d &  celltype \\
+\midrule
+0 &  199.990236 &  0.703 & -84.617398 & -50.841801 &  41.263368 &  0.031576 & -1.956014 & -52.168774 &  8.861648 &         4 \\
+\bottomrule
+\end{tabular}
 \begin{tabular}{llll}
 \toprule
-{} & observations &    predictions & Z-Scores \\
+{} &   observations &    predictions & Z-Scores \\
 \midrule
-RheobaseTest                   &    189.24 pA &       32.24 pA &     0.54 \\
-InputResistanceTest            &  107.08 Mohm &  97.76 megaohm &      0.1 \\
-TimeConstantTest               &      24.5 ms &         9.6 ms &     0.72 \\
-CapacitanceTest                &      89.8 pF &       98.24 pF &     0.13 \\
-RestingPotentialTest           &    -65.23 mV &      -65.56 mV &     0.06 \\
-InjectedCurrentAPWidthTest     &      1.32 ms &         1.2 ms &     0.17 \\
-InjectedCurrentAPAmplitudeTest &     86.36 mV &       86.97 mV &     0.04 \\
-InjectedCurrentAPThresholdTest &     -47.6 mV &       -40.0 mV &     1.12 \\
+FITest               &     0.12 Hz/pA &   [0.12 Hz/pA] &        0 \\
+TimeConstantTest     &        27.8 ms &         9.6 ms &     0.44 \\
+RestingPotentialTest &       -77.0 mV &      -84.62 mV &     0.03 \\
+InputResistanceTest  &  136.0 megaohm &  45.24 megaohm &     0.46 \\
+RheobaseTest         &       190.0 pA &      169.73 pA &     0.09 \\
 \bottomrule
-\end{tabular}}
-\end{table}
-
-\subsection{Hippocampus CA1 pyramidal cell, Conductance Model}
-$\chi^{2}$
-\begin{tabular}{lrr}
+\end{tabular}
+\subsubsection{623960880 IZHI}\begin{tabular}{lr}
 \toprule
-{} &  chi\_square &   p\_value \\
+{} &         0 \\
 \midrule
-0 &   17.216463 &  0.027932 \\
+$\chi^{2}$ &  0.357720 \\
+p\_value    &  0.999963 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &           C &         k &         vr &         vt &      vPeak &         a &         b &          c &          d &  celltype \\
+\midrule
+0 &  193.673728 &  0.734061 & -65.155573 & -46.100418 &  30.345993 &  0.059127 &  0.036183 & -61.374778 &  20.912836 &         3 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &   observations &    predictions & Z-Scores \\
+\midrule
+FITest               &     0.18 Hz/pA &   [0.18 Hz/pA] &        0 \\
+TimeConstantTest     &        23.8 ms &       11.96 ms &     0.27 \\
+RestingPotentialTest &       -65.1 mV &      -65.16 mV &        0 \\
+InputResistanceTest  &  241.0 megaohm &  68.83 megaohm &     0.53 \\
+RheobaseTest         &        70.0 pA &       67.46 pA &     0.03 \\
+\bottomrule
+\end{tabular}
+\subsubsection{Cerebellum Purkinje cell IZHI}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  6.799881 \\
+p\_value    &  0.558370 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &          C &         k &         vr &         vt &      vPeak &         a &          b &          c &          d &  celltype \\
+\midrule
+0 &  25.353559 &  1.157665 & -65.338447 & -58.259116 &  25.165239 &  0.132371 &  12.378656 & -54.029576 &  84.438601 &         7 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &    predictions & Z-Scores \\
+\midrule
+RheobaseTest                   &       680.79 pA &       22.08 pA &     1.92 \\
+InputResistanceTest            &  142.06 megaohm &  53.16 megaohm &     1.62 \\
+CapacitanceTest                &       620.27 pF &       619.2 pF &        0 \\
+RestingPotentialTest           &       -61.59 mV &      -65.34 mV &     0.68 \\
+InjectedCurrentAPWidthTest     &         0.41 ms &        0.38 ms &     0.18 \\
+InjectedCurrentAPAmplitudeTest &        71.23 mV &       71.25 mV &        0 \\
+InjectedCurrentAPThresholdTest &       -46.89 mV &      -46.71 mV &     0.02 \\
+\bottomrule
+\end{tabular}
+\subsubsection{Hippocampus CA1 pyramidal cell IZHI}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  0.529708 \\
+p\_value    &  0.999834 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &           C &         k &         vr &         vt &      vPeak &         a &         b &          c &          d &  celltype \\
+\midrule
+0 &  129.125029 &  0.700321 & -65.171177 & -59.994425 &  25.121088 &  0.195253 &  5.106401 & -30.618802 &  120.19689 &         4 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest         &       189.24 pA &        225.0 pA &      0.1 \\
+InputResistanceTest  &  107.08 megaohm &  105.58 megaohm &     0.02 \\
+TimeConstantTest     &         24.5 ms &         9.56 ms &     0.72 \\
+CapacitanceTest      &         89.8 pF &        90.53 pF &     0.01 \\
+RestingPotentialTest &       -65.23 mV &       -65.17 mV &     0.01 \\
+\bottomrule
+\end{tabular}
+\subsubsection{Neocortex pyramidal cell layer 5-6 IZHI}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  1.706444 \\
+p\_value    &  0.988727 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &           C &         k &         vr &         vt &      vPeak &         a &         b &          c &          d &  celltype \\
+\midrule
+0 &  183.344141 &  0.700351 & -68.204679 & -59.585086 &  37.293727 &  0.190303 &  2.637767 & -52.626762 &  39.846961 &         4 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest         &       213.85 pA &        27.21 pA &      1.3 \\
+InputResistanceTest  &  120.67 megaohm &  106.18 megaohm &     0.16 \\
+TimeConstantTest     &        15.73 ms &        15.73 ms &        0 \\
+CapacitanceTest      &       150.58 pF &       148.12 pF &     0.01 \\
+RestingPotentialTest &       -68.25 mV &        -68.2 mV &     0.01 \\
+\bottomrule
+\end{tabular}
+\subsubsection{olf_mit IZHI}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  0.916007 \\
+p\_value    &  0.998725 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &           C &         k &         vr &         vt &      vPeak &         a &         b &          c &          d &  celltype \\
+\midrule
+0 &  199.997547 &  1.120902 & -58.099251 & -49.553337 &  29.011682 &  0.010666 & -1.999842 & -52.184788 &  37.946317 &         4 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &     predictions & Z-Scores \\
+\midrule
+InputResistanceTest            &  130.08 megaohm &  112.68 megaohm &      0.2 \\
+TimeConstantTest               &        24.48 ms &        26.56 ms &      0.2 \\
+CapacitanceTest                &       235.75 pF &       235.76 pF &     0.01 \\
+RestingPotentialTest           &       -58.14 mV &        -58.1 mV &     0.01 \\
+InjectedCurrentAPWidthTest     &         1.61 ms &         1.88 ms &      0.9 \\
+InjectedCurrentAPAmplitudeTest &         68.4 mV &         68.5 mV &     0.02 \\
+InjectedCurrentAPThresholdTest &        -38.9 mV &       -37.43 mV &     0.17 \\
 \bottomrule
 \end{tabular}
 
-\begin{table}[ht]
-\centering
-\resizebox{\textwidth}{!}{
+
+\subsection{Adaptive Exponential Model Fits}
+
+\subsubsection{471819401 ADEXP}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  0.044797 \\
+p\_value    &  1.000000 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrrr}
+\toprule
+{} &         cm &    v\_spike &    v\_reset &     v\_rest &      tau\_m &         a &          b &  delta\_T &      tau\_w &   v\_thresh &  spike\_delta \\
+\midrule
+0 &  147.84212 & -34.976844 & -60.418098 & -77.637301 &  59.320878 &  4.391882 &  11.979191 &  0.43768 &  79.906934 & -36.875163 &    59.778222 \\
+\bottomrule
+\end{tabular}
 \begin{tabular}{llll}
 \toprule
-{} & observations &     predictions & Z-Scores \\
+{} &   observations &     predictions & Z-Scores \\
 \midrule
-RheobaseTest                   &    189.24 pA &        225.0 pA &      0.1 \\
-InputResistanceTest            &  107.08 Mohm &  130.26 megaohm &     0.27 \\
-TimeConstantTest               &      24.5 ms &         6.52 ms &     0.91 \\
-CapacitanceTest                &      89.8 pF &        50.05 pF &     0.78 \\
-RestingPotentialTest           &    -65.23 mV &       -63.79 mV &     0.26 \\
-InjectedCurrentAPWidthTest     &      1.32 ms &         0.25 ms &     2.54 \\
-InjectedCurrentAPAmplitudeTest &     86.36 mV &        89.14 mV &      0.2 \\
-InjectedCurrentAPThresholdTest &     -47.6 mV &       -62.83 mV &     3.02 \\
+RheobaseTest         &       190.0 pA &       144.14 pA &     0.21 \\
+TimeConstantTest     &        13.8 ms &        13.91 ms &        0 \\
+RestingPotentialTest &       -77.5 mV &       -77.64 mV &        0 \\
+InputResistanceTest  &  132.0 megaohm &  131.17 megaohm &        0 \\
+FITest               &     0.18 Hz/pA &    [0.18 Hz/pA] &        0 \\
 \bottomrule
-\end{tabular}}
-\end{table}
+\end{tabular}
+\subsubsection{482493761 ADEXP}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  0.001966 \\
+p\_value    &  1.000000 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrrr}
+\toprule
+{} &          cm &    v\_spike &    v\_reset &     v\_rest &      tau\_m &         a &         b &   delta\_T &      tau\_w &   v\_thresh &  spike\_delta \\
+\midrule
+0 &  291.699145 & -34.400976 & -93.000006 & -65.624502 &  62.004078 &  3.765761 &  9.793637 &  4.907889 &  56.926532 & -51.087053 &    11.570315 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &   observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest         &        70.0 pA &        70.15 pA &        0 \\
+TimeConstantTest     &        24.4 ms &        24.25 ms &        0 \\
+RestingPotentialTest &       -71.6 mV &       -65.48 mV &     0.03 \\
+InputResistanceTest  &  132.0 megaohm &  120.84 megaohm &     0.03 \\
+FITest               &     0.09 Hz/pA &    [0.09 Hz/pA] &        0 \\
+\bottomrule
+\end{tabular}
+\subsubsection{623893177 ADEXP}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  0.033941 \\
+p\_value    &  1.000000 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrrr}
+\toprule
+{} &          cm &    v\_spike &    v\_reset &     v\_rest &      tau\_m &         a &         b &   delta\_T &       tau\_w &   v\_thresh &  spike\_delta \\
+\midrule
+0 &  199.594872 & -34.271192 & -52.686161 & -77.345829 &  53.246161 &  7.831649 &  2.244954 &  4.827649 &  470.625487 & -38.183491 &    97.292508 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &   observations &     predictions & Z-Scores \\
+\midrule
+FITest               &     0.12 Hz/pA &    [0.11 Hz/pA] &     0.05 \\
+TimeConstantTest     &        27.8 ms &        26.26 ms &     0.02 \\
+RestingPotentialTest &       -77.0 mV &       -77.48 mV &        0 \\
+InputResistanceTest  &  136.0 megaohm &  167.04 megaohm &     0.07 \\
+RheobaseTest         &       190.0 pA &       154.36 pA &     0.16 \\
+\bottomrule
+\end{tabular}
+\subsubsection{623960880 ADEXP}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  0.002796 \\
+p\_value    &  1.000000 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrrr}
+\toprule
+{} &          cm &    v\_spike &    v\_reset &     v\_rest &      tau\_m &        a &         b &    delta\_T &      tau\_w &   v\_thresh &  spike\_delta \\
+\midrule
+0 &  204.613965 & -35.484042 & -70.034473 & -69.031195 &  55.704138 &  2.72687 &  14.26241 &  15.683932 &  21.470619 & -47.048625 &      2.57229 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &   observations &     predictions & Z-Scores \\
+\midrule
+FITest               &     0.18 Hz/pA &    [0.18 Hz/pA] &     0.01 \\
+TimeConstantTest     &        23.8 ms &        23.76 ms &        0 \\
+RestingPotentialTest &       -65.1 mV &       -66.41 mV &     0.01 \\
+InputResistanceTest  &  241.0 megaohm &  218.99 megaohm &     0.03 \\
+RheobaseTest         &        70.0 pA &        66.58 pA &     0.04 \\
+\bottomrule
+\end{tabular}
+\subsubsection{Cerebellum Purkinje cell ADEXP}\begin{tabular}{lr}
+\toprule
+{} &          0 \\
+\midrule
+$\chi^{2}$ &  16.698080 \\
+p\_value    &   0.033411 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrrr}
+\toprule
+{} &         cm &   v\_spike &    v\_reset &     v\_rest &      tau\_m &          a &         b &    delta\_T &       tau\_w &   v\_thresh &  spike\_delta \\
+\midrule
+0 &  60.619653 & -48.50386 & -29.682101 & -62.156675 &  22.913905 &  18.585261 &  0.886609 &  10.116551 &  301.080299 & -53.485049 &    13.944264 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest                   &       680.79 pA &        225.0 pA &     1.15 \\
+InputResistanceTest            &  142.06 megaohm &  142.21 megaohm &        0 \\
+CapacitanceTest                &       620.27 pF &        35.44 pF &     3.68 \\
+RestingPotentialTest           &       -61.59 mV &       -61.59 mV &        0 \\
+InjectedCurrentAPWidthTest     &         0.41 ms &          0.5 ms &     0.43 \\
+InjectedCurrentAPAmplitudeTest &        71.23 mV &        70.67 mV &     0.05 \\
+InjectedCurrentAPThresholdTest &       -46.89 mV &       -54.43 mV &     1.28 \\
+\bottomrule
+\end{tabular}
+\subsubsection{Hippocampus CA1 pyramidal cell ADEXP}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  0.512616 \\
+p\_value    &  0.999853 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrrr}
+\toprule
+{} &          cm &    v\_spike &    v\_reset &     v\_rest &      tau\_m &          a &          b &   delta\_T &       tau\_w &  v\_thresh &  spike\_delta \\
+\midrule
+0 &  129.961163 & -31.695204 & -35.970231 & -66.538207 &  11.174738 &  19.050761 &  17.424509 &  15.68897 &  111.605991 & -40.38361 &    23.425064 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest         &       189.24 pA &       196.88 pA &     0.02 \\
+InputResistanceTest  &  107.08 megaohm &  107.22 megaohm &        0 \\
+TimeConstantTest     &         24.5 ms &         9.63 ms &     0.72 \\
+CapacitanceTest      &         89.8 pF &        89.82 pF &        0 \\
+RestingPotentialTest &       -65.23 mV &       -65.22 mV &        0 \\
+\bottomrule
+\end{tabular}
+\subsubsection{Neocortex pyramidal cell layer 5-6 ADEXP}\begin{tabular}{lr}
+\toprule
+{} &        0 \\
+\midrule
+$\chi^{2}$ &  0.01024 \\
+p\_value    &  1.00000 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrrr}
+\toprule
+{} &          cm &   v\_spike &    v\_reset &     v\_rest &      tau\_m &          a &          b &    delta\_T &       tau\_w &   v\_thresh &  spike\_delta \\
+\midrule
+0 &  179.626266 & -41.97515 & -43.260263 & -69.885654 &  13.750539 &  19.466661 &  18.991016 &  16.235459 &  111.752684 & -42.865583 &     9.623035 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest         &       213.85 pA &        212.7 pA &     0.01 \\
+InputResistanceTest  &  120.67 megaohm &  114.87 megaohm &     0.06 \\
+TimeConstantTest     &        15.73 ms &        15.81 ms &     0.01 \\
+CapacitanceTest      &       150.58 pF &       137.59 pF &     0.08 \\
+RestingPotentialTest &       -68.25 mV &       -68.42 mV &     0.02 \\
+\bottomrule
+\end{tabular}
+\subsubsection{olf_mit ADEXP}
 
-\subsection{Hippocampus CA1 pyramidal cell, Adaptive Exponential Model}
-$\chi^{2}$
 \begin{tabular}{lr}
 \toprule
-{} &          0 \\
+{} &           0 \\
 \midrule
-chi\_square &  10.232514 \\
-p\_value    &   0.249084 \\
+$\chi^{2}$ &  211.133706 \\
+p\_value    &    0.000000 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrrr}
+\toprule
+{} &          cm &    v\_spike &    v\_reset &     v\_rest &      tau\_m &         a &         b &   delta\_T &       tau\_w &   v\_thresh &  spike\_delta \\
+\midrule
+0 &  270.248464 & -20.120271 & -82.855052 & -57.911537 &  35.456569 &  0.919817 &  1.070601 &  0.713343 &  450.989654 & -38.480586 &    30.503991 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &    predictions & Z-Scores \\
+\midrule
+InputResistanceTest            &  130.08 megaohm &  124.8 megaohm &     0.06 \\
+TimeConstantTest               &        24.48 ms &       29.46 ms &     0.54 \\
+CapacitanceTest                &       235.75 pF &       236.1 pF &     0.53 \\
+RestingPotentialTest           &       -58.14 mV &      -58.01 mV &     0.02 \\
+InjectedCurrentAPWidthTest     &         1.61 ms &        6.25 ms &    14.51 \\
+InjectedCurrentAPAmplitudeTest &         68.4 mV &       69.03 mV &     0.11 \\
+InjectedCurrentAPThresholdTest &        -38.9 mV &      -38.48 mV &     0.05 \\
+\bottomrule
+\end{tabular}
+
+\subsection{GLIF Model Fits}
+\subsubsection{471819401 GLIF}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  1.923689 \\
+p\_value    &  0.983263 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrr}
+\toprule
+{} &  El\_reference &             C &  init\_threshold &    th\_inf &  init\_voltage &  spike\_cut\_length &       R\_input &  th\_adapt \\
+\midrule
+0 &      -0.07544 &  7.570774e-09 &        0.068576 &  0.024054 &      -0.08242 &          1.670199 &  1.355021e+09 &  0.188348 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &   observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest         &       190.0 pA &        63.28 pA &     0.68 \\
+TimeConstantTest     &        13.8 ms &       150.67 ms &     1.21 \\
+RestingPotentialTest &       -77.5 mV &       -79.25 mV &     0.01 \\
+InputResistanceTest  &  132.0 megaohm &  132.42 megaohm &        0 \\
+FITest               &     0.18 Hz/pA &    [0.18 Hz/pA] &     0.02 \\
+\bottomrule
+\end{tabular}
+\subsubsection{482493761 GLIF}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  0.722770 \\
+p\_value    &  0.999467 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrr}
+\toprule
+{} &  El\_reference &             C &  init\_threshold &    th\_inf &  init\_voltage &  spike\_cut\_length &       R\_input &  th\_adapt \\
+\midrule
+0 &     -0.080338 &  7.614761e-09 &        0.046602 &  0.029215 &     -0.087961 &           1.94205 &  1.447919e+09 &  0.041772 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &   observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest         &        70.0 pA &         66.8 pA &     0.04 \\
+TimeConstantTest     &        24.4 ms &       150.91 ms &     0.85 \\
+RestingPotentialTest &       -71.6 mV &       -84.81 mV &     0.06 \\
+InputResistanceTest  &  132.0 megaohm &  132.42 megaohm &        0 \\
+FITest               &     0.09 Hz/pA &    [0.09 Hz/pA] &     0.02 \\
+\bottomrule
+\end{tabular}
+\subsubsection{623893177 GLIF}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  1.061240 \\
+p\_value    &  0.997831 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrr}
+\toprule
+{} &  El\_reference &             C &  init\_threshold &    th\_inf &  init\_voltage &  spike\_cut\_length &       R\_input &  th\_adapt \\
+\midrule
+0 &     -0.073735 &  7.330449e-09 &        0.040723 &  0.023305 &      -0.08902 &          2.893527 &  1.459725e+09 &  0.085321 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &   observations &    predictions & Z-Scores \\
+\midrule
+FITest               &     0.12 Hz/pA &   [0.12 Hz/pA] &        0 \\
+TimeConstantTest     &        27.8 ms &      150.58 ms &     0.77 \\
+RestingPotentialTest &       -77.0 mV &      -85.73 mV &     0.04 \\
+InputResistanceTest  &  136.0 megaohm &  135.9 megaohm &        0 \\
+RheobaseTest         &       190.0 pA &       63.28 pA &     0.68 \\
+\bottomrule
+\end{tabular}
+\subsubsection{623960880 GLIF}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+$\chi^{2}$ &  0.871296 \\
+p\_value    &  0.998938 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrr}
+\toprule
+{} &  El\_reference &             C &  init\_threshold &    th\_inf &  init\_voltage &  spike\_cut\_length &       R\_input &  th\_adapt \\
+\midrule
+0 &     -0.085079 &  7.472175e-09 &        0.049103 &  0.021854 &     -0.075326 &          2.272963 &  1.530222e+09 &   0.16087 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &   observations &     predictions & Z-Scores \\
+\midrule
+FITest               &     0.18 Hz/pA &    [0.16 Hz/pA] &     0.08 \\
+TimeConstantTest     &        23.8 ms &        162.2 ms &      0.9 \\
+RestingPotentialTest &       -65.1 mV &       -72.72 mV &     0.04 \\
+InputResistanceTest  &  241.0 megaohm &  209.29 megaohm &     0.05 \\
+RheobaseTest         &        70.0 pA &        53.61 pA &      0.2 \\
+\bottomrule
+\end{tabular}
+\subsubsection{Cerebellum Purkinje cell GLIF}\begin{tabular}{lr}
+\toprule
+{} &           0 \\
+\midrule
+$\chi^{2}$ &  1534.42514 \\
+p\_value    &     0.00000 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrr}
+\toprule
+{} &  El\_reference &             C &  init\_threshold &    th\_inf &  init\_voltage &  spike\_cut\_length &       R\_input &  th\_adapt \\
+\midrule
+0 &     -0.073918 &  5.504985e-09 &        0.028789 &  0.038903 &      -0.07094 &         21.444205 &  9.495474e+08 &  0.197828 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest                   &       680.79 pA &        35.16 pA &     1.86 \\
+InputResistanceTest            &  142.06 megaohm &  230.19 megaohm &      1.6 \\
+CapacitanceTest                &       620.27 pF &       864.61 pF &     1.05 \\
+RestingPotentialTest           &       -61.59 mV &       -62.31 mV &     0.11 \\
+InjectedCurrentAPWidthTest     &         0.41 ms &          5.0 ms &    24.14 \\
+InjectedCurrentAPAmplitudeTest &        71.23 mV &        13.95 mV &    18.99 \\
+InjectedCurrentAPThresholdTest &       -46.89 mV &        -0.76 mV &    24.17 \\
+\bottomrule
+\end{tabular}
+\subsubsection{Hippocampus CA1 pyramidal cell GLIF}\begin{tabular}{lr}
+\toprule
+{} &           0 \\
+\midrule
+$\chi^{2}$ &  187.954617 \\
+p\_value    &    0.000000 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrr}
+\toprule
+{} &  El\_reference &             C &  init\_threshold &    th\_inf &  init\_voltage &  spike\_cut\_length &       R\_input &  th\_adapt \\
+\midrule
+0 &     -0.081522 &  6.466133e-09 &        0.055339 &  0.019979 &     -0.050365 &         42.389787 &  2.341151e+09 &  0.156409 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &     predictions & Z-Scores \\
+\midrule
+RheobaseTest         &       189.24 pA &        31.64 pA &     0.54 \\
+InputResistanceTest  &  107.08 megaohm &  449.06 megaohm &    11.47 \\
+TimeConstantTest     &         24.5 ms &         0.02 ms &     1.37 \\
+CapacitanceTest      &         89.8 pF &         0.04 pF &     2.36 \\
+RestingPotentialTest &       -65.23 mV &       -49.05 mV &     6.97 \\
+\bottomrule
+\end{tabular}
+\subsubsection{Neocortex pyramidal cell layer 5-6 GLIF}\begin{tabular}{lr}
+\toprule
+{} &           0 \\
+\midrule
+$\chi^{2}$ &  305.182973 \\
+p\_value    &    0.000000 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrr}
+\toprule
+{} &  El\_reference &             C &  init\_threshold &    th\_inf &  spike\_cut\_length &  init\_voltage &       R\_input &  th\_adapt \\
+\midrule
+0 &     -0.072111 &  6.845068e-09 &        0.025164 &  0.038225 &         57.488163 &     -0.065758 &  1.420876e+07 &  0.182644 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &      predictions & Z-Scores \\
+\midrule
+RheobaseTest         &       213.85 pA &         56.25 pA &     1.04 \\
+InputResistanceTest  &  120.67 megaohm &  -716.57 megaohm &    10.78 \\
+TimeConstantTest     &        15.73 ms &          77.5 ms &     8.45 \\
+CapacitanceTest      &       150.58 pF &       -108.15 pF &     2.75 \\
+RestingPotentialTest &       -68.25 mV &         -0.05 mV &    10.44 \\
+\bottomrule
+\end{tabular}
+\subsubsection{olf_mit GLIF}\begin{tabular}{lr}
+\toprule
+{} &           0 \\
+\midrule
+$\chi^{2}$ &  881.105883 \\
+p\_value    &    0.000000 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrr}
+\toprule
+{} &  El\_reference &             C &  init\_threshold &    th\_inf &  spike\_cut\_length &  init\_voltage &       R\_input &  th\_adapt \\
+\midrule
+0 &     -0.081433 &  3.629065e-09 &        0.043298 &  0.048323 &         52.885972 &     -0.057591 &  1.760362e+09 &  0.004591 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &     predictions & Z-Scores \\
+\midrule
+InputResistanceTest            &  130.08 megaohm &  885.76 megaohm &     9.87 \\
+TimeConstantTest               &        24.48 ms &       198.79 ms &    19.21 \\
+CapacitanceTest                &       235.75 pF &       224.42 pF &    17.43 \\
+RestingPotentialTest           &       -58.14 mV &       -51.79 mV &     1.59 \\
+InjectedCurrentAPAmplitudeTest &         68.4 mV &        17.21 mV &    10.41 \\
 \bottomrule
 \end{tabular}
 
 
-\begin{table}[ht]
-\centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{llll}
-\toprule
-{} & observations &     predictions & Z-Scores \\
-\midrule
-RheobaseTest                   &    189.24 pA &        225.0 pA &      0.1 \\
-InputResistanceTest            &  107.08 Mohm &  130.26 megaohm &     0.27 \\
-TimeConstantTest               &      24.5 ms &         6.52 ms &     0.91 \\
-CapacitanceTest                &      89.8 pF &        50.05 pF &     0.78 \\
-RestingPotentialTest           &    -65.23 mV &       -63.79 mV &     0.26 \\
-InjectedCurrentAPWidthTest     &      1.32 ms &         0.25 ms &     2.54 \\
-InjectedCurrentAPAmplitudeTest &     86.36 mV &        89.14 mV &      0.2 \\
-InjectedCurrentAPThresholdTest &     -47.6 mV &       -62.83 mV &     3.02 \\
-\bottomrule
-\end{tabular}}
-\label{table:static_electrical_properties}
-\end{table}
 
-\subsection{Olfactory Mitral Cell Izhikevich Model}
-\begin{table}[ht]
-\centering
-\resizebox{\textwidth}{!}{
+\subsection{Conductance Based Model Fits}
+
+\subsubsection{623960880 NEURONHH}
+\begin{tabular}{lr}
+\toprule
+chi\_square &  0.747209 \\
+p\_value    &  0.999397 \\
+\bottomrule
+\end{tabular}
+\textbf{Optimal Model Parameters}
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &    gnabar &     gkbar &          Ra &          L &      diam &         el &        gl &        ena &         ek &        cm \\
+\midrule
+0 &  0.207632 &  0.032187 &  202.135641 &  14.992123 &  17.71929 & -56.707598 &  0.000507 &  81.259738 & -58.417724 &  0.378224 \\
+\bottomrule
+\end{tabular}
 \begin{tabular}{llll}
 \toprule
-{} & observations &     predictions & Z-Scores \\
+{} &   observations &    predictions & Z-Scores \\
 \midrule
-InputResistanceTest            &  130.08 Mohm &  111.76 megaohm &     0.21 \\
-TimeConstantTest               &     24.48 ms &        26.35 ms &     0.18 \\
-CapacitanceTest                &    235.75 pF &       235.77 pF &     0.03 \\
-RestingPotentialTest           &    -58.14 mV &       -59.78 mV &      0.3 \\
-InjectedCurrentAPWidthTest     &      1.61 ms &         1.54 ms &     0.19 \\
-InjectedCurrentAPAmplitudeTest &      68.4 mV &        68.62 mV &     0.04 \\
-InjectedCurrentAPThresholdTest &     -38.9 mV &       -30.45 mV &     1.35 \\
+FITest               &     0.18 Hz/pA &   [0.27 Hz/pA] &     0.51 \\
+TimeConstantTest     &        23.8 ms &        15.1 ms &     0.17 \\
+RestingPotentialTest &       -65.1 mV &      -66.35 mV &     0.01 \\
+InputResistanceTest  &  241.0 megaohm &  65.07 megaohm &     0.56 \\
+RheobaseTest         &        70.0 pA &       41.75 pA &     0.38 \\
 \bottomrule
-\end{tabular}}
-\end{table}
-\subsubsection{Cerebellum Purkinje cell Experiment Conductance Izhikevich Model}\begin{tabular}{lr}
+\label{tab:conductance_623960880}
+
+\end{tabular}
+
+\subsubsection{623893177 NEURONHH}\begin{tabular}{lr}
+\toprule
+$\chi^{2}$ &  8.560861 \\
+p\_value    &  0.380683 \\
+\bottomrule
+\end{tabular}
+optimal model parameters\begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &    gnabar &     gkbar &          Ra &          L &       diam &        el &        gl &        ena &         ek &      cm \\
+\midrule
+0 &  0.185375 &  0.032369 &  224.125978 &  10.596624 &  19.005626 & -53.60956 &  0.000075 &  76.932957 & -50.170541 &  1.2335 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &   observations &     predictions & Z-Scores \\
+\midrule
+FITest               &     0.12 Hz/pA &    [0.29 Hz/pA] &     1.81 \\
+TimeConstantTest     &        27.8 ms &         0.74 ms &     2.16 \\
+RestingPotentialTest &       -77.0 mV &       -69.34 mV &     0.04 \\
+InputResistanceTest  &  136.0 megaohm &  127.21 megaohm &     0.02 \\
+RheobaseTest         &       190.0 pA &        49.22 pA &     0.78 \\
+\bottomrule
+\label{tab:conductance_623893177}
+
+\end{tabular}
+
+\subsubsection{482493761 NEURONHH}\begin{tabular}{lr}
 \toprule
 {} &          0 \\
 \midrule
-chi\_square &  19.158050 \\
-p\_value    &   0.014037 \\
+$\chi^{2}$ &  13.107898 \\
+p\_value    &   0.108191 \\
 \bottomrule
 \end{tabular}
-\begin{table}[ht]
-\centering
-\resizebox{\textwidth}{!}{
+optimal model parameters\begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &    gnabar &     gkbar &          Ra &          L &       diam &         el &        gl &        ena &         ek &        cm \\
+\midrule
+0 &  0.202911 &  0.052743 &  213.693001 &  13.060388 &  11.271837 & -48.017307 &  0.000385 &  48.836002 & -45.557534 &  0.980274 \\
+\bottomrule
+\end{tabular}
+
+
 \begin{tabular}{llll}
 \toprule
-{} & observations &    predictions & Z-Scores \\
+{} &   observations &    predictions & Z-Scores \\
 \midrule
-RheobaseTest                   &    680.79 pA &        43.4 pA &     1.83 \\
-InputResistanceTest            &  142.06 Mohm &  66.98 megaohm &     1.29 \\
-CapacitanceTest                &    620.27 pF &       68.27 pF &     3.36 \\
-RestingPotentialTest           &    -61.59 mV &      -61.61 mV &        0 \\
-InjectedCurrentAPWidthTest     &      0.41 ms &        0.48 ms &     0.32 \\
-InjectedCurrentAPAmplitudeTest &     71.23 mV &       71.41 mV &     0.01 \\
-InjectedCurrentAPThresholdTest &    -46.89 mV &      -37.79 mV &     1.66 \\
+RheobaseTest         &        70.0 pA &       56.25 pA &     0.17 \\
+TimeConstantTest     &        24.4 ms &        17.2 ms &     0.13 \\
+RestingPotentialTest &       -71.6 mV &      -66.17 mV &     0.03 \\
+InputResistanceTest  &  132.0 megaohm &  98.07 megaohm &     0.11 \\
+FITest               &     0.09 Hz/pA &   [0.29 Hz/pA] &     3.61 \\
 \bottomrule
-\end{tabular}}
-\end{table}
+
+\caption{}
+\label{tab:conductance_482493761}
+\end{tabular}
