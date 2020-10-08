@@ -11,6 +11,63 @@
 %\bottomrule
 %\end{tabular}}
 %\end{table} 
+
+\begin{figure}
+\begin{verbatim}
+'AP1RateOfChangePeakToTroughTest_3.0x',
+'AP2DelaySDTest_1.5x',
+'AP2DelaySDTest_3.0x',
+'AP_end_indices_3.0x',
+'AP_fall_indices_1.5x',
+'AP_fall_indices_3.0x',
+'AP_rise_indices_1.5x',
+'AP_rise_time_1.5x',
+'AP_rise_time_3.0x', 
+'APlast_width_1.5x',
+'AccommodationRateMeanAtSSTest_3.0x', 
+'AccommodationRateToSSTest_3.0x',
+'ISIBurstMeanChangeTest_3.0x', 
+'ISICVTest_3.0x',
+'ISI_log_slope_skip_3.0x', 
+'Spikecount_stimint_1.5x',
+'Spikecount_stimint_3.0x', 
+'adaptation_index2_3.0x',
+'fast_trough_index_1.5x', 
+'fast_trough_index_3.0x',
+'fast_trough_t_1.5x', 
+'fast_trough_t_3.0x', 
+'initburst_sahp_vb_1.5x',
+'input_resistance', 
+'maximum_voltage_1.5x', 
+'min_AHP_indices_1.5x',
+'min_AHP_indices_3.0x', 
+'peak_index_1.5x', 
+'peak_index_3.0x',
+'peak_indices_1.5x', 
+'peak_indices_3.0x',
+'peak_t_1.5x',
+'peak_t_3.0x',
+'peak_time_3.0x',
+'steady_state_hyper_1.5x',
+'steady_state_voltage_1.5x', 
+'steady_state_voltage_stimend_1.5x',
+'threshold_index_1.5x', 
+'threshold_index_3.0x',
+'threshold_t_1.5x',
+'threshold_t_3.0x',
+'upstroke_index_1.5x',
+'upstroke_index_3.0x',
+'upstroke_t_1.5x', 
+'upstroke_t_3.0x', 
+'voltage_after_stim_1.5x',
+'voltage_after_stim_3.0x'   
+\end{verbatim}
+\label{fig:reference_feature_list}
+List of complete 47 features used in the analysis down from 466 after data cleaning.
+
+\end{figure}
+
+
 \begin{tabular}{lr}
 \toprule
 $\chi^{2}$ &  0.249615 \\
@@ -797,5 +854,64 @@ FITest               &     0.18 Hz/pA &    [0.29 Hz/pA] &     0.61 \\
 \bottomrule
 \label{tab:conductance_471819401}
 
+\end{tabular}
+
+\subsubsection{Hippocampus CA1 pyramidal cell NEURONHH}\begin{tabular}{lr}
+\toprule
+{} &         0 \\
+\midrule
+\chi^{2} &  1.956748 \\
+p\_value    &  0.982309 \\
+\bottomrule
+\end{tabular}
+optimal model parameters\begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &    gnabar &     gkbar &         Ra &          L &       diam &        el &        gl &        ena &         ek &       cm \\
+\midrule
+0 &  0.191176 &  0.054808 &  49.034645 &  12.503394 &  20.538403 & -42.05703 &  0.000178 &  46.994707 & -47.026178 &  0.25326 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &    predictions & Z-Scores \\
+\midrule
+RheobaseTest         &       189.24 pA &       49.22 pA &     0.47 \\
+InputResistanceTest  &  107.08 megaohm &  68.12 megaohm &     0.49 \\
+TimeConstantTest     &         24.5 ms &         9.0 ms &     0.75 \\
+CapacitanceTest      &         89.8 pF &      132.04 pF &     0.84 \\
+RestingPotentialTest &       -65.23 mV &      -67.63 mV &     0.47 \\
+\bottomrule
+\label{tab:conductance_CA1}
+
+\end{tabular}
+
+\subsubsection{olf_mit NEURONHH}
+\begin{tabular}{lr}
+\toprule
+{} &           0 \\
+\midrule
+$\chi^{2}$ &  354.118222 \\
+p\_value    &    0.000000 \\
+\bottomrule
+\end{tabular}
+optimal model parameters\begin{tabular}{lrrrrrrrrrr}
+\toprule
+{} &    gnabar &     gkbar &          Ra &          L &       diam &         el &        gl &        ena &         ek &        cm \\
+\midrule
+0 &  0.168694 &  0.038289 &  259.015533 &  12.732569 &  14.957926 & -40.927906 &  0.000306 &  54.819566 & -86.198161 &  1.072079 \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{llll}
+\toprule
+{} &    observations &    predictions & Z-Scores \\
+\midrule
+InputResistanceTest            &  130.08 megaohm &  83.89 megaohm &      0.6 \\
+TimeConstantTest               &        24.48 ms &       20.37 ms &     0.43 \\
+CapacitanceTest                &       235.75 pF &      242.79 pF &    10.83 \\
+RestingPotentialTest           &       -58.14 mV &      -65.29 mV &     1.88 \\
+InjectedCurrentAPWidthTest     &         1.61 ms &        0.12 ms &    12.59 \\
+InjectedCurrentAPAmplitudeTest &         68.4 mV &       86.33 mV &     8.23 \\
+InjectedCurrentAPThresholdTest &        -38.9 mV &      -52.08 mV &     2.54 \\
+\bottomrule
 \end{tabular}
 

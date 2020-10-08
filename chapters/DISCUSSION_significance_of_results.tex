@@ -2,9 +2,10 @@
 
 \subsubsection{Conflicts in Models Between Experimental Constraints}
 
-Conflicts between Rheobase value and other static electrical measurements were observed in NeuroElectro and Allen measurements. When optimizing against literature derived averaged measurements, and Allen Brain single cell observations, it was common to experience a conflicted ability for a given model to satisfy all constraints simultaneously. 
+Conflicts between rheobase value, input resistance, and time constant  were observed in NeuroElectro and Allen measurements. When optimizing against measurements derived from literature, and Allen Brain single cell observations, it was common to experience a conflicted ability for a given model to satisfy all constraints simultaneously. 
 
-Models seemed to have particular difficulty in recapitulating an accurate fit for rheobase, while simultaneously satisfying the all of the other fitness criteria: time constant, input resistance, capacitance, resting membrane potential and FISlope. 
+Models seemed to have particular difficulty in recapitulating an accurate fit for rheobase, while simultaneously satisfying some of the other fitness criteria: time constant, input resistance, capacitance, resting membrane potential and FISlope. 
+
 
 \subsection{Ability of models to Fit Allen Institute Data (sweeps).}
 %%%
@@ -24,15 +25,15 @@ The approach would  involve starting with a wide set of supra and sub threshold 
 Two classes of experimental measurements were used to fit models in conjunction with genetic algorithms. These consisted of four groups of eight neuroelectro observations, and and $8$ and also $60$ different EFEL measurements that were obtained by sampling Allen Brain sweep Data.
 
 
-When comparing generic single compartment models, to the BBP neocortical layer 5 neuron, one can see that there are often conflicts between Rheobase, FISlope and Time Constant mearurements. As a pattern the conductance based models sampled in this work seemed to have trouble satisfying these three measurements at the same time.
+When comparing generic single compartment models, to the BBP neocortical layer 5 neuron, one can see that there are often conflicts between Rheobase, FISlope and Time Constant mearurements. As a pattern the Multi compartment and single compartment conductance based models optimized in this work seemed to have trouble satisfying these three measurements at the same time.
 
 See tables: \ref{tab:conductance_623960880}, \ref{tab:conductance_623893177}, \ref{tab:l5pc_table}
 
 
 % It is worth noting that in both sets of measurements, the types of measurements that can guide optimization are significantly smaller subset of measurements of fitness criteria that can be evaluated on the final model.
 
-Final list of Elephant tests used to guide optimization: 
-\textbf{RheobaseTest}, InputResistanceTest, TimeConstantTest, CapacitanceTest, RestingPotentialTest.
+%Final list of Elephant tests used to guide optimization: 
+%\textbf{RheobaseTest}, InputResistanceTest, TimeConstantTest, CapacitanceTest, RestingPotentialTest.
 
 
 In the Izhikevich model for each of the four different classes of experimental cell types, The optimizer finds a varied set of solutions, that are each within the range of empirical validity. The general pattern was that Rheobase values needed to be compromised, in order to uncover models that were the fittest with respect to all the other fitness criteria.
@@ -49,8 +50,25 @@ As indicated by the $\chi^{2}$ statistic and $p$-$value$, many but not all model
 AHP_depth_abs_3.0x,sag_ratio2_3.0x,ohmic_input_resistance_1.5x,peak_voltage_3.0x,voltage_base_3.0x,Spikecount_3.0x,ohmic_input_resistance_vb_ssse_1.5x. 
 \end{verbatim}
 
-The EFEL measurements on Allen Data
+%The EFEL measurements on Allen Data
 
+
+Which is the best model to optimize with?
+Multi-time scale variants of the adaptive exponential model also won, the INCF competition \cite{incf_multi}.
+
+Generally the Izhikevich model was the overall winner, as when averaging across $\chi^{2}$ statistics for 8, tests, the Izhikevich model had the lowest mean $\chi^{2}$, and the highest average $p-value$ however, when regarding each data set as a novel contest, the Adaptive Exponential lost to the Izhikevich model on two or more data sets see appendix \ref{appendix}.
+Adexp $28.55$ versus 
+Izhikevich $1.39$
+The problem was that the Adaptive Exponential failed to find biologically plausible fits on most of the Neuroelectro data sets: olfactory mitral cell and Cerebellum Purkinje cell. however, if you remove these two difficult data sets, and then judge models on 6 of the 8 remaining tests, then the adaptive exponential has the lowest mean $\chi^{2}$ statistic. $AdExp=0.51$	$Izhikevich=0.99$.
+
+Like the AdExp cell, GLIF cell had success only if you consider limited ranges of data. If you consider only Allen cell types sources of data, then the GLIF cell has $\chi^{2}$ values as slightly lower than $1.0$ GLIF 4 Allen Tests only, however, if you include all the 8 tests, then the mean $\chi^{2}$ value is very high. $364.15$
+
+The GLIF cells were able to recapitulate FIslope exactly, however, this caused conflicts with ability to fit time constant, and rheobase values.
+
+The GLIF model was able to optimize cells to be within the biologically plausible range $\chi^{2}<1.0$, however these models were slow, unless $dt>=0.5ms$. and the quality of fits was not astounding, given such slow simulator convergence.
+
+As discussed in methods the Izhikevich model consisted of $4$ different equations, it is of interest to know, if allowing the optimizer access to the broader range of firing regimes improved electrical fits. After consulting the results see \ref{appendix}, we found that in fact, all sub-models excepting for model $6$ (TC - Cat dorsal LGN thalamocortical (TC) cell) were utilized to create best fits. With $4$ Rat barrel cortex Low-threshold  spiking (LTS) interneuron 
+$5$ FS - Layer 5 rat visual cortex fast-spiking (FS) interneuron , used the most often. Equations $1-3$ in this case representing the "regular-spiking" regime all numbers $1-3$ was only used in one fit Allen specimen $id-623960880$.
 
 
 %\item 
@@ -65,17 +83,17 @@ The EFEL measurements on Allen Data
 %\end{itemize}
 
 %\section{What does it mean.}
-\begin{itemize}
+%\begin{itemize}
 
-\item  In methods I discussed an approach to verifying the optimizer.
-$-$ Specifically, we showed efficient optimizer convergence when constraints were derived from simulating experiments.
+%\item  In methods I discussed an approach to verifying the optimizer.
+%$-$ Specifically, we showed efficient optimizer convergence when constraints were derived from simulating experiments.
 
 %When the optimizer setup is cogent because appropriate models and test combinations have been chosen, and because
 %$N_{free_params} <= N_{constraints}$
 
 
 %\item  In order to verify our approach we also re-implemented our code using BluePyOpts select best algorithm, and NSGA2.
-\end{itemize}
+%\end{itemize}
 
 %Model constraint combinations give rise to differences in how correlated errors are during gene evolution. 
 

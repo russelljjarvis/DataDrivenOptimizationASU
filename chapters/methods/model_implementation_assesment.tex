@@ -7,7 +7,9 @@ Model optimization follows the following basic approach:
 	\item Execute optimization of that model class against that suite of tests to return an optimized model.
 \end{enumerate}
 Within these steps are also a number of smaller decisions, including where the experimental data will be obtained and what kind of simulator will be used to run the model.
+
 Using NeuronUnit, the steps above take the follow pseudo-code form:
+
 \begin{lstlisting}[language=python]
 # Import code from NeuronUnit
 from sciunit import TestSuite
@@ -22,6 +24,10 @@ test1 = MyTestClass1(observation=neural_data)
 test_suite = TestSuite([test1, test2, test3])
 results = test_suite.optimize(model)
 \end{lstlisting}
+
+There are two different paradigms for evaluating models in neuronunit, under paradigm 1 the model is a supported NeuronUnit, therefore dynamic simulation of the model are present on the host computer and cheap to re-run.
+
+Under paradigm 2 model only consists of known current voltage mappings, this is because the true model is either so complex, and it would not improve clarity and simplicity to re-implement again, or the true model sweeps are accessed via the NeuroML-DB API, or the true model is actually experiments. The optimization procedures I describe in this work involve both paradigms, optimizing within the scope of paradigm2 required dedicated code, that are not supported within the other previously described frameworks.
 
 \section{Model Class Implementations}
 Because optimization may involve an extremely large number of independent simulations of the same class of model, each varying only in model parameter values, it is critical that both the overhead for model instantiation and the duration of simulation itself, be as low as possible. We built faster python implementations of two neuronal models (Izhikevich model and adaptive Exponential model). One of the implementations was based on MATLAB forward euler implementation of the Izhi model, another implementation of the Adaptive Exponential model came from vectorized python code, which was relatively slow.
@@ -218,11 +224,11 @@ model.}
 
 %This problem in the default parameterization of the python model was later located in the scale or units of capacitance, if default capacitance parameterization is multiplied by 100.0 the problem goes away.
 
-    \begin{verbatim}
-time taken on block 8.573923826217651
-    \end{verbatim}
+Took $8.57$ seconds to find Rheobase.
 
-The author also engineered GLIF model support for $NeuronUnit$ tests. In practice these models where hard to configure without expert knowledge, GLIF models contain the most parameters of all models, and many of these parameters are vectors, not scalars. GLIF models do not visually spike which makes debugging their behavior very difficult. %None the less GLIF models where among the fastest to evaluate, and the author had success in making fitting these models to Allen Rheobase data.
+The author also engineered GLIF model support for $NeuronUnit$ tests. In practice these models where hard to configure without expert knowledge, GLIF models contain the most parameters of all models, and many of these parameters are multi dimensional. GLIF models do not by necessity spike, interpolated spike times, are added in however, it does not make sense to evaluate GLIF models on spike shape features.
+
+%which makes debugging their behavior very difficult. %None the less GLIF models where among the fastest to evaluate, and the author had success in making fitting these models to Allen Rheobase data.
 
     %\graphicspath{ {../figures/} }
 %    \begin{center}

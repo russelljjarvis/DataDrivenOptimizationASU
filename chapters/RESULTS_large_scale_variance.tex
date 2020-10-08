@@ -1,11 +1,7 @@
-%Model repurposing is common and it is done on a network scale \cite{traub} and an individual cell scale.
-%Experimental evidence is starting to reveal that model re-purposing of pyramidal neurons might not be a good idea.
-It is known that neural models and experimental measurements diverge generally and in important ways, however, it is desirable to know the specific sources of divergence. Models and experiments may disagree, for two reasons: A the model is not flexible enough to satisfy a particular constraint simultaneously to a collection of constraints, or, B the model was incorrectly fitted to the wrong type of measurement (for example model fitted to spike times at the expense of Rheobase, and FISlope). 
+
+It is known that neural models and experimental measurements generally diverge in important ways, however, it is desirable to know the specific sources of divergence. Models and experiments may disagree for two reasons: \emph{A} the model is not flexible enough to satisfy a particular constraint simultaneously to a collection of constraints, or, \emph{B} the model was incorrectly fitted to the a type of conflicting constraints (for example model fitted to spike times at the expense of Rheobase, and FISlope). 
 
 Since we don't yet have complete knowledge of model/experiment divergence, we don't necessarily know the best features to target with regards to model fitting. Specific knowledge of model/data disagreement facilitates the prioritized selection of features that should guide optimization. 
-%a voltage recordings should be prioritized as optimization constraints.
-
-
 
 \begin{figure}
     \centering
@@ -23,7 +19,7 @@ Since we don't yet have complete knowledge of model/experiment divergence, we do
 \begin{figure}
     \centering
     \includegraphics{figures/AHP.png}
-    \caption{Caption}
+    \caption{After hyperpolarisation potential }
     \label{fig:features_example_ahp}
 \end{figure}
 
@@ -36,11 +32,12 @@ In the following multivariate analysis we analyze hundreds of such features, and
 
 
 \subsubsection{Publications Associated with Model Sources}
-972 models, 448 experiments.
+$972$ models, $448$ experiments.
+$1276$ samples. This did not include some blue brain cells. After data cleaning many data points were dropped.  $244$
+$1420$
 
-Allen Institute for Brain Science Cell Types Database [7] can be accessed using the SDK. 
 
-The Blue Brain Project Dataset can be obtained from the Data Navigator, or an API.
+Allen Institute for Brain Science Cell Types Database [7] can be accessed using the SDK.  The Blue Brain Project Dataset can be obtained from the Data Navigator, or an API.
 
 \begin{itemize}
 \item Allen Institute V1 \cite{gouwens2018systematic}
@@ -114,9 +111,8 @@ peak_indices_1.5x efel
 min_AHP_indices_1.5x efel 
 \end{verbatim}
 
-
 Principle component 2 had non zero loadings for ranked (highest to lowest)
-$
+\begin{verbatim}
 fast_trough_index_1.5x allen 
 peak_index_1.5x allen 
 upstroke_index_1.5x allen 
@@ -125,40 +121,32 @@ fast_trough_index_3.0x allen
 peak_index_3.0x allen 
 upstroke_index_3.0x allen 
 threshold_index_3.0x allen
-$
-These are the weighted features that were used to make Eigen vectors 1 and 2, are responsible for most of the variance. Interestingly these features are mostly belonging to the Allen SDK, with two exceptions: $peak_indices_1.5x$ $min_AHP_indices_1.5 \times$ belonging to EFEL efel 
+\end{verbatim}
 
-Move to Discussion 
-Another observation is that a small majority of features used to create the sparse Eigen Vectors, are in the range of $1.5$ * rheobase, and slightly fewer are features from a $3.0\times$ rheobase experiment. I believe this is because, larger spike time variability $C_{V}$ is expressed in intermediate ranges of current injection. Under the highest current injections, high frequency evenly spaced spikes are likely, although spike frequency adaption is possible, the higher current may force to spikes to occur promptly after their refractory period, and in this case you might observe diminishing amplitude of spikes with increasing stimulus duration.
+These are the weighted features that were used to make Eigen vectors 1 and 2, are responsible for most of the variance. Interestingly these features mostly belong to the Allen SDK feature extraction set, with two exceptions: $peak_indices_1.5x$ $min_AHP_indices_1.5 \times$ belonging to EFEL efel 
+
+%Move to Discussion 
+Another observation is that a small majority of features used to create the sparse Eigen Vectors, are in the range of $1.5$ * rheobase, and slightly fewer are features from a $3.0\times$ rheobase experiment. A reason for this is as follows, larger spike time variability $C_{V}$ is expressed in intermediate ranges of current injection. Under the highest current injections, high frequency evenly spaced spikes are likely, although spike frequency adaption is possible, the higher current may force to spikes to occur promptly after their refractory period, and in this case you might observe diminishing amplitude of spikes with increasing stimulus duration.
 
 At $1.5 \times rheobase $ I believe there to be more spike time variation, at $3.0 \times rheobase $  I believe there to be more spike amplitude variation.
 
-
-%Scientific insight is well-served by the discovery and optimization of abstract models that can reproduce experimental findings. NeuroML (NeuroML.org), a model description language for neuroscience, facilitates reproducibility and exchange of such models by providing an implementation-agnostic model description in a modular format. NeuronUnit (neuronunit.scidash.org) evaluates model accuracy by subjecting models to experimental data-driven validation tests, a formalization of the scientific method. 
-
-
-% After applying dimensionality reduction to this very high dimensional feature space, we show that the real (biological neurons) and simulated (model neurons) recordings are easiley and fully discriminated by eye or any reasonable classifier.  
-
-% Are they still discernable?
-972 models, 448 experiments.
-
 \subsubsection{Sparse PCA}
-Interestingly models and experiments clustered separately to each other in the low dimensional space. That is to say models and data were easily separable in the direction of the 2nd Eigen Vector.
+Sparse PCA revealed five overlapping different groups of neuronal identity's, and three non overlapping clusters. Models and experiments clustered separately to each other in the low dimensional space. Models and data were easily separable in the direction of the 2nd Eigen Vector.
 
 %The first principle component 
-Models and experiments shared the same breadth of variability across the first principal component, with only slightly more variance in the experiments than in the data. Allen cell types experiments seemed to encompass the most variability out of models and experiments across all data sets.
+Models and experiments shared the same breadth of variability across the first principal component, with only slightly more variance in the experiments than in the data. Allen cell types experiments seemed to encompass the most variability out of models and experiments across all data sets. Models clustered tightly and varied less than in vitro experiments.
 
 
-Models clustered tightly and varied less
-
-Sparse PCA revealed five overlapping different groups of neuronal identity's, and three non overlapping clusters.
 
 Although imputation was successfully used to avoid dropping a large number of samples, about half of all initial BBP/Allen models data types were excluded from a final analysis, because they did not all capable of meeting inclusion criteria.  
+
+\ref{fig:reference_feature_list}
+List of complete 47 features used in the analysis down from 466 after data cleaning.
+
 
 There was one group of Allen cell type experiments that clustered on their own, making one set of the cluster.
 
 sparse PCA 2nd Eigen Vector. 
-%Consequently, not a single model neuron produced physiological responses that could be confused with a biological neuron. Was this a defect of the model design (e.g. key mechanisms unaccounted for) or of model parameterization? We found that if we introduced models that were revised via optimization the revised models overlapped with the distribution of biological neurons, and were mostly classified as such. 
 Disagreement between models and in-vivo neurons may reflect limitations of model design and can be investigated by probing the key features used by classifiers to distinguish these two populations. 
 
 \begin{figure}    
@@ -218,4 +206,18 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
     \item threshold\_index\_3.0x allen feature
 \end{itemize}
 
+After identifying specific sources of model and experiment divergence, it is now possible in theory to start fitting models which  seek to resolve specific types of disagreement. However, as alluded to in the introduction, it was found that were two other important factors. 
 
+%Model repurposing is common and it is done on a network scale \cite{traub} and an individual cell scale.
+%Experimental evidence is starting to reveal that model re-purposing of pyramidal neurons might not be a good idea.
+
+%Scientific insight is well-served by the discovery and optimization of abstract models that can reproduce experimental findings. NeuroML (NeuroML.org), a model description language for neuroscience, facilitates reproducibility and exchange of such models by providing an implementation-agnostic model description in a modular format. NeuronUnit (neuronunit.scidash.org) evaluates model accuracy by subjecting models to experimental data-driven validation tests, a formalization of the scientific method. 
+
+
+% After applying dimensionality reduction to this very high dimensional feature space, we show that the real (biological neurons) and simulated (model neurons) recordings are easiley and fully discriminated by eye or any reasonable classifier.  
+
+% Are they still discernable?
+%972 models, 448 experiments.
+
+
+%Consequently, not a single model neuron produced physiological responses that could be confused with a biological neuron. Was this a defect of the model design (e.g. key mechanisms unaccounted for) or of model parameterization? We found that if we introduced models that were revised via optimization the revised models overlapped with the distribution of biological neurons, and were mostly classified as such. 
