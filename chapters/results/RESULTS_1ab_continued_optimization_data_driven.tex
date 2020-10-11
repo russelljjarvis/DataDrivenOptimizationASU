@@ -1,12 +1,38 @@
 
-\subsection{Experiment Fitted Results Allen Brain Institute, Cell-types Ephysiological data, Elephant Tests}
 
 
-\subsection{Experiment Fitted Results Neuroelectro data, Elephant Tests}
 
-Over four different experiments we constructed 7-8 different NeuronUnit tests. 
 
-$\chi^{2}=\Sigma zscores^{2} $
+
+\subsubsection{Experiment Fitted Model Results} 
+
+%Allen Brain Institute, Cell-types E-Physiological data, Elephant Tests
+%\subsection{Experiment Fitted Results Neuroelectro data, Elephant Tests}
+
+Over four different Allen experimental sweeps, and four different different cell type specific electrical observations, we created eight unique data sets, and then converted these eight data sets to neuronunit test suites.
+
+We then took four different models, and we attempted to fit each test set to each model. The result of was a four $\times $ eight factorial of model data combinations. For each each member of this 32 set factorial we wanted to know if the fitted model behaved in a biological plausible manner, we were interested to know if fitted models were convincing mimics of in-vivo cells, at least with respect to the measurements models were trained to fit.
+
+
+\subsection{Standard Error of the Mean}
+\begin{tabular}{lrrrrrrr}
+\toprule
+{} &  Rheobase &  SpikeThreshold &  SpikeHalfWidth &  SpikeAmplitude &  MembraneTimeConstant &  RestingMembranePotential &  InputResistance \\
+sem                                &           &                 &                 &                 &                       &                           &                  \\
+\midrule
+Hippocampus CA1 pyramidal cell     &    122.88 &            1.85 &            0.12 &            3.68 &                  3.88 &                      0.72 &            12.57 \\
+Olfactory bulb (main) mitral cell  &       NaN &            5.69 &            0.12 &            2.83 &                  5.42 &                      1.39 &            20.17 \\
+Cerebellum Purkinje cell           &    419.81 &            2.00 &            0.05 &            0.57 &                   NaN &                      3.69 &            19.26 \\
+Neocortex pyramidal cell layer 5-6 &    128.87 &            1.92 &            0.17 &            1.49 &                  2.56 &                      1.84 &            27.93 \\
+\bottomrule
+\end{tabular}
+
+
+Since some of the NeuroElectro data sources were more challenging to fit, we also computed the Standard Error of the Mean, so that later we could interprite model fitting failure. Forinstance, the SEM is a prediction of a measurements dispersal, it is often used when the standard deviation is unknown. 
+
+The $\chi^{2}$ statistic, and the p-value give us a formally indicates how convincing each fitted model was in its mimicry of biological measurements.
+Because we already have a list of Z-scores, the $\chi^{2} $statistic can be obtained by squaring each Z-score and summing the result. A sum of squares less than 1, tells us that models performed well.
+$\chi^{2}=\Sigma_{i} (Zscore_{i}^{2}) $
 
 %https://en.wikipedia.org/wiki/Chi-square_distribution
 %This allows you to state this as a hypothesis test with a p-value.  The chi-square statistic would simply be , and the p-value would be 1-scipy.stats.chi2.cdf(x, 8) where 8 is the number of elephant tests (and Z-scores).  A very small p-value (which would come from very large chi-square statistic, much larger than expected for random variation) %would mean the optimizer was less successful at recovering the true model.

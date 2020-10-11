@@ -5,11 +5,13 @@ Over rheobase, input resistance, capacitance, and time constant, we took measure
 
 When we have mean measurements, and also mean model measurements, it enables us to understand if bi-modal distributions of measurements in experimental data can pose a problem for optimization of cells.
 
-We know from examining neuroelectro data closely that bi-modal distributions of input resistance, and cell membrane capacitance exist, but we do not always know how invalid it is to fit to the mean of a bi-modal distribution.
+Previously in methods \ref{section:nelectro} , we graphically inspected the neuroelectro data sources closely, in order to assess each measurements distribution. We revealed Bi-modal distributions in input resistance, and cell membrane capacitance, but we do not yet know if it is invalid to fit to the mean of a bi-modal distribution. Consider a  cell class which had an underlying bimodal distribution for input resistance. An individual cell from this class produced measurements for input resistance midway between two modes for input resistance. Its entirely concievable that that this mean cell would produce measurements that were also the mean of the two modes, however, we cannot assume that there this to be true, it seems equally likely that this midway cell produces a measurement for input resistance, that is significantly higher or lower than the mean of the two modes. To bolster that this non linear behavior could be a problem with in-silico models of in-vivo experiments. We created virtual experiments to expose non-linear behavior between two  close, but different sets of model parameters.
 
-We expect the Izhikitich model, and the adaptive exponential models to support "regime" change, that is we know that there are regions in parameter space that where when entered cell behavior becomes fundamentally different. Some regions support tonic-bursting and other regions support chattering.
+%set about establishing that it is a problem in modelling space.
+%The genetic algorithm approach, of recombining model parameters to sample error surface is a similar concept. We do not naively interpolate using midway points, becuase we don't expect that small changes in model parameters to have linear effects.
+%to sampling models 
 
-To verify that this may be a problem in real experiments, we set about establishing that it is a problem in modelling space.
+We expect the Izhikitich model, and the adaptive exponential models to support "regime" change, that is we know that there are regions in parameter space that where when entered cell behavior becomes fundamentally different. For instance in the Izhikevich model, some regions support tonic-bursting and other regions support chattering. 
 
 \begin{figure}
     \centering

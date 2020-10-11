@@ -68,6 +68,45 @@ List of complete 47 features used in the analysis down from 466 after data clean
 \end{figure}
 
 
+Below there are two sets of standards for models. In type of standard, the NeuronUnit tests, themselves act as the final judge of model quality, in the absence of a spike width tests, many AdExp models were able to get very good fits on against supplied constraints, but plots of actual spike shape looked very unnatural, as spike width lasted $>=$ 6ms. Applying extra standards beyond the NeuronUnit tests creates a dilemna. As all the GLIF models, presented unusual spike shapes.
+
+
+
+\subsection{All results again higher standards of spike shape}
+\begin{tabular}{lllrr}
+\toprule
+{} & model\_value &                            exp\_cell &   chi\_square &       p\_value \\
+\midrule
+0 &        IZHI &                           482493761 &     1.151795 &  9.970955e-01 \\
+0 &        IZHI &                           471819401 &     0.760844 &  9.993550e-01 \\
+0 &        IZHI &                           623893177 &     6.446678 &  5.973281e-01 \\
+0 &        IZHI &                           623960880 &     0.754265 &  9.993754e-01 \\
+0 &        IZHI &                             olf\_mit &  4621.387632 &  0.000000e+00 \\
+0 &        IZHI &  Neocortex pyramidal cell layer 5-6 &     2.810166 &  9.456998e-01 \\
+0 &        IZHI &            Cerebellum Purkinje cell &    28.116541 &  4.525889e-04 \\
+0 &        IZHI &      Hippocampus CA1 pyramidal cell &     1.831416 &  9.857511e-01 \\
+0 &       ADEXP &                           482493761 &    86.870278 &  1.998401e-15 \\
+0 &       ADEXP &                           471819401 &    60.395629 &  3.898003e-10 \\
+0 &       ADEXP &                           623893177 &    66.476793 &  2.461886e-11 \\
+0 &       ADEXP &                           623960880 &    58.170312 &  1.063780e-09 \\
+0 &       ADEXP &                             olf\_mit &   281.405822 &  0.000000e+00 \\
+0 &       ADEXP &  Neocortex pyramidal cell layer 5-6 &     0.014557 &  1.000000e+00 \\
+0 &       ADEXP &            Cerebellum Purkinje cell &    49.462973 &  5.182142e-08 \\
+0 &       ADEXP &      Hippocampus CA1 pyramidal cell &     0.670366 &  9.995972e-01 \\
+0 &        GLIF &                           482493761 &     1.970191 &  9.819121e-01 \\
+0 &        GLIF &                           471819401 &     3.647416 &  8.874525e-01 \\
+0 &        GLIF &                           623893177 &     2.506666 &  9.614194e-01 \\
+0 &        GLIF &                           623960880 &     2.091929 &  9.780631e-01 \\
+0 &        GLIF &                             olf\_mit &          NaN &           NaN \\
+0 &        GLIF &  Neocortex pyramidal cell layer 5-6 &   571.190397 &  0.000000e+00 \\
+0 &        GLIF &            Cerebellum Purkinje cell &          NaN &           NaN \\
+0 &        GLIF &      Hippocampus CA1 pyramidal cell &  1088.826832 &  0.000000e+00 \\
+\bottomrule
+\end{tabular}
+
+
+
+
 \begin{tabular}{lr}
 \toprule
 $\chi^{2}$ &  0.249615 \\
