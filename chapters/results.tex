@@ -1,0 +1,87 @@
+
+
+
+
+
+\begin{comment}
+Is Optimization possible?
+       1a. Construction of tests from diverse experimental sources (I wrote the neuroelectro api and its use in neuronunit, and wrote the original Allen one, but you have put in work to create runnable tests from these and other sources).  This is in a sense a method, but you can still report that these tests are runnable, even outside of optimization.
+       1b. Simulated data tests of optimization.  What works?  What doesn’t?  Why (briefly, saving some for discussion)?  NeuroElectro vs Allen also belong here, and fits in with 1a.  You should talk about model means vs means of models (or whatever we are calling it) here, if you have the results for it or think you can in 3 weeks.  
+       %You can talk about rippled error surfaces — this is such a deep technical detail that I wouldn’t spend a lot of time on it.  In other words it may be important but it will be almost impossible to follow even if written well.
+2. Results for several optimized models.
+    2a. First just do basic ones (like Izhikevich) for a few cell types, then you can close with L5PC.
+    2b. The app (which supports 2a).
+3. Study of variance between models and data.  The optimized models part of this section is predicated on result 1b (so that optimization results can be believed).  You already have the poster for this.
+I think this captures most of your results in three themes.  Other results which are really methods, like parallel rheobase search, can stay in the methods, and you will get credit for them there.
+\end{comment}
+
+\subsection{Standard Error of the Mean}
+
+
+\input{chapters/results/RESULTS_1ab_intro} 
+\input{chapters/results/RESULTS_1b_verification_of_the_optimizer} % ie is optimizaation possible?
+\input{chapters/results/RESULTS_2a} % STILL NEEDS A FEW basic results, from the appendix
+
+%\input{chapters/results/RESULTS_3_11} 
+\input{chapters/results/RESULTS_3large_scale_variance}
+
+\input{chapters/results/RESULTS_1b_extended_mean_model_not_eqaul_mean_measurement}
+
+%\input{chapters/results/RESULTS_elephant_ne_new}
+\input{chapters/results/RESULTS_L5PC_cell}
+\input{chapters/results/RESULTS_allen_multispiking}
+
+\input{chapters/results/RESULTS_optimization_data_driven}
+
+\input{chapters/results/RESULTS_web_app_2b}
+
+
+%Test combinations that worked and did not work.
+%note move the majority to the appendix
+%Moved to appendix, will move back specific results
+
+\subsubsection{Wrapping up Results}
+
+\subsection{Section 3.11}
+Tests that were not always amenable to optimization:
+\begin{itemize}
+\item ThresholdTest
+\item SpikeHalfWidth
+\item Spike Amplitude
+\end{itemize}
+as discussed previously this is because of a threshold measurement that differs between cells. This may be more of a problem in certain regions of model parameter space, but the problem was general, it occurred in multiple models.
+%Aim 1A, write something about tests overall.
+%Overall the some 
+Tests of static electrical properties amenable to optimization:
+\begin{itemize}
+\item FISlopeTests
+\item Rheobase
+\item Capacitance
+\item Input Resistance
+\item Time Constant 
+\end{itemize}
+%, , , , test worked but was conflicted. The tests that did not work. This is somewhere else.
+
+Tests that worked within optimization:
+Via \emph{Elephant} toolchain: FITests, Rheobase, Capacitance, Input Resistance, Time Constant, Resting Membrane Potential.
+Via. 
+
+When optimizing in the supra threshold regime Druckmann used:
+(1) spike rate; (2) an accommodation index; (3) latency to first spike;(4) average AP overshoot; (5)average depth of after hyperpolarization (AHP); 
+(6) average AP width similar to Druckman, when optimizing in the supra threshold regime.
+When optimizing with reduced models, I found that the those 6 measurements were not enough to tightly constrain a fit, and additional constraints were helpful. In this work a minimum of 12 constraints were typically used:
+\emph{EFEL} tool chain:
+\begin{itemize}
+\item AHP_depth
+\item all_ISI_values,
+\item Spikecount (similar to rate)
+\item adaptation_index
+\item mean_AP_amplitude  
+\item min_voltage_between_spikes
+\item minimum_voltage
+\item peak_voltage
+\item spike_half_width
+\item time_to_first_spike
+\item time_to_last_spike
+\item voltage_base
+\end{itemize}

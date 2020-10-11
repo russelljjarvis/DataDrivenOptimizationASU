@@ -1,24 +1,25 @@
 
 
-%1a. Construction of tests from diverse experimental sources (I wrote the neuroelectro api and its use in neuronunit, and wrote the original Allen one
+%1a/b Is Optimization possible?
+%       1a. Construction of tests from diverse experimental sources (I wrote the neuroelectro api and its use in neuronunit, and wrote the original Allen one, but you have put in work to create runnable tests from these and other sources).  This is in a sense a method, but you can still report that these tests are runnable, even outside of optimization.
+%       1b. Simulated data tests of optimization.  What works?  What doesn’t?  Why (briefly, saving some for discussion)?  NeuroElectro vs Allen also belong here, and fits in with 1a.  You should talk about model means vs means of models (or whatever we are calling it) here, if you have the results for it or think you can in 3 weeks.  
 
+       %You can talk about rippled error surfaces — this is such a deep technical detail that I wouldn’t spend a lot of time on it.  In other words it may be important but it will be almost impossible to follow even if written well.
+
+\subsection{Two Data Types: Spike Feature Experiments, versus Electrophysiology reports}
+
+
+
+\subsection{Executable NeuronUnit Allen Tests}
+I created an Allen experiment to NeuronUnit test API, the API allows one to create neuronunit tests from a data base of experimental cellular recordings. Tests obtained via the Allen API, were designed to execute inside a BluePyOpt framework. An example of those tests being deployed is online: \url{https://github.com/fun-zoological-computing/BluePyOpt/blob/master/examples/bpo_nu_fusion/allen_efel_nu_deployed_tests_only-thesis.ipynb}
+%Construction of tests from diverse experimental sources 
 %My allen API is perhaps scattered. Allen API.
 %Which is the best model.
-
-The tests that were output from the Allen API, were designed to execute inside a BluePyOpt framework. An example of those tests being deployed is online: \url{https://github.com/fun-zoological-computing/BluePyOpt/blob/master/examples/bpo_nu_fusion/allen_efel_nu_deployed_tests_only-thesis.ipynb}
-
-%, but you have put in work to create runnable tests from these and other sources).  This is in a sense a method, but you can still report that these tests are runnable, even outside of optimization.
-%1b. Simulated data tests of optimization.  What works?  What doesn’t?  Why (briefly, saving some for discussion)?  NeuroElectro vs Allen also belong here, and fits in with 1a.  You should talk about model means vs means of models (or whatever we are calling it) here, if you have the results for it or think you can in 3 weeks.  You can talk about rippled error surfaces — this is such a deep technical detail that I wouldn’t spend a lot of time on it.  In other words it may be important but it will be almost impossible to follow even if written well.
-%2. Results for several optimized models.
-%    2a. First just do basic ones (like Izhikevich) for a few cell types, then you can close with L5PC.
-%    2b. The app (which supports 2a).
-%3. Study of variance between models and data.  The optimized models part of this section is predicated on result 1b (so that optimization results can be believed).  You already have the poster for this.
-
 In order to optimize reduced models, it was first necessary to develop optimizer-friendly implementations of these models. As described in methods, I developed four different optimizer friendly models: Izhikevich model (spanning seven regimes), Adaptive Exponential Integrate and Fire model, and General Leaky Integrate and Fire Model, additionally I included a slower traditional conductance based model, to make some comparisons.
 
 The range of tests available for optimization in NeuronUnit was also incomplete, as it was limited to the passive membrane properties or the shapes of single action potentials.  In order for model output to reflect experimental data, it was also necessary that the timing and patterns of action potentials be assessed and tested. 
 
-Therefore, I developed the ability for EFEL features to be calculated on NeuronUnit models, as well as tests based on FISlope in Allen celltypes that I collated into dedicatated EFEL/Allen Data test sets. This required both the extraction of novel features \[EFEL\] and novel test types: [ISI, AHP\_depth, adaption ratio etc.]. As described in the introduction, knowledge of error surfaces is helpful for garunteeing a good optimization result. Through human examination of resulting error surfaces, it was found that some of these tests were also intractable, because they depended on measurements that were changeable relative to some other changeable measurement inside the cell usually $max(\frac{dV_{m}}{dt})/10$.
+Therefore, I developed the ability for EFEL features to be calculated on NeuronUnit models, as well as tests based on FISlope in Allen celltypes that I collated into dedicatated EFEL Allen Data test sets. This required both the extraction of novel features EFEL and novel test types: [ISI, AHP\_depth, adaption ratio etc.]. As described in the introduction, knowledge of error surfaces is helpful for garunteeing a good optimization result. Through human examination of resulting error surfaces, it was found that some of these tests were also intractable, because they depended on measurements that were changeable relative to some other changeable measurement inside the cell usually $max(\frac{dV_{m}}{dt})/10$.
 
 Multi-core and or multi-threaded optimization requires that information about model properties be shareable between various processor threads. However, some common data types contain information that is not shareable between CPUs, and they must be translated into a globally sharable framework. I created a class, that could translate and envelope only shareable data to solve this problem.
 
@@ -71,9 +72,33 @@ A suite of neuronunit tests containing the tests: rheobase value, membrane volta
 
 Significant development work went into making the model eligible to take NeuronUnit tests, by way of creating a specially dedicated NeuronUnit backend, to run this complicated conductance based multi-compartment model originating from the blue brain model \cite{markram2015reconstruction}. The intention is that by making this model interoperable with NeuronUnit the model will be able to amenable to optimization.
 
-This elaborate biophysical model includes the backpropogating dendritic action potential.
-\url{}
 
+\subsection{The Experimental Measurements}
+
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lllllllll}
+\toprule
+name & Hippocampus CA1 pyramidal cell & Cerebellum Purkinje cell & Neocortex pyramidal cell layer 5-6 &      olf\_mit &      623960880 &      623893177 &      471819401 &      482493761 \\
+\midrule
+RheobaseTest                   &                      189.24 pA &                680.79 pA &                          213.85 pA &          NaN &        70.0 pA &       190.0 pA &       190.0 pA &        70.0 pA \\
+InputResistanceTest            &                    107.08 Mohm &              142.06 Mohm &                        120.67 Mohm &  130.08 Mohm &  241.0 megaohm &  136.0 megaohm &  132.0 megaohm &  132.0 megaohm \\
+TimeConstantTest               &                        24.5 ms &                      NaN &                           15.73 ms &     24.48 ms &        23.8 ms &        27.8 ms &        13.8 ms &        24.4 ms \\
+CapacitanceTest                &                        89.8 pF &                620.27 pF &                          150.58 pF &    235.75 pF &            NaN &            NaN &            NaN &            NaN \\
+RestingPotentialTest           &                      -65.23 mV &                -61.59 mV &                          -68.25 mV &    -58.14 mV &       -65.1 mV &       -77.0 mV &       -77.5 mV &       -71.6 mV \\
+InjectedCurrentAPWidthTest     &                        1.32 ms &                  0.41 ms &                            1.21 ms &      1.61 ms &            NaN &            NaN &            NaN &            NaN \\
+InjectedCurrentAPAmplitudeTest &                       86.36 mV &                 71.23 mV &                           80.44 mV &      68.4 mV &            NaN &            NaN &            NaN &            NaN \\
+InjectedCurrentAPThresholdTest &                       -47.6 mV &                -46.89 mV &                          -42.74 mV &     -38.9 mV &            NaN &            NaN &            NaN &            NaN \\
+FITest                         &                            NaN &                      NaN &                         0.05 Hz/pA &          NaN &     0.18 Hz/pA &     0.12 Hz/pA &     0.18 Hz/pA &     0.09 Hz/pA \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+This elaborate biophysical model includes the backpropogating dendritic action potential.
+\url{https://github.com/BlueBrain/BluePyOpt/blob/master/examples/l5pc/L5PC.ipynb}
+\url{https://github.com/social-hacks-for-mental-health/BluePyOpt/blob/master/examples/l5pc/L5PC.ipynb}
 
 
 \begin{figure}

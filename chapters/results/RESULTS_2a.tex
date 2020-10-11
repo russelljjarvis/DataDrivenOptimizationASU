@@ -1,5 +1,4 @@
 %\subsection{Neocortical Layer 4/5 Pyramidal Cell Test Suite}
-\subsubsection{2a}
 
 %Direct Quote: "widening of the spike shape, decrease of the firing rate and change in the interspike interval distribution". %All these single unit waveform shapes increased their width with temperature.\cite{goldin2017temperature}
 
@@ -7,14 +6,17 @@
 
 %\subsubsection{%\subsection{Section 2.1}
 %
-%
+%2. Results for several optimized models.
+%    2a. First just do basic ones (like Izhikevich) for a few cell types, then you can close with L5PC.
+%    2b. The app (which supports 2a).
+
+%\subsubsection{2a}
+
 \subsubsection{Performance of Layer 5 Pyramidal Neuron Somatosensory model on NeuronUnit tests}
 %Hind-limb
 \cite{van2016bluepyopt}
 %To understand the validity of model re-purposing, we tested a model constrained on Layer 5 Somatosensory cortex Pyramidal neurons. 
 A suite of neuronunit tests containing the tests: rheobase value, membrane voltage time constant ($tau_{m})$, input resistance was computed. This multi-compartment, conductance based model originating from the blue brain project \cite{markram2015reconstruction}. This model served as a useful benchmark, for us to evaluate the relative performance of reduced model fits. 
-
-
 
 % somatosensory cortex, or cell from the l5 somatosensory rat, hind leg region, so it is probably not comparable to NeuroElectro Data.
 
@@ -67,7 +69,7 @@ As a reference point for understanding
     \caption{The spike shape is very brief in duration, and so it is worth zooming in for a closer look}
 
 \centering
-\begin{subfigure}{.2\textwidth}
+\begin{subfigure}%{.2\textwidth}
   \centering
     \includegraphics[scale=0.5]{figures/L5Somatosensory_not_optimized.png}
     \caption{$V_{m}$ in $(mV)$ versus time $ms$, plots include a suprathreshold (top) and subthreshold stimulus (below)}
@@ -75,14 +77,14 @@ As a reference point for understanding
 \end{subfigure}
 
 \centering
-\begin{subfigure}{.2\textwidth}
+\begin{subfigure}%{.2\textwidth}
   \centering
     \includegraphics[scale=0.5]{figures/morphology_view.png}
     \caption{This multi-compartment model is spatially extended, so a 2D depiction of its 3D form is warranted.}
   \label{fig:brief_shape}
 \end{subfigure}
 
-\begin{subfigure}{.2\textwidth}
+\begin{subfigure}%{.2\textwidth}
   \centering
     \includegraphics[scale=0.5]{figures/correct_passive_l5pc.png}
     \caption{A current injection value of -$10pA$ is applied to the cell for the duration of $200ms-700ms$}
@@ -122,11 +124,9 @@ InjectedCurrentAPWidthTest     &      1.21 ms &                    2.075 ms &   
 InjectedCurrentAPAmplitudeTest &     80.44 mV &        63.31628969975701 mV &     -1.343 \\
 InjectedCurrentAPThresholdTest &    -42.74 mV &      -44.863238963316746 mV &    -0.2646 \\
 \bottomrule
-
+\end{tabular}}
 \caption{observations, predictions and Z-scores pertaining to the NeuronUnit optimized Layer 5 Pyramidal Neuron}
 \label{tab:l5pc_table}
-\end{tabular}}
-
 \end{table}
 
 Due to computational limitations this model was only run for 

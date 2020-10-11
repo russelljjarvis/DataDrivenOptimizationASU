@@ -7,8 +7,8 @@ Four factors needed to be controlled for, before we locate the cause of poor mod
 
 The digital models we used were known to be not flexible enough to match all electrical features from cell experiments all the time; these models are by nature, self-constrained and therefore they cannot to be fitted to all experimental waveforms. Additionally the data sources may also have some fidelity problems, it was necessary to create data source independent "ground truths", by synthesising plausible data, with the digital models, and optimizing against these ground truths. Because the DEAP genetic algorithm, has been shown to be able solve Rastrigrins function, we expect that our derivative frame work, should be able to fit to simulated data sources, with a high degree of precision, and that is what we found.
 
+The optimizer was capable of producing perfect fits under ideal circumstances. We showed that the measurements the genetic algorithm was using were able to act as informative guides. Since we are confident about the optimizers ability to fit to synthesized data we can then locate sources of model/data disagreement in other places. 
 
-The optimizer was capable of producing perfect fits under ideal circumstances. We showed that the measurements the genetic algorithm was using were able to act as informative guides. Since we are confident about the optimizers ability to fit to synthesized data we can then locate sources of model/data disagreement in other places. \\ 
 In the subsequent tables and figures when the measurements:time constant, capacitance, Rheobase, Resting potential and Input resistance are used to constrain optimization.
 \begin{figure}
     \centering
@@ -31,10 +31,15 @@ In the subsequent tables and figures when the measurements:time constant, capaci
     \centering
     \includegraphics{figures/simulated_data_sub_threshold.png}
     \caption{Agreement between a simulated constraint waveform, and an optimized waveform, when both simulated constraint model and optimized model undergo a current injection value of $-10pA$}
-    \label{fig:my_label}
+    \label{fig:adexp_model_rebound_spike}
 \end{figure}
-\begin{comment}
 
+The plot of model membrane potential, as the model undergo's a $-10pA$ current injection, contains multiple spikes in the presence of an inhibitory current is unexpected. The reason this occurs, is because of an unusual model parameterization that makes modelled neuron "rebound spike" in response to attempts to move membrane potential down with voltage.
+
+\ref{fig:adexp_model_rebound_spike}
+
+\begin{comment}
+1
 \begin{figure}
     \centering
   \includegraphics{figures/simulated_data_stats.png}
@@ -93,7 +98,10 @@ For the different classes of Reduced Model we show that the optimizer converges 
 
 In a simulated experiment, existing models were instantiated using a randomly chosen model parameters.
 
-In the class of reduced neural models we are optimizing, are not arbitrary waveform generators. The models have intrinsic restrictions that prevent them from matching perfectly with experimental waveforms.
+The AdExp model, is not an arbitrary waveform generators. Models such as AdExp have intrinsic restrictions that prevent them from matching perfectly with all types of experimental waveforms.
+
+
+%In the class of reduced neural models we optimized 
 
 When constraints are derived from model measurements, intrinsic model restrictions no longer apply. Optimized models should match perfectly with the simulated experiments. 
 
