@@ -1,22 +1,34 @@
 \chapter{Methods}
 In addition to the deployment of existing methods to achieve my research goals, this dissertation contains a number of innovations which are best described as methodological.  I include some of these innovations here, especially those of an extremely technical nature.  Some other methodological innovations, especially those of more interest to the computational neuroscience community, are reported later in the Results chapters.
-\input{chapters/methods/model_implementation_assesment}
-\input{chapters/methods/rheobase}
+
+\section{Approach to optimization using NeuronUnit}
+Model optimization follows the following basic approach:
+\begin{enumerate}
+	\item Identify a model class whose parameters are to be optimized, e.g. the Izhikevich model.
+	\item Identify a neuron whose experimental data will be used to guide optimization.
+	\item Identify a suite of tests that can use that experimental data to guide the optimizer.
+	\item Execute optimization of that model class against that suite of tests to return an optimized model.
+\end{enumerate}
+Within these steps are also a number of smaller decisions, including where the experimental data will be obtained and what kind of simulator will be used to run the model.
+Using NeuronUnit, the steps above take the follow pseudo-code form:
+\begin{lstlisting}[language=python]
+# Import code from NeuronUnit
+from sciunit import TestSuite
+from neuronunit.models import MyModelClass
+from neuronunit.tests import MyTestClass1, MyTestClass2, MyTestClass3
+from neuronunit.data import get_data_from_database_x
+
+# Get data about my  neuron
+neuron_type = "Russell's neuron" # Replaced with a real neuron type in production
+neural_data = get_data_from_database_x(neuron_type)
+test1 = MyTestClass1
+test_suite = TestSuite([test1, test2, test3])
+\end{lstlisting}
+
+%\input{chapters/methods/model_implementation_assesment}
+%\input{chapters/methods/rheobase}
+\input{chapters/methods/model-improvements}
 \input{chapters/methods/NElectro_data_thesis}
 \input{chapters/methods/pitfalls}
 \input{chapters/methods/parallel_rheobase_thesis}
 \input{chapters/methods/technical_details_of_the_optimizer}
-
-In order to fit models to supra threshold experiments, we needed to develop an Allen Cell-types API as a counterpart to the neuroelectro API \newline \url{https://github.com/russelljjarvis/neuronunit/blob/master/neuronunit/allen_supra_threshold_api.py}.
-
-This API, queried the remote Allen cell types data base and obtained complete sets of recordings of spiking neurons in particular cells. This API, then sorted the waveforms into multiples of Rheobase, extracted EFEL features on appropriate spiking waveforms, built Static NeuronUnit models with relevant waveforms, and finally constructed NeuronUnit tests. A similar version of this API facilitated the multivariate analysis of variance in models/experiments, except that, in this context NeuronUnit tests were not required, and a broader set of features was obtained (Allen, EFEL, Druckmann).
-%fits of spike time and spike shape, 
-\subsubsection{Cortical Model and Cortical Experiment Analysis Methods}
-NeuroML-DB \cite{birgiolas2016rapid} catalogues over 1,500 published models obtained in NeuroML format from Open Source Brain \cite{gleeson2019open}. Complementing OSB, NeuroML-DB provides systematic characterizations of model complexity, electrophysiology, and morphology, making it easy to find, evaluate, and reuse models and their components. We used NeuroML-DB in conjunction with the aforementioned cell-types API to perform a large scale multivariate analysis of the agreement between models and experiments.
-
-A neuron model that imitated in-vivo neuronal behavior in response to any electrical stimulus would not be distinguishable from experiments by any conventional physiological measurement. In order to assess whether existing neuron models approached this standard, we took $972$ existing neuron models from NeuroML-DB.org and subjected them to a standard series of electrophysiological stimuli (somatic current injection waveforms). We also extracted analogous stimulus-evoked recordings of real $448$ in vitro cortical neurons from the Allen Cell Types database. We applied multiple feature extraction algorithms on the physiological responses of both model simulations and experimental recordings in order to characterize variation in behavior with a very high degree of detail spanning over 200 features.
-\subsubsection{Virtual Experiment} 
-Models, and experiments alike all underwent a sweep of current injection values. Significant code logic is applied to machine selecting sweeps that were the closest to $1.0\times $,$1.5\times$ and $3.0 \times$ rheobase, as the sweep data was not pre-labelled in this manner. With the said code logic in place, one could speak of a three step current injection scheme  mutually applied to models and in-vitro experiments. 
-Allen cell types experiments and Blue Brain Experiments both have collections of short pulse current steps, and long pulse current steps. You can see examples of both in this document, for simplicity we used experiments that lasted $3s$ and had $2s$ duration current injection values.
-
-%\input{chapters/METHODS_uniqueness_of_this_approach}

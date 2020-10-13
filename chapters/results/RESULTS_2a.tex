@@ -16,8 +16,12 @@
 %Hind-limb
 \cite{van2016bluepyopt}
 %To understand the validity of model re-purposing, we tested a model constrained on Layer 5 Somatosensory cortex Pyramidal neurons. 
-A suite of neuronunit tests containing the tests: rheobase value, membrane voltage time constant ($tau_{m})$, input resistance was computed. This multi-compartment, conductance based model originating from the blue brain project \cite{markram2015reconstruction}. This model served as a useful benchmark, for us to evaluate the relative performance of reduced model fits. 
 
+Below I introduce a different approach to parameter fitting work: a multi-compartment, conductance based layer 5 pyramidal cell model, was appropriated from BluePyOpt optimization framework, and massaged into the NeuronUnit framework. This model subserved as one of many component neurons in the priginal formulation of the blue brain project \cite{markram2015reconstruction}. This elaborate biophysical model is the philosophical opposite of the reduced models focused on in the majority of this thesis work, since the model incorporates electrically complex phenomena instead of excluding it from the model. The complex model includes a dendritic action potential which can travel "backwards" from distal dendrite to soma where it is free to summate with incomming EPSPs. As you can see in the list of parameters \ref{fig:ca1_parameters}, The model has different adjustable conductance's in 3 out of 4 membrane domains including axons, dendrites, and soma. There are also other parameters (not displayed here) which are fixed, but those specified in \ref{fig:parameters} are amenable to fitting in the context of optimization.
+
+There were two points to this exercise: the first point was to show that multi-compartment conductance based models, are very slow to evaluate, and the second point was, that without enough time, the results are not necessarily the best possible. However, the model itself happens to be a determing factor in reducing time. The resulting optimized model might serve as a useful benchmark, for us to evaluate the relative performance of reduced model fits. 
+
+A suite of neuronunit tests containing the tests: rheobase value, membrane voltage time constant ($tau_{m})$, input resistance was computed. 
 % somatosensory cortex, or cell from the l5 somatosensory rat, hind leg region, so it is probably not comparable to NeuroElectro Data.
 
 Significant development work went into making the model eligible to take NeuronUnit tests, and amenable to NeuronUnit driven optimization, to make this complicated conductance based multi-compartment model interoperable with the neuronunit test judging paradigm. The intention is that by making this model inter-operable with NeuronUnit the model will be able to amenable to different, optimization. 
@@ -38,22 +42,22 @@ After optimization
     \label{fig:after_optimization}
 \end{figure}
 
-There were two points to this exercise, first, was to show that multi-compartment conductance based models, are very slow to evaluate, and the second point was, that with or without enough time, the results are not necessarily the best, in the realistic model anyway.
+
 
 \begin{figure}
     \centering
     \includegraphics{figures/parameters_opt_l5pc.png}
     \caption{Caption}
-    \label{fig:parameters}
+    \label{fig:ca1_parameters}
 \end{figure}
 
-This elaborate biophysical model is the opposite of the reduced models focused on here.  includes the backpropogating dendritic action potential. It has different conductances in each compartment including axons, dendrites, and soma many of these parameters are fixed, but those specified in \ref{fig:parameters} are subject to optimization.
+
 
 
 \begin{figure}
 \begin{center}
 \centering
-\begin{subfigure}{.2\textwidth}
+\begin{subfigure}%{.2\textwidth}
   \centering
    \includegraphics[scale=0.5]{figures/correct_active_l5pc.png}
     \caption{A current injection sufficient for causing a single spike is applied for a whole second from $100ms-1100ms$}

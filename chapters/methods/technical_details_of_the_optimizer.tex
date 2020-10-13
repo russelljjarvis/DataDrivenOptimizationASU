@@ -11,11 +11,15 @@ Typical model parameters were number of generations $(NGEN=150$, population size
 
 \subsection{Model/Test combinations}
 
-Contrast with other optimization approaches:
-There are two different strategies, one strategy involves evaluating goodness of fit, only at one current injection strength for every gene. Another approach is a bit more generous, in that, rather than allowing models to instantly fail to evoke a spike at the appropriate current injection, that models specific rheobase value is found, and all other tests are evaluated at the current injection value. The consequence of accomodating poorer fits on the Rheobase test, is allows models to compete on the other seven or more different fitness criteria.
+In the section below I describe the approach to optimization taken in this work, and I draw a contrast between the optimization approach described here, and pre-existing optimization work. 
 
-\subsection{Elephant Test Suite}
-At a count of eight tests (five useable) the elephant derived suite was relatively compact. The elephant tests suite is concerned with core ephysiology measurements, the particular measurements chosen were important because, for example capacitance, and input resistance directly affect the evolution of reduced model governing equations. Taken as a collection these ephysiological properties as a collection also determine spiking waveform shape. 
+One commonality in the optimization approach described here, and the optimization approach described in Druckmann \cite{druckmann2007novel} was the utility of a time diminishing mutation magnitude ($\eta$). The idea is that bigger mutations are more helpful in the early stage of optimization, when its important to explore and catalogue error in the vast hypervolume, during the later stage of optimization, the strategy should change from exploration to refinement and shrinking the magnitude of mutations achieves this. %Another way to think about time diminishing $\eta$ is to consider slowly changing the scale of the search from the macro-scale to the micro-scale.
+
+%Contrast with other optimization approaches:
+There are two different strategies, one strategy involves evaluating goodness of fit, only at one current injection strength for every gene. Another approach is a bit more generous, in that, rather than allowing models to instantly fail to evoke a spike at the constant value of current injection, that models preferred rheobase current injection strength is found  and all other tests of model fitness are evaluated the preferred value. The consequence of accommodating poorer fits on the Rheobase constraint is it allows models to compete all the other available fitness criterion, thereby preserving the multi-objective quality of the optimization framework.
+
+\subsection{Elephant Features Test Suite}
+At a count of eight tests (five useable) the elephant derived suite was relatively compact. The elephant tests suite is concerned with core electro-physiology measurements, the particular measurements chosen were important because, for example capacitance, and input resistance directly affect the evolution of reduced model governing equations. Taken as a collection these ephysiological properties as a collection also determine spiking waveform shape. 
 
 Capacitance, Rheobase, Time Constant, Input Resistance, Resting Potential
 

@@ -1,4 +1,20 @@
 
+
+   \subsubsection{Model Instability and Error Surface: Is optimization Always Possible?} 
+
+% direct qoute: Relevance: The function should reflect fundamental properties of the data that the model has to reproduce.
+%Speed: The function should be fast to calculate, since
+%typically a large amount of error evaluations are performed
+%during the search.
+%Smoothness: The solution space should be as simple as
+%possible, so that the search algorithm can rapidly converge
+%to a global optimum. This in general means as little local
+%minima as possible.
+
+As previously noted by others \cite{van2007neurofitter}. There are three criteria that govern selection of good fitness error functions these include: speed, smoothness and relevance. In this work, we grappled with some types of error function that were not always smooth. 
+
+%The EFEL signal processing suite was able to produce measurements that fulfilled the speed criteria. 
+
 \subsubsection{Necessary Factors for Reliable Optimization}
 Reliable optimization depends on approximately Convex Errors Available to Guide Optimization
 
@@ -6,6 +22,8 @@ Theoretically the largest possible number of constraints would be applied to opt
 
 %\begin{itemize}
     %\item[-] Although there is a large variety of possible errors to use, its rarely a good idea to use all of these errors at once.
+    
+% NB, this is harder to understand than the residual rheobase error idea.    
     
     One type of error that is can mis-guide, is one who contains a reference point, that is construed relative to each different model parameterization. In an effort to make computer code run without error, under very many different possible conditions, it is tempting to make model measurements that are not objective and unchanging between models. 
     
@@ -21,7 +39,7 @@ Theoretically the largest possible number of constraints would be applied to opt
     \\ 
     The situation then compounds when other measurements are taken which depend on rheobase values. An alternative exists where, you sample an error surface using a fixed amount of current preferably at the observed Rheobase current of an experimental cell you are investigating. This would make "Rheobase" a hard constraint, models either spike at the prescribed current, or they don't. Meaning many models are instantly eliminated only because they failed to match Rheobase value, and models that pass this Rheobase test, may score poorly across every other NeuronUnit criteria.
     
-    The appeal of applying rheobase as a soft constraint, is it better solutions should be possible, if models are allowed to perform badly on the rheobase score and good at all other criteria, however, there may be other ways of achieving this.
+    The appeal of applying rheobase as a soft constraint, is that it should widen the scope of finding better models, since models are allowed to perform badly on the rheobase score and good at all other criteria, diverse solutions can compete according to their strengths.%, however, there may be other ways of achieving this.
     
     When applying a fixed rheobase current across many different models only neurons that fail to spike need to be excluded, neurons that fire multiple spikes can still have their spike shapes measured. Additionally, it would be acceptable to run different optimization batches, at different current injection amplitudes, and to federate scores between batches of different current amplitude. The reason why batches need to remain seperate, is that, its only important that error surfaces are convex within the one optimization process. Its okay if two different processes are using different surfaces, as each is blind to the others internal error surface.\\ 
     \\
@@ -43,7 +61,7 @@ Theoretically the largest possible number of constraints would be applied to opt
     
    Another related pitfall is the relationship between the number of free dimensions in the optimization problem versus the number of reliable errors used to constrain the optimization process.
    
-   Genetic algorithms are known as derivative free optimizers, since the derivative of the error surface is not explicitly calculated, and genetic algorithms have properties that make them robust against local minima. However, just like in gradient descent, genetic algorithms act on information in the error surface. Although genetic algorithms are resilient against local minima, but they are still misguided by unfortunately positioned local error wells. For this reason Rastrigrins function is used to benchmark the performance of genetic algorithms.\\
+   Genetic algorithms are known as derivative free optimizers, since genes are not instructed to take the steepest paths down error slopes, and once inside a local error well a gene is not "stuck" in the well. Although genetic algorithms are robust against being trapped in local minima, however, just like in gradient descent, genetic algorithms can only be guided by information in the error surface. Although genetic algorithms are resilient against local minima, they are nonetheless temporarily misguided by unfortunately positioned local error wells. For this reason Rastrigrins function is used to benchmark the performance of genetic algorithms.\\
    \\
    Rastrigins function has convexity in two scales. On the larger scale the surface has a convex property, on the small scale the function is uniformly pocked with minima wells. Inorder for the GA to optimize Rastrigins function it must be able to exploit the global information of the error surface, and simultaneously the genes will often converge for generations in the minima, but they won't get stuck there because mutation and cross-over will drive the GA to test other less optimal solutions.\\
    \\
@@ -128,3 +146,48 @@ In the figures below, I describe the spectrum of error surface quality.
    
    It is almost impossible to make progress without some prior knowledge of the error surfaces, as knowledge of the error surface is a prerequisite for constraining optimization. Not all surfaces, provide equally useful information. There are spectrums of surface quality between convex traingular or parabolic depressions acting as the best solution surfaces, and flat functions. 
    
+
+\subsubsection{Parameter Boundaries}
+When setting parameter boundaries there is a dilemma: If the upper and lower parameter margins are closer together than necessary, then optimized models may be deprived of the scope they need to reach their best fit. 
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/fninf-01-001-g009.jpg}
+    \caption{Caption}
+    \label{fig:best_at_edge}
+\end{figure}
+
+Consider figure B in the inset \ref{fig:best_at_edge}, in figure B a global minima is positioned at the intersection two parameter edges in both $Kdr$ and $NaP$. It would be easy to formulate the same optimization problem to have truncated scope about the extremes of $NaP$ and $Kdr$ and as a consequence to miss the uniquely positioned global optima situated on the intersection. The alternative optima that would be reported is the broad spanning region that shares the same second lowest value to the optima. The genetic algorithm
+
+On the other hand if the boundaries are too far apart, then the governing equations of the model may yield unstable solutions, which may impair the tractibility of the error surface as I will describe below.
+
+Error surface tractability can be compromized in two ways.
+Type \textbf{1} solutions to governing equations may contain "not a number" (NaN) or infinity value. The optimizer conventionally interprets more positive numbers as worse. Inside the optimization framework infinity or NaN values are converted to a nominal value of $100.0$, the worst conceivable model score. If more than one gene scores at $100$, then there will be regions of flat error surface. %Although genetic algorithms are not pre-determined to take the steepest path down an error slope, 
+%All optimization algorithms are sensitive to the informativeness of error surface, therefore a flat error surface is unhelpful in both gradient descent and genetic algorithms, 
+When error surface is flat it is uninformative. 
+Because, model-solution instability can occur when the optimizer uses model parameters are used outside of the models intended scope, it is tempting to think of these flat regions as a flat ledge that neatly encases the error hyper volume like in the figure below \ref{fig:cliff}, unfortunately however, because each model has a large number of parameters typically $>10$, any particular model instance, only one of these parameters need be evaluating an unstable model when exceeding a margin, the rest of the parameters may be in the middle of their range, and so such a ledge may actually be experienced as a hyper dimensional "tower", this tower could actually be experienced in the middle of parameter space in 10 out of 11 parameters, while still being on at the edge for only the 11th parameter.
+
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/cliff}
+    \caption{Cliff ledge in 2D error surface}
+    \label{fig:cliff}
+\end{figure}
+
+
+Although we are considering single points, and not surfaces, very often if a point is unstable, its neighbours are also unstable, in this way points of instability tend to be a constituents of larger regions of surface that add up to towers, cliffs and ledges such as those in seen here {fig:cliff}.
+
+One or more cliffs or towers situated in the middle of the error surface, poses problems for efficient optimization, where genes learn the general shape of an error surface. Such cliffs and ledges will mislead the optimizer and they will act exactly like the ripples discussed briefly before in this work.
+
+Type \textbf{2}: While some towers can be circumvented by choosing slimmer parameter margins, other ledges and ripples of these ledges are implied by the types of model and test combinations. Rather than being avoidable, they are a feature of the complex problem that the optimizer is tasked with solving.
+
+Forinstance, in bursting regimes of the Izhikevich model, where models deliberately produce close to unstable limit cycles. When surpassing the threshold to cause spiking, the slightest increment of current  will illicit not a single spike but a burst of ten.
+
+Rheobase values will be undetermined, because the a the smallest current injection value to cause only one spike does not exist. The models rheobase value will be assigned to 100, and a tower will punctuate, the error surface possibly in the middle of the Izhikevich parameter hypervolume. The experience of sampling this tower, will visible in post evaluation of the genetic algorithms learning performance. It will appear as a one or several unexpected peaks late in the genetic algorithms learning.
+
+This means that even under the most tractible conditions when evaluating the performance of genetic algorithm learning, the rapidity of genetic convergence will vary depending on which constraints are chosen, and the regime that the neuronal model is currently sampling from (the models parameters). There will be regions of genetic learning when models will encode high local pockets of error, or "towers" in the middle of the hyper-volume, and if these towers are significantly wide or densely populated, the genetic algorithms learning will be visibly diminished to a random sampling algorithm. What is more, these discontinuties under some circumstances may act to lesion error surfaces and inhibit migration of models from side to side. Movement over cliffs of course will still ultimately occur due to stochastic pressure in gene mutation.
+
+A possible solution to the dilemma of narrow parameter boundaries is to write an algorithm that slowly samples models by expanding beyond known to stable boundaries, and reports back on model stability. In this manner one can programmatically determine maximum parameter boundaries, however, model equations used here, do exhibit some higher order sensativity by changing a second intermediate parameter. Very quickly this approach to finding the maximum scope of a parameter may begin to look like exhaustive search.
+
+Another programmatic approach is to use a wide variety of models and tests, and to accept that for some model-test combinations, for some regions of parameter space, genetic algorithms are at worst  randomly stumbling upon satisfactory solutions.

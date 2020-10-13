@@ -1,7 +1,15 @@
 
 
+%Flat regions of error surface are uninformative.
+Tests that the author curated from Allen Cell types led to some models being under-constrained about spike width. The severe consequences of under-restraining were not obvious, they were revealed by graphs in a virtual experiments were appropriate models were elicited to spike. The lack of constraint was easily rectified, by imposing a specific spike width constraint on Adaptive exponential models, however, unexpectedly in this context, the models $\chi^{2}$ increased dramatically and biological plausibility plummeted, in all except one test. To  paraphrase, the adaptive exponential models had found an unexpected way to cheat tests, by taking advantage of a lack of constraints in an unrelated area.
 
 
+
+There was a need to create extra constraints for fitting models, as the set of Allen Constraints was too few in extent, and not sufficient to properly constrain models.
+
+
+
+In type of standard, the NeuronUnit tests, themselves act as the final judge of model quality, in the absence of a spike width tests, many AdExp models were able to get very good fits on against supplied constraints, but plots of actual spike shape looked very unnatural, as spike width lasted $>=$ 6ms. Applying extra standards beyond the NeuronUnit tests creates a dilemna. As all the GLIF models, presented unusual spike shapes.
 
 
 \subsubsection{Experiment Fitted Model Results} 

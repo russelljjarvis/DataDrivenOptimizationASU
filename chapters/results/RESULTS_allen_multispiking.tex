@@ -2,28 +2,28 @@
 
 \begin{figure}
     \centering
-    \begin{subfigure}[t]{0.45\textwidth}
+    \begin{subfigure}[t]%{0.45\textwidth}
         \centering
         \includegraphics[width=0.5\linewidth]{example-image-a.pdf} 
         \caption{Generic} \label{fig:timing1}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.45\textwidth}
+    \begin{subfigure}[t]%{0.45\textwidth}
         \centering
         \includegraphics[width=0.5\linewidth]{example-image-b.pdf} 
         \caption{Competitors} \label{fig:timing2}
     \end{subfigure}
 
     \vspace{1cm}
-    \begin{subfigure}[t]{0.45\textwidth}
+    \begin{subfigure}[t]%{0.45\textwidth}
         \centering
         \includegraphics[width=0.5\linewidth]{example-image-c.pdf} 
         \caption{Price regulation} \label{fig:timing3}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.45\textwidth}
-        % just an empty subfigure to shift C below A
-    \end{subfigure}
+    %\begin{subfigure}[t]%{0.45\textwidth}
+    %    % just an empty subfigure to shift C below A
+    %\end{subfigure}
     \caption{Some general caption of all the figures. In (\subref{fig:timing1}) you can see a  green square....}
 \end{figure}
 
@@ -63,7 +63,9 @@ Although it is not obvious there is significant variation in ISIs (although the 
 \begin{figure}
     \centering
     \includegraphics[scale=0.75]{figures/bbp_multispiking_fit.png}
-    \caption{An adaptive Exponential Model was fitted to both the spike time, and spike shape data in a sweep from animal B95 \url{http://microcircuits.epfl.ch/#/animal/8ecde7d1-b2d2-11e4-b949-6003088da632} Blue Brain Project. The base voltage. The base voltage, and Resting Membrane Potential, and spike numbers are matched, spike times are not perfectly aligned, spike height, and trough depth are not perfectly matched}
+    \caption{An adaptive Exponential Model was fitted to both the spike time, and spike shape data in a sweep from animal B95 
+    %\url{http://microcircuits.epfl.ch/#/animal/8ecde7d1-b2d2-11e4-b949-6003088da632}
+    Blue Brain Project. The base voltage. The base voltage, and Resting Membrane Potential, and spike numbers are matched, spike times are not perfectly aligned, spike height, and trough depth are not perfectly matched}
     \label{fig:B95Adexp}
 \end{figure}
 
