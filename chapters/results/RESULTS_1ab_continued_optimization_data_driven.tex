@@ -1,16 +1,37 @@
 
 
 %Flat regions of error surface are uninformative.
-Tests that the author curated from Allen Cell types led to some models being under-constrained about spike width. The severe consequences of under-restraining were not obvious, they were revealed by graphs in a virtual experiments were appropriate models were elicited to spike. The lack of constraint was easily rectified, by imposing a specific spike width constraint on Adaptive exponential models, however, unexpectedly in this context, the models $\chi^{2}$ increased dramatically and biological plausibility plummeted, in all except one test. To  paraphrase, the adaptive exponential models had found an unexpected way to cheat tests, by taking advantage of a lack of constraints in an unrelated area.
-
-
+Tests that the author curated from Allen Cell types led to some models being under-constrained about spike width. The severe consequences of under-restraining were not obvious, they were revealed by graphs in a virtual experiments were appropriate models were elicited to spike. The lack of constraint was easily rectified, by imposing a specific spike width constraint on Adaptive exponential models, however, unexpectedly in this context, the models $\chi^{2}$ increased dramatically and biological plausibility plummeted, in all except one test. To  paraphrase, the adaptive exponential models had found an unexpected way to cheat tests, by taking advantage of a lack of constraints in an unconstrained area, ie adopting implausibly long spike widths made the AdExp models exceptionally good at passive tests.
 
 There was a need to create extra constraints for fitting models, as the set of Allen Constraints was too few in extent, and not sufficient to properly constrain models.
 
 
-
 In type of standard, the NeuronUnit tests, themselves act as the final judge of model quality, in the absence of a spike width tests, many AdExp models were able to get very good fits on against supplied constraints, but plots of actual spike shape looked very unnatural, as spike width lasted $>=$ 6ms. Applying extra standards beyond the NeuronUnit tests creates a dilemna. As all the GLIF models, presented unusual spike shapes.
 
+\subsection{Error Surfaces}
+In methods I describe two approaches to fitting models, one lesser used approach involves a supra-threshold virtual experiment that guides optimization, in models when more than one spike is measured, and another commonly used approach involves an at-threshold virtual experiment, to guide optimization, where one or no spikes are expected.
+
+It is important to know which approach resulted in the smoothest and most tractible error surfaces. Below I plot error surfaces from each kind of paradigm, such that the reader can judge which surface looks the most tractible. 
+
+Case 1, Izhikevich model at threshold virtual experiment. Constraints used:
+\begin{verbatim}
+RheobaseTest,TimeConstantTest,RestingPotentialTest,InputResistanceTest, CapacitanceTest,InjectedCurrentAPWidthTest,InjectedCurrentAPAmplitudeTest, InjectedCurrentAPThresholdTest,
+FITest. 
+\end{verbatim}
+
+Case 2, AdExp Model model supra-threshold virtual experiment. Constraints used:
+\begin{verbatim}
+adaptation_index,adaptation_index2 time_to_first_spike, mean_AP_amplitude,spike_half_width, AHP_depth,minimum_voltage,peak_voltage,time\_to\_last\_spike,AHP\_depth\_abs,all_ISI_valuesvoltage_base, min_voltage_between_spikes,Spikecount
+ \end{verbatim}
+
+From the plots below one can see that 
+
+
+Both figures are employing the same color coding scheme where deep purple encodes the lowest error and yellow the highest error.
+
+Because the reduced neuronal models are high dimensional the easiest way to view the error surface the models experience under optimization is to make 2D plots of their surface for each different pairing of model parameter.
+
+The surface plot from the supra threshold paradigm shows more contrast for two reasons: 1, it has less intermediary values (light green colour), reason two, it less high frequency changes, or ripples in the error surface.  
 
 \subsubsection{Experiment Fitted Model Results} 
 
@@ -19,7 +40,7 @@ In type of standard, the NeuronUnit tests, themselves act as the final judge of 
 
 Over four different Allen experimental sweeps, and four different different cell type specific electrical observations, we created eight unique data sets, and then converted these eight data sets to neuronunit test suites.
 
-We then took four different models, and we attempted to fit each test set to each model. The result of was a four $\times $ eight factorial of model data combinations. For each each member of this 32 set factorial we wanted to know if the fitted model behaved in a biological plausible manner, we were interested to know if fitted models were convincing mimics of in-vivo cells, at least with respect to the measurements models were trained to fit.
+We then took three different models, and we attempted to fit each test set to each model. The result of was a three $\times $ eight factorial of model data combinations. For each each member of this $24$ set factorial we wanted to know if the fitted model behaved in a biological plausible manner, we were interested to know if fitted models were convincing mimics of in-vivo cells, at least with respect to the measurements models were trained to fit.
 
 
 \subsection{Standard Error of the Mean}
@@ -36,7 +57,7 @@ Neocortex pyramidal cell layer 5-6 &    128.87 &            1.92 &            0.
 \end{tabular}
 
 
-Since some of the NeuroElectro data sources were more challenging to fit, we also computed the Standard Error of the Mean, so that later we could interprite model fitting failure. Forinstance, the SEM is a prediction of a measurements dispersal, it is often used when the standard deviation is unknown. 
+Since some of the NeuroElectro data sources were more challenging to fit, we also computed the Standard Error of the Mean, so that later we could interpreted model fitting failure. For-instance, the SEM is a prediction of a measurements dispersal, it is more theoretically sound that a standard deviation measurement. Without knowing the true underlying data distribution, one can not know the true standard deviation, but it is possible to estimate the standard error of the mean. 
 
 The $\chi^{2}$ statistic, and the p-value give us a formally indicates how convincing each fitted model was in its mimicry of biological measurements.
 Because we already have a list of Z-scores, the $\chi^{2} $statistic can be obtained by squaring each Z-score and summing the result. A sum of squares less than 1, tells us that models performed well.
@@ -82,9 +103,9 @@ If reduced models are not excellent at fitting data, are brain simulations reall
 
 
 
-\section{Limitations data we were using was of Existing Approaches} 
+\section{Limitations of Existing Approaches} 
 Existing community supported simulated models were problem ridden, and our own custom methods were used as work arounds.
-
+%data we were using was
 % NEURON version of Izhi model is not as fast as one might expect, this may because of the way we tried to implement the model, by creating and destroying HOC module instances, that contain the model. 
 
 %A

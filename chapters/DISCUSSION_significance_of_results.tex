@@ -8,6 +8,12 @@ Models seemed to have particular difficulty in recapitulating an accurate fit fo
 
 
 \subsection{Ability of models to Fit Allen Institute Data (sweeps).}
+
+In this work I show examples of fitting models with many mixed collections of constraints, were not all constraints are equally informative and many are known to contain ripples or corrogations.
+
+Despite defects in error surfaces, in many cases satisfactory and more than satisfactory solutions are still found, so it is important to ask the question: "Exactly how harmful are defects in the error surface?" One easy answer way to answer this question is to reflect on the scale of error values. In many cases when corrugations are present, they exist on a much smaller scale, than other more important large scale information in the error surface. Because in many cases these two scales co-exist, you can think of the issue as analogous to a signal to noise ratio. As long as the large amplitude of the useful information in the error function dominates the small amplitude corrugation, then you can still expect good optimization solutions, but there is a caveat, when looking over the optimizers evolution graph, and gauging the optimizers effectiveness in bringing down the population error, one should not expect to see evidence of efficient-learning, in later stages of learning when the optimizer will become more sensitive to the smaller amplitudes of errors. In the early stages when exploration of the error surface dominates refinement, efficient learning is likely, at the latest "refinement" stage during small $\eta$, the GA will be reduced to a bounded random sampler. Within a bounded/confined space it will be randomly trying different parameters, unable to utilize learned information on the small scale.
+
+
 %%%
 % direct qoute.
 %Inter-trial variability of neural responses to repeated presentations of stimuli poses a problem for measuring the performance of predictive models. The neural variability inherently limits how similar one can expect the prediction of even a perfect model to be to the observed responses. Thus, when using prediction accuracy as a measure of performance, inherent response variability is a confound, and the need to control for this has been widely acknowledged (e.g., Panzeri and Treves, 1996; Sahani and Linden, 2003; Hsu et al., 2004; David and Gallant, 2005; Laudanski et al., 2012).

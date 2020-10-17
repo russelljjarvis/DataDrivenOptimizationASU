@@ -23,18 +23,20 @@ In the subsequent tables and figures when the measurements:time constant, capaci
 
 \begin{figure}
     \centering
-    \includegraphics{figures/simulated_data_supra_threshold.png}
+    \includegraphics[scale=0.75]{figures/simulated_data_supra_threshold.png}
     \caption{Caption}
     \label{fig:my_label}
 \end{figure}
 \begin{figure}
     \centering
-    \includegraphics{figures/simulated_data_sub_threshold.png}
-    \caption{Agreement between a simulated constraint waveform, and an optimized waveform, when both simulated constraint model and optimized model undergo a current injection value of $-10pA$}
+    \includegraphics[scale=0.75]{figures/simulated_data_sub_threshold.png}
+    \caption{Agreement between a simulated waveform, and an optimized waveform, when both simulated constraint model and optimized model undergo a current injection value of $-10pA$}
     \label{fig:adexp_model_rebound_spike}
 \end{figure}
 
 The plot of model membrane potential, as the model undergo's a $-10pA$ current injection, contains multiple spikes in the presence of an inhibitory current is unexpected. The reason this occurs, is because of an unusual model parameterization that makes modelled neuron "rebound spike" in response to attempts to move membrane potential down with voltage.
+
+
 
 \ref{fig:adexp_model_rebound_spike}
 
@@ -51,7 +53,7 @@ The plot of model membrane potential, as the model undergo's a $-10pA$ current i
 \begin{figure}
     \centering
     \includegraphics[scale=0.7]{figures/optimizer_internal_validation}
-    \caption{Optimizer evolution, green line tracks evolution of best fitness, blue line average fitness, orange line is worst fitness. GA params, $NGEN=200$, $MU=50$,$cxp=0.3$,$mupb=0.2$ from this plot can see that genes are storing and exploiting information, $cxp+mutpb=0.5$, so $50\%$ of genes are conserved between generations }
+    \caption[Optimizer error over generations]{Optimizer evolution, green line tracks evolution of best fitness, blue line average fitness, orange line is worst fitness. GA params, $NGEN=200$, $MU=50$,$cxp=0.3$,$mupb=0.2$ from this plot can see that genes are storing and exploiting information, $cxp+mutpb=0.5$, a changing number of genes are conserved between generations }
     \label{fig:my_label}
 \end{figure}
 

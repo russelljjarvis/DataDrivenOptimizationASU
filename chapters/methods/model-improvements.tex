@@ -2,30 +2,19 @@
 For various reasons described below, existing implementations of some models were not adequate for this research.
 These reasons included speed, generality, and consistency.
 
-\section{Model Execution: The Need for Speed}
+\subsection{Model Execution: The Need for Speed}
 Because optimization may involve an extremely large number of independent simulations of the same class of model, each varying only in model parameter values, it is critical that both the overhead for model instantiation and the duration of simulation itself, be as low as possible.
 Existing modeling tools contain overhead associated with model initialization, shuttling results in memory, which are a trivial cost for single simulations, but begin to add up in optimization runs of thousands of simulations.  
 Even the simulation of reduced models themselves are often slower than necessary using existing tools, due to some of these tools being written to accommodate more complex, biophysical models.
-To overcome this and accelerate optimization, I built faster "pure python" implementations of two neuronal models (the Izhikevich model and the AdEx model).
-One of the these was inspired from the existing MATLAB forward euler implementation of the Izhikevich model, while the other was adapted from an existing python implementation of the AdEx model using vectorized code.
-While neither of these was especially fast, they provided the basic recipe upon which a faster Python implementation could be built.
-Do note that the purpose of these new implementations was not model exploration, analysis, or sharing; existing tools are adequate for these purposes.
-The purpose of the new implementations was simply to make large optimization runs computationally tractable.
-
-Python does not have a reputation for speed; implementation details have a large impact on performance.
-Therefore, I used a tool called \cite{numba} that enables Just-In-Time compilation (JIT) of Python code, making at fast as e.g. compiled C code.
-This tool cannot be applied to any arbitrary Python code, so functions to which it is applied much be designed with only a subset of the usual syntax and library of Python.
-In other words, it cannot be used to simply speed up any pre-existing Python code.
-I hand-coded the two models above to be JIT-compliant, with the result that both became significantly faster than analogous models using NEURON or Brian2 simulators.
-Importantly, simulation outputs retained a binary near-match in all cases, confirming that nothing was lost in the course of gaining this performance improvement.
-I used these new implementations extensively throughout the project, and they are available to others at \href{https://github.com/russelljjarvis/IzhikevichModel} and XXXX.
-The code that implements them is fairly easy to understand, share, and execute, and I hope they may be useful to others who have similar performance needs, either for optimization contexts or large network models where small performance gains are worth chasing.
+The speed of model simulation is often determined by the exact parameterization of the model in question.
+During optimization, many parameter sets are explored. Those which produce many spikes in a given simulation run more slowly, because $\frac{dV_{M}}{dt}$ changes rapidly throughout the simulation and so simulation step size must sometimes be adaptively reduced to avoid numerical instability.
 
 \subsection{Model Design: Lack of Generality}
 Significant time was spent in the early years of this project shoe-horning pre-existing tools into the desired optimization framework, with limited success.
 These tools included, among others, model designers and neural simulators such as PyNN, Brian2, NEURON, and jNeuroML.
 However, several unexpected road blocks were encountered on the way.
 
+\subsubsection{NEURON}
 The \emph{NEURON} implementation of the Izhikevich model is fractured.
 There are different implementations for different parameter regimes.
 For a single simulation, this is not much of a problem.
@@ -35,59 +24,76 @@ Specifically, NEURON requires NMODL files to be compiled for each different regi
 Thus, the claimed performance of the C-based NEURON library is not actualized in an optimization context.
 Because NEURON is well-understood within OSB and NeuroML community, I still used it only to produce reference simulations to verify that the output of my model implementations were in fact accurate.
 
+\subsubsection{PyNN}
 PyNN provides the convenience of working in Python, and with a convenient procedural interface for model design and execution.
 However, its implementations of most reduced models (e.g. Izhikevich) are simply "wrapped" versions of NEURON models; consequently PyNN has the same disadvantages as NEURON.
 PyNN is also designed with network simulations in mind, which means its designers have chosen performance trade-offs that favor network simulations over single neuron simulations.
 For example, a data-type called the "lazy-array" is the most elemental container for neuron models in PyNN, but it is meant to store populations of neurons as opposed to single neurons;
-as such the lazy-array results in slow single neuron simulations \url{https://github.com/NeuralEnsemble/PyNN/issues/370}, \url{https://github.com/NeuralEnsemble/PyNN/issues/266}, which optimization depends on.
+as such the lazy-array can make accessing single model results complicated and confusing.
+
+% in slow single neuron simulations.
+
+Additionally the NEURON implementations that underlie the PyNN models of Adaptive Exponential and Izhikevich classes still suffer from some fidelity issues under certain regimes and parameter sets, the references are as follows: \url{https://github.com/NeuralEnsemble/PyNN/issues/370}, \url{https://github.com/NeuralEnsemble/PyNN/issues/266}, which optimization depends on.
 % The above links should be turned into citations.
 
-A constant error warning plagued brian2 investmentallations was.
+\subsubsection{Brian2}
+Brian2 \cite{stimberg2019brian} is, in principle, an excellent simulator for working with reduced neuron models, as it allows for differential equations to be expressed in an intuitive form, while also keeping track of dimensions and units.
+However, it may not quite be mature enough for complex applications, as it produced errors in optimization contexts that did not occur during routine simulation of single-parameter sets.
+
+Even when these errors did not occur, (e.g. using the brian2/neuraldynamics AdExp model), certain optimization steps (such as identifying the rheobase current for a given set of model parameters) took 2-3 times more computation time.
+This slowness was not caused by the simulation mechanics themsevles (Brian2 is relatively fast and efficient, as described in \cite{stimberg2019brian}).
+Instead, these delays are caused by the way the model is internally defined, specifically using a
+"neurodynamics" layer \cite{gerstner2014neuronal}.
+
+While it is very likely that this implementation is useful and correct in many contexts (Gerstner is an author of one of the original AdEx model publications \cite{brette2005adaptive}, and the Brian2 implementation is derived directly from his work), it is problematic for the feature extraction step required in optimization.
+Specifically, these implementations do not formally contain any notion of "overshooting" spikes, since when the spike threshold is reached, the membrane potential is simply set to some reset value; a spike time is recorded only when a separate process is explicitly set to watch for such an event.
+This is not technically wrong, but it violates a key assumption in the \emph{NeuronUnit} feature extraction protocol (the existence of an action potential waveform to extract), and the extra layer for detection of spiking adds computational overhead.
+Imputing a spike-like waveform near threshold can help solve the problem, but then optimization results and performance becomes contingent on the design of this imputation, and not on the model itself.
+
+Lastly, over the course of evaluating the Brian neural dynamics model \cite{gerstner2014neuronal}, I encountered some problems specific to genetic algorithm optimization.
+This context is not identical to simply running a series of simulations in series, because optimization operates in parallel, must fit into computer memory, and thus requires that simulation objects be created, simulated, and then destroyed rapidly and en masse.
+Since Brian2 was designed for stability, is was not designed to make model disposal computationally efficient (the problem of clearing objects from memory efficiently is, from a computer science perspective, trickier than it might initially sound).
+Therefore, performance of Brian2 suffered when I re-purposed its code to work in an optimization context, brian2 does support its own internal scheme for model fitting \cite{brian2modelfitting}, however this scheme was only published midway through thesis work, and it is unknown what technical tricks are employed to enforce model garbage collection. Additionally this scheme, is highly divergent from the multi-objective DEAP framework, so it is not readily interoperable with the BluePyOpt model fitting workflow.
+
+\subsubsection{My Approach}
+In summary, despite several choices for existing, free, open-source software (FOSS) reduced model
+implementations, these implementations were not useful, or significant intervention would have been required to apply them within an optimization framework.
+To overcome this and accelerate optimization, I built faster "pure python" implementations of two neuronal models (the Izhikevich model and the AdEx model).
+One of the these was inspired from the existing MATLAB forward euler implementation of the Izhikevich model, while the other was adapted from an existing python implementation of the AdEx model using vectorized code.
+While neither of these was especially fast, they provided the basic recipe upon which a faster Python implementation could be built.
+Do note that the purpose of these new implementations was not model exploration, analysis, or sharing; existing tools are adequate for these purposes.
+The purpose of the new implementations was simply to make large optimization runs computationally tractable.
+
+Although typically much faster than R, Python does not have a reputation for speed; implementation details have a large impact on performance.
+Therefore, I used a tool called Numba \cite{lam2015numba} that enables Just-In-Time compilation (JIT) of Python code, making at fast as e.g. optimized compiled C code.
+This tool cannot be applied to any arbitrary Python code, so functions to which it is applied much be designed with only a subset of the usual syntax and library of Python.
+In other words, it cannot be used to simply speed up any pre-existing Python code.
+%all code is hand-coded, even cutting and pasting is done by hand suggested synonym crafted.
+I crafted the two model types above to be JIT-compliant, with the result that both became significantly faster than analogous models using NEURON or Brian2 simulators.
+Importantly, simulation outputs retained a binary near-match in all cases, confirming that nothing was lost in the course of gaining this performance improvement.
+I used these new implementations extensively throughout the project, and they are available to others at \href{https://github.com/russelljjarvis/jit_hub.git}. The code that implements them is fairly easy to understand, share, and execute, and I hope they may be useful to others who have similar performance needs, either for optimization contexts or large network models on generic commodity computer hardware where small performance gains are worth chasing. 
+
+Additionally a third model used the NEURON simulator with a variable time step. After each model run, the variable time step vectors must be wrangled into fixed time step vectors using interpolation, because interpolation is slow, again numba jit was applied to speed things up, this time I deployed it by re-writing some code contributed by a colleague \cite{birgiolas2019towards}.
+
+Below, I profile my implementations and compare them to the existing FOSS implementations.
+My implementations led to faster per-simulation evaluations of simulations involving somatic current injection. 
+Furthermore, my implementation exhibited over-shooting spikes (spikes crossing 0 mV, as occurs in real neurons), making them compatible with NeuronUnit feature extraction.
+
+\subsection{Profiling the models}
+Obtaining the rheobase of a model for a single parameter set requires simulating it many times at different values of somatic current injection until the minimum action-potential inducing current is obtained (to within some tolerance; here I used XXXX pA).
+This takes $\tilde XXXX$ [15-25] simulations, on average.
 \begin{verbatim}
-Brian2 causes error:
- ERROR      Brian 2 encountered an unexpected error. If you think this is bug in Brian 2, please report this issue either to the mailing list at <http://groups.google.com/group/brian-development/>, or to the issue tracker at <https://github.com/brian-team/brian2/issues>. Please include this file with debug information in your report: /tmp/brian_debug_t0acbm4l.log  Additionally, you can also include a copy of the script that was run, available at: /tmp/brian_script_juzhsbph.py Thanks! [brian2]
-Traceback (most recent call last):
+My AdExp implementation:
+Single model simulation: $ 0.00126 s $
+Rheobase computation: $ 0.183s $
+
+My Izhikevich implementation:
+Single model simulation: $ 0.002 s $
+Rheobase compuation: $ 0.462s $ 
 \end{verbatim}
 
-To make optimization of models tractable it was important to do ongoing feasibility testing. For example its important to evaluate the the utility of established model implementations, as using these models to optimize may not in fact be feasible.\\ 
-\\
-Despite an a large number of choices of FOSS reduced model
-implementations, many off the shelf implementations were not useful, or significant intervention was required to make some established implementations workable inside an optimization framework. \\
-\\
-In two classes of model a feasible choice of implementation did not exist and it was easier to re-implement those models. The two models I re-implemented were
-the Adaptive Exponential Integrate and fire Model, and also the IZHI
-model.  In the work below, I profile existing model implementations, and
-justify the reasons for re-implementing.\\
-\\
-This is in contrast to the brian2/neuraldynamics AdExp model, which took
-between 2 or 3 times longer to find a rheobase current injection value. However the slowness is not caused by the simulation backend (brian2 which is relatively fast and efficient). The slow down is caused by the way the model is defined. Specifically the
-model is defined in a middle code layer neurodynamics\cite{gerstner2014neuronal}.\\
-\\
-It is very likely, that the model implementation is correct, since Gerstner is an author of one of the original adaptive exponential publications, and the neural dynamics book that the brian2 code is strongly affiliated with. Since Integrate and Fire models don't formally include spikes when an implementation does include spikes, it is an optional add on.\\
-\\
-The AdExp neurodynamics models default implementation causes spikes with peaks below $0mV$, since the IZHI model like all integrate and fire models do not explicitly include spikes\\
-\\
-This is not technically wrong, but it violates
-assumptions in the \emph{NeuronUnit} feature extraction protocol. The default spiking behavior, looks odd, and it is simply this poor model definition that is causing a slower optimizer performance. The optimizer takes an unusual waveform shape, and searches for longer in distant
-parameter regions to find a good fit.\\
-\\
-Over the course of evaluating the brian neural dynamics model \cite{gerstner2014neuronal}. I experienced some phenomena that only occurred in the context of genetic algorithm optimization. The reason why optimization provides a different evaluation context is because, in optimization simulation objects are required to be created and destroyed rapidly and on mass. Brian2 is designed to be an efficient network simulator, the case of being designed for network simulation, may assume you will want to create a lot of neural models that persist efficiently together in memory (this was also a problem with PyNN models). Therefore you might see below, that while only one brian model exists in memory, performance is okay, but when creating and destroying models rapidly and on mass a slow down occurs.\\
-\\
-Below I have implemented a python integrator for the Adaptive
-Exponential Integrate and fire model. This solver lead to faster
-evaluations of current injection experiments. The integrator I developed
-had a $0mV$ spiked when evaluated at default
-parameter values.\\
 
 
-Brian2 and sciunits sometimes collided in name space, and logging.
-%\href{https://github.com/scidash/sciunit/pull/124/files/83907ba68740642178ebb91084f6e382e06a43c4#diff-d68791d2ed5dfaa96a900be6180bd950}
-
-\section{Profiling the JIT enabled AdExp Model}
-Mean time taken on single model evaluation:$ 0.0012554397583007812s $
-Mean time taken to compute Rheobase:
-$0.183s $
-This was slightly faster than Izhikevich implementation which was for total rheobase solution $ 0.462s $ and $  0.002 s$ per run. Solving for Rheobase takes a average of 15 model evaluations.
 %\begin{figure}    
 %\begin{center}
 %\includegraphics[width=0.25\linewidth]{figures/backend_check_files/backend_check_6_2.png}
@@ -102,26 +108,27 @@ This was slightly faster than Izhikevich implementation which was for total rheo
 %    223 ms +- 12.5 ms per loop (mean +- std. dev. of 2 runs, 1 loop each)
 %\end{verbatim}
 
+XXXX What is this?
 \begin{verbatim}
     922 ms +- 12.7 ms per loop (mean +- std. dev. of 7 runs, 1 loop each)
 \end{verbatim}
 
-\subsection{Compare parallel to serial speeds, and accuracy}
+\subsubsection{Comparison of speed and accuracy vs Brian2}
+In-order to implement NeuronUnit-compatible Brian2 AdEx model simulations, I imputed spike waveforms (at recorded spike locations) immediately following each simulation.
+The simulation time of this model is determined by multiple factors, as discussed elsewhere. Execution time is also not uniform across model parameterizations; in particular, parameter sets exhibiting more spikes take longer to solve numerically.
+I compared this with the same parameter sets in my implementation, with the results shown below:
 
-Below is the Brian2/NeuralDynamics AdExp model. In-order to make the spike height greater than $0mV$ it was easier to use computer code to schedule waveform modifications that occur straight after the the brian2 simulation, these scheduled waveform modifications can be considered part of a peripheral shell of simulation code. In postprocessing
-the waveform data type is a Neo Wave form object that is artificially the algorithm of determining rheobase and displaying results. The time of this model is determined on multiple factors, as discussed elsewhere, execution time is not uniform across model parameterizations. Models with multispiking behavior will take longer to solve.
+\begin{verbatim}
+My AdExp implementation:
+Collection of models evaluation: $3.92,6.75,4.48,5.17$ XXXX
 
-Simulation times for this model vary, dramatically possibly because of
-lazy evaluation, the simulation times may vary according to what else
-you are running on your computer. Not all models experience a speed up when executed in parallel, however
-this model was faster in the parallel Rheobase determination algorithm. Some common times are: $3.92,6.75,4.48,5.17$. Mean time was:
+Brian2 AdExp implementation: XXXX ?
+\end{verbatim}
 
-\subsection{Comparison of Times Taken to Find Rheobase}
-Custom implementation JIT enabled implementation: $4.0s$. 
-Brian2 taken to find Rheobase: $4.40s$ (serial), $3.976s$ (parallel).
-
-The evaluation times between Brian2 and the custom written
-integrator are similar. Both have average rheobase solution times of approximately 4 seconds, however the spike shape derived from the custom written integrator look more realistic under default paramaterizations. The biological plausibility of default model paramaterization has consequences for model optimization speed, because when  models undergo mutation and cross-over the mean of random models regressors towards the default model initialization, and if the default model is a bad fit to data, the average model sampled by the genetic algorithm will also be bad to data.\\
+A large fraction of the time spent simulating models under a single set of parameters is spent obtaining the rheobase current, upon which several subsequent tests and extracted features depend.
+I did not find my implementation of the AdEx model to be appreciably faster ($4.0s$ over XXXX models) than the implementation in Brian2 (Serial: $4.40s$ (serial); Parallel: $3.976s$ XXXX), suggesting that both implementations were about as fast as compiled C code could allow.
+However, due to the required imputation of action potential waveforms in the Brian implementation, my implementation had much more realistic-looking action potential waveforms under most model parameterizations.
+To the extent that action potential shape is an optimization target, this is a decisive advantage for my implementation.
 
 \begin{figure}
 \begin{center}
@@ -135,21 +142,18 @@ integrator are similar. Both have average rheobase solution times of approximate
   \includegraphics[scale=0.45]{figures/backend_check_files/backend_check_4_2}
     \caption{Default model parameterization of the custom written integrator}
   \label{fig:sub2}
-\caption{Comparison between two Adxaptive Exponential Implementations}
+\caption{Comparison between two Adaptive Exponential Implementations}
 \label{fig:test}
 \end{center}
 \end{figure}
 
-
-
-
-    
+XXXX what is this?
 $272 ms +- 66.5 $/mu$s per loop (mean +- std. dev. of 2 runs, 1$ loop each)
 
-The next model to be evaluated is the NEURON Izhi model. The NEURON Izhi model has various draw backs. 1. It depends on an external file which must be recompiled each time this project is recreated. 2. The build environment of NEURON is non-trivial, and only a super dedicated NEURON modeller would install it on their system. Any performance advantage of using NEURON investment does not exceed the installation cost of installing the program. 3. The model implementation code is less generalizable than than the published Izhi model itself. Where the standard NEURON-NeuroML code only covers the Regular-Spiking model * This is likely due to a name space conflict between Capacitance. Neuron has a `capacitive' mechanism inside modelled Neurons, this particular model has section capacitance as well as an introduced capacitive term inside a C-compiled mechanism. Both contribute to a the membrane
-potential calculation. * The NEURON Izhi model took $78$ seconds to find the rheobase current injection value $ 51.79367065 * pA $.
+\subsubsection{Comparison of speed and accuracy vs NEURON}
+I also compared the performance of my implementation of the Izhikevich model to the one generated by NEURON from the OpenSourceBrain Izhikevich model NeuroML2 files.
+This NEURON implementation has several drawbacks, including: 1) It depends on an external file which must be recompiled each time this project is recreated; 2) The build environment of NEURON is non-trivial; 3) The model implementation code is less generalizable than than the published Izhikevich model itself. For example, the standard NEURON-NeuroML2 code only covers the Regular-Spiking flavors of this model, and does not support the full range of model parameterizations; 4) Name space conflicts between built-in NEURON parameters and Izhikevich model parameters.  
 
-    
 %\begin{center}
  %   \includegraphics[width=0.7\textwidth,]{chapters/figures/backend_check_files/backend_check_14_2.png}
 %    \caption{where is picture}
@@ -166,12 +170,10 @@ potential calculation. * The NEURON Izhi model took $78$ seconds to find the rhe
 
 % https://www.overleaf.com/learn/how-to/Images_not_showing_up 
         
-The forward Euler python IZhi model is very fast. The forward euler
-implementation utilized Numba JIT \cite{lam2015numba}. Rheobase is found in under a second,
-and in many cases close 0.5 seconds. This represents a very dramatic
-speed up. Unlike the NEURON NeuroML implementation of the izhikitich equation,
-this implementation is just as generalizable as the original MATLAB
-implementation of the izhikitich model.
+The NEURON implementation of the Izhikevich model took $78$ seconds to identify the rheobase current.
+In contrast, my implementation identified the rheobase in only $\tilde 0.5 s$.
+This represents a very dramatic speed up, and can largely be attributed to overhead associated with initializing successive simulations
+Furthermore, my implementation generalizes to all possible parameter values for the Izhikevich model parameters, thus allowing for all of the many diverse spiking behaviors exhibited in the original publication by Izhikevich \cite{izhikevich2003simple}.
 
 %\begin{verbatim}
 %  time taken on
@@ -180,37 +182,34 @@ implementation of the izhikitich model.
 %  100 loops each)\textbackslash{}n3.19 ms +- 10.9 us per loop (mean +- std. dev. of 2 runs, 100
 %\end{verbatim}
         
-\section{Python/LEMS and NEURON versions of single compartment Conducance Model.}
-
-Conductance based models took approximately the same amount of
-time to evaluate the Rheobase search algorithm as the python
-implementation.
-
-%This problem in the default parameterization of the python model was later located in the scale or units of capacitance, if default capacitance parameterization is multiplied by 100.0 the problem goes away.
-
-time taken to compute rheobase $ 12.6s $
+%\subsubsection{Comparison of speed and accuracy vs NEURON for %conductance-based models}
+%Could the relatively poor performance of existing implementations 5above be due the use of reduced models?
+%I ran similar profiling exercises for a single-compartment %conductance-based model (implementing the Hodgkin-Huxley equations %\cite{rall1962electrophysiology}) to see whether the disparities %above persisted.
+%I compared an existing Python implementation for simulation of %this model against the NEURON implementation.
+%Conductance-based models took approximately the same amount of
+%time ($12.6 s$ XXXX put in exact numbers) to determine the %rheobase as the existing Python
+%implementation, suggesting that . XXXX What is this comparison?  %Conductance-based vs Python?
 
 %\begin{center}
 %\includegraphics{figures/backend_check_files/backen%d_check_22_2}
 %\end{center}
 
 %$ 1.40762329 * pA $
-
-
-\subsection{NEURON versions of single compartment Conducance
-model.}
-
-Hodgkin Huxley Conductance based channels models took approximately the same amount of time to evaluate the Rheobase search algorithm as the python implementation.
+%XXXX Redundant? Hodgkin Huxley Conductance based channels models %took approximately the same amount of time to evaluate the %Rheobase search algorithm as the python implementation.
 
 %The NEURON implementation was slightly faster, and the default parameterization of the model lacked `ringing'', or below threshold oscillations that the Python ODE version had under default conditions.
 
 %This problem in the default parameterization of the python model was later located in the scale or units of capacitance, if default capacitance parameterization is multiplied by 100.0 the problem goes away.
 
-    \begin{verbatim}
-time taken on block 8.573923826217651
-    \end{verbatim}
+%    \begin{verbatim}
+%time taken on block 8.573923826217651
+%    \end{verbatim}
 
-The author also engineered GLIF model support for $NeuronUnit$ tests. In practice these models where hard to configure without expert knowledge, GLIF models contain the most parameters of all models, and many of these parameters are vectors, not scalars. GLIF models do not visualy spike which makes debugging their behavior very difficult. None the less GLIF models where among the fastest to evaluate, and the author had success in making fitting these models to Allen Rheobase data.
+\subsubsection{Comparison of speed and accuracy vs NEURON for GLIF models}
+I also developed a generalized linear integrate-and-fire (GLIF) model for compatibility with NeuronUnit.
+In practice this class of reduced models is difficult configure without expert knowledge, since it contain more parameters than its competitors, and many of these parameters are vector- rather than scalar-valued.
+Because GLIF models (like some of the AdEx implementations discussed earlier) do not exhibit spike waveforms, revisions such as the ones used for the AdEx model, imputing spike waveforms, are required.
+Nonetheless, GLIF models where among the fastest to evaluate of all of the reduced models, and I used these successfully to optimize models against data provided by the Allen Institute (see XXXX section in Results).
 
     %\graphicspath{ {../figures/} }
 %    \begin{center}
@@ -233,8 +232,9 @@ The author also engineered GLIF model support for $NeuronUnit$ tests. In practic
 %\end{verbatim}
 $ Rheobase = 112.5pA $
 
-time taken to execute this model.
-$ 0.23476457595825195 $
+%XXXX What is this for?
+%time taken to execute this model.
+%$ 0.23476457595825195 $
 
     
 
