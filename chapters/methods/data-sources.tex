@@ -59,8 +59,45 @@ In other cases, these conditions were not met, as exemplified in the gallery bel
 %
 For the majority of NeuroElectro neurons, data sources was uni-modal and well described by a normal distribution. In order to demonstrate, that a normally distributed data is not a reliable assumption I have humanely identified a minority of distributions that violate this assumption.
 
-XXXX Russell: break this into two plots: one for "good" data and two for "bad" data: of the bad data ones, give one example for bimodal, and one example for skewed.
-XXXX What percentage of ephys features are in each of these categories.
+%XXXX Russell: break this into two plots: one for "good" data and two for "bad" data: of the bad data ones, give one example for bimodal, and one example for skewed.
+
+This analysis was cursory and human driven, although some methods for hypothesis testing that a distribution is bi-modal exist \cite{maechler2013package}, there was not enough time to automate this code. It is estimated, that in all neurelectro data sampled here, about $2/3rds$ is well represented by a Gaussian distribution. In the remaining third that was not well represented by a Gaussian reasons for failure included: skewed distribution, bi-modal distribution, uniform distribution, or not enough samples to know inform knowledge of distribution.
+
+
+\subsubsection{Data well represented by Gaussian normal Distribution}    
+
+\begin{figure} 
+    \begin{center}
+   \includegraphics[scale=0.45]{figures/mean_well_served.png}
+   \caption[Neuroelectro data set well served by normal distribution 1]{The majority of Neuroelectro data sets were well served by a Gaussian normal distribution. As you can see in this plot, the mean is surrounded by a very high density of samples, which slowly thin out with increasing distance from the mean. The distribution is approximately symmetrical, especially for a real data set. 
+   }
+    \end{center}
+\end{figure}   
+
+\begin{figure} 
+    \begin{center}   \includegraphics[scale=0.45]{figures/mean_well_served2.png}
+    \end{center}
+    \caption[Neuroelectro data set well served by normal distribution 2]{In this plot the mean is surrounded by a very high density of samples, which slowly thin out with increasing distance from the mean, although there are a small proportion of out-liers these are likely explained by experimental noise. The distribution is approximately symmetrical, especially for a real data set.}
+\end{figure}   
+ 
+%XXXX What percentage of ephys features are in each of these categories.
+\subsubsection{Data poorly represented by Gaussian normal Distribution}    
+
+\begin{figure} 
+    \begin{center}   \includegraphics[scale=0.45]{figures/skewed_distribution.png}
+    \end{center}
+\end{figure}   
+
+
+\begin{figure} 
+    \begin{center}   \includegraphics[scale=0.45]{figures/uniform_distribution.png}
+    \end{center}
+\end{figure}       
+
+\begin{figure} 
+    \begin{center}   \includegraphics[scale=0.45]{figures/undersampled_distribution.png}
+    \end{center}
+\end{figure}   
     
 \begin{figure} 
     \begin{center}
@@ -121,25 +158,26 @@ Because raw data is available through the Cell Types API, it is possible to achi
 In contrast to NeuroElectro, the Cell Types database also has a great deal more information relevant to the suprathreshold dynamics of neurons, such as the number and pattern of action potentials they discharge in response to somatically-injected currents much larger than rheobase, or in response to non-square injected currents.
 In order to exploit these, I developed several additional NeuronUnit tests, such as: "time to first spike test" and "mean AP amplitude test". In principal any EFEL feature, that was measured in Allen Data could be upgraded to a neuronunit test, as I created a templates class-code generation method to perform this task. I also created some hard coded EFEL tests on Allen Features too, among the template generated classes, the tests that I re-used for the supra-threshold fits displayed in this work are:
 
-\begin{figure}
-\begin{verbatim}
-    adaptation-index
-    adaptation_index2
-    time_to_first_spike
-    mean_AP_amplitude
-    spike_half_width
-    AHP_depth
-    minimum_voltage
-    peak_voltage
-    time_to_last_spike
-    AHP_depth_abs
-    all_ISI_values
-    voltage_base
-    min_voltage_between_spikes
-    Spikecount
-\end{verbatim}
-\label{verbatim:supra-threshold-tests}
-\end{figure}
+%\begin{figure}
+\begin{enumerate}
+\item adaptation-index
+\item adaptation-index2
+\item time-to-first-spike
+\item mean-AP-amplitude
+\item spike-half-width
+\item AHP-depth
+\item minimum-voltage
+\item peak-voltage
+\item time-to-last-spike
+\item AHP-depth-abs
+\item all-ISI-values
+\item voltage-base
+\item min-voltage-between-spikes
+\item Spikecount
+\end{enumerate}
+
+%\label{verbatim:supra-threshold-tests}
+%\end{figure}
 
 Two adaption indexs are used to improve the fidelity of adaption measurements, I presume the two different adaption indexs measure adaption in different segments of spike train recordings.
 

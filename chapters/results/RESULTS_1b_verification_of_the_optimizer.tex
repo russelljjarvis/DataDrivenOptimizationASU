@@ -1,11 +1,7 @@
-
-
-
-
-
+\section{Verification of the optimizer}
 Four factors needed to be controlled for, before we locate the cause of poor model/experiment fits. Those factors were: the informativeness of measurement errors, the performance of the optimizer, data quality, and model quality.
 
-The digital models we used were known to be not flexible enough to match all electrical features from cell experiments all the time; these models are by nature, self-constrained and therefore they cannot to be fitted to all experimental waveforms. Additionally the data sources may also have some fidelity problems, it was necessary to create data source independent "ground truths", by synthesising plausible data, with the digital models, and optimizing against these ground truths. Because the DEAP genetic algorithm, has been shown to be able solve Rastrigrins function, we expect that our derivative frame work, should be able to fit to simulated data sources, with a high degree of precision, and that is what we found.
+The digital models we used were known to be not flexible enough to match all electrical features from cell experiments all the time; as compact mathematical functions these models are by nature, self-constrained and therefore they cannot to be fitted to all experimental waveforms. Additionally the data sources may also have some fidelity problems, it was necessary to create data source independent "ground truths", by synthesising plausible data, with the digital models, and optimizing against these ground truths. Because the DEAP genetic algorithm, has been shown to be able solve Rastrigrins function, we expect that our derivative frame work, should be able to fit to simulated data sources, with a high degree of precision, and that is what we found.
 
 The optimizer was capable of producing perfect fits under ideal circumstances. We showed that the measurements the genetic algorithm was using were able to act as informative guides. Since we are confident about the optimizers ability to fit to synthesized data we can then locate sources of model/data disagreement in other places. 
 
@@ -90,7 +86,7 @@ AP width, amplitude, and AP threshold errors, did not participate in guiding opt
 
 
 
-The design of the optimizer used in this work, computed rheobase for each model, what that means is a new current is required to apply current injection tests to tests that are spiking in nature.\\
+% probably discussed elsewhere The design of the optimizer used in this work computed rheobase for each model, what that means is a new value of current is required to apply current injection tests to tests that are spiking in nature.\\
 %In the optimizer design used here.
 
 %$N-free-model-parameters << N-constraints$
@@ -107,16 +103,16 @@ The AdExp model, is not an arbitrary waveform generators. Models such as AdExp h
 
 When constraints are derived from model measurements, intrinsic model restrictions no longer apply. Optimized models should match perfectly with the simulated experiments. 
 
-* Failure to match is indicative of: -- Failure to setup tractable optimization problems. Too higher a dimension.
+* Failure to match is indicative of: -- Failure to setup tractable optimization problems, and under constraining  a high dimensional problem.
 
-- When inverting linear equations, finding a unique solution requires that the number of constraining equations is greater than the number of free variables you are solving for:
+- When inverting linear equations, finding a unique solution requires that the number of constraining equations is greater than the number of free variables you are solving for. Analogous to a mathematical technique: Gaussian elimination where unknown variables are solved for using inversion and elimination, in genetic algorithm we solve for unknown variables using stochastic principles, however, underneath implementation details a similar principal exists: Larger amounts of known information can be used to solve for smaller amounts of unknown information. In other words assuming that NOBJ consist of only informative convex error surfaces as a rule of thumb optimization will likely be easy if $NDIM<NOBJ$.
 
-\section{Pitfalls}
+\subsection{Pitfalls}
 Choosing optimizer constraints, that cause visible ripples in error surface.
 To protect against a situation where the collection of error sources guiding optimization are too correlated with each other, to act as 
 
 
-\section{Verification}
+\subsection{Verification}
 Ground truths are model solutions that we know are correct independently from the optimizer. One way to establish ground truths is to identify the global minima by exhaustively searching the solution space. An exhaustive search is a reasonable approach when you consider only one or two model parameters are free parameters, however if one does 100 samples in each of N dimensions then one must make samples $100^{N}$ total samples to be sure of ehaustively searching, assuming the most efficient code, hardware and development time $N=3$, may be the highs.  Also the choice of 100 samples is nominal, 100 samples could be either too fine or too sparse, depending on how if the parameter being searched exhibits 2nd order sensitivity.
 
 It is more computationally efficient to obtain ground truths by simulating constraining data using digital models. It is easy to simulate constraining data, all that is required is that you take a neuronal model and measure its behavior in response to carefuly chosen current injection values. Measured behavior can then be used to construct NeuronUnit tests, were the measurements become "observations", or observed behaviors. To make the simulated data cover a range of circumstances, one can make different NU measurements by randomly choosing different parameter values of models to find.

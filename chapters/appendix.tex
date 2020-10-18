@@ -1,8 +1,24 @@
+\chapter{Appendix}
 
-\subsection{Model Fits,}
-\subsubsection{471819401 IZHI}
+\section{Details of Open Source Code Repositories}
+The optimization Application presented earlier in this work, depends on two actively developed code repositories:
+Neuronunit \url{https://github.com/russelljjarvis/neuronunit}.
+BluepyOpt \url{https://github.com/russelljjarvis/BluePyOpt}
+%In order to assess how difference 
 
+Analysis of variarance in Experiments and in Models:
+Multi spiking waveform analysis \url{https://github.com/russelljjarvis},
+An API for mining features from NeuroMLDB, Allen Cell Types: using AllenSDK, Druckmann \url{https://github.com/russelljjarvis/AllenEFELDruckmanFeatures}
+\cite{birgiolas2019towards}, \cite{birgiolas2016rapid} \cite{druckmann2007novel}
 
+It seemed important to try to answer the question: "How much difference does it make to apply data-fitted cell models to pre-existing network simulations?" In order to make it possible to answer that question. I took existing Izhikevich cell network simulations implemented in Julia, and modified the source code to make it inter operable with the approaches to stimulating cells with square currents in python. The julia Izhikevich network provides rapid execution times and requires no specialized computing hardware.
+
+It was found that applying Izhikevich cells optimized to CA1 Hippocampus pyramidal neurons, and Layer IV Neo Cortical pyramidal neurons, changed 
+Julia Spiking Neural Networks and some optimization in Julia:
+\url{https://github.com/russelljjarvis/NeuronUnitOpt.jl}
+
+\section{Model Fits}
+\subsection{471819401 IZHI}
 %\begin{table}[ht]
 %\centering
 %\resizebox{\textwidth}{!}{
@@ -75,7 +91,7 @@ List of complete 47 features used in the analysis down from 466 after data clean
 \subsection{All results again higher standards of spike shape}
 \begin{tabular}{lllrr}
 \toprule
-{} & model\_value &                            exp\_cell &   chi\_square &       p\_value \\
+{} & model\_value &                            exp\_cell &   $\chi^{2}$ &       p\-value \\
 \midrule
 0 &        IZHI &                           482493761 &     1.151795 &  9.970955e-01 \\
 0 &        IZHI &                           471819401 &     0.760844 &  9.993550e-01 \\

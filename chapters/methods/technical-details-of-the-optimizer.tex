@@ -25,12 +25,12 @@ When doing sub threshold fitting with NeuroElectro data, its possible to use Z-s
 
 \begin{itemize}
     \item known Gaussian distribution $(\mu, \sqrt{\sigma}) = (100pA, 40pA)$
-    \item normalized to 1 -> Z-score: 
-        \subitem an evaluated model returns $110pA$ 
-        \subitem $110pA$ is mapped onto normalized distribution: $\frac{abs(110pA-\mu)}{\sqrt{\sigma}} = 0.25$
+    \item normalized to 1: Z-score: 
+        \subitem For example: An evaluated model returns $110pA$ as a rheobase current
+        \subitem The value $110pA$ is mapped onto normalized distribution: $\frac{abs(110pA-\mu)}{\sqrt{\sigma^{2}}} = 0.25$
     \item $\log_{10}(1-0.25) $ 
-    \item best fitness is 0.0, worst fitness is arbitrary, for simplicity lets call it $100$.
-        \subitem  $ error = abs(log_norm_score)) = 0.12$ 
+    \item best fitness is $0.0$, worst fitness is arbitrary, for simplicity lets call it $100$.
+        \subitem  $ error = $ abs(log_norm_score))$ = 0.12$ 
         \subitem $ fitnesses = collection(errors) $
 \end{itemize}
 %XXXX Enumerated list showing how data determines a Z-score (or a RatioScore) which then determines a norm-score, a log-norm-score, and the objective function result.
@@ -43,9 +43,9 @@ I created two different DEAP optimization code bases, and slowly merged the two 
 
 %The method $instance_opt$ was able to instance $NUFeature_standard_suite$, and then by instantiating objective objects, it could aggregate Neuronunit scores, and 
 
-A class $NUFeature_standard_suite$ converts NeuronUnit Features to BluePyOpt objective functions. These classes contain a complicated nesting of fault handling statements, as there are many reasons why an sampled model return discontinuous membrane potentials, so values like NaN and infinity needed to be recast as poor optimizer scores. There are two flavors of $NUFeature_standard_suite$, one for supra-threshold experiments and another for at threshold or sub-threshold virtual experiments. These different virtual experiments utilize different feature extractors, and so it is natural to separate the source code into dedicated modules. Another reason for the test suite split is because each of these two types of virtual experiment has its own pattern of fault causing behavior (there are more ways for a model not to elicit multiple comparable spikes, there are less ways to produce un-comparable single spikes).
+A class NUFeature-standard-suite converts NeuronUnit Features to BluePyOpt objective functions. These classes contain a complicated nesting of fault handling statements, as there are many reasons why an sampled model return discontinuous membrane potentials, so values like NaN and infinity needed to be recast as poor optimizer scores. There are two flavors of $NUFeature_standard_suite$, one for supra-threshold experiments and another for at threshold or sub-threshold virtual experiments. These different virtual experiments utilize different feature extractors, and so it is natural to separate the source code into dedicated modules. Another reason for the test suite split is because each of these two types of virtual experiment has its own pattern of fault causing behavior (there are more ways for a model not to elicit multiple comparable spikes, there are less ways to produce un-comparable single spikes).
  
-I also contributed a $model_parameters.py$ file, which was a collection of Ordered dictionaries, that informed the optimizer what parameters are modifiable and what are their boundaries. Later, I would make this file and its methods inter-operable with BluePyOpts model parameters scheme.
+I also contributed a model-parameters.py file, which was a collection of Ordered dictionaries, that informed the optimizer what parameters are modifiable and what are their boundaries. Later, I would make this file and its methods inter-operable with BluePyOpts model parameters scheme.
 
 %-- System of fault handling
 %-- Recasting NeuronUnit scores into objective function values (e.g. log norm score)Aggregation of neuronunit scores into multi-objectives

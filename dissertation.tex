@@ -1,30 +1,19 @@
 \documentclass[12pt,letterpaper]{report}
 \usepackage{natbib}
 \usepackage{geometry}
-%\usepackage{fancyheadings} fancyheadings is obsolete: replaced by fancyhdr. JL
 \usepackage{fancyhdr}
 \usepackage{afterpage}
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb,amsbsy}
 \usepackage{dcolumn,array}
 \usepackage{tocloft}
-\usepackage{template_code/asudis}
+\usepackage{asudis}
 \usepackage{graphicx}
 \usepackage{subfigure}
-
-%\usepackage{subfiles} 
 \usepackage{tcolorbox}
 \usepackage{hyperref}
 \usepackage{sectsty}
-%\usepackage{subcaption}
-
-%%
-% Junk that makes notebook importing better
-%%
 \usepackage{caption}
-%\DeclareCaptionFormat{nocaption}{}
-%\captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
-
 \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
 \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
 \usepackage{float}
@@ -54,45 +43,24 @@
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
 \lstset{framextopmargin=50pt,frame=single}
 
-
-%\usepackage[citations,footnotes,definitionLists,hashEnumerators,smartEllipses,tightLists=false,pipeTables,tableCaptions,hybrid]{markdown}
-%%begin novalidate
-%\markdownSetup{rendererPrototypes={%
-% link = {\href{#2}{#1}},
-% headingOne = {\section{#1}},
-% headingTwo = {\subsection{#1}},
-% headingThree = {\begin{frame}\frametitle{#1}},
-% headingFour = {\begin{block}{#1}},
-% horizontalRule = {\end{block}}
-%}}
-
 \begin{document}
-
-%-----------------------front matter
 \pagenumbering{arabic}
-
-% Ideas for a less boring title.
-%Towards Neuronal Deep Fakes:
-%Neuronal Counterfeits: .
-\title{Data Driven Optimization of Reduced Neural Models}            % If you want to
-
-\author{Russell Jarvis}
+\title{Neuronal Deep Fakes: Data-Driven Optimization of Reduced Neuronal Models}
+\author{Russell Jarrod Jarvis}
 \degreeName{Doctor of Philosophy}
 \paperType{Dissertation}
 \defensemonth{November}
 \gradmonth{December}
 \gradyear{2020}
-%https://tex.stackexchange.com/questions/450198/change-one-chair-for-two-cochair
-\cochair{Sharon Crook}
-\cochair{Rick Gerkin}
-\memberFour{Yi Zhou}
+\chair{Sharon Crook}
+\memberOne{Rick Gerkin, co-Chair}
+\memberTwo{Yi Zhou}
 \memberThree{James Abbas}
-%\memberOne{Rick Gerkin}
+\memberFour{ }
 
 \maketitle
-%\doublespace
 \include{abstract}
-\dedicationpage{}
+\dedicationpage{\input{chapters/acknowledgements}}
 \include{ack}
 \tableofcontents
 % This puts the word "Page" right justified above everything else.
@@ -124,22 +92,10 @@
 \allsectionsfont{\raggedright}
 \include{chapters/introduction}
 \include{chapters/methods}
-\chapter{Results}
-
-
 \include{chapters/results}
-\chapter{Discussion}
+\include{chapters/discussion}
+\include{chapters/appendix}
 
-\include{chapters/DISCUSSION_significance_of_results}
-\include{chapters/DISCUSSION_target_network_simulations}
-\include{chapters/FINISHINGUP_links_to_source_codes_of_this_work}
-\chapter{Appendix}
-
-\include{chapters/APPENDIX}
-
-\include{chapters/acknowlegements}
-
-%-----------------------back matter
 {\singlespace
 % Making the references a "part" rather than a chapter gets it indented at
 % level -1 according to the chart: top of page 4 of the document at

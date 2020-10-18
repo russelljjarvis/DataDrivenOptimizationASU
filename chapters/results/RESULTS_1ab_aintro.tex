@@ -1,4 +1,4 @@
-
+\section{Development and Verification of a Validation Test-based Optimization Framework for Neuron Models}
 
 %1a/b Is Optimization possible?
 %       1a. Construction of tests from diverse experimental sources (I wrote the neuroelectro api and its use in neuronunit, and wrote the original Allen one, but you have put in work to create runnable tests from these and other sources).  This is in a sense a method, but you can still report that these tests are runnable, even outside of optimization.
@@ -9,7 +9,7 @@
 
 
 
-\subsection{Useable NeuronUnit Allen Constraints}
+\subsection{Useable NeuronUnit EFEL-Allen Constraints}
 
 As noted elsewhere there where two experimental data types, each of which was used to constrain models: Spike Feature Experiments, versus Electro-physiology reports.
 
@@ -25,7 +25,17 @@ In order to optimize reduced models, it was first necessary to develop optimizer
 
 The range of tests available for optimization in NeuronUnit was also incomplete, as it was limited to the passive membrane properties or the shapes of single action potentials.  In order for model output to reflect experimental data, it was also necessary that the timing and patterns of action potentials be assessed and tested. 
 
-I developed the ability for EFEL features to be calculated on NeuronUnit models, as well as tests based on FISlope in Allen celltypes which were coalesced into dedicated EFEL Allen Data test sets. This required both the extraction of novel features EFEL and novel test types: [ISI, AHP\_depth, adaption ratio etc.]. As described in the introduction, knowledge of error surfaces is helpful for garunteeing a good optimization result. Through human examination of resulting error surfaces, it was found that some of these tests were also intractable, because they depended on measurements that were changeable relative to some other changeable measurement inside the cell usually $max(\frac{dV_{m}}{dt})/10$.
+I developed the ability for EFEL features to be calculated on NeuronUnit models, as well as tests based on FISlope in Allen celltypes which were coalesced into dedicated EFEL Allen Data test sets. This required both the extraction of novel features EFEL and novel test types: [ISI, AHP\_depth, adaption ratio etc.]. As described in the introduction, knowledge of error surfaces is helpful for guaranteeing a good optimization result. 
+
+
+Through human examination of resulting error surfaces, it was found that some of these tests were also intractable, because they depended on measurements that were changeable relative to some other changeable measurement inside the cell usually $max(\frac{dV_{m}}{dt})/10$.
+\begin{center}
+\begin{figure}
+\includegraphics[]{figures/fundamental_cause_of_corrogations.png}
+\caption[]{The main cause of corrogated error surfaces in this work was found to be re-calculating required currents on a model by model basis. In this plot the model was forced to fire exactly 11 spikes while the value of 'a' was swept between $4.4$-$5.6$, a straight line given by linear regression, approximates where we expect required current injection amplitude to fall, but instead, the real value routinely deviates on either side of the straight line. These small current "excesses" then propagate into the measured features of spiking waveforms where they amplify. By necesity our rheobase determining algorithm has a finite precision, and rounding error. So although in theory rheobase is defined as the minimum current amplitude to cause exactly one spike, in practice there will be variable amounts of excess current amplitude. Such propagating errors were applied to many threshold dependant waveform features. However because these oscillations were usually smaller in amplitude than the important features of the error surface, optimization in the presence of noise was still viable}
+\end{figure}
+\end{center}
+
 
 Multi-core and or multi-threaded optimization requires that information about model properties be shareable across various processor threads. However, some common data types contain information that is not shareable between CPUs, and they must be translated into a globally sharable framework. I created a class Data Transport Container, that could contain be used to circulate only essential data, in a more primitive but shareable form. This class was also acculated useful helpful methods such as retreiving default model parameters.
 
@@ -45,7 +55,7 @@ In order to both control optimization parameters and visualize optimization resu
 %\begin{comment}
 
 
-\subsubsection{Is Optimization possible?}
+\subsection{Is Optimization possible?}
 Not all data-sets where equally conducive towards optimization with reduced cells. In particular the cerebellum purkinje cell demands a very high current injection value to elicit a rheobase spike, $680pA$, and the reduced cells were generally not able to model this inhibited behavior.
 
 Previously, the INCF created a model data fitting competition, were participants competed to submit models, that were best able to fit membrane voltage from a variety of suprathreshold current injection experiments. In this competition, unlike in this work the best models had to predict spike time. Within the scope of this project, post-optimization, ranking of the different models in terms of their ability to explain the most in-vivo experiments. 
@@ -59,14 +69,14 @@ Over all the tests, including challenging Cerebellar Purkinje cell, and olfactor
 %\begin{comment}
 
 %\subsection{Neocortical Layer 4/5 Pyramidal Cell Test Suite}
-\subsubsection{2a}
+\subsection{2a}
 
 %Direct Quote: "widening of the spike shape, decrease of the firing rate and change in the interspike interval distribution". %All these single unit waveform shapes increased their width with temperature.\cite{goldin2017temperature}
 
 It is possible that the majority neuroelectro recordings of L5PC, spike width were conducted under room temperature as opposed to body temperature, and the relative cooling may have contracted their spike width.
 \cite{goldin2017temperature}
 
-\subsubsection{Conflicts between experimental constraints}
+\subsection{Conflicts between experimental constraints}
 
 Conflicts between Rheobase value, and other static electrical measurements were observed in NeuroElectro and Allen Cell types measurements. When optimizing against NeuroElectro averaged measurements, and Allen Cell types single cell observations, it was common to experience a conflicted ability for the cell to satisfy all constraints simultaneously. 
 Models seemed to have particular difficulty in recapitulating an accurate fit for rheobase, while simultaneously satisfying the larger set of fitness criteria: time constant, input resistance, capacitance and resting membrane potential. There was better agreement between firing rate versus current (FISlope) and the remainder of the electrical observations.
@@ -74,7 +84,7 @@ Models seemed to have particular difficulty in recapitulating an accurate fit fo
 %\subsection{Section 2.1}
 %
 Note this is a cell from the l5 somatosensory rat, hind leg region, so it is probably not comparable to NeuroElectro Data.
-\subsubsection{Performance of Layer 5 Prefrontal cortex Pyramidal Neuron on NeuronUnit tests of model data agreement}
+\subsection{Performance of Layer 5 Prefrontal cortex Pyramidal Neuron on NeuronUnit tests of model data agreement}
 \cite{van2016bluepyopt}
 A suite of neuronunit tests containing the tests: rheobase value, membrane voltage time constant ($tau_{m})$, input resistance was computed. This multi-compartment, conductance based model served as a useful benchmark, for us to evaluate the relative performance of reduced model fits.
 
@@ -178,5 +188,54 @@ It is worth noting that the layer 5 neocortical pyramidal neuron was very slow t
 
 %Previously I mentioned neuronal modelling competitions I have optimize every model against the same data sets in order to assess overall which model is better able to fit to diverse data sets.
 
+\subsubsection{Wrapping up Results}
+
+\subsection{Tests that were not always amenable to optimization}
+\begin{itemize}
+\item ThresholdTest
+\item SpikeHalfWidth
+\item Spike Amplitude
+\end{itemize}
+As discussed previously this is because of an accumulating rheobase error which caused threshold measurements to differs between cells. This may be more of a problem in certain regions of model parameter space, but the problem was general, it occurred in multiple models. As discussed in \ref{section:pitfalls}, error residues from rheobase calculations can be propagated into these tests, where the error amplifies.
+%Aim 1A, write something about tests overall.
+%Overall the some 
+Tests of static electrical properties amenable to optimization:
+\begin{itemize}
+\item FISlopeTests
+\item Capacitance
+\item Input Resistance
+\item Time Constant 
+\end{itemize}
+
+The following two are amenable to optimization, however, they are a source of potentially growable noise and so they should be used with caution when used as a reference or basis for secondary measurements.
+\begin{itemize}
+\item Rheobase 
+\item Spike Count measurements \end{itemize}
 
 
+%, , , , test worked but was conflicted. The tests that did not work. This is somewhere else.
+
+Tests that worked within optimization:
+Via \emph{Elephant} toolchain: FITests, Rheobase, Capacitance, Input Resistance, Time Constant, Resting Membrane Potential.
+Via. 
+
+When optimizing in the supra threshold regime Druckmann used:
+(1) spike rate; (2) an accommodation index; (3) latency to first spike;(4) average AP overshoot; (5)average depth of after hyperpolarization (AHP); 
+(6) average AP width similar to Druckman, when optimizing in the supra threshold regime.
+When optimizing with reduced models, I found that the those 6 measurements were not enough to tightly constrain a fit, and additional constraints were helpful. In this work a minimum of 12 constraints were typically used:
+\emph{EFEL}
+tool chain:
+\begin{enumerate}
+\item AHP-depth
+\item all-ISI-values
+\item $Spikecount$ (similar to rate)
+\item $adaptation_index$
+\item $mean_AP_amplitude$
+\item $min_voltage_between_spikes$
+\item $minimum_voltage$
+\item $peak_voltage$
+\item $spike_half_width$
+\item $time_to_first_spike$
+\item $time_to_last_spike$
+\item $voltage_base$
+\end{enumerate}

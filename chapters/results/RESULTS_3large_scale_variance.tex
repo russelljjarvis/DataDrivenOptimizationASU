@@ -2,7 +2,7 @@
 %3. Study of variance between models and data.  The optimized models part of this section is predicated on result 1b (so that optimization results can be believed).  You already have the poster for this.
 %I think this captures most of your results in three themes.  Other results which are really methods, like parallel rheobase search, can stay in the methods, and you will get credit for them there.
 
-\subsection{3}
+\section{Published models vs optimized models}
 
 It is known that neural models and experimental measurements generally diverge in important ways, however, it is desirable to know the specific sources of divergence. Models and experiments may disagree for two reasons: \emph{A} the model is not flexible enough to satisfy a particular constraint simultaneously to a collection of constraints, or, \emph{B} the model was incorrectly fitted to the a type of conflicting constraints (for example model fitted to spike times at the expense of Rheobase, and FISlope). 
 
@@ -30,13 +30,13 @@ Since we don't yet have complete knowledge of model/experiment divergence, we do
 
 
 
-\subsubsection{Features} 
+\subsection{Features} 
 Consider a voltage recording at the location of the membrane of a neuron. Teams of researchers have already segmented voltage recordings into labelled sections, each section has a classification that is based on the shape of waveform in a limited region see figure \ref{fig:voltage_figures} for example. Rather than specifying by name each measurement it is often useful to refer collectively to these measurable shapes as "features". 
 
 In the following multivariate analysis we analyze hundreds of such features, and we summarize important differences in a subset of this high dimensional feature space.  Below, I describe some neuronal model features that agreed well with experiments, and some features that diverged.
 
 
-\subsubsection{Publications Associated with Model Sources}
+\subsection{Publications Associated with Model Sources}
 $972$ models, $448$ experiments.
 $1276$ samples. This did not include some blue brain cells. After data cleaning many data points were dropped.  $244$
 $1420$
@@ -95,7 +95,7 @@ In order to identify electrical measurements or "features" that were responsible
 
 
 
-\subsubsection{sources of disagreement}
+\subsection{sources of disagreement}
 
 The key advantage of using sparse PCA is the results are readily interpret able. A common sceanario in regular Principal Component Analysis is you may obtain a low dimensional embedding plot made from unit rotation vectors that maximize variance, but no way of relating the reduced dimensions back to the sources of variance in the system of interest. 
 
@@ -135,7 +135,7 @@ Another observation is that a small majority of features used to create the spar
 
 At $1.5 \times rheobase $ I believe there to be more spike time variation, at $3.0 \times rheobase $  I believe there to be more spike amplitude variation.
 
-\subsubsection{Sparse PCA}
+\subsection{Sparse PCA}
 Sparse PCA revealed five overlapping different groups of neuronal identity's, and three non overlapping clusters. Models and experiments clustered separately to each other in the low dimensional space. Models and data were easily separable in the direction of the 2nd Eigen Vector.
 
 %The first principle component 
