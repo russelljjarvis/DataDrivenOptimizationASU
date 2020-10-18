@@ -1,7 +1,27 @@
 
-\subsubsection{A Rheobase Fitted model, may not generalize to other sweeps}
-Move to DISCUSSION: Interestingly there was better agreement between firing rate versus current (IFSlope) and the remainder of the electrical observations, than between rheobase and the same measurements. Rheobase is defined as the minimum current injection to evoke exactly one spike, therefore, rheobase can sensibly be drawn onto the IFSlope for an experimental cell, but not a cell model. The IF line is not fully defined by the slope, as the slope defines the lines gradient but not its bias, however, the rheobase value, is more closely related to the bias of the IFSlope. Taken together, this information suggests, that the current injection increase causes proportionate firing rate increase, suggesting that the overall linear relationship is correct but the exact quantity of current that biases the FIslope  is wrong in models. One reason for this could be due to the difference between modelled resistance, and material resistance in neurons.
-%No, it cannot reduced neuronal models are only okay at fitting one sweep at a time.
+
+\subsubsection{Persistently Incompatibility Tests: Trends and Patterns}
+
+
+
+Time Constant measurements were consistantly harder to fit, and where often incompatible, in almost or all model types (including conductance based models, reduced models, and including all data types (NeuroElectro data, and Allen cell-types single experiment data). When the membrane time constant was mismatched, this didn't seem to be of much consequence to other membrane timing measurements in the cell, for instance membrane capacitance, spike widths and spike-thresholds could still be accurate. Frequently mismatched membrane time constants suggests either one of two possibilities: Either our method for measuring membrane time constant is wrong, and is off by a factor of 10, or, model builders write equations that are founded on electrical properties that are preference AP features and electrical properties slightly that don't involve the membrane time constant.
+
+Interestingly there was better compatibility between firing rate versus current (FISlope) and the remainder of the electrical observations (where the remaining measurements tended to agree well with each other), than between rheobase and the same measurements. Compatibility was also experienced between the FISlope and Rheobase tests, so two natural clusters of tests that emerged are: FI curve properties, versus the other electrical properties.
+
+As discussed in the methods \ref{sec:parallel-rheobase} Rheobase is defined as the minimum current injection to evoke exactly one spike, therefore, rheobase can sensibly be drawn onto the FISlope for an experimental cell.. The FI line is not fully defined by the slope, as the slope defines the lines gradient but not its bias, however, because the rheobase value falls on the FI-curve, it intersects with the line which has both the bias and the slope of the FI curve. 
+
+%Taken together,
+In the situation where, FI-slope is matched, other electrical measurements match, but rheobase is mismatched; when electrical properties agree with the FI-slope but not the rheobase, this suggests, that the overall linear relationship is correct but the exact quantity of current that biases the FIslope is wrong in models. One reason for this could be due to the difference between modelled resistance, and material resistance in neurons. Another reason, might be because, in the virtual experiments where I measured rheobase, I only used a single value of integration time that was a $1$ second duration,  square current pulse, but experiments could have used either shorter times (stronger currents needed to evoke single spike), or longer integration times (less current needed to evoke a spike).
+
+
+\subsubsection{A Fitted model may not generalize to injections at higher or lower current stimulus, Unless the model is fitted with constraints informed by those different experiments}
+As discussed above, the true FI curve is described by a gradient and a bias. When one fits to the slope and the gradient of the FI curve, it means that the model will at least be able to recapitulate the right number of spikes for a given current strength. 
+% important for network modellers as I discuss elsewhere.
+
+%Preserving 
+%
+%that required current injection increases causes proportionate firing rate increase, 
+% suggesting No, it cannot reduced neuronal models are only okay at fitting one sweep at a time.
 
 The utility of the Rheobase approach is to demonstrate a work flow. Its possible that some researchers are interested in modelling single spiking behavior efficiently, however, in the context of network simulations, one may be better of fitting to a multispiking sweep.
 

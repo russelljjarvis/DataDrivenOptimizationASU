@@ -148,7 +148,7 @@ I_{j} (t+) \leftarrow fj \times I_{j} (t-) + \delta I_{j}
 
 \subsection{Adaptive Exponential Integrate and Fire Model}
 \begin{displaymath}
- C\frac{d}{Vdt}=-g_{L}(V-E_{L})+
+ C\frac{dV}{dt}=-g_{L}(V-E_{L})+
 g_{L} \Delta Texp(V-V_{T} \Delta T)-w+I 
 \tau_{w}\frac{dw}{dt} = a(V-E_{L})-w 
 \end{displaymath}
@@ -274,7 +274,7 @@ A mutation reflects a (random) change to a single gene, i.e. a change to a singl
 \begin{center}
 
 \includegraphics[scale=0.5]{figures/rastagrind}
-\caption{Rastrigin's function is a function that is challenging to optimize, as it contains thousands of local optima which would trap a gradient descent algorithm \cite{rastrigin1974systems}.}
+\caption{Rastrigin's function is a function that is challenging to optimize, as it contains hundreds of local optima which would trap a gradient descent algorithm \cite{rastrigin1974systems}.}
 \label{fig:rastrigin}
 
 \end{center}

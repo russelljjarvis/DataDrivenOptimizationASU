@@ -68,6 +68,10 @@ This makes the task of optimization far from automatic--careful human guidance i
 
 % NB, this is harder to understand than the residual rheobase error idea.    
 \subsubsection{Contingent Discontinuities}
+
+
+
+
 Some tests used to compute the objective function may depend on the results of other tests.
 They may depend on the measured value of one feature, for example, a test of the action potential width at half-height depends on the height measured from threshold which depends on the threshold.
 Or they may depend on a stimulus parameter derived from a previous test; for example, computing the first inter-spike interval (ISI) at 1.5x rheobase first requires computing rheobase, and then multiplying the rheobase value by 1.5 to generate the stimulus for the ISI test.
@@ -83,6 +87,15 @@ If there is no second spike, this test will emit a missing value.
 Thus as $X$ is increased, the error surface associated with the ISI test will be pocked with missing values every time the underlying change in excitability is offset too much by the ensuing change in rheobase-derived injected current.
 And an error surface plagued with too many missing values is essentially unusable.
 These contingent discontinuities present a major problem to the logic of contingent testing that underlies most of the optimization presented here.
+
+\begin{center}
+\begin{figure}
+\includegraphics[]{figures/fundamental_cause_of_corrogations.png}
+\caption[]{The main cause of corrugated error surfaces in this work was found to be re-calculating required currents on a model by model basis. In this plot the model was forced to fire exactly 11 spikes while the value of 'a' was swept between $4.4$-$5.6$, a straight line given by linear regression, approximates where we expect required current injection amplitude to fall, but instead, the real value routinely deviates on either side of the straight line. These small current "excesses" then propagate into the measured features of spiking waveforms where they amplify. By necessity the used rheobase determining algorithm has a finite precision. So although in theory rheobase is defined as the minimum current amplitude to cause exactly one spike, in practice there will be small variable amounts of excess current injection strength. Such propagating errors were applied to many threshold dependant waveform features. Its important to note that because resulting corrugations or ripples were usually smaller in amplitude than other important features of the error surface, optimization in the presence of noise was still viable when using the simplest elitest selection rule}
+\label{fig:contingent_discontinous}
+\end{figure}
+\end{center}
+
 
 One solution is make tests contingent on the rheobase taken from the experimental data, rather than the rheobase computed from the current model parameter set.
 In other words, if the rheobase of the biological neuron is 100 pA, then the 1.5x rheobase ISI test should be performed with a current injection of 150 pA, even if the rheobase of the current model parameterization is some entirely different value.
@@ -185,7 +198,7 @@ In the figures below, I describe the spectrum of error surface quality.
 
 
      
-   When considering 2D relationships between single parameters and single objective functions, ideally each objectie function might contribute helpful information, which en-masse boosts the total amount of helpful information. For-instance some 2D error mappings, may contain one or more local minima, but in the same region a different error mapping could lack the error well, meaning that at least one out of two error functions contribute incentive to stride across a minima. The mapping that contains wells, might still be useful to guide optimization, as it may also lack minima in regions were the counterpart has them, additionally the alternative mapping may have regions of $~0.0$ gradient where the other mapping contains significant gradient.
+   When considering 2D relationships between single parameters and single objective functions, ideally each error function might contribute helpful information, which en-masse boosts the total amount of helpful information. For-instance some 2D error mappings, may contain one or more local minima, but in the same region a different error mapping could lack the error well, meaning that at least one out of two error functions contribute incentive to stride across a minima. The mapping that contains wells, might still be useful to guide optimization, as it may also lack minima in regions were the counterpart has them, additionally the alternative mapping may have regions of $~0.0$ gradient where the other mapping contains significant gradient.
    
    % I am not sure if its impossible to make progress.
  %  Through strategy it is possible to optimize satisfactorily without complete prior knowledge of error surfaces, although such a strategy is not recommended. If prior knowledge of an error surface is prohibited, evolutionary algorithms are definitely a more likely to work than gradient descent.
@@ -199,7 +212,13 @@ In the figures below, I describe the spectrum of error surface quality.
    
 
 \subsection{Parameter Boundaries}
-When setting parameter boundaries there is a dilemma: If the upper and lower parameter margins are closer together than necessary, then optimized models may be deprived of the scope they need to reach their best fit. 
+When setting parameter boundaries there is a dilemma: If the upper and lower parameter margins are closer together than necessary, then optimized models may be deprived of the scope they need to reach their best fit. On the other hand if the boundaries are too far apart, then the governing equations of the model may yield unstable solutions, which may impair the tractibility of the error surface as I will describe below.
+
+Error surface tractability can be compromised in two ways.
+Type \textbf{1} solutions to governing equations may contain "not a number" (NaN) or infinity value. The optimizer conventionally interprets more positive numbers as worse. Inside the optimization framework infinity or NaN values are converted to a nominal value of $100.0$, the worst conceivable model score. If more than one gene scores at $100$, then there will be regions of flat error surface. %Although genetic algorithms are not pre-determined to take the steepest path down an error slope, 
+%All optimization algorithms are sensitive to the informativeness of error surface, therefore a flat error surface is unhelpful in both gradient descent and genetic algorithms, 
+When error surface is flat it is uninformative. Flatness in the viable middle region of optimization, is usually defective, but there is one important place where flatness is helpful. It is warranted for the middle region of error space to be framed by cliffs that demarcate a non-viable perimeter of the error hyper-volume, these are the regions where model parameters are operating slightly beyond their intended scope. There is evidence this approach is used in other optimization work.
+
 
 \begin{figure}
     \centering
@@ -208,23 +227,25 @@ When setting parameter boundaries there is a dilemma: If the upper and lower par
     \label{fig:best_at_edge}
 \end{figure}
 
-Consider figure B in the inset \ref{fig:best_at_edge}, in figure B a global minima is positioned at the intersection two parameter edges in both $Kdr$ and $NaP$. It would be easy to formulate the same optimization problem to have truncated scope about the extremes of $NaP$ and $Kdr$ and as a consequence to miss the uniquely positioned global optima situated on the intersection. The alternative optima that would be reported is the broad spanning region that shares the same second lowest value to the optima. The genetic algorithm
+Consider \ref{fig:best_at_edge}, in this figure a global minima is positioned at the intersection two parameter edges in both $Kdr$ and $NaP$. It would be easy to formulate the same optimization problem to have truncated scope about the extremes of $NaP$ and $Kdr$ and as a consequence to miss the uniquely positioned global optima situated on the intersection. The alternative optima that would be reported is the broad spanning region that shares the same second lowest value to the optima. 
 
-On the other hand if the boundaries are too far apart, then the governing equations of the model may yield unstable solutions, which may impair the tractibility of the error surface as I will describe below.
+%The genetic algorithm
+As discussed, model-solution instability can occur when the optimizer samples model parameters that are outside of the models intended scope, or when a model returns a nan value inside its intended scope. It is tempting to think of these flat regions as a flat ledge that neatly encases the error hyper volume like in the figure below \ref{fig:cliff} (and as described above), unfortunately however, because each model has a large number of parameters typically $>10$, any particular model instance, only one of these parameters need be evaluating an unstable model when exceeding a margin, the rest of the parameters may be in the middle of their range, and so such a ledge may mostly be experienced as a hyper dimensional "tower", this tower could actually be experienced in the middle of parameter space in 10 out of 11 parameters, while still being on at the edge for only the 11th parameter. The unfortunate consequence of such towers is to lesion in the middle of parameter space inhibits the migration of chromosomes between regions. Overall the genetic algorithm is robust, and any middle region discontinuities, are a minor temporary hindrance that only slow down learning. When considering the GA overall, there are is only a small number of samples that can occur, so the occurrence of middle region lesions in error surface need to reduced  to maximize the informativeness of every precious sample. 
 
-Error surface tractability can be compromised in two ways.
-Type \textbf{1} solutions to governing equations may contain "not a number" (NaN) or infinity value. The optimizer conventionally interprets more positive numbers as worse. Inside the optimization framework infinity or NaN values are converted to a nominal value of $100.0$, the worst conceivable model score. If more than one gene scores at $100$, then there will be regions of flat error surface. %Although genetic algorithms are not pre-determined to take the steepest path down an error slope, 
-%All optimization algorithms are sensitive to the informativeness of error surface, therefore a flat error surface is unhelpful in both gradient descent and genetic algorithms, 
-When error surface is flat it is uninformative. 
-Because, model-solution instability can occur when the optimizer uses model parameters are used outside of the models intended scope, it is tempting to think of these flat regions as a flat ledge that neatly encases the error hyper volume like in the figure below \ref{fig:cliff}, unfortunately however, because each model has a large number of parameters typically $>10$, any particular model instance, only one of these parameters need be evaluating an unstable model when exceeding a margin, the rest of the parameters may be in the middle of their range, and so such a ledge may actually be experienced as a hyper dimensional "tower", this tower could actually be experienced in the middle of parameter space in 10 out of 11 parameters, while still being on at the edge for only the 11th parameter.
+The major strategy for circumvent unnecessary ridges and towers is to pick and chose error functions sparingly and to assess results in a piecemeal basis. Utilizing a "sparing" inclusion policy will have to occur despite the large conflicting incentive to employ as many objective functions as possible.
 
+% Picking the right objective functions will likely involve favoring a-posteri evidence over a-priori arguments about which errors "should" work best. 
+
+%the majority of samples in the middle of the error space.
 
 To supplement figures from the literature, here I include some figures from problems encountered in this work.
 
 \begin{figure}
     \centering
     \includegraphics[scale=1.25]{figures/adexp_efel_problem.png}
-    \caption[A very complicated but not hopeless error surfaces]{The optima chosen by the optimizer was actually the one in the centre, and not the one on the left, bear in mind, however, that these are only two out of approximately 12 model dimensions, and these two dimensions may not have weighed heavily in the final summed score (as opposed to the component error depicted here)}
+    \caption[A very complicated but not hopeless error surfaces]{A two dimensional error surface drawn from summed EFEL error scores, acting on Adaptive Exponential models.
+    
+    The optima chosen by the optimizer was actually the one in the centre, and not the one on the left, bear in mind, however, that these are only two out of approximately 12 model dimensions, and these two dimensions may not have weighed heavily in the final summed score (as opposed to the component error depicted here)}
     \label{fig:real_problem_nontrivial_surface}
 \end{figure}
 
@@ -232,14 +253,14 @@ To supplement figures from the literature, here I include some figures from prob
     \centering
     \includegraphics[scale=1.25]{figures/third_error_surface.png}
     %\caption[Cliff ledge in 2D error surface]{Cliff ledge in 2D error surface}
-        \caption[Complex but not hopeless error surfaces]{Complex error surface with a neighbouring ridge and valley}
+        \caption[Complex but not hopeless error surfaces]{Complex error surface with alternating neighbouring ridges and valleys (ripples)}
     \label{fig:real_problem_nontrivial_surface}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphicsfigures/friendly_error_surface.png}
-    \caption[Using only constant currents causes simple tractible error surfaces]{Because a constant current injection of just -10pA was applied, the error surface is simple informative and easy to navigate}
+    \includegraphics{figures/friendly_error_surface.png}
+    \caption[Using only constant currents causes simple tractible error surfaces]{Because a constant current injection of $-10pA$ was applied, the error surface is simple informative and very easy to navigate, although only one slice into the error hypervolume is shown. Plots of GA learning speed provide reason to believe that all other slices into the hypervolume have simple convex shape}
     \label{fig:constant_current}
 \end{figure}
 
