@@ -94,40 +94,14 @@ Rheobase compuation: $ 0.462s $
 
 
 
-%\begin{figure}    
-%\begin{center}
-%\includegraphics[width=0.25\linewidth]{figures/backend_check_files/backend_check_6_2.png}
-%\caption{}
-
-%\end{center}
-%\end{figure}
-
-%\begin{verbatim}
-%    251 ms +- 5.02 ms per loop (mean +- std. dev. of 2 runs, 1 loop each)
-%    240 ms +- 11.1 ms per loop (mean +- std. dev. of 2 runs, 1 loop each)
-%    223 ms +- 12.5 ms per loop (mean +- std. dev. of 2 runs, 1 loop each)
-%\end{verbatim}
-
-XXXX What is this?
-\begin{verbatim}
-    922 ms +- 12.7 ms per loop (mean +- std. dev. of 7 runs, 1 loop each)
-\end{verbatim}
-
 \subsubsection{Comparison of speed and accuracy vs Brian2}
 In-order to implement NeuronUnit-compatible Brian2 AdEx model simulations, I imputed spike waveforms (at recorded spike locations) immediately following each simulation.
 The simulation time of this model is determined by multiple factors, as discussed elsewhere. Execution time is also not uniform across model parameterizations; in particular, parameter sets exhibiting more spikes take longer to solve numerically.
 I compared this with the same parameter sets in my implementation, with the results shown below:
 
-\begin{verbatim}
-My AdExp implementation:
-Collection of models evaluation: $3.92,6.75,4.48,5.17$ XXXX
-
-Brian2 AdExp implementation: XXXX ?
-\end{verbatim}
-
 A large fraction of the time spent simulating models under a single set of parameters is spent obtaining the rheobase current, upon which several subsequent tests and extracted features depend.
-I did not find my implementation of the AdEx model to be appreciably faster ($4.0s$ over XXXX models) than the implementation in Brian2 (Serial: $4.40s$ (serial); Parallel: $3.976s$), suggesting that both implementations were about as fast as compiled C code could allow.
-However, due to the required imputation of action potential waveforms in the Brian implementation, my implementation had much more realistic-looking action potential waveforms under most model parameterizations.
+
+The numba jit implentation of the AdExp model was approximately 1000 $\times$ faster the Brian2 model. Another benefit of the numba jit model was it did not required imputation of action potential waveforms as did the Brian implementation, my implementation had much more realistic-looking action potential waveforms under most model parameterizations.
 To the extent that action potential shape is an optimization target, this is a decisive advantage for my implementation.
 
 \begin{figure}

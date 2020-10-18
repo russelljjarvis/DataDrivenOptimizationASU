@@ -13,7 +13,7 @@ Therefore, the mean of these values (e.g. the mean input resistance across repor
 The sample size for one measure (e.g. input resistance) may be larger than for another (e.g. resting potential) meaning that they may reflect different subsets of experiments.
 With those caveats in mind, NeuroElectro is still the most direct way to get a large number of optimization-constraining data values for most neuron types.
 
-In order to verify that the data from NeuroElectro was plausible and was being captured correctly for the purposes of the work in this thesis, I used the API along with a batch visualization pipeline to We visualize the distributions of electrophysiological measurements and inspect them for a) quality control and b) evidence of multimodality.
+In order to verify that the data from NeuroElectro was plausible and was being captured correctly for the purposes of the work in this thesis, I used the API along with a batch visualization pipeline to  visualize the distributions of electrophysiological measurements and inspect them for a) quality control and b) evidence of multimodality.
 Multimodality, meaning multiple peaks in the histogram of a single measurment type for a single cell, could be evidence of a physiological heterogeneity not easily explained by random measurement error.
 Two peaks in the histogram, for example, could result from two distinct subclasses of a single nominal neuron type, each with its own (narrower) distribution of the same measurement.
 In some instances, the mean and standard deviation alone well-described the measurement distributions, as would be expected for random, normally-distributed measurements of a single cell type under reasonably consistent conditions.
@@ -21,19 +21,19 @@ These values were then "approved" for use in model-fitting.
 In other cases, these conditions were not met, as exemplified in the gallery below.
 
 %\begin{comment}
-\begin{figure}
-\centering
-   \includegraphics[scale=0.45]{notebooks_converted/needata_thesis_files/needata_thesis_5_5}
-\end{figure}
+%\begin{figure}
+%\centering
+%   \includegraphics[scale=0.45]{notebooks_converted/needata_thesis_files/needata_thesis_5_5}
+%\end{figure}
 
 %\caption{Model parameterization of the brian2 simulator with the customization: interpolated spike height, forced to be above $0mV$}
 %
 %  \label{fig:sub1}
 %\end{subfigure}%
-\begin{figure}
-\centering
-  \includegraphics[scale=0.45]{notebooks_converted/needata_thesis_files/needata_thesis_5_6}
-\end{figure}
+%\begin{figure}
+%\centering
+%  \includegraphics[scale=0.45]{notebooks_converted/needata_thesis_files/needata_thesis_5_6}
+%\end{figure}
 
 %    
 %    %\caption{Default model parameterization of the custom written integrator}
@@ -57,7 +57,7 @@ In other cases, these conditions were not met, as exemplified in the gallery bel
 %\includegraphics[width=0.7\linewidth]{notebooks_converted/needata_thesis_files/needata_thesis_5_8}
 %\end{center}
 %
-For the majority of NeuroElectro neurons, data sources was uni-modal and well described by a normal distribution. In order to demonstrate, that a normally distributed data is not a reliable assumption I have humanely identified a minority of distributions that violate this assumption.
+For the majority of NeuroElectro neurons, data sources was uni-modal and well described by a normal distribution. However, as a precaution to ensure data integrity, that a normally distributed data is not a reliable assumption I have humanely identified a minority of distributions that violate this assumption.
 
 %XXXX Russell: break this into two plots: one for "good" data and two for "bad" data: of the bad data ones, give one example for bimodal, and one example for skewed.
 
@@ -178,6 +178,33 @@ In order to exploit these, I developed several additional NeuronUnit tests, such
 
 %\label{verbatim:supra-threshold-tests}
 %\end{figure}
+
+Below I include some graphs of the many different features utilized in optimization.
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/voltage_features.png}
+    \caption[passive membrane properties probed with a negative amplitude current stimulus]{Although applying a negative current stimulus, only tends to activate so called "passive" ion channels in the membrane, probing the neuron membrane in this way is simple way of ascertaining essential information about neuron membrane resistance and capacitance}
+    \label{fig:voltage_figures}
+\end{figure}
+
+
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/AP_Amplitude.png}
+    \caption[]{When a neuron fires multiple spikes, many features in the waveform are readily measurable, these include, mean AP overshoot, every AP amplitude, wave troughs, spike threshold and after hyperpolarisation potential to name a few}
+    \label{fig:features_example}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/sag_amplitude}
+    \caption{Caption}
+    \label{fig:sag_amplitude}
+\end{figure}
 
 Two adaption indexs are used to improve the fidelity of adaption measurements, I presume the two different adaption indexs measure adaption in different segments of spike train recordings.
 

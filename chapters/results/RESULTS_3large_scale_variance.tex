@@ -8,29 +8,39 @@ It is known that neural models and experimental measurements generally diverge i
 
 Since we don't yet have complete knowledge of model/experiment divergence, we don't necessarily know the best features to target with regards to model fitting. Specific knowledge of model/data disagreement facilitates the prioritized selection of features that should guide optimization. 
 
-\begin{figure}
-    \centering
-    \includegraphics{figures/voltage_features.png}
-    \caption{Caption}
-    \label{fig:voltage_figures}
-\end{figure}
-\begin{figure}
-    \centering
-    \includegraphics{figures/AP_Amplitude.png}
-    \caption{Caption}
-    \label{fig:features_example}
-\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics{figures/voltage_features.png}
+%    \caption{Caption}
+%    \label{fig:voltage_figures}
+%\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics{figures/AP_Amplitude.png}
+%    \caption{Caption}
+%    \label{fig:features_example}
+%\end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics{figures/AHP.png}
-    \caption{After hyperpolarisation potential }
-    \label{fig:features_example_ahp}
-\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics{figures/AHP.png}
+%    \caption{After hyperpolarisation potential }
+%    \label{fig:features_example_ahp}
+%\end{figure}
 
+
+%\begin{figure}
+%    \centering
+%    \includegraphics{figures/sag_amplitude}
+%    \caption{Caption}
+%    \label{fig:sag_amplitude}
+%\end{figure}
 
 
 \subsection{Features} 
+
+For many of these features it will be useful to refer back to the methods \ref{sec:data_sources} section, where I some key features were depicted. 
+
 Consider a voltage recording at the location of the membrane of a neuron. Teams of researchers have already segmented voltage recordings into labelled sections, each section has a classification that is based on the shape of waveform in a limited region see figure \ref{fig:voltage_figures} for example. Rather than specifying by name each measurement it is often useful to refer collectively to these measurable shapes as "features". 
 
 In the following multivariate analysis we analyze hundreds of such features, and we summarize important differences in a subset of this high dimensional feature space.  Below, I describe some neuronal model features that agreed well with experiments, and some features that diverged.
@@ -167,13 +177,6 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
     \end{center}
 \end{figure}    
 \cite{wang2019sag}
-
-\begin{figure}
-    \centering
-    \includegraphics{figures/sag_amplitude}
-    \caption{Caption}
-    \label{fig:sag_amplitude}
-\end{figure}
 
 \begin{figure}
     \centering

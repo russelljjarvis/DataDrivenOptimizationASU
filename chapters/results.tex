@@ -1,13 +1,26 @@
 \chapter{Results}
-Is Optimization possible?
-       1a. Construction of tests from diverse experimental sources (I wrote the neuroelectro api and its use in neuronunit, and wrote the original Allen one, but you have put in work to create runnable tests from these and other sources).  This is in a sense a method, but you can still report that these tests are runnable, even outside of optimization.
-       1b. Simulated data tests of optimization.  What works?  What doesn’t?  Why (briefly, saving some for discussion)?  NeuroElectro vs Allen also belong here, and fits in with 1a.  You should talk about model means vs means of models (or whatever we are calling it) here, if you have the results for it or think you can in 3 weeks.  
+In the results section I hope to help the reader address doubts about aim of this work, it is a good goal to produce more convincing models, to this end one should ask is improving models via optimization even possible?
+
+In section \textbf{1a}. I discuss the construction of tests from diverse experimental sources. In section \textbf{1b} I discuss how and why it I used simulated data to verify that the optimizer functions correctly. I also discuss optimization techniques that work, and techniques work less well, and the reasons behind model fitting success and failure. 
+
+In section \textbf{1c}, I compare the different collections of data driven tests, and then I discuss, an experiment where I use models to ascertain if some of the assumptions underlying the NeuroElectro data driven tests. 
+
+After setting up the context by describing background considerations I then discuss the results of the majority of model fits performed in this work, although an exhaustive account of the optimized models are available in the appendix, I detail just a few typical results that are representative of whole.
+
+I then discuss which model lead to the best fits overall, as I have ranked the quality of fits between models as if the models are competing against each other, I also come back to the issue of the best model performance in the discussion. %Later in the discussion, 
+
+%    2a. First just do basic ones (like Izhikevich) for a few cell types, then you can close with L5PC.
+%    2b. The app (which supports 2a).
+Next I describe the study of variance between models and data, where I use sparse PCA, to identify the major sources of disagreement between models and experiments. Locating specific sources of model and experimental disagreement. I explain how locating and labeling model/experiment conflicts creates an opportunity for optimization jobs that which can seek to close the gap.
+
+% The optimized models part of this section is predicated on result 1b (so that optimization results can be believed).  You already have the poster for this. I think this captures most of your results in three themes.  Other results which are really methods, like parallel rheobase search, can stay in the methods, and you will get credit for them there.
+
+
+% , although some pre-existing APIs already existed, I needed to write new ones.  This is in a sense a method, but you can still report that these tests are runnable, even outside of optimization.
+ %Why (briefly, saving some for discussion)?  NeuroElectro vs Allen also belong here, and fits in with 1a.  You should talk about model means vs means of models (or whatever we are calling it) 
+       
+  %here, if you have the results for it or think you can in 3 weeks.  
        %You can talk about rippled error surfaces — this is such a deep technical detail that I wouldn’t spend a lot of time on it.  In other words it may be important but it will be almost impossible to follow even if written well.
-2. Results for several optimized models.
-    2a. First just do basic ones (like Izhikevich) for a few cell types, then you can close with L5PC.
-    2b. The app (which supports 2a).
-3. Study of variance between models and data.  The optimized models part of this section is predicated on result 1b (so that optimization results can be believed).  You already have the poster for this.
-I think this captures most of your results in three themes.  Other results which are really methods, like parallel rheobase search, can stay in the methods, and you will get credit for them there.
 
 \input{chapters/results/RESULTS_1b_verification_of_the_optimizer} % ie is optimizaation possible?
 
