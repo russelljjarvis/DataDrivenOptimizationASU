@@ -1,7 +1,7 @@
 \section{A Web Application for Optimization and Visualization}
 An application was developed using the reduced model neural model optimizer as flexible backend. %Since the optimizer essentially acts like the backend of a program, creating an application simply meant writing a "front-end".\\
 \\
-A python webframe "streamlit" facilitates the construction of web applications. Fortunately for the developer, coding in this frame work requires no handling of html elements, and streamlit has tools for acting on important high level data structures, such as the pandas data frame, matplotlib graphs and plotly graphs.\\
+A python library "streamlit" facilitates the construction of web applications. Fortunately for the developer, coding in this web frame work requires no handling of html elements, and streamlit has tools for converting python data into interactive tables and plots. By abstracting html out of the workflow streamlit makes the front-end development accessible to time-poor backend developers.\\
 \begin{figure}
 \begin{center}
 
@@ -19,16 +19,17 @@ A python webframe "streamlit" facilitates the construction of web applications. 
 
 \end{figure}
 
-When optimization is complete, the user sees the $\chi^{2}$ statistic, the $p$-$value$. The user is then allowed to follow a link to download the "model", python object code.\\
+When optimization is complete, the user sees the $\chi^{2}$ statistic, the $p$-$value$. The user is then able to follow a link to download the "model". Later the user will be able to download the full NeuroML model specification.
+
 \begin{figure}
 \begin{center}
 
 \includegraphics[scale=1]{chapters/app_tex/more_app_results}
 \end{center}
+\caption{An accompanying interactive visualisation of the optimized model neuron firing under rheobase firing, and also under passive conditions is supplied.}
 
 \end{figure}
 
-An accompanying interactive visualisation of the optimized model neuron firing under rheobase firing, and also under passive conditions is supplied.
 \begin{figure}
 \begin{center}
 

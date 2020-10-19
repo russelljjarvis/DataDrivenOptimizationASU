@@ -9,30 +9,16 @@
 
 
 There was a need to create extra constraints for fitting models, as the set of Allen Constraints was too few in extent, and not sufficient to properly constrain models.
-\subsection{Error Surfaces}
-In methods I describe two approaches to fitting models, one of those approaches involved a supra-threshold virtual experiment that guides optimization, in models when more than one spike is measured. The other approach involves an at-threshold virtual experiment that guide optimization, where one or no spikes are expected.
 
-It is important to know which approach resulted in the smoothest and most tractible error surfaces. Below I plot error surfaces from each kind of paradigm, such that the reader can also asses which surface look more useful for optimisation. 
+%
+%Although the Rheobase was the cause of  significantly impeding error, it was not so much of a problem to include this test itself, it was more of a problem to include tests that where contingent on its value.
 
-Case 1, Izhikevich model at threshold virtual experiment. Constraints used:
-\begin{verbatim}
-RheobaseTest,TimeConstantTest,RestingPotentialTest,InputResistanceTest, CapacitanceTest,InjectedCurrentAPWidthTest,InjectedCurrentAPAmplitudeTest, InjectedCurrentAPThresholdTest,
-FITest. 
-\end{verbatim}
-
-Case 2, AdExp Model model supra-threshold virtual experiment. Constraints used:
-\begin{verbatim}
-adaptation_index,adaptation_index2 time_to_first_spike, mean_AP_amplitude,spike_half_width, AHP_depth,minimum_voltage,peak_voltage,time\_to\_last\_spike,AHP\_depth\_abs,all_ISI_valuesvoltage_base, min_voltage_between_spikes,Spikecount
- \end{verbatim}
-
-From the plots below one can see that 
+%error which could propogate into other tests that depend on its value, 
 
 
-Both figures are employing the same color coding scheme where deep purple encodes the lowest error and yellow the highest error.
+% From the plots below one can see that 
 
-Because the reduced neuronal models are high dimensional the easiest way to view the error surface the models experience under optimization is to make 2D plots of their surface for each different pairing of model parameter.
 
-The surface plot from the supra threshold paradigm shows more contrast for two reasons: 1, it has less intermediary values (light green colour), reason two, it less high frequency changes, or ripples in the error surface.  
 
 \subsection{Experiment Fitted Model Results} 
 
@@ -43,12 +29,13 @@ Over four different Allen experimental sweeps, and four different different cell
 
 We then took three different models, and we attempted to fit each test set to each model. The result of was a three $\times $ eight factorial of model data combinations. For each each member of this $24$ set factorial we wanted to know if the fitted model behaved in a biological plausible manner, we were interested to know if fitted models were convincing mimics of in-vivo cells, at least with respect to the measurements models were trained to fit.
 
-
 \subsection{Standard Error of the Mean}
+\begin{table}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lrrrrrrr}
 \toprule
 {} &  Rheobase &  SpikeThreshold &  SpikeHalfWidth &  SpikeAmplitude &  MembraneTimeConstant &  RestingMembranePotential &  InputResistance \\
-sem                                &           &                 &                 &                 &                       &                           &                  \\
+Neuron Type                              &           &                 &                 &                 &                       &                           &                  \\
 \midrule
 Hippocampus CA1 pyramidal cell     &    122.88 &            1.85 &            0.12 &            3.68 &                  3.88 &                      0.72 &            12.57 \\
 Olfactory bulb (main) mitral cell  &       NaN &            5.69 &            0.12 &            2.83 &                  5.42 &                      1.39 &            20.17 \\
@@ -56,29 +43,30 @@ Cerebellum Purkinje cell           &    419.81 &            2.00 &            0.
 Neocortex pyramidal cell layer 5-6 &    128.87 &            1.92 &            0.17 &            1.49 &                  2.56 &                      1.84 &            27.93 \\
 \bottomrule
 \end{tabular}
+}
+\caption[Standard Error of the mean (SEM) of NeuroElectro Data Sources]{SOMETHING}
+\end{table}
 
-
-Since some of the NeuroElectro data sources were more challenging to fit, we also computed the Standard Error of the Mean, so that later we could interpreted model fitting failure. For-instance, the SEM is a prediction of a measurements dispersal, it is more theoretically sound that a standard deviation measurement. Without knowing the true underlying data distribution, one can not know the true standard deviation, but it is possible to estimate the standard error of the mean. 
+Since some of the NeuroElectro data sources were more challenging to fit, we also computed the Standard Error of the Mean, so that later we could interpreted model fitting failure. Like variance, the SEM is a prediction of each measurements dispersal, it is more theoretically sound that a standard deviation measurement. Without knowing the true underlying data distribution, one can not know the true standard deviation, but it is possible to estimate the standard error of the mean. 
 
 The $\chi^{2}$ statistic, and the p-value give us a formally indicates how convincing each fitted model was in its mimicry of biological measurements.
-Because we already have a list of Z-scores, the $\chi^{2} $statistic can be obtained by squaring each Z-score and summing the result. A sum of squares less than 1, tells us that models performed well.
-$\chi^{2}=\Sigma_{i} (Zscore_{i}^{2}) $
+Because we already have a list of Z-scores, the $\chi^{2}$ statistic can be obtained by squaring each Z-score and summing the result. A sum of squares less than 1, tells us that models performed well.
+\begin{equation}
+\chi^{2}=\Sigma_{i}^{n} (Z_{i}^{2})
+\end{equation}
 
 %https://en.wikipedia.org/wiki/Chi-square_distribution
 %This allows you to state this as a hypothesis test with a p-value.  The chi-square statistic would simply be , and the p-value would be 1-scipy.stats.chi2.cdf(x, 8) where 8 is the number of elephant tests (and Z-scores).  A very small p-value (which would come from very large chi-square statistic, much larger than expected for random variation) %would mean the optimizer was less successful at recovering the true model.
 
-See appendix:\ref{table:static_electrical_properties}
+%See appendix:\ref{table:static_electrical_properties}
 The Izhikevich Model and the Point Conductance Model were able to achieve high p-values, and small chi-squared statistics when seven or eight of the tests were considered together.
+For example the Izhikevich model fitted to Hippocampus CA1 pyramidal cell data achieved ($\chi^2$, p-value) = (2.13, 0.98)
+The Olfactory Bulb Mitral cell achieved ($\chi^2$, p-value) = (2.02, 0.98).
+An extremely high p-value (such as those above) is evidence that the optimized model is much closer the mean of the data distribution than a random experimental neuron.
+This is exactly the result one would expect from successful optimization.
 
-For example the Izhikevich model fitted to Hippocampus CA1 pyramidal cell data achieved $ (\chi^{2} ,p-value) =(2.1250913868824415, 0.9769347643323284) $
-
-The olfactory Mitral cell
-$ (\chi^{2} ,p-value) =(2.0190436240810925, 0.9804224622781068) $
-
-and the cerebellum Purkinje cell. For contrast p-value and chi-squared statistics on the best random models were:
-
-%(2.0190436240810925, 0.9804224622781068)r
-\subsection{Data fitted Results on four different classes of model were only modestly good for the Izhikevich Model and the Point Conductance Model}
+\subsection{Results for four model classes}
+%were only modestly good for the Izhikevich Model and the Point Conductance Model}
 
 To make the argument that limitations in reduced neural models were the cause of modest model/experiment agreement, we first had to rule out alternative possibilities. One possibility was that the experimental measurements were faulty, and that the measurements were possibly spurious because of in appropriate averaging. It was found that mainly the olfactory bulb mitral cell was prone to having underlying bi-modal data distributions, and this was especially true for resting membrane
 

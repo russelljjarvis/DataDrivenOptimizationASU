@@ -1,11 +1,11 @@
 \section{Optimization Pitfalls}
-Optimization of neuron models is shockingly non-trivial.
-Below I provide a number of examples of optimization pitfalls which were not obvious at the start of my research, but which I discovered during my research.
+\emph{\texbf{Efficient}} optimization of reduced neuron models is shockingly non-trivial, although satisficing biologically plausible models is several degrees easier.
+Below I provide a number of examples of optimization pitfalls which were not obvious at the start of my research, but which I discovered during my research, and which were on ongoing source of confusion, not just for me, but for my whole research team.
 I believe that it is important to share these conceptual traps with my readership, including those who may wish to continue such optimization work.
 
-Genetic algorithms are favorable because they provide a good solution to the exploration/exploitation trade-off. If not hunting for a new prime numbers few are able or willing to wait out their whole lifespan to obtain scientific results. There are steeply limited budgets for exploring solution spaces, therefore it seems prudent to accept solutions which are are not optimal but are negligently close to optimal. Often however, we may be interested in problems, with complex and unlearn-able error surfaces that effectively "bury" the optima in noise. In such a cases it may be acceptable to obtain merely a satisfactory solution, in this context, the highest objective is to recover "biologically plausible models" and many optimal models will easily surpass this criteria of acceptable optimization.
+Genetic algorithms are favorable because they provide a good solution to the exploration/exploitation trade-off. If not hunting for a new prime number few are able or willing to wait out their whole lifespan to obtain the scientific results that there career depends on. There are steeply limited budgets for exploring solution spaces, therefore it seems prudent to accept solutions which are are not optimal but are negligently close to optimal. Often however, we may be interested in problems with complex and unlearn-able error surfaces that effectively "bury" the optima in noise. In such a cases it may be acceptable to obtain merely a satisfactory solution, in this context, the highest objective is to recover "biologically plausible models" and many fitted models can easily surpass this lower criteria of acceptable optimization.
 
-Fortunately the coupling of neuronunit to a Genetic Algorithm facilitates either optimizing or a silent falling back to satisfying as appropriate. The term "satisfice" means that a measured property is either deemed satisfactory or optimal \cite{simon1956rational}. Although we may not know if a true optima is missed, neuronunit is often able to report if a solution is satisfactory. Forinstance when using neuroelectro data we can check if a model is biologically plausible, by consulting the models $\chi^{2}$ statistic over a collection of different electrical measurements.  Assuming that underlying experimental data is normally distributed as discussed in \ref{section:data-sources}. In addition to near optimal and satisfactory model fits models may also fail to achieve even a satisfactory fit and in that case it is helpful to quantify the degree of fitness failure.
+Fortunately the coupling of neuronunit to a Genetic Algorithm facilitates either optimizing or a silent falling back to satisficing as appropriate. The term "satisfice" means that a measured property is either deemed satisfactory or optimal \cite{simon1956rational}. Although we may not know if a true optima is missed, neuronunit is often able to report if a solution is satisfactory. Forinstance when using neuroelectro data we can check if a model is biologically plausible, by consulting the models $\chi^{2}$ statistic over a collection of different electrical measurements.  Assuming that underlying experimental data is normally distributed as discussed in \ref{section:data-sources}. In addition to near optimal and satisfactory model fits models may also fail to achieve even a satisfactory fit and in that case it is helpful to quantify the degree of fitness failure.
 
 % (occasionally the data my violate the assumption of normally distributed)
 %The term satisficing, a portmanteau of satisfy and suffice,[2] was introduced by Herbert A. Simon in 1956,[3]
@@ -30,11 +30,16 @@ Together, this implies that reduced models optimized against data exclusively fr
 This problem is mitigated by including complementary data sources (like the Allen Cell Types database) that can address these dynamics.
 Future optimization efforts should take care to identify the data sources that capture the dimensions of the experimental data along which meaningful differences between cell types can be resolved, and which models are rich enough to express.
 
+
 \subsubsection{Speed of the objective function}
 A large fraction of the compute cycles spent evaluating each parameter set are expended on identifying the rheobase current, thus unlocking the calculation of several subsequent measurements.
 Fortunately, for slower model implementations this can be sped up significantly through parallelism, as described in section \ref{sec:parallel-rheobase}. BluePyOpt uses a python library pebble to in order to evaluate chromosomes in parallel. Often parallel code scheduling interfered with numba jit code, and so code logic must be applied to designate model specific speed up strategies. 
 
-Computer scientists distinguish between two types of memory: RAM usually just termed memory, and disk. In this work it was sometimes memory pressure and not time pressure that prohibited the acquisition of results. This was especially true when mining features from pre-existing databases. In contexts where memory exhaustion could and did lead to program failure another code technique were applied to remedy the situation. A tool: Dask \cite{rocklin2015dask} facilitates the creation of big data set focused recipes. In this context a dask "delayed" iterator, provides a means to "stream" very large collections of data while only storing smaller chunks of the data in memory as they are needed elsewhere in a program. This kind of data juggling might sound like common sense, but usually when data sizes are small or normal storing data out of memory leads to significant computation slowdowns, and so timely juggling of data between disk and memory is non trivial. % The code idiom that facilitates delayed evaluation is a method with a "$@$delayed" function decorator. 
+\subsubsection{Computational and Algorithmic Factors That Impinge on Convergence}
+
+%In addition to words like ``stack" and ``heap", computer scientists distinguish between two types of memory: Its common for computer scientists RAM usually just termed ``memory", and disk. 
+
+In this work it was sometimes memory pressure and not time pressure that prohibited the acquisition of results. This was especially true when mining features from pre-existing databases. In contexts where memory exhaustion routinely lead to program failure another code technique were applied to remedy the situation. A tool: Dask \cite{rocklin2015dask} facilitates the creation of big data set focused recipes. In this context a dask "delayed" iterator, provides a means to "stream" very large collections of data while only storing smaller chunks of the data in memory (RAM) as they are needed elsewhere in a program. This kind of data juggling might sound like common sense, but usually when data sizes are normal storing data out of memory (on disk) leads to significant slowdowns, and achieving a timely juggling of data between disk and memory is non trivial. % The code idiom that facilitates delayed evaluation is a method with a "$@$delayed" function decorator. 
 %Delayed evaluation is intrinsically multi-threaded (but not multiprocessor), so delayed functions experience only intermediate speed-ups. 
 Additionally delayed evaluation caused fewer conflicts with \emph{jit} code. With all of these issues in mind, implementing parts of the PhD project necessitated model dependent switching between the tools as follows: numba-only, numba+delayed, pebble-only, delayed-only etc. This may seem overly complex but other formulations would not have resulted in timely memory friendly computations.
 
@@ -44,19 +49,80 @@ Additionally delayed evaluation caused fewer conflicts with \emph{jit} code. Wit
 %In this context there were two different classes of model: 
 %Models that should have parallel Rheobase or parallel chromosome evaluation.
 
-Caching of simulation results can also speed up evaluation, for example when computing multiple features based upon the same simulated membrane potential trace (e.g. spike count and time to first spike at a given current amplitude).
+%Caching of simulation results can also speed up evaluation, for example when computing multiple features based upon the same simulated membrane potential trace (e.g. spike count and time to first spike at a given current amplitude).
 % Although this is an obvious opportunity for speed up, it was abandoned as the first pass attempt at solving this inside Neuronunit lead to unpredictable bugs for the whole team of programmers involved. This would probably work in current versions of neuronunit.
 %XXXX More about speed here.
 
-\subsubsection{Necessary Factors for Efficient Convergence}
-place-holder.
+\subsubsection{Factors That Facilitate Efficient Convergence}
+
+
+
 \subsubsubsection{Continuity of the Error Surface}
 Some optimization techniques require a perfectly convex error surface to converge.
 Genetic algorithms are more tolerant, up to a point, but an extremely high dimensional optimization problem with a large number of optima can still be intractable.
 Even more problematic are discontinuous error surfaces, which result naturally from bifurcations in the underlying dynamical system.
-In this work, I grappled with some error surfaces that were highly "corrugated", a term I have coined to describe surfaces with abundant discontinuities.
+In this work, I grappled with two types of error surface defect. Some error surfaces that were highly "corrugated", a term I have coined to describe surfaces low amplitude oscillatory disturbances across the error surface. In addition to corrugation occasionally discontinuties in the surface were present, the causes of these abrupt jumps in surface value were easier to understand however.  
+
+As stated above the amplitude of the error surface disturbances was relatively small, this meant it was possible for humans to conceptualize the surface defects as low amplitude noise.
+Unfortunately this did not mean it no longer a problem for the genetic algorithms. NSGA2 a type of genetic selection  ranks solutions according to a principle of non-domination, where improvements to fitness must co-occur. Under this scheme the best chromosomes are the ones where all fitness criteria improve together. Potentially fitter solutions are penalized, if some improvements occur at the expense of other criteria. Unfortunately the principles of this algorithm imply that it is invariant to the amplitude of error improvements, as it only senses the sign of relative improvement: "positive" or "negative". Therefore NSGA2 has a greater propensity to become fixated with the basins of the low amplitude corrugations. Unlike NSGA2 IBEA was better able to distinguish big from small and it was more resilient to getting stuck in these low amplitude surface defects. 
+% DISCONTINUITIES -> IRREGULARITIES.  not sure that these are discontinuties. To use tectonic metaphors: A discontinuity is like misaligned tectonic plate after an earth quake. A corrogation can be smooth like a sinewave, or pond ripple.
+
+
 If most components of the multi-objective functions, i.e. the outputs from tests of single features, were continuous then the inclusion of a very small number of corrugated error functions did not prohibit successful optimization.
 However, inclusion of too many corrugated function proved problematic.
+
+\subsection{Error Surfaces}
+In methods I describe two approaches to fitting models, one of those approaches involved a supra-threshold virtual experiment that guides optimization, in models when more than one spike is measured. The other approach involves an at-threshold virtual experiment that guide optimization, where one or no spikes are expected.
+
+It is important to know which approach resulted in the smoothest and most tractible error surfaces. Below I plot error surfaces from each kind of paradigm, such that the reader can also asses which surface look more useful for optimisation. 
+
+Case 1, Izhikevich model at threshold virtual experiment. Constraints used:
+\begin{verbatim}
+TimeConstantTest,RestingPotentialTest,InputResistanceTest, CapacitanceTest, FITest
+\end{verbatim}
+
+All the figures below employ a consistent color coding scheme where red encodes the highest error and blue the lowest error. Because the reduced neuronal models are high dimensional the easiest way to view the error surface the models experience under optimization is to make 2D plots of their surface for each different pairings of $12$ model parameters.
+
+%The surface plot from the supra threshold paradigm shows more contrast for two reasons: 1, it has less intermediary values (light green colour), reason two, it less high frequency changes, or ripples in the error surface.  
+
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/friendly_error_surface.png}
+    \caption[Using only constant currents causes simple tractible error surfaces]{Because a constant current injection of $-10pA$ was applied, the error surface is simple informative and very easy to navigate, although only one slice into the error hypervolume is shown. Plots of GA learning speed provide also demonstrate that the error surface is free from both corrogations and discontinuties. Other plots (not shown here) demonstrate that all other slices into the hypervolume have simple convex shape.}
+    \label{fig:constant_current}
+\end{figure}
+
+
+Case 2, AdExp Model model supra-threshold virtual experiment. Constraints used:
+\begin{verbatim}
+adaptation_index,adaptation_index2 time_to_first_spike, mean_AP_amplitude,spike_half_width, AHP_depth,minimum_voltage,peak_voltage,time-to-last-spike,AHP-depth-abs,all_ISI_valuesvoltage_base, min_voltage_between_spikes,Spikecount
+ \end{verbatim}
+\begin{figure}
+    \centering
+    \includegraphics[scale=1.25]{figures/adexp_efel_problem.png}
+    \caption[A very complicated but not hopeless error surfaces]{A two dimensional error surface drawn from summed EFEL error scores, acting on Adaptive Exponential models.
+    
+    The optima chosen by the optimizer was actually the one in the centre, and not the one on the left, bear in mind, however, that these are only two out of approximately 12 model dimensions, and these two dimensions may not have weighed heavily in the final summed score (as opposed to the component error depicted here)}
+    \label{fig:real_problem_nontrivial_surface}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=1.25]{figures/third_error_surface.png}
+    %\caption[Cliff ledge in 2D error surface]{Cliff ledge in 2D error surface}
+        \caption[Complex but not hopeless error surfaces]{Complex error surface with alternating neighbouring ridges and valleys (ripples)}
+    \label{fig:real_problem_nontrivial_surface}
+\end{figure}
+
+
+
+% dont need to share complexity with reader.
+%Although not shown here a third case is worth describing, as this third test combination achieved many useful results: Izhikevich model at threshold virtual experiment. Constraints used:
+%\begin{verbatim}
+%Case1 + RheobaseTest,
+%\end{verbatim}
+
 
 \subsubsubsection{Number of Components in the Objective Function}
 Theoretically every additional component included in the objective function--every constraint derived from some experimental feature--should make the error surface a better answer to the question, "Is this a realistic model of the neuron of interest?".
@@ -126,7 +192,6 @@ No lower error solution may be available within a reasonable distance (in parame
 
 \subsection{More about Rastrigin's function...?}
 Rastrigin's function has convexity in two scales. On the larger scale the surface has a convex property, on the small scale the function is uniformly pocked with minima wells. In order for the GA to optimize Rastrigin's function it must be able to exploit the global information of the error surface, and simultaneously the genes will often converge for generations in the minima, but they won't get stuck there because mutation and cross-over will drive the GA to test other less optimal solutions.\\
-\\
    %\begin{figure}
   %\includegraphics[]{figures/rastagrind.jpg}
   %\caption{}
@@ -138,66 +203,52 @@ Rastrigin's function has convexity in two scales. On the larger scale the surfac
    Without some first prior knowledge of the error surface, a likely outcome is to attempt optimize on uninformative surfaces. If an uninformative surface is applied, it does not mean that the genetic algorithm will not succeed, it only means that the performance of the GA may be only marginally better than random sampling, or exhaustive search of the error surface.\\
    \\
    %Random sampling, sounds bad, however, if the best random solution is digitally stored, and the number of samples applied is less than the possible number of samples in an exhaustive search, random sampling may better resolve the exploitation/exploration dilemna than both gradient descent, and exhaustive search.
-{ \hspace*{\fill} \\}      
 
 \subsection{Specific examples of challenging real-world error surfaces encountered in this work}
 In the figures below, I describe the spectrum of error surface quality.
+\begin{center}
 \begin{figure}
-\centering
-\begin{minipage}{.5\textwidth}
-  \centering
      \includegraphics[scale=0.65]{figures/pond_ripple_surface.png}
-     \captionof{figure}{In the case of pond ripples the cost function is defined so that the maxima is the optimal location on the surface. Ripples on a body of water are more challenging to optimize, as the water surfaces are approximately flat on the large scale, yet on the small scale maximas will be temporary preoccupy the GAs learning, but outside of those peaks, there is little large scale information to utilize. }
+     \caption{figure}{In the case of pond ripples the cost function is defined so that the maxima is the optimal location on the surface. Ripples on a body of water are more challenging to optimize, as the water surfaces are approximately flat on the large scale, yet on the small scale maximas will be temporary preoccupy the GAs learning, but outside of those peaks, there is little large scale information to utilize. }
       
       \label{fig:test1}
-    \end{minipage}%
-    \begin{minipage}{.5\textwidth}
+\end{figure}
+\end{center}
+
+
+\begin{figure}
       \centering
       \includegraphics[scale=0.85]{figures/parameter_b_hopeless_surface2.png}
-      \captionof{figure}{Similarily parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different model parameterisation of \emph{a}, this resultd in a highly rippled error surface, densely populated by local minima, and with only a very shallow global convex shape}
+      \caption{figure}{Similarily parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different model parameterisation of \emph{a}, this resultd in a highly rippled error surface, densely populated by local minima, and with only a very shallow global convex shape}
       \label{fig:discontinuous_constraint}
-    \end{minipage}
 \end{figure}
 
 
 % Note Help wanted making a professional version, of this known to be unattractive draft/concept figure.
 \begin{figure}
 \centering
-
       \label{fig:test1}
-    \begin{minipage}{.5\textwidth}
       \centering
       \includegraphics[scale=0.85]{figures/worst_error_surfaces.jpg}
       \captionof{figure}{Rastrigrins function describes a challenging error surface, but one with learnable global features that a genetic algorithm can exploit. It's important to note that there are much worse error surfaces, and these may show up in practice. The first type has actively misleading local and global information. In this context learning is a disadvantage, if the optimizer "learns", then it actually slows obtaining an optimal solution. The second type of error surface actually a 1D (and upside down) cross section of the 2D pond picture, only actively misleads locally, globally it simply contains no helpful global information. Learning will not be of any assistance in obtaining the optima, but also learning won't actively be a disadvantage either, the Genetic Algorithm, will simply behave as a random sampling/testing algorithm, the GA will find the optimum in time, but possibly not as quickly or reliably as exhaustive search would. The second figure is a cross section of the pond ripple argument}
       \label{fig:test2}
-    \end{minipage}
 \end{figure}
 
 \begin{figure}
 \centering
-
-
-    
-    \begin{minipage}{.5\textwidth}
-      \centering
       \includegraphics[scale=0.85]{figures/parameter_b_hopeless_surface.png}
       \captionof{figure}{Similarily parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different model parameterisation of \emph{a}, this resultd in a highly rippled error surface, densely populated by local minima, and with only a very shallow global convex shape}
       \label{fig:probably_smooth_constraint}
-    \end{minipage}
+\end{figure}
 
-    \begin{minipage}{.5\textwidth}
-      \centering
+\begin{figure}      
+\centering
       \includegraphics[scale=0.85]{figures/parameter_b_friendly_surface.png}
       \captionof{figure}[]{This is a cross section of a useable and tractable error surface, it has learnable global and local information, as long as not all error surfaces in the multiobjective collection of constraints, this surface is likely to be a valueable addition to the optimizer suite}
       \label{fig:test2}
-    \end{minipage}
-
-
 \end{figure}
 
 
-
-     
    When considering 2D relationships between single parameters and single objective functions, ideally each error function might contribute helpful information, which en-masse boosts the total amount of helpful information. For-instance some 2D error mappings, may contain one or more local minima, but in the same region a different error mapping could lack the error well, meaning that at least one out of two error functions contribute incentive to stride across a minima. The mapping that contains wells, might still be useful to guide optimization, as it may also lack minima in regions were the counterpart has them, additionally the alternative mapping may have regions of $~0.0$ gradient where the other mapping contains significant gradient.
    
    % I am not sure if its impossible to make progress.
@@ -239,32 +290,6 @@ The major strategy for circumvent unnecessary ridges and towers is to pick and c
 %the majority of samples in the middle of the error space.
 
 To supplement figures from the literature, here I include some figures from problems encountered in this work.
-
-\begin{figure}
-    \centering
-    \includegraphics[scale=1.25]{figures/adexp_efel_problem.png}
-    \caption[A very complicated but not hopeless error surfaces]{A two dimensional error surface drawn from summed EFEL error scores, acting on Adaptive Exponential models.
-    
-    The optima chosen by the optimizer was actually the one in the centre, and not the one on the left, bear in mind, however, that these are only two out of approximately 12 model dimensions, and these two dimensions may not have weighed heavily in the final summed score (as opposed to the component error depicted here)}
-    \label{fig:real_problem_nontrivial_surface}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[scale=1.25]{figures/third_error_surface.png}
-    %\caption[Cliff ledge in 2D error surface]{Cliff ledge in 2D error surface}
-        \caption[Complex but not hopeless error surfaces]{Complex error surface with alternating neighbouring ridges and valleys (ripples)}
-    \label{fig:real_problem_nontrivial_surface}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics{figures/friendly_error_surface.png}
-    \caption[Using only constant currents causes simple tractible error surfaces]{Because a constant current injection of $-10pA$ was applied, the error surface is simple informative and very easy to navigate, although only one slice into the error hypervolume is shown. Plots of GA learning speed provide reason to believe that all other slices into the hypervolume have simple convex shape}
-    \label{fig:constant_current}
-\end{figure}
-
-
 
 Although we are considering single points, and not surfaces, very often if a point is unstable, its neighbours are also unstable, in this way points of instability tend to be a constituents of larger regions of surface that add up to towers, cliffs and ledges such as those in seen here {fig:cliff}.
 

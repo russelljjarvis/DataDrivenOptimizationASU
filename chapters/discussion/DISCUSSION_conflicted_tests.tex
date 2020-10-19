@@ -1,0 +1,50 @@
+
+\subsection{Neuroelectro Measurements that were not Amenable to the Optimization Framework}
+\begin{itemize}
+\item ThresholdTest
+\item SpikeHalfWidth
+\item Spike Amplitude
+\end{itemize}
+As discussed previously this is because of an accumulating rheobase error which caused threshold measurements to differs between cells. This may be more of a problem in certain regions of model parameter space, but the problem was general, it occurred in multiple models. As discussed in \ref{section:pitfalls}, error residues from rheobase calculations can be propagated into these tests, where the error amplifies.
+%Aim 1A, write something about tests overall.
+%Overall the some 
+Tests of static electrical properties amenable to optimization:
+\begin{itemize}
+\item FISlopeTests
+\item Capacitance
+\item Input Resistance
+\item Time Constant 
+\end{itemize}
+
+The following two are amenable to optimization, however, they are a source of potentially growable noise and so they should be used with caution when used as a reference or basis for secondary measurements.
+\begin{itemize}
+\item Rheobase 
+\item Spike Count measurements \end{itemize}
+
+
+%, , , , test worked but was conflicted. The tests that did not work. This is somewhere else.
+
+Tests that worked within optimization:
+Via \emph{Elephant} toolchain: FITests, Rheobase, Capacitance, Input Resistance, Time Constant, Resting Membrane Potential.
+Via. 
+
+When optimizing in the supra threshold regime Druckmann used:
+(1) spike rate; (2) an accommodation index; (3) latency to first spike;(4) average AP overshoot; (5)average depth of after hyperpolarization (AHP); 
+(6) average AP width similar to Druckman, when optimizing in the supra threshold regime.
+When optimizing with reduced models, I found that the those 6 measurements were not enough to tightly constrain a fit, and additional constraints were helpful. In this work a minimum of 12 constraints were typically used:
+\emph{EFEL}
+tool chain:
+\begin{enumerate}
+\item AHP-depth
+\item all-ISI-values
+\item Spikecount %$ (similar to rate)
+\item adaptation-index
+\item mean-AP-amplitude
+\item min-voltage-between-spikes
+\item minimum-voltage
+\item peak-voltage
+\item spike-half-width
+\item time-to-first-spike
+\item time-to-last-spike
+\item voltage-base
+\end{enumerate}

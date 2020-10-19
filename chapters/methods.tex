@@ -11,6 +11,7 @@ Model optimization follows the following basic approach:
 \end{enumerate}
 Within these steps are also a number of smaller decisions, including where the experimental data will be obtained and what kind of simulator will be used to run the model.
 Using NeuronUnit, the steps above take the follow pseudo-code form:
+\clearpage
 \begin{lstlisting}[language=python]
 # Import code from NeuronUnit
 from sciunit import TestSuite
@@ -18,12 +19,46 @@ from neuronunit.models import MyModelClass
 from neuronunit.tests import MyTestClass1, MyTestClass2, MyTestClass3
 from neuronunit.data import get_data_from_database_x
 
-# Get data about my  neuron
-neuron_type = "Russell's neuron" # Replaced with a real neuron type in production
+# Get data about some neuron
+neuron_type = "CA1 Pyramidal Cell"
 neural_data = get_data_from_database_x(neuron_type)
-test1 = MyTestClass1
-test_suite = TestSuite([test1, test2, test3])
+test1 = MyTestClass1(neural_data[1])
+test2 = MyTestClass2(neural_data[2])
+test_suite = TestSuite([test1, test2])
+
+# Optimize a model against this test suite
+optimized_model = test_suite.optimize(MyModelClass)
 \end{lstlisting}
+
+
+
+\subsection{Novel Data Driven Optimization Constraints}
+
+At the begging of my project the range of tests available for optimization in NeuronUnit was incomplete, initially tests in neurounuit were restricted to measurements of negative deflection in the membrane or the shapes of single action potentials. In order for model output to reflect the rich dynamics of experimental data, it was also necessary that the shapes and timing patterns of spike trains be assessed and tested. 
+
+As noted in \ref{sec:data-sources} there where two experimental data types, each of which was used to constrain models differently: multiple spike shape features, and summarized electro-physiology reports. The distinction is important here because in the former case new feature extraction routines are needed, and in the second case it is not.
+
+In order to obtain the first data type, I created an Allen cell-types API, the API allows one to create neuronunit tests from a data base of experimental cellular recording waveforms.
+
+In order to create the new NeuronUnit tests, one must query the cell-types database, impose a new organization on the data, extract relevant features (EFEL), and convert model features to NeuronUnit tests. A similar API was created in order to render BlueBrain Project waveforms, eligible for NeuronUnit testing, such that the both the BlueBrain \cite{toledo} and Allen Cell-type data could then guide model fitting. %Tests obtained via the Allen API, were designed to execute inside a NeuronUnit and BluePyOpt frameworks.  
+
+%experiment to NeuronUnit test
+One can see the APIs being creating novel NeuronUnit tests here \url{https://github.com/fun-zoological-computing/BluePyOpt/blob/master/examples/bpo_nu_fusion/allen_efel_nu_deployed_tests_only-thesis.ipynb}
+%Construction of tests from diverse experimental sources 
+%My allen API is perhaps scattered. Allen API.
+%Which is the best model.
+In order to optimize reduced models, it was first necessary to develop optimizer-friendly implementations of these models. As described in methods, I developed three different optimizer friendly reduced models: Izhikevich model (spanning seven regimes), Adaptive Exponential Integrate and Fire model, and the GLIF model. Additionally I created one slower single compartment model and a I retrofitted a pre-existing multi-compartment conductance based models to make a broader array of comparisons across model types possible.
+
+The range of tests available for optimization in NeuronUnit was also incomplete, especially as it focused on passive properties of the membrane or the shapes of single action potentials.  In order for model output to reflect experimental data, it was also necessary that the timing and patterns of action potentials be assessed and tested.  Therefore, I developed the ability for EFEL features to be calculated on NeuronUnit models. 
+
+
+I developed the ability for EFEL features to be calculated on NeuronUnit models, as well as a new single test that measured and compared FISlope in Allen celltypes data. I organized these tests into new at threshold and above threshold Allen Data test sets. This required both the extraction of novel features and novel test types: (ISI, AHP-depth, adaption ratio etc.).   
+
+
+Multi-core and or multi-threaded optimization requires that information about model properties be shareable across various processor threads. However, some common data types contain information that is not shareable between CPUs, and they must be translated into a globally sharable framework. I created a class Data Transport Container, that could contain be used to circulate only essential data, in a more shareable form. 
+
+In order to both control optimization parameters and visualize optimization results, I also developed a web application, the application requires no programming skill to use, and it allows a user of the to select among multiple cell specific constraints, and multiple model types. %Once the user has specified enough parameters to define an optization job, the job can launch, and then return interactive results to the user when the optimization job is complete typically in minutes.
+
 
 %\input{chapters/methods/model_implementation_assesment}
 %\input{chapters/methods/rheobase}

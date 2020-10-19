@@ -189,6 +189,16 @@ speed up. Unlike the NEURON NeuroML implementation of the izhikitich equation,
 this implementation is just as generalizable as the original MATLAB
 implementation of the Izhikevich model, because it was possible to unify the fractured implementations in the one python simulator backend.
 
+\subsection{NEURON+Python single compartment Conductance Model.}
+
+Conductance based models took approximately the same amount of time to evaluate the Rheobase search algorithm as the python implementation.
+
+The author also engineered GLIF model support for $NeuronUnit$ tests. In practice these models where hard to configure without expert knowledge, GLIF models contain the most parameters of all models, and many of these parameters are multi dimensional. GLIF models do not by necessity spike, interpolated spike times, are added in however, it does not make sense to evaluate GLIF models on spike shape features.
+
+It is worth noting that the layer 5 neocortical pyramidal neuron was very slow to dispatch relative to the reduced models developed in this thesis work. Where as a typical reduced model described here evaluated in the order of $2.5 ms$, this model on average took $5.74$s, for a single run and $34.8$s to solve for the models Rheobase, current. To be fair, the model was run without activating NEURONs variable time step cvode. However, even with variable time step applied to the differential equation solver the magnitude of the disparity is still still several $seconds:$ several $ ms$. 
+
+% time taken to compute rheobase $ 12.6s $
+
 
 %\begin{verbatim}
 %  time taken on
@@ -197,15 +207,10 @@ implementation of the Izhikevich model, because it was possible to unify the fra
 %  100 loops each)\textbackslash{}n3.19 ms +- 10.9 us per loop (mean +- std. dev. of 2 runs, 100
 %\end{verbatim}
         
-\section{Python/LEMS and NEURON versions of single compartment Conducance Model.}
 
-Conductance based models took approximately the same amount of
-time to evaluate the Rheobase search algorithm as the python
-implementation.
 
 %This problem in the default parameterization of the python model was later located in the scale or units of capacitance, if default capacitance parameterization is multiplied by 100.0 the problem goes away.
 
-time taken to compute rheobase $ 12.6s $
 
 %\begin{center}
 %\includegraphics{figures/backend_check_files/backen%d_check_22_2}
@@ -214,8 +219,10 @@ time taken to compute rheobase $ 12.6s $
 %$ 1.40762329 * pA $
 
 
-\subsection{NEURON versions of single compartment Conducance
-model.}
+% \subsection{NEURON versions of single compartment Conducance
+% model.}
+
+% Took $8.57$ seconds to find Rheobase.
 
 %Hodgkin Huxley Conductance based channels models took approximately the same amount of time to evaluate the Rheobase search algorithm as the python implementation.
 
@@ -223,9 +230,6 @@ model.}
 
 %This problem in the default parameterization of the python model was later located in the scale or units of capacitance, if default capacitance parameterization is multiplied by 100.0 the problem goes away.
 
-Took $8.57$ seconds to find Rheobase.
-
-The author also engineered GLIF model support for $NeuronUnit$ tests. In practice these models where hard to configure without expert knowledge, GLIF models contain the most parameters of all models, and many of these parameters are multi dimensional. GLIF models do not by necessity spike, interpolated spike times, are added in however, it does not make sense to evaluate GLIF models on spike shape features.
 
 %which makes debugging their behavior very difficult. %None the less GLIF models where among the fastest to evaluate, and the author had success in making fitting these models to Allen Rheobase data.
 
@@ -248,10 +252,9 @@ The author also engineered GLIF model support for $NeuronUnit$ tests. In practic
 %'init\_threshold': 0.02964956889477108, %'th\_inf': 0.02964956889477108,
 %'spike\_cut\_length': 109.5, %'init\_voltage': -35.0, 'R\_input': %910258965.9792937\}
 %\end{verbatim}
-$ Rheobase = 112.5pA $
-
-time taken to execute this model.
-$ 0.23476457595825195 $
+%$ Rheobase = 112.5pA $
+%time taken to execute GLIF model when deliberately undersampling to save time.
+%$ 0.23476457595825195 $
 
     
 

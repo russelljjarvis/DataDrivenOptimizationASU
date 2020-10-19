@@ -46,8 +46,8 @@ As architectures with hundreds of cores are now common, speedups of 7-10 fold ar
 
 \begin{figure}    
   \begin{center}
-  \includegraphics[width=0.7\linewidth]{{figures/rheobase_algorithm.png}}
-    \caption{We developed a generic algorithm which took models, and found the minimal current injection value that would cause only one spike. The normal structure of this algorithm is a binary search, however we modified the algorithm so it would map onto multiple processors at once. This lead to significant speed ups for multicompartment NEURON models}
+  \includegraphics[width=0.9\linewidth]{{figures/rheobase_algorithm.png}}
+    \caption[Parallel rheobase algorithm]{We developed a generic algorithm which took models, and found the minimal current injection value that would cause only one spike. The normal structure of this algorithm is a binary search, however we modified the algorithm so it would map onto multiple processors at once. This lead to significant speed ups for multicompartmental NEURON models}
     \label{fig:rheobase}
   \end{center}
 \end{figure} 
@@ -76,6 +76,6 @@ The total speedup approached but fell a bit short of the theoretical speedup due
 As the complexity of each simulation increases, and as the number of CPU cores brought to bear increases, this overhead should become a vanishingly small fraction of the total rheobase determination time.
 
 \subsection{Generalization to target spike counts}
-This approach determining rheobase was also generalized into a more fundamental algorithm for determining the amplitude of current required to generate a target number of action potentials.
-In other words, it can be used to invert points along a models "F-I" function.
-\url{https://github.com/russelljjarvis/neuronunit/blob/master/neuronunit/tests/target_spike_current.py}.
+This approach determining rheobase was also generalized into a more fundamental algorithm (\url{https://github.com/russelljjarvis/neuronunit/blob/master/neuronunit/tests/target_spike_current.py}) for determining the amplitude of current required to generate a target number of action potentials.
+In other words, it can be used to invert points along a models ``F-I" function.
+

@@ -7,15 +7,10 @@ These mechanics have been described at length previously in \cite{omar2014collab
 \begin{figure}
 \begin{center}
 	\includegraphics{figures/normal_distribution}
-    \caption{As discussed in the introduction, Error functions were evaluated with the assistance of a library: \emph{NeuronUnit} 
-    were based on finding a normal distribution on electro physiology measurements, 
-    and then measuring model outputs and mapping the model behavior onto
-     a place on the experimental normal distribution. Scores that where closer to the
-      experimental mean where deemed to be low in error.
-	Z-scores obtained via NeuronUnit can be thought of as  }
-	%\label{figure\arabic{figurecounter}
-	
-\caption{Caption}
+    \caption[Z-scores for NeuronUnit Tests]{As discussed in the section \ref{sec:neuronunit}, error functions were evaluated with the assistance of the \emph{NeuronUnit} library.
+    This involves obtaining an experimental distribution over electrophysiology feature measurements for a cell type, measuring corresponding model output features and then locating those features in that experimental distribution. 
+    Scores that are closer to the experimental mean are identified as low error.
+	The Z-score encodes this information; a Z-score of 0 is the lowest possible error.}
 \end{center}
 	
 \end{figure}
@@ -30,7 +25,7 @@ When doing sub threshold fitting with NeuroElectro data, its possible to use Z-s
         \subitem The value $110pA$ is mapped onto normalized distribution: $\frac{abs(110pA-\mu)}{\sqrt{\sigma^{2}}} = 0.25$
     \item $\log_{10}(1-0.25) $ 
     \item best fitness is $0.0$, worst fitness is arbitrary, for simplicity lets call it $100$.
-        \subitem  $ error = $ abs(log_norm_score))$ = 0.12$ 
+        \subitem  $ error = $ abs(log-norm-score))$ = 0.12$ 
         \subitem $ fitnesses = collection(errors) $
 \end{itemize}
 %XXXX Enumerated list showing how data determines a Z-score (or a RatioScore) which then determines a norm-score, a log-norm-score, and the objective function result.
