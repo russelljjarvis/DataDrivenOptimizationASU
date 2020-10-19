@@ -11,14 +11,14 @@ Multi spiking waveform analysis \url{https://github.com/russelljjarvis},
 An API for mining features from NeuroMLDB, Allen Cell Types: using AllenSDK, Druckmann \url{https://github.com/russelljjarvis/AllenEFELDruckmanFeatures}
 \cite{birgiolas2019towards}, \cite{birgiolas2016rapid} \cite{druckmann2007novel}
 
-It seemed important to try to answer the question: "How much difference does it make to apply data-fitted cell models to pre-existing network simulations?" In order to make it possible to answer that question. I took existing Izhikevich cell network simulations implemented in Julia, and modified the source code to make it inter operable with the approaches to stimulating cells with square currents in python. The julia Izhikevich network provides rapid execution times and requires no specialized computing hardware.
+It seemed important to try to answer the question: ``How much difference does it make to apply data-fitted cell models to pre-existing network simulations?" In order to make it possible to answer that question. I took existing Izhikevich cell network simulations implemented in Julia, and modified the source code to make it inter operable with the approaches to stimulating cells with square currents in python. The julia Izhikevich network provides rapid execution times and requires no specialized computing hardware.
 
 It was found that applying Izhikevich cells optimized to CA1 Hippocampus pyramidal neurons, and Layer IV Neo Cortical pyramidal neurons, changed 
 Julia Spiking Neural Networks and some optimization in Julia:
 \url{https://github.com/russelljjarvis/NeuronUnitOpt.jl}
 
-\section{Model Fits}
-\subsection{471819401 IZHI}
+%\section{Model Fits}
+%\subsection{471819401 IZHI}
 %\begin{table}[ht]
 %\centering
 %\resizebox{\textwidth}{!}{
@@ -27,61 +27,7 @@ Julia Spiking Neural Networks and some optimization in Julia:
 %\bottomrule
 %\end{tabular}}
 %\end{table} 
-
-\begin{figure}
-\begin{verbatim}
-'AP1RateOfChangePeakToTroughTest_3.0x',
-'AP2DelaySDTest_1.5x',
-'AP2DelaySDTest_3.0x',
-'AP_end_indices_3.0x',
-'AP_fall_indices_1.5x',
-'AP_fall_indices_3.0x',
-'AP_rise_indices_1.5x',
-'AP_rise_time_1.5x',
-'AP_rise_time_3.0x', 
-'APlast_width_1.5x',
-'AccommodationRateMeanAtSSTest_3.0x', 
-'AccommodationRateToSSTest_3.0x',
-'ISIBurstMeanChangeTest_3.0x', 
-'ISICVTest_3.0x',
-'ISI_log_slope_skip_3.0x', 
-'Spikecount_stimint_1.5x',
-'Spikecount_stimint_3.0x', 
-'adaptation_index2_3.0x',
-'fast_trough_index_1.5x', 
-'fast_trough_index_3.0x',
-'fast_trough_t_1.5x', 
-'fast_trough_t_3.0x', 
-'initburst_sahp_vb_1.5x',
-'input_resistance', 
-'maximum_voltage_1.5x', 
-'min_AHP_indices_1.5x',
-'min_AHP_indices_3.0x', 
-'peak_index_1.5x', 
-'peak_index_3.0x',
-'peak_indices_1.5x', 
-'peak_indices_3.0x',
-'peak_t_1.5x',
-'peak_t_3.0x',
-'peak_time_3.0x',
-'steady_state_hyper_1.5x',
-'steady_state_voltage_1.5x', 
-'steady_state_voltage_stimend_1.5x',
-'threshold_index_1.5x', 
-'threshold_index_3.0x',
-'threshold_t_1.5x',
-'threshold_t_3.0x',
-'upstroke_index_1.5x',
-'upstroke_index_3.0x',
-'upstroke_t_1.5x', 
-'upstroke_t_3.0x', 
-'voltage_after_stim_1.5x',
-'voltage_after_stim_3.0x'   
-\end{verbatim}
-\label{fig:reference_feature_list}
-List of complete 47 features used in the analysis down from 466 after data cleaning.
-
-\end{figure}
+%\end{figure}
 
 \subsection{Best Fitting Model Parameters for two models on 12 data-driven test sets}\begin{tabular}{lrrrrrrrrrr}
 \toprule
@@ -1082,3 +1028,59 @@ InjectedCurrentAPThresholdTest &        -38.9 mV &      -52.08 mV &     2.54 \\
 \bottomrule
 \end{tabular}
 \end{comment}
+
+
+\begin{figure}
+\begin{verbatim}
+'AP1RateOfChangePeakToTroughTest_3.0x',
+'AP2DelaySDTest_1.5x',
+'AP2DelaySDTest_3.0x',
+'AP_end_indices_3.0x',
+'AP_fall_indices_1.5x',
+'AP_fall_indices_3.0x',
+'AP_rise_indices_1.5x',
+'AP_rise_time_1.5x',
+'AP_rise_time_3.0x', 
+'APlast_width_1.5x',
+'AccommodationRateMeanAtSSTest_3.0x', 
+'AccommodationRateToSSTest_3.0x',
+'ISIBurstMeanChangeTest_3.0x', 
+'ISICVTest_3.0x',
+'ISI_log_slope_skip_3.0x', 
+'Spikecount_stimint_1.5x',
+'Spikecount_stimint_3.0x', 
+'adaptation_index2_3.0x',
+'fast_trough_index_1.5x', 
+'fast_trough_index_3.0x',
+'fast_trough_t_1.5x', 
+'fast_trough_t_3.0x', 
+'initburst_sahp_vb_1.5x',
+'input_resistance', 
+'maximum_voltage_1.5x', 
+'min_AHP_indices_1.5x',
+'min_AHP_indices_3.0x', 
+'peak_index_1.5x', 
+'peak_index_3.0x',
+'peak_indices_1.5x', 
+'peak_indices_3.0x',
+'peak_t_1.5x',
+'peak_t_3.0x',
+'peak_time_3.0x',
+'steady_state_hyper_1.5x',
+'steady_state_voltage_1.5x', 
+'steady_state_voltage_stimend_1.5x',
+'threshold_index_1.5x', 
+'threshold_index_3.0x',
+'threshold_t_1.5x',
+'threshold_t_3.0x',
+'upstroke_index_1.5x',
+'upstroke_index_3.0x',
+'upstroke_t_1.5x', 
+'upstroke_t_3.0x', 
+'voltage_after_stim_1.5x',
+'voltage_after_stim_3.0x'   
+\end{verbatim}
+\label{fig:reference_feature_list}
+List of complete 47 features used in the analysis down from 466 after data cleaning.
+\end{figure}
+

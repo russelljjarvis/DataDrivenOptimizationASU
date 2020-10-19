@@ -1,5 +1,5 @@
 \section{Optimization Pitfalls}
-\emph{\texbf{Efficient}} optimization of reduced neuron models is shockingly non-trivial, although satisficing biologically plausible models is several degrees easier.
+\emph{Efficient} optimization of reduced neuron models is shockingly non-trivial, although satisficing biologically plausible models is several degrees easier.
 Below I provide a number of examples of optimization pitfalls which were not obvious at the start of my research, but which I discovered during my research, and which were on ongoing source of confusion, not just for me, but for my whole research team.
 I believe that it is important to share these conceptual traps with my readership, including those who may wish to continue such optimization work.
 
@@ -54,10 +54,10 @@ Additionally delayed evaluation caused fewer conflicts with \emph{jit} code. Wit
 %XXXX More about speed here.
 
 \subsubsection{Factors That Facilitate Efficient Convergence}
+Place holder
 
 
-
-\subsubsubsection{Continuity of the Error Surface}
+\subsubsection{Continuity of the Error Surface}
 Some optimization techniques require a perfectly convex error surface to converge.
 Genetic algorithms are more tolerant, up to a point, but an extremely high dimensional optimization problem with a large number of optima can still be intractable.
 Even more problematic are discontinuous error surfaces, which result naturally from bifurcations in the underlying dynamical system.
@@ -124,7 +124,7 @@ adaptation_index,adaptation_index2 time_to_first_spike, mean_AP_amplitude,spike_
 %\end{verbatim}
 
 
-\subsubsubsection{Number of Components in the Objective Function}
+\subsubsection{Number of Components in the Objective Function}
 Theoretically every additional component included in the objective function--every constraint derived from some experimental feature--should make the error surface a better answer to the question, "Is this a realistic model of the neuron of interest?".
 While increasing computation time per objective function evaluation, such components may rapidly exclude large volumes of parameter space from unnecessary exploration.
 For example, when modeling some bursty neuron, including burst-statistics as one of the features under evaluation will quickly exclude non-bursty regions of parameter space from consideration.
@@ -198,10 +198,9 @@ Rastrigin's function has convexity in two scales. On the larger scale the surfac
    %\end{figure}
    
    It is worth noting that although Rastrigrins function is challenging it does not the present the worst gradient to learn from. Worse than Rastrigrins function, are functions that on a large scale are flat, but on the smaller scale contain a high density ripples.
-   but lacks this global convex trend, excepting for an abrupt and localised descent to the optima.\\ 
-   \\
-   Without some first prior knowledge of the error surface, a likely outcome is to attempt optimize on uninformative surfaces. If an uninformative surface is applied, it does not mean that the genetic algorithm will not succeed, it only means that the performance of the GA may be only marginally better than random sampling, or exhaustive search of the error surface.\\
-   \\
+   but lacks this global convex trend, excepting for an abrupt and localised descent to the optima.
+   
+   Without some first prior knowledge of the error surface, a likely outcome is to attempt optimize on uninformative surfaces. If an uninformative surface is applied, it does not mean that the genetic algorithm will not succeed, it only means that the performance of the GA may be only marginally better than random sampling, or exhaustive search of the error surface.
    %Random sampling, sounds bad, however, if the best random solution is digitally stored, and the number of samples applied is less than the possible number of samples in an exhaustive search, random sampling may better resolve the exploitation/exploration dilemna than both gradient descent, and exhaustive search.
 
 \subsection{Specific examples of challenging real-world error surfaces encountered in this work}
@@ -209,7 +208,7 @@ In the figures below, I describe the spectrum of error surface quality.
 \begin{center}
 \begin{figure}
      \includegraphics[scale=0.65]{figures/pond_ripple_surface.png}
-     \caption{figure}{In the case of pond ripples the cost function is defined so that the maxima is the optimal location on the surface. Ripples on a body of water are more challenging to optimize, as the water surfaces are approximately flat on the large scale, yet on the small scale maximas will be temporary preoccupy the GAs learning, but outside of those peaks, there is little large scale information to utilize. }
+     \caption[Conceptualizing moderate to worst case error surfaces]{In the case of pond ripples the cost function is defined so that the maxima is the optimal location on the surface. Ripples on a body of water are more challenging to optimize, as the water surfaces are approximately flat on the large scale, yet on the small scale maximas will be temporary preoccupy the GAs learning, but outside of those peaks, there is little large scale information to utilize. }
       
       \label{fig:test1}
 \end{figure}
@@ -219,7 +218,7 @@ In the figures below, I describe the spectrum of error surface quality.
 \begin{figure}
       \centering
       \includegraphics[scale=0.85]{figures/parameter_b_hopeless_surface2.png}
-      \caption{figure}{Similarily parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different model parameterisation of \emph{a}, this resultd in a highly rippled error surface, densely populated by local minima, and with only a very shallow global convex shape}
+      \caption[cross section of difficult or hopeless error surface]{Similarily parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different model parameterisation of \emph{a}, this resulted in a highly rippled error surface, densely populated by local minima, and with only a very shallow global convex shape}
       \label{fig:discontinuous_constraint}
 \end{figure}
 

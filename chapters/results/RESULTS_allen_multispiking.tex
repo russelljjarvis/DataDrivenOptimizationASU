@@ -2,20 +2,20 @@
 \begin{comment}
 \begin{figure}
     \centering
-    \begin{subfigure}[t]%{0.45\textwidth}
+    \begin{subfigure}[t]
         \centering
         \includegraphics[width=0.5\linewidth]{example-image-a.pdf} 
         \caption{Generic} \label{fig:timing1}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]%{0.45\textwidth}
+    \begin{subfigure}[t]
         \centering
         \includegraphics[width=0.5\linewidth]{example-image-b.pdf} 
         \caption{Competitors} \label{fig:timing2}
     \end{subfigure}
 
     \vspace{1cm}
-    \begin{subfigure}[t]%{0.45\textwidth}
+    \begin{subfigure}[t]
         \centering
         \includegraphics[width=0.5\linewidth]{example-image-c.pdf} 
         \caption{Price regulation} \label{fig:timing3}
@@ -88,7 +88,9 @@ The result that the adaptive exponential model is better able to fit spike times
     \includegraphics[scale=5.0]{figures/IZHIkevich_fit_60Adexp_80.jpg}
     \caption{
     From the literature.
-    \cite{rossant2011fitting}
+    
+    }
+    \caption[The spectrum of model fits]{This great figure from the publication: \citep{rossant2011fitting} shows how the majority of models that fit spike time, do not also fit spike shape. Spike shape and AP timing constitute a persistent conflicted priority with regards to model fitting. Included in this figure are fits from reduced models used in this work AIF, and Izhikevich model.
     }
     \label{fig:my_label}
 \end{figure}
