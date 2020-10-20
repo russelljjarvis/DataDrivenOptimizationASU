@@ -2,9 +2,7 @@
 
 \subsubsection{Persistently Incompatibility Tests: Trends and Patterns}
 
-
-
-Time Constant measurements were consistantly harder to fit, and where often incompatible, in almost or all model types (including conductance based models, reduced models, and including all data types (NeuroElectro data, and Allen cell-types single experiment data). When the membrane time constant was mismatched, this didn't seem to be of much consequence to other membrane timing measurements in the cell, for instance membrane capacitance, spike widths and spike-thresholds could still be accurate. Frequently mismatched membrane time constants suggests either one of two possibilities: Either our method for measuring membrane time constant is wrong, and is off by a factor of 10, or, model builders write equations that are founded on electrical properties that are preference AP features and electrical properties slightly that don't involve the membrane time constant.
+Time Constant measurements were consistently harder to fit, and where often incompatible, in almost or all model types (including conductance based models, reduced models, and including all data types (NeuroElectro data, and Allen cell-types single experiment data). When the membrane time constant was mismatched, this didn't seem to be of much consequence to other membrane timing measurements in the cell, for instance membrane capacitance, spike widths and spike-thresholds could still be accurate. Frequently mismatched membrane time constants suggests either one of two possibilities: Either our method for measuring membrane time constant is wrong, and is off by a factor of 10, or, model builders write equations that are founded on electrical properties that are preference AP features and electrical properties slightly that don't involve the membrane time constant.
 
 Interestingly there was better compatibility between firing rate versus current (FISlope) and the remainder of the electrical observations (where the remaining measurements tended to agree well with each other), than between rheobase and the same measurements. Compatibility was also experienced between the FISlope and Rheobase tests, so two natural clusters of tests that emerged are: FI curve properties, versus the other electrical properties.
 
@@ -15,7 +13,7 @@ In the situation where, FI-slope is matched, other electrical measurements match
 
 
 \subsubsection{A Fitted model may not generalize to injections at higher or lower current stimulus, Unless the model is fitted with constraints informed by those different experiments}
-As discussed above, the true FI curve is described by a gradient and a bias. When one fits to the slope and the gradient of the FI curve, it means that the model will at least be able to recapitulate the right number of spikes for a given current strength. 
+As discussed above, the true FI curve is described by a gradient and a bias. When one fits to both the slope and the bias of the FI curve, it means that the model will at least be able to recapitulate the right number of spikes for  a given current strength. %Although this does not necessarily mean that the shapes of the each individual spike will agree between model and experiment. 
 % important for network modellers as I discuss elsewhere.
 
 %Preserving 
@@ -31,24 +29,42 @@ In reduced neuronal It was found that the electrical properties of cells:
  did not encode the above threshold spiking behavior of neurons, when neurons were undergoing a multispiking stimulus regime.
 
  forinstance in Allen cell $482493761$ injecting a current of 
- specified by $ current = {'amplitude':110*pq.pA,'duration':1100*pq.ms,'delay':100*pq.ms} $
+ specified by:
+ \begin{minted}{python}
+ from quantities import pA, ms
+ current = {'amplitude':110*pA,'duration':1100*ms,'delay':100*ms}
+ \end{minted}
  should elicit a spike count of $3$, in an optimized Izhikevich model that has good agreement with all values except for Rheobase these values it produces $33$ spikes.
 
 One can imagine that in cells that have been optimized to rheobase only, that current spike count relationship might be more  accurate and faithful to the experiment.
 
 In cell 471819401 , $290 pA$ causes $20$ spikes,
 in the optimized Adaptive Exponential model $290$
-specified by $ current = {'amplitude':290*pq.pA,'duration':1100*pq.ms,'delay':100*pq.ms} $
-caused only $5$ spikes. 
+specified by:
+%\begin{lstlisting}[language=python]
 
-and in the Izhikevich model $59$
+\begin{minted}{python}
+ from quantities import pA, ms
+current = {'amplitude': 290*pA,
+           'duration': 1100*ms,
+           'delay': 100*ms}
+\end{minted}
+%\end{lstlisting}
 
-\begin{verbatim}
-RheobaseTest	TimeConstantTest	RestingPotentialTest	InputResistanceTest
-observations	70.0 pA	24.4 ms	-71.6 mV	132.0 megaohm
-predictions	234.67 pA	31.31 ms	-72.08 mV	130.26 megaohm
-Z-Scores	3.98	0.09	0	0.01
-\end{verbatim}
+caused only $5$ spikes. and in the Izhikevich model $59$
+
+
+
+\begin{table}
+\centering
+\begin{tabular}{lllll}
+            & RheobaseTest & TimeConstantTest & RestingPotentialtest & InputResistanceTest  \\
+Observation & 70.0 pA      & 24.4 ms          & -71.6 mV             & 132.0 MOhm           \\
+Prediction  & 234.67 pA    & 31.31 ms         & -72.08 mV            & 130.26 MOhm          \\
+Z-score     & 3.98         & 0.09             & 0~                   & 0.01                
+\end{tabular}
+\end{table}
+
 
 Another way of writing this is that fitting a model to electrical properties of cells, does not
 guarantee that the cell is fitted to suprathreshold behavior, at current injection virtual experiments with larger amounts of injected current.
@@ -82,4 +98,7 @@ Are easier for reduced models to fit. I show this in some simulated data, virtua
 % With spike counts, and spike frequencies, 
 
 \subsubsection{Future Work}
-Because of the benefits of the NeuroML model specification, data fitted models should be downloadable in a NeuroML format.
+Because of the benefits of the NeuroML model specification, data fitted models should be downloadable in a NeuroML format. NeuroML is simulator agnostic, descriptions of the optimized models will be more shareable, if they are not pinned down to their numba-python implementation. NeuroML models should can be deployabled by any mainstream simulator. %When model parameters are inserted into NeuroML cell model definitions, NeuroML encoded models become operational. These NeuroML encodings will if possible be uploaded into NeuroML-DB, where they will be more readily find-able by the neuron modelling community
+% Such files can be used as network components, and they confidently utilized and exchanged, as such files represent a higher degree of rigor. Since there are two classes of model fits, some models are better suited fitted to network modelling and others are better suited to single cell modelling, this is because, by fitting cell models to FI curves, a lot of other realistic electrical behavior that is incompatible with the FI fit diminishes.
+
+At least for the Izhikevich, model links to the reference models, can also be provided.

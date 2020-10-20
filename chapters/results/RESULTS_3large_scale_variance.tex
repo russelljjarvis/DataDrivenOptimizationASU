@@ -52,7 +52,8 @@ $1276$ samples. This did not include some blue brain cells. After data cleaning 
 $1420$
 
 
-Allen Institute for Brain Science Cell Types Database [7] can be accessed using the SDK.  The Blue Brain Project Dataset can be obtained from the Data Navigator, or an API.
+Allen Institute for Brain Science Cell Types Database \citep{celltypes} can be accessed using the SDK.
+The Blue Brain Project Dataset \citep{toledo} can be obtained from the Data Navigator, or an API.
 
 \begin{itemize}
 \item Allen Institute V1 \cite{gouwens2018systematic}
@@ -88,7 +89,7 @@ Allen Institute for Brain Science Cell Types Database [7] can be accessed using 
 \begin{figure}
     \begin{center}
     \includegraphics[width=0.6\linewidth]{figures/multi_spiking_large_allen}
-    \caption{A voltage recording from a supra-threshold experiment waveform used as a basis for the Allen Brain Institute cell types data base. Publication Gouwens rat \cite{gouwens2018systematic}}
+    \caption{A voltage recording from a supra-threshold experiment waveform used as a basis for the Allen Brain Institute cell types data base. Publication Gouwens rat \citep{gouwens2018systematic}}
     \label{fig:adaptionm}
     \end{center}
 \end{figure}    
@@ -96,34 +97,42 @@ Allen Institute for Brain Science Cell Types Database [7] can be accessed using 
 \begin{figure}  
     \begin{center}
     \includegraphics[width=0.6\linewidth]{figures/multi_spiking_large_bbp}
-    \caption{Another example of a supra threshold experimental protocol. Publication Jouvanile rat \cite{toledo}}
+    \caption{Another example of a supra threshold experimental protocol. Publication Jouvanile rat \citep{toledo}}
     \label{fig:bbp_trace_adaption_late_spike}
     \end{center}
 \end{figure}    
 
-In order to identify electrical measurements or "features" that were responsible for the most variance in models and in-vitro, we performed Sparse Principle Component Analysis \cite{zou2006sparse} on the combined pool of model and in vitro experiments. 
-
-
+In order to identify electrical measurements or "features" that were responsible for the most variance in models and in-vitro, we performed Sparse Principle Component Analysis \citep{zou2006sparse} on the combined pool of model and \emph{in vitro} experiments. 
 
 \subsection{Sources of disagreement}
+The key advantage of using sparse PCA is the results are readily interpret able. 
+A common sceanario in regular Principal Component Analysis is you may obtain a low dimensional embedding plot made from unit rotation vectors that maximize variance, but no way of relating the reduced dimensions back to the sources of variance in the system of interest. 
 
-The key advantage of using sparse PCA is the results are readily interpret able. A common sceanario in regular Principal Component Analysis is you may obtain a low dimensional embedding plot made from unit rotation vectors that maximize variance, but no way of relating the reduced dimensions back to the sources of variance in the system of interest. 
-
-Sparse PCA yields an interpretable list of features, that build the principle components. This list of features is ranked and sorted with respect to their total contributions to the Eigen Vectors. Since two Eigen Vectors where made these are.
+Sparse PCA yields an interpretable list of features, that build the principle components.
+This list of features is ranked and sorted with respect to their total contributions to the Eigen Vectors. Since two Eigen Vectors where made these are.
 
 Principle component 1 had non zero loadings for ranked (highest to lowest).
 The first Eigen Vector does not facilitate discrimination between models and experiments, but the second Eigen Vector spaces models and experiments into three seperate clusters.
+
+\begin{tabular}{ll}
+%\toprule
+{} Injection 1 & Injection 3 \\
+ at $1.0 \times$ Rheobase & at $1.5 \times$ Rheobase & at $3.0 \times$ Rheobase 
+%\bottomrule
+\end{tabular}
+
+
 \begin{verbatim}
-upstroke_t_1.5x allen 
-peak_t_1.5x allen 
-threshold_t_1.5x allen 
-fast_trough_t_1.5x allen 
-fast_trough_t_3.0x allen 
-upstroke_t_3.0x allen 
-peak_t_3.0x allen 
-threshold_t_3.0x allen 
-peak_indices_1.5x efel 
-min_AHP_indices_1.5x efel 
+upstroke-t-1.5x allen 
+peak-t-1.5x allen 
+threshold-t-1.5x allen 
+fast_trough-t-1.5x allen 
+fast_trough-t-3.0x allen 
+upstroke-t-3.0x allen 
+peak-t-3.0x allen 
+threshold-t-3.0x allen 
+peak-indices-1.5x efel 
+min-AHP_indices-1.5x efel 
 \end{verbatim}
 
 Principle component 2 had non zero loadings for ranked (highest to lowest)
@@ -166,23 +175,32 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
 
 \begin{figure}    
 \begin{center} \includegraphics[width=1.0\linewidth]{figures/cortical_model_data_agreement_52_1}
-    \caption{}
+    \caption[Is this visible]{}
     \label{fig:}
 \end{center}
 \end{figure}    
+
+
+
 \begin{figure}    
     \begin{center}
-    \includegraphics[width=1.0\linewidth]{figures/cortical_model_data_agreement_54_1.png}
-    \caption{}
+    \includegraphics[scale=0.75]{figures/cortical_model_data_agreement_54_1.png}
+    
+    
+%fast_trough_indexes : numpy array of indexes at the start of the trough (i.e. end of the spike)
+%adp_indexes : numpy array of adp indexes (np.nan if there was no ADP in that ISI
+%slow_trough_indexes : numpy array of indexes at the minimum of the slow phase of the trough
     \end{center}
 \end{figure}    
 \cite{wang2019sag}
 
 \begin{figure}
     \centering
-    \includegraphics{figures/features_that_disagree}
-    \caption{Caption}
-    \label{fig:from_poster_disagree}
+    \includegraphics[scale=0.75]{figures/features_that_disagree}
+    \caption[Slow Trough indexs, from the Allen cell types feature extraction]{By "Fast" in fast trough indexs, all that is meant is the beggining time of troughs occurance, this would contrast with the "slow" or ending time of the spikes. This is arguably a bad naming scheme.
+        https://allensdk.readthedocs.io/en/latest/allensdk.ephys.ephys_features.html
+        }
+        \label{fig:from_poster_disagree}
 \end{figure}
 
 
@@ -214,7 +232,8 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
     \item threshold\_index\_3.0x allen feature
 \end{itemize}
 
-After identifying specific sources of model and experiment divergence, it is now possible in theory to start fitting models which  seek to resolve specific types of disagreement. However, as alluded to in the introduction, it was found that were two other important factors. 
+After identifying specific sources of model and experiment divergence, it is now possible in theory to start fitting models which seek to resolve specific types of disagreement.
+However, as alluded to in the introduction, it was found that were two other important factors. 
 
 %Model repurposing is common and it is done on a network scale \cite{traub} and an individual cell scale.
 %Experimental evidence is starting to reveal that model re-purposing of pyramidal neurons might not be a good idea.

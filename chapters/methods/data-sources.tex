@@ -1,4 +1,4 @@
-\section{Electrophysiological Measurement Distributions from Experimental Literature}\label{section:nelectro}
+\section{Electrophysiological Measurement Distributions from Experimental Literature}\label{sec:data-sources}
 Organized, publicly available electrophysiological measurements from single, biological neurons can form an optimization target.
 Together, they can be used to parameterize the suite of tests against which a model is optimized.
 Optimization makes corresponding model electrophysiological measurements as similar as possible to those observed in biological neurons.
@@ -6,9 +6,9 @@ Optimization makes corresponding model electrophysiological measurements as simi
 \subsection{NeuroElectro}
 One general source of such measurements is The NeuroElectro Project \citep{tripathy2014neuroelectro}, which contains experimental values for 47 distinct electrophysiological measurements across 235 different neuron types.
 As with most of the data discussed here, most (but not all) of these measurements were obtained from slice physiology experiments in rodents.
-These measurement values were programatically extracted from peer-reviewed journal articles over a $\sim20$ year period from $\sim1990-2012$,
-and are made easy to access by an application programming interface (API) that NeuronUnit provides easy access to.
-Importantly, the measured values--even for a single neuron type--reflects experiments done in many labs using (in some cases) variable methods.
+These measurements were programatically extracted from peer-reviewed journal articles over a $\sim20$ year period from $\sim1990-2012$,
+and are made easy to access by an application programming interface (API) that NeuronUnit provides bindings to.
+Importantly, the measured values--even for a single neuron type--reflect experiments done in many labs using (in some cases) variable methods.
 Therefore, the mean of these values (e.g. the mean input resistance across reported Purkinje cells) averages over heterogeneity across cells within a slice, slices within an animal, animals within a lab, and labs within the field.
 The sample size for one measure (e.g. input resistance) may be larger than for another (e.g. resting potential) meaning that they may reflect different subsets of experiments.
 With those caveats in mind, NeuroElectro is still the most direct way to get a large number of optimization-constraining data values for most neuron types.
@@ -18,7 +18,7 @@ Multimodality, meaning multiple peaks in the histogram of a single measurement t
 Two peaks in the histogram, for example, could result from two distinct subclasses of a single nominal neuron type, each with its own (narrower) distribution of the same measurement.
 In some instances, the mean and standard deviation alone well-described the measurement distributions, as would be expected for random, normally-distributed measurements of a single cell type under reasonably consistent conditions.
 These values were then ``approved" for use in model-fitting.
-In other cases, these conditions were not met, as exemplified in the gallery below.
+In other cases, these conditions were not met, as exemplified in the figures below.
 
 %\begin{comment}
 %\begin{figure}
@@ -173,6 +173,16 @@ Because raw data is available through the Cell Types API, it is possible to achi
 In contrast to NeuroElectro, the Cell Types database also has a great deal more information relevant to the above threshold dynamics of neurons, such as the number and pattern of action potentials they discharge in response to somatically-injected currents much larger than rheobase, or in response to non-square injected currents.
 In order to exploit these, I developed several additional NeuronUnit tests, such as: ``time to first spike test" and ``mean AP amplitude test". In principal any EFEL feature, that was measured in Allen Data could be upgraded to a NeuronUnit test, as I created a templates class-code generation method to perform this task. I also created some hard coded EFEL tests on Allen Features too, among the template generated classes, the tests that I re-used for the supra-threshold fits displayed in this work are:
 
+
+\begin{table}
+\centering
+\begin{tabular}{ll}
+            \textbf{Test Name} & \textbf{Test Description}\\
+adaptation-index      & Measures spiking fatigue in response to constant current          \\
+ adaptation-index2   & Measures adaption at second place in spike train for more accuracy    \\
+time-to-first-spike       & amount of time elapsed until first spike \\ mean-AP-amplitude & The average spike height in a spike train \\    The width of a spike is obtained at point when spike height is half its total amplitude & is the depth of the    
+\end{tabular}
+\end{table}
 %\begin{figure}
 \begin{enumerate}
 \item adaptation-index

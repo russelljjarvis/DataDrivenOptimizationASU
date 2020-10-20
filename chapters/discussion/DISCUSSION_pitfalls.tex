@@ -88,8 +88,8 @@ All the figures below employ a consistent color coding scheme where red encodes 
 
 \begin{figure}
     \centering
-    \includegraphics{figures/friendly_error_surface.png}
-    \caption[Using only constant currents causes simple tractible error surfaces]{Because a constant current injection of $-10pA$ was applied, the error surface is simple informative and very easy to navigate, although only one slice into the error hypervolume is shown. Plots of GA learning speed provide also demonstrate that the error surface is free from both corrogations and discontinuties. Other plots (not shown here) demonstrate that all other slices into the hypervolume have simple convex shape.}
+    \includegraphics[scale=0.7]{figures/friendly_error_surface.png}
+    \caption[Using only constant currents causes simple tractable error surfaces]{Because a constant current injection of $-10pA$ was applied, the error surface is simple informative and very easy to navigate, although only one slice into the error hypervolume is shown. Plots of GA learning speed provide also demonstrate that the error surface is free from both corrogations and discontinuties. Other plots (not shown here) demonstrate that all other slices into the hypervolume have simple convex shape.}
     \label{fig:constant_current}
 \end{figure}
 
@@ -218,7 +218,7 @@ In the figures below, I describe the spectrum of error surface quality.
 \begin{figure}
       \centering
       \includegraphics[scale=0.85]{figures/parameter_b_hopeless_surface2.png}
-      \caption[cross section of difficult or hopeless error surface]{Similarily parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different model parameterisation of \emph{a}, this resulted in a highly rippled error surface, densely populated by local minima, and with only a very shallow global convex shape}
+      \caption[Cross section of difficult or hopeless error surface]{Similarily parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different model parameterisation of \emph{a}, this resulted in a highly rippled error surface, densely populated by local minima, and with only a very shallow global convex shape}
       \label{fig:discontinuous_constraint}
 \end{figure}
 
@@ -229,21 +229,21 @@ In the figures below, I describe the spectrum of error surface quality.
       \label{fig:test1}
       \centering
       \includegraphics[scale=0.85]{figures/worst_error_surfaces.jpg}
-      \captionof{figure}{Rastrigrins function describes a challenging error surface, but one with learnable global features that a genetic algorithm can exploit. It's important to note that there are much worse error surfaces, and these may show up in practice. The first type has actively misleading local and global information. In this context learning is a disadvantage, if the optimizer "learns", then it actually slows obtaining an optimal solution. The second type of error surface actually a 1D (and upside down) cross section of the 2D pond picture, only actively misleads locally, globally it simply contains no helpful global information. Learning will not be of any assistance in obtaining the optima, but also learning won't actively be a disadvantage either, the Genetic Algorithm, will simply behave as a random sampling/testing algorithm, the GA will find the optimum in time, but possibly not as quickly or reliably as exhaustive search would. The second figure is a cross section of the pond ripple argument}
+      \caption[Something]{Rastrigrins function describes a challenging error surface, but one with learnable global features that a genetic algorithm can exploit. It's important to note that there are much worse error surfaces, and these may show up in practice. The first type has actively misleading local and global information. In this context learning is a disadvantage, if the optimizer "learns", then it actually slows obtaining an optimal solution. The second type of error surface actually a 1D (and upside down) cross section of the 2D pond picture, only actively misleads locally, globally it simply contains no helpful global information. Learning will not be of any assistance in obtaining the optima, but also learning won't actively be a disadvantage either, the Genetic Algorithm, will simply behave as a random sampling/testing algorithm, the GA will find the optimum in time, but possibly not as quickly or reliably as exhaustive search would. The second figure is a cross section of the pond ripple argument}
       \label{fig:test2}
 \end{figure}
 
 \begin{figure}
 \centering
       \includegraphics[scale=0.85]{figures/parameter_b_hopeless_surface.png}
-      \captionof{figure}{Similarily parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different model parameterisation of \emph{a}, this resultd in a highly rippled error surface, densely populated by local minima, and with only a very shallow global convex shape}
+      \caption[Something]{Similarily parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different model parameterisation of \emph{a}, this resultd in a highly rippled error surface, densely populated by local minima, and with only a very shallow global convex shape}
       \label{fig:probably_smooth_constraint}
 \end{figure}
 
 \begin{figure}      
 \centering
       \includegraphics[scale=0.85]{figures/parameter_b_friendly_surface.png}
-      \captionof{figure}[]{This is a cross section of a useable and tractable error surface, it has learnable global and local information, as long as not all error surfaces in the multiobjective collection of constraints, this surface is likely to be a valueable addition to the optimizer suite}
+      \caption[Something]{This is a cross section of a useable and tractable error surface, it has learnable global and local information, as long as not all error surfaces in the multiobjective collection of constraints, this surface is likely to be a valueable addition to the optimizer suite}
       \label{fig:test2}
 \end{figure}
 

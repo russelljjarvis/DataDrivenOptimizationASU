@@ -13,8 +13,12 @@
 \usepackage{tcolorbox}
 \usepackage{hyperref}
 \usepackage{sectsty}
-\usepackage{caption}
+\usepackage{caption,setspace}
+\captionsetup{font={large,stretch=1.3}}
 \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+
+\usepackage[font=singlespacing]{caption}
+
 \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
 \usepackage{float}
 \floatplacement{figure}{H} % forces figures to be placed at the correct location
@@ -40,8 +44,10 @@
 \usepackage{comment}
 \usepackage{listings}
 \usepackage{courier}
+\usepackage{minted}
+
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
-\lstset{framextopmargin=50pt,frame=single}
+\lstset{framextopmargin=0pt,frame=single}
 
 \begin{document}
 \pagenumbering{arabic}

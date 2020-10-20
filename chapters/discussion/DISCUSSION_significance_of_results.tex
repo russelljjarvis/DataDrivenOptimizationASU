@@ -10,7 +10,7 @@ Models seemed to have particular difficulty in recapitulating an accurate fit fo
 
 In this work I show examples of fitting models with many mixed collections of constraints, were not all constraints are equally informative and many are known to contain ripples or corrogations.
 
-Despite defects in error surfaces, in many cases satisfactory and more than satisfactory solutions are still found, so it is important to ask the question: "Exactly how harmful are defects in the error surface?" One easy answer way to answer this question is to reflect on the scale of error values. In many cases when corrugations are present, they exist on a much smaller scale, than other more important large scale information in the error surface. Because in many cases these two scales co-exist, you can think of the issue as analogous to a signal to noise ratio. As long as the large amplitude of the useful information in the error function dominates the small amplitude corrugation, then you can still expect good optimization solutions, but there is a caveat, when looking over the optimizers evolution graph, and gauging the optimizers effectiveness in bringing down the population error, one should not expect to see evidence of efficient-learning, in later stages of learning when the optimizer will become more sensitive to the smaller amplitudes of errors. In the early stages when exploration of the error surface dominates refinement, efficient learning is likely, at the latest "refinement" stage during small $\eta$, the GA will be reduced to a bounded random sampler. Within a bounded/confined space it will be randomly trying different parameters, unable to utilize learned information on the small scale.
+Despite defects in error surfaces, in many cases satisfactory and more than satisfactory solutions are still found, so it is important to ask the question: "Exactly how harmful are defects in the error surface?" One easy answer way to answer this question is to reflect on the scale of error values. In many cases when corrugations are present, they exist on a much smaller scale than other more important large scale information in the error surface. Because in many cases these two scales co-exist, the human can think of the issue as analogous to a signal to noise ratio. The deleterious effect of noise often depends on the system in question. As previously discussed, the NSGA2 selection algorithm seemed to be vulnerable to troughs in the corrogations, because it is not as sensative to the magnitude of error improvements. As long as the large amplitude of the useful information in the error function dominates the small amplitude corrugation, then you can still expect good optimization solutions, but there is a caveat, when looking over the optimizers evolution graph, and gauging the optimizers effectiveness in bringing down the population error, one should not expect to see evidence of efficient-learning, in later stages of learning when the optimizer will become more sensitive to the smaller amplitudes of errors. In the early stages when exploration of the error surface dominates refinement, efficient learning is likely, at the latest "refinement" stage during small $\eta$, the GA will be reduced to a bounded random sampler. Within a bounded/confined space it will be randomly trying different parameters, unable to utilize learned information on the small scale.
 
 
 %%%
@@ -49,11 +49,19 @@ As indicated by the $\chi^{2}$ statistic and $p$-$value$, many but not all model
 
 %by all other fitness criteria in order for the optimizer to 
 
-
-
-\begin{verbatim}
-AHP_depth_abs_3.0x,sag_ratio2_3.0x,ohmic_input_resistance_1.5x,peak_voltage_3.0x,voltage_base_3.0x,Spikecount_3.0x,ohmic_input_resistance_vb_ssse_1.5x. 
-\end{verbatim}
+\begin{table}[]
+    \centering
+    \begin{tabular}{c|c}
+         AHP-depth-abs-3.0x & 1 
+    sag\_ratio2\_3.0x & 1 ohmic\_input\_resistance_1.5x & 1
+    peak\_voltage\_3.0x & 1
+voltage\_base\_3.0x & 1
+Spikecount\_3.0x & 1
+ohmic\_input\_resistance\_vb\_ssse\_1.5x & 1
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
 
 %The EFEL measurements on Allen Data
 

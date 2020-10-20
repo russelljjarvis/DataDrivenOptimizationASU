@@ -31,6 +31,14 @@ In the subsequent tables and figures when the measurements:time constant, capaci
     \label{fig:adexp_model_rebound_spike}
 \end{figure}
 
+\begin{figure}
+    \begin{center}
+    \includegraphics[scale=0.65]{figures/passive_model_agreement}
+    \caption{For contrast, this is the Izhikevich model undergoing the same $-10.pA$ current injection value. There is no rebound spike. The model with the blue trace does rebound slightly. Agreement between a simulated constraint waveform, and an optimized waveform, when both simulated constraint model and optimized model undergo a current injection value of $-10pA$}
+    \end{center}
+    \label{fig:my_label}
+\end{figure}
+
 The plot of model membrane potential, as the model undergo's a $-10pA$ current injection, contains multiple spikes in the presence of an inhibitory current is unexpected. The reason this occurs, is because of an unusual model parameterization that makes modelled neuron "rebound spike" in response to attempts to move membrane potential down with voltage.
 
 
@@ -67,22 +75,15 @@ TimeConstantTest     &        13.18 ms &        13.18 ms &        0 \\
 RestingPotentialTest &       -77.43 mV &       -77.43 mV &        0 \\
 InputResistanceTest  &  270.84 megaohm &  270.84 megaohm &        0 \\
 CapacitanceTest      &        48.65 pF &        48.65 pF &        0 \\
-FITest               &    [7.51 Hz/pA] &    [7.51 Hz/pA] &        0 \\
+FITest               &    7.51 Hz/pA &    7.51 Hz/pA &        0 \\
 \bottomrule
 \end{tabular}}
 \end{table}
 
-AP width, amplitude, and AP threshold errors, did not participate in guiding optimization, because as I have explained, those measurements are not objective between model instances, and thus they lead to misleading error measurements. These tables show that the optimizer can re-cover ground truths that are derived from simulated data. This result allows us to confidently argue that in fitted models, the cause of model/experiment disagreement must be located in either the data, or the models, but not the optimization process, or the choice of error signals which are demonstrably sound.
+AP width, amplitude, and AP threshold errors, did not participate in guiding optimization, because as I have explained, those measurements are not objective between model instances, and thus they lead to misleading error measurements. These tables show that the optimizer can recover ground truths that are derived from simulated data. This result allows us to confidently argue that in fitted models, the cause of model/experiment disagreement must be located in either the data, or the models, but not the optimization process, or the choice of error signals which are demonstrably sound.
 
 %\includegraphics[]{figures/simulated_data_convergence_passive_fits.png}
 
-\begin{figure}
-    \begin{center}
-    \includegraphics[scale=0.65]{figures/passive_model_agreement}
-    \caption{Agreement between a simulated constraint waveform, and an optimized waveform, when both simulated constraint model and optimized model undergo a current injection value of $-10pA$}
-    \end{center}
-    \label{fig:my_label}
-\end{figure}
 
 
 

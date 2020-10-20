@@ -1,4 +1,5 @@
 \section{Technical Details of the Optimizer}
+\label{sec:tech-details}
 The sections above describe my innovations in model construction and simulation, as well as the experimental data brought to bear on optimization. These data are used to parameterize NeuronUnit tests, one per measurement type.
 For example the input resistance data for one neuron type in NeuroElectro, or one specific neuron in the Cell Types database, is passed to an \textit{InputResistanceTest} defined in NeuronUnit.
 This test "asks" the model to generate a corresponding simulation, measures the input resistance in this simulation output, and then assesses model/data agreement, resulting in a score.
@@ -46,10 +47,10 @@ I also contributed a model-parameters.py file, which was a collection of Ordered
 %-- Recasting NeuronUnit scores into objective function values (e.g. log norm score)Aggregation of neuronunit scores into multi-objectives
 %-- etc
 
-Typical parameters for robust optimization were number of generations=$NGEN=150$, population size=$MU=35$.
+Typical parameters for robust optimization were number of generations=$NGEN=150$, population size=$\mu=35$.
 In other words, it took about $150$ generations to achieve convergence, and in each generation about $25$ individual parameter sets needed to be retained in order to achieve an acceptable balance between exploration of the parameter space and exploitation of favorable regions.
-In some cases, values as small as $NGEN=10$ and $MU=10$ were tolerable, for example when optimizing only low-dimensional cross-sections of parameter space.
-In other cases, such as when the number of optimization objectives (i.e. the number of electrophysiological features being tested) was $NOBJ>25$, values as high as $NGEN=300$ and $MU=100$ were required to obtain adequate results.
+In some cases, values as small as $NGEN=10$ and $\mu=10$ were tolerable, for example when optimizing only low-dimensional cross-sections of parameter space.
+In other cases, such as when the number of optimization objectives (i.e. the number of electrophysiological features being tested) was $NOBJ>25$, values as high as $NGEN=300$ and $\mu=100$ were required to obtain adequate results.
 
 One potential goal is to maintain a diverse set of solutions (i.e. very different parameter sets that nonetheless each produce simulations that adequately match observed experimental measurements).
 The optimization literature has developed many competing approaches for doing this \cite{deb2000fast}, but it usually involves  

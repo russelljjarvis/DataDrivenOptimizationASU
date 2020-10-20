@@ -4,7 +4,7 @@ Diseases of the brain are very widespread and cost world governments a significa
 The 2015 Global Burden of Disease study estimates that about a third of the population worldwide is affected by mental or neurological disorders across their lifespans.
 Disorders of the brain rank among the leading causes of ill-health and disability and account for 35\% of Europe’s total disease burden with a yearly cost of 800 billion euros, of which 60\% are related to direct health care and non-medical costs\citep{who}. 
 \subsection{Computational Models}
-In addition to producing actions and goal directed behaviors, the mammal nervous system filters and processes signals in steps that are increasingly understood at mechanical and algorithmic levels \citep{marr1976understanding}.
+In addition to producing actions and goal directed behaviors, the mammal nervous system filters and processes signals in steps that are increasingly understood at mechanical and algorithmric levels \citep{marr1976understanding}.
 The recent success of ``deep-neural networks" and ``recurrent neural networks" is due in part to the simple application of rudimentary neural design principles to networks of computational units.
 Innovations in artificial intelligence (AI) have been achieved by recapitulating just a few such algorithms observed in the brain.
 For example, artificial neural networks trained to navigate a landscape spontaneously exhibit the emergence of nodes (cell analogues) exhibiting the same behavior as so-called ``grid" and ``place" cells that encode spatial location in mammalian brains \citep{banino2018vector}.
@@ -81,7 +81,7 @@ These rates are determined by free energy gradients, jointly determined by trans
 Conductance-based models use orginary differential equations to represent the balance of currents and the kinetics for the gating of the channels
 %ion channels are represented as differential equations that explicitly represent the rate at which specific ionic species flow through each channel type at each location on the neuron, i.e. ionic currents.
 Conductance-based models differ in their spatial extent. In its most basic form, a conductance based model can describe an isoelectric sphere (in this case the model is so abstract that it dispenses with the notion of space in nervous tissue).
-When the spatial aspects of the electrical properties of a neuron are of interest, conductance based models can be combined with a multi-compartment framework where the geometry of the neuron is "modelled", but it is approximated using coupled compartments that create systems of branching patterns \citep{rall1962electrophysiology}.
+When the spatial aspects of the electrical properties of a neuron are of interest, conductance based models can be combined with a multi-compartment framework where the geometry of the neuron is "modelled", but it is approximated using coupled compartments that create systems of branching patterns \citep{rall1962electrophysiology, hodgkin1952quantitative}.
 Rall took the numerical methods used for modelling heat and electrical conductance in cables and showed that similar equations could be used to accurately predict current flow in the cable of neuron dendrite. This cable equation forms the basis for the electrical properties in the multi-compartment approach.
 \\
 \begin{center}
@@ -154,7 +154,8 @@ g_{L} \Delta Texp(V-V_{T} \Delta T)-w+I
 \tau_{w}\frac{dw}{dt} = a(V-E_{L})-w 
 \end{displaymath}
 The Adaptive Exponential (AdExp) IF model \citep{brette2005adaptive}, is another type of reduced neural model
-The AdExp model is a special instance of leaky integrate and Fire model which most often appears with an exponential spike shape.
+The AdExp model is a special instance of leaky integrate and Fire model. The AdEx model most often appears with an exponential spike shape.
+% I think rising phase is caused by exponential term. In Izhikevich its quadratic.
 This model's instantaneous spiking rate is calculated by consulting the recent spike history in a finite time "window". 
 Adaptation is achieved by looking back into the window and counting the number of spikes that occurred in the previous $10ms$, for example. 
 \subsubsection{Izhikevich Model}

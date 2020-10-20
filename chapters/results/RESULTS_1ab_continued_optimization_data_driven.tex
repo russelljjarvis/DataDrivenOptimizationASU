@@ -85,7 +85,13 @@ Besides even if the data was wrong, it wouldn't necessarily follow that models c
 
 
 %In light of this result, one might ask, i
-If reduced models are not excellent at fitting data, are brain simulations really that much more realistic, when we use data driven fitted models in the place of generic model parameters? If data driven model fits lead to models that fit one measurement better than others, which fitness criteria will lead to the greatest consequence for network simulations?
+If reduced models are not excellent at fitting data, are brain simulations really that much more realistic, when we use data driven fitted models in the place of generic model parameters? 
+
+% To answer this question we would need to run brain simulations. From my own experience adding in realistic cells to pre-existing network topologies requires that the network be re-tuned to demonstrate tonic firing with realistic CV again.
+
+If data driven model fits lead to models that fit one measurement better than others, which fitness criteria will lead to the greatest consequence for network simulations?
+
+
 
 %to answer that question we have created some large
 
@@ -96,10 +102,5 @@ If reduced models are not excellent at fitting data, are brain simulations reall
 
 %A
 % Nonetheless, 
-At first we accessed an implementation of the Izhikevich model that was translated from jNEUROML into a NEURON simulator implementation. The problem with this implementation is that it had fragmented the whole Izhikevich model into chattering and non chattering subtypes. The model implementation seemed to have an internal conflict between two capacitive terms. The problem was that the Izhikevich model requires only one capacitive term.
 
-implemented in NEURON which was derived from a J-NeuroML translation, could not reproduce all of the Izhi original publication figures, because it had two different conflicting sources of capacitance.\\
-\\
-From J-NeuroML we created NEURON version of Izhikich model, however we were not able to make this model execution times brief enough to be useful for optimization. Although the NEURON simulator is designed to be fast, their may be a cost associated with reloading the NEURON environment many times in fast succession.
-
-This should not go in the general introduction, but in the intro to the appropriate section of the results where you use those models.
+% This should not go in the general introduction, but in the intro to the appropriate section of the results where you use those models.
