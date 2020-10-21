@@ -1,27 +1,35 @@
 \chapter{Results}
-In the results section I hope to help the reader address doubts about aim of this work, it is a good goal to produce more convincing models, to this end one should ask is improving models via optimization even possible?
+In the Results section I hope to help the reader understand what I discovered about optimization of reduce neuron models.
+How well did it work?
+What do these optimized models look like?
+And is improving existing published models via optimization possible?
 
-In section \textbf{1a}. I discuss the construction of tests from diverse experimental sources. In section \textbf{1b} I discuss how and why it I used simulated data to verify that the optimizer functions correctly. I also discuss optimization techniques that work, and techniques work less well, and the reasons behind model fitting success and failure. 
+In section \ref{sec:optimizer-verification}, I show how well and under what circumstances the optimizer can work on recovering ground-truth model parameters using simulated data as input.
+This is an essential step, since if an model optimized on simulated data does not match the model that simulated it, the whole enterprise can be called into question.
 
-In section \textbf{1c}, I compare the different collections of data driven tests, and then I discuss, an experiment where I use models to ascertain if some of the assumptions underlying the NeuroElectro data driven tests. 
+In section \ref{sec:limitations-of-optimization}, I use various suites of biological-data-driven tests to optimize reduced models corresponding to real neuron types.
+I show how some of the assumptions and methodological approaches underlying the a subset of the tests might be problematic, and determine their impact on optimization quality. 
 
-After setting up the context by describing background considerations I then discuss the results of the majority of model fits performed in this work, although an exhaustive account of the optimized models are available in the appendix, I detail just a few typical results that are representative of whole.
+In section \ref{sec:optimization-performance}, I assess the quality of these optimizations. 
+While I focus on representative cases in this section, an exhaustive account of all optimized models is also available in the Appendix.
+I show which models lead to the best fits overall, and for which neuron types.
 
-In section \textbf{1d}I discuss which model lead to the best fits overall, as I have ranked the quality of fits between models as if the models are competing against each other, I also come back to the issue of the best model performance in the discussion. %Later in the discussion, 
+In section, \ref{sec:optimizing-published-models}, I show that most published models actually deviate significantly from biological experimental data.
+I locating specific features underlying this disagreement, and explain how this creates an opportunity for optimization to close the gap.
+I then show that optimization can bring the behavior of the model and biological neuron back into agreement.
 
-Next I describe the study of variance between models and data, where I use sparse PCA, to identify the major sources of disagreement between models and experiments. Locating specific sources of model and experimental disagreement. I explain how locating and labeling model/experiment conflicts creates an opportunity for optimization jobs that which can seek to close the gap.
+Finally, in section \ref{sec:web-app}, I demonstrate an novel web application for optimization that I created to showcase the work described in the other sections.
+This web application can be used to setup, execute, and visualize optimization in real applications or to teach the relevant technical concepts to trainees.
 
 \input{chapters/results/RESULTS_1b_verification_of_the_optimizer} % ie is optimizaation possible?
-
 \input{chapters/results/RESULTS_1ab_aintro}
 \input{chapters/results/RESULTS_1ab_continued_optimization_data_driven} 
 \input{chapters/results/RESULTS_1c_extended_mean_model_not_eqaul_mean_measurement}
 \input{chapters/results/RESULTS_1d}
 \input{chapters/results/RESULTS_2a} 
 \input{chapters/results/RESULTS_allen_multispiking}
-\input{chapters/results/RESULTS_web_app_2b}
 \input{chapters/results/RESULTS_3large_scale_variance}
-
+\input{chapters/results/RESULTS_web_app_2b}
 
 
 

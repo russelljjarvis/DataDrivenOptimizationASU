@@ -6,7 +6,7 @@ Conflicts between rheobase value, input resistance, and time constant  were obse
 Models seemed to have particular difficulty in recapitulating an accurate fit for rheobase, while simultaneously satisfying some of the other fitness criteria: time constant, input resistance, capacitance, resting membrane potential and FISlope. 
 
 
-\subsection{Ability of models to Fit Allen Institute Data (sweeps).}
+\subsection{Ability of models to Fit Allen Institute Data (Sweeps).}
 
 In this work I show examples of fitting models with many mixed collections of constraints, were not all constraints are equally informative and many are known to contain ripples or corrogations.
 
@@ -131,9 +131,10 @@ Another potential issue to consider when evaluating the scientific merit of a mo
 
 The are several valid instances when the complete three dimensional form of a neuron is an integral part of a brain simulation, such as in the Blue Brain somato-sensory cortex model \cite{markram2006blue} and the Allen Institute \emph{V1} model \cite{billeh2020systematic}, These simulations are improved by encasing a "core" of biophysically accurate models inside a "shell" of simple fast and reduced Izhikevich, GLIF, or Adaptive Exponential Integrate and Fire models.\\ 
 
-Encasing a core of complex models inside a shell of simplified models mitigates an observable "edge effect" problem. The problem is that simulations concern sub divisions of brain tissue, subdivisions by nature exclude externally sourced synaptic inputs. These synaptic inputs are connections that are severed by the process of making a subdivision. All published highly detailed simulations to date, have necessitated the simulation of severed volumes of tissue, and this creates another problem to manage.\\
-%There is a core of models of realistic models who are missing a substantial number of "extrinsic" synaptic inputs. 
-Almost all cortical neurons experience "tonic" synaptic input and these tonic inputs originate from neurons from a different part of the brain. One strategy for handling inputs that are external to the region of interest, is to simply model spike trains for each input synapse. Modern programming languages have tools that can make matching the synthesis of statistically similar spike trains convenient. One big problem with this approach is it assumes that post synaptic neurons are mainly influenced by the firing rate of inputs, if they pre-synaptic neurons are actually conveying important code words via exact interspike intervals, a statistical approach to modelling spike trains would not do.\\
+Encasing a core of complex models inside a shell of simplified models mitigates a harmful edge effect. The problem is that simulations concern sub divisions of brain tissue and without intervention the act of making a subdivision severes synaptic inputs. All published highly detailed simulations to date, have necessitated the simulation of severed volumes of tissue, and this creates another problem to manage.\\
+%There is a core of models of realistic models who are missing a substantial number of "extrinsic" synaptic inputs. Many synaptic inputs are severed by the process of making a subdivision.
+Almost all cortical neurons experience "tonic" synaptic input and these tonic inputs originate from neurons from a different part of the brain. One strategy for handling the severed inputs that are external to the region of interest, is to simply model spike trains for each input synapse. This approach to modelling synapses is called a Point Process, or a spike train surrogate. Modern programming languages have tools that can make the synthesis of statistically similar spike trains easy and convenient. One big problem with this approach is that such surrogate spike trains are impervious to LFP analysis, as point processes fail to model current flow in the soma and dendrites. Because synapse activation is predicted using stochastic models, the reason why a synapse chooses to fire may be opaque, there may be no physical sequence of cause and effect steps to explain synapse firing. Although point process modelling sounds potentially simple, Point process models can in fact be very elaborate, and therefore they are expensive to run. Reduced models by contrast, are potentially fast to evaluate, their mechanisms are transparent and have some basis in membrane physics, reduced models can also produce LFPs that can be read out and measure in network models of LFP.
+%assumes that post synaptic neurons are mainly influenced by the firing rate of inputs, if they pre-synaptic neurons are actually conveying important code words via exact interspike intervals, a statistical approach to modelling spike trains would not do.\\
 
 %than generating only psuedo random timed inputs to synapses, 
 In the case of the Allen Institute Model, if the region of interest V1 is a "core" of realistic neurons. That is a kernel of realistic neurons encased by a shell of less realistic neurons. Inputs to V1 also come from the outer encasement of neurons. It is therefore of interest if these external GLIF models can or should be substituted with optimized Izhikivich and AdExp models, in case substiting GLIF for Adexp results in an overall more realistic network simulation. In that case, even the external shell of simulation could experience a marginal improvement in accuracy. In network models there are benefits of reduced models over the use of a point process or a spike train surrogate.\\
@@ -158,7 +159,7 @@ Unfortunately, it is not always possible to know without trying which combinatio
 
 %that a Genetic Algorithms can use to find a global solution to. As an example consider  
 
-\subsection{Optimizing multispiking Behavior}
+\subsection{Optimizing Multispiking Behavior}
 
 When using Allen experimental data to create multi-spiking tests, there was the potential to more tightly constrain model behavior. In order to evaluate the goodness of fit models the $\chi^{2}$ statistic could no longer be used, instead one could compute the 'variance explained ratio' between the allen institute experimental sweep and the optimized models sweep to a comparable current injection.
 

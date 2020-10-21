@@ -1,6 +1,6 @@
 
 
-\subsubsection{Persistently Incompatibility Tests: Trends and Patterns}
+\subsubsection{Persistently Incompatible Tests: Trends and Patterns}
 
 Time Constant measurements were consistently harder to fit, and where often incompatible, in almost or all model types (including conductance based models, reduced models, and including all data types (NeuroElectro data, and Allen cell-types single experiment data). When the membrane time constant was mismatched, this didn't seem to be of much consequence to other membrane timing measurements in the cell, for instance membrane capacitance, spike widths and spike-thresholds could still be accurate. Frequently mismatched membrane time constants suggests either one of two possibilities: Either our method for measuring membrane time constant is wrong, and is off by a factor of 10, or, model builders write equations that are founded on electrical properties that are preference AP features and electrical properties slightly that don't involve the membrane time constant.
 
@@ -12,8 +12,8 @@ As discussed in the methods \ref{sec:parallel-rheobase} Rheobase is defined as t
 In the situation where, FI-slope is matched, other electrical measurements match, but rheobase is mismatched; when electrical properties agree with the FI-slope but not the rheobase, this suggests, that the overall linear relationship is correct but the exact quantity of current that biases the FIslope is wrong in models. One reason for this could be due to the difference between modelled resistance, and material resistance in neurons. Another reason, might be because, in the virtual experiments where I measured rheobase, I only used a single value of integration time that was a $1$ second duration,  square current pulse, but experiments could have used either shorter times (stronger currents needed to evoke single spike), or longer integration times (less current needed to evoke a spike).
 
 
-\subsubsection{A Fitted model may not generalize to injections at higher or lower current stimulus, Unless the model is fitted with constraints informed by those different experiments}
-As discussed above, the true FI curve is described by a gradient and a bias. When one fits to both the slope and the bias of the FI curve, it means that the model will at least be able to recapitulate the right number of spikes for  a given current strength. %Although this does not necessarily mean that the shapes of the each individual spike will agree between model and experiment. 
+\subsubsection{A Fitted Model May not Generalize}
+A fitted model may not generalize to current stimulus at higher or lower current strengths, Unless the model is fitted with constraints informed by those different experiments. As discussed above, the true FI curve is described by a gradient and a bias. When one fits to both the slope and the bias of the FI curve, it means that the model will at least be able to recapitulate the right number of spikes for  a given current strength. %Although this does not necessarily mean that the shapes of the each individual spike will agree between model and experiment. 
 % important for network modellers as I discuss elsewhere.
 
 %Preserving 

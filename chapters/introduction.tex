@@ -253,7 +253,7 @@ For example, given enough samples, a genetic algorithm will learn the global min
 \begin{center}
 
     \includegraphics[width=0.7\linewidth]{figures/How_Genetic_Alg_Works.png}
-  \caption{\textbf{Schematic of genetic algorithm flow.} Genetic algorithms find satisfactory solutions by incompletely sampling the solution space. Evolution of the algorithm is guided by the combined application of stochastic sampling and selective pressure. Stochastic contributions that guide GA sampling incentivise the exploration of regions beyond local minima. Stochasticity is applied in the combined actions of cross-over, and mutation. Model parameterizations are encoded as binary strings called genes. When genes breed, eligible pairs of genes are aligned and at random bit locations, the status of a bit is exchanged.  
+  \caption[Schematic of genetic algorithm flow]{\textbf{Schematic of genetic algorithm flow.} Genetic algorithms find satisfactory solutions by incompletely sampling the solution space. Evolution of the algorithm is guided by the combined application of stochastic sampling and selective pressure. Stochastic contributions that guide GA sampling incentivise the exploration of regions beyond local minima. Stochasticity is applied in the combined actions of cross-over, and mutation. Model parameterizations are encoded as binary strings called genes. When genes breed, eligible pairs of genes are aligned and at random bit locations, the status of a bit is exchanged.  
 }
   \label{fig:GeneticAlgOver}
 \end{center}
@@ -272,12 +272,15 @@ There are at least two stochastic operations that over time provide a gentle "ex
 Cross-over is the exchange of genes between chromosomes.  In a population of many chromosomes, one can "mate" two of them, producing off-spring which represent a fraction of genes from parent 1 and the remainder from parent 2.  If each chromosome represents two opposing vertices of an n-dimensional hypercube (for n model parameters), then cross-over is capable of producing offspring representing any of the other vertices in that hypercube.
 \subsubsection{Simulated Genetic Mutation}
 A mutation reflects a (random) change to a single gene, i.e. a change to a single model parameter.  In some implementation this is achieved by flipping one bit in the binary representation of the floating-point value of the parameter, with the magnitude of the resulting change in the parameter value depending on which binary digit was flipped.  Often mutations are limited to a particular range for a given parameter.
+
+Later in this work I will talk about a property denoted $\eta$ this property controls the magnitude or step-size of gene changes made via either mutation or cross over. In the cross-over context, $\eta$ describes how similar child chromosomes are to their parents. In the context of mutation, $\eta$ changes the location of bits (from Least Significant position to Most Significant Bit). At specified bit locations the bits that encode genes are randomly toggled on or off in mutation.
+
 \begin{figure}
 %width=0.9
 \begin{center}
 
 \includegraphics[scale=0.5]{figures/rastagrind}
-\caption{Rastrigin's function is a function that is challenging to optimize, as it contains hundreds of local optima which would trap a gradient descent algorithm \citep{rastrigin1974systems}.}
+\caption[Rastrigin's function]{Rastrigin's function is a function that is challenging to optimize, as it contains hundreds of local optima which would trap a gradient descent algorithm \citep{rastrigin1974systems}.}
 \label{fig:rastrigin}
 
 \end{center}

@@ -3,7 +3,7 @@
 %I think this captures most of your results in three themes.  Other results which are really methods, like parallel rheobase search, can stay in the methods, and you will get credit for them there.
 
 \section{Published models vs optimized models}
-
+\label{sec:optimizing-published-models}
 It is known that neural models and experimental measurements generally diverge in important ways, however, it is desirable to know the specific sources of divergence. Models and experiments may disagree for two reasons: \emph{A} the model is not flexible enough to satisfy a particular constraint simultaneously to a collection of constraints, or, \emph{B} the model was incorrectly fitted to the a type of conflicting constraints (for example model fitted to spike times at the expense of Rheobase, and FISlope). 
 
 Since we don't yet have complete knowledge of model/experiment divergence, we don't necessarily know the best features to target with regards to model fitting. Specific knowledge of model/data disagreement facilitates the prioritized selection of features that should guide optimization. 
@@ -104,7 +104,7 @@ The Blue Brain Project Dataset \citep{toledo} can be obtained from the Data Navi
 
 In order to identify electrical measurements or "features" that were responsible for the most variance in models and in-vitro, we performed Sparse Principle Component Analysis \citep{zou2006sparse} on the combined pool of model and \emph{in vitro} experiments. 
 
-\subsection{Sources of disagreement}
+\subsection{Sources of Model/Experiment Disagreement}
 The key advantage of using sparse PCA is the results are readily interpret able. 
 A common sceanario in regular Principal Component Analysis is you may obtain a low dimensional embedding plot made from unit rotation vectors that maximize variance, but no way of relating the reduced dimensions back to the sources of variance in the system of interest. 
 
@@ -253,7 +253,7 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
 
 
 
-
+\begin{comment}
 \begin{itemize}
     \item upstroke\_t\_1.5x allen feature
     \item  peak\_t\_1.5x allen feature
@@ -266,6 +266,7 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
     \item peak\_indices\_1.5x efel feature
     \item min\_AHP\_indices\_1.5x efel feature
 \end{itemize}
+\end{comment}
 
 
 %\begin{itemize}

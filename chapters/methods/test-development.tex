@@ -14,17 +14,23 @@ At this stage the range of tests available for optimization in NeuronUnit was st
 I developed the ability for all of the EFEL features to be calculated on NeuronUnit models, as well as a new test to compute the slope of the F-I curve.
 I organized these tests into new "at threshold" and suprathreshold test suites, which included features such as
 interspike-interval (ISI) statistics, after-hyperpolarization (AHP) depths, spike frequency adaption ratios, etc.
-For example, I utilized an existing implementation of the spike frequency adaptation index. The adaptation index is calculated as follows \citep{EFEL}:
 
-\begin{equation}
-A = \frac{1}{N - k - 1} \sum_{i = k}^N \frac{isi_i - isi_{i-1}}{isi_i + isi_{i-1}}
-  = \frac{1}{N - k - 1} \sum_{i = k}^N \frac{tpeak_{i+1} - 2 tpeak_i + tpeak_{i-1}}{tpeak_{i+1} - tpeak_{i-1}}
-\end{equation}
-where the first $k$ peaks are skipped and:
-\begin{align}
-    \textrm{the interspike intervals:    } & isi_i = tpeak_{i+1} - tpeak_i,
-    \textrm{the number of peaks:    } & N.
-\end{align}
+Adaptation in spike trains is very common, it is so common. When fitting models to spike trains, it is best to measure adaptation directly, and use it as one of many equally weighted objective functions, fitting models against adaptation directly is important for taking full advantage of the Adaptive Exponential model type.
+
+For example, I utilized an existing implementation of the spike frequency adaptation index.
+
+
+The adaptation index is calculated as follows \citep{EFEL}:
+
+%\begin{equation}
+%A = \frac{1}{N - k - 1} \sum_{i = k}^N \frac{isi_i - isi_{i-1}}{isi_i + isi_{i-1}}
+%  = \frac{1}{N - k - 1} \sum_{i = k}^N \frac{tpeak_{i+1} - 2 tpeak_i + tpeak_{i-1}}{tpeak_{i+1} - tpeak_{i-1}}
+%\end{equation}
+%where the first $k$ peaks are skipped and:
+%\begin{align}
+%    \textrm{the interspike intervals:    } & isi_i = tpeak_{i+1} - tpeak_i,
+%    \textrm{the number of peaks:    } & N.
+%\end{align}
 %The parameter \verbatim{spike skipf} is the fraction of skipped peaks, $k$ is %the minimum of \verbatim{spike skipf} times $N$ and \verbatim{max spike skip}.
   
 
@@ -36,11 +42,15 @@ Additionally I created one slower single-compartment conductance-based model and
 Multi-core and or multi-threaded optimization requires that information about model properties be shareable across various processor threads.
 However, some very common data types used in programming are not easily shareable between CPUs.
 The release of Python 3.8 solved a subset of these problems, but this did not occur until late 2019 so I implemented an alternative scheme for cross-thread sharing of models.
-I created a new NeuronUnit class ``Data Transport Container", whose main function was to circulate essential data about model parameters and state variables between threads.
+I created a new NeuronUnit class ``Data Transport Container" (DTC), which can circulate essential data about model parameters and state variables between threads.
 Models on one thread were collapsed into this container, shared between threads, and then reconstituted on a new thread.
 This added a small amount of overhead, but this computational cost was negligibly small when measured against the gains of using multi-threaded processing.
 
-Outside of multi-threading context the DTC class should be conceptualized as an essential expansion to Neuronunit base model class which allows the optimization of Neuronunit models. The DTC class makes it possible to do many common genetic algorithm operations ``in place". It enables the creation chromosomes from any existing model, to evaluate the fitness of any single chromosomes, and to convert chromosomes back to models. The DTC type is able to evaluate most feature extraction algorithms on itself. Many users of NeuronUnit, are not performing optimization, such that placing these conversions in the Neuronunit base Model class does not make sense.
+Beyond the multi-threading context described above the DTC class constitutes the necessary expansion of Neuronunit model class needed to make optimization work. The DTC class enables the creation chromosomes from models to evaluate the fitness of any single chromosomes, and to convert chromosomes back to models, these types of conversions are essential to visualising Genetic Algorithm jobs, and they represent the difference between merely writing a one-off optimisation job versus making an actual optimisation package, ie re-usable software that promotes predictable code-patterns, and workflows. 
+
+% The DTC type is able to evaluate most feature extraction algorithms on itself. Many users of NeuronUnit, are not performing optimization, such that placing these conversions in the Neuronunit base Model class does not make sense.
+
+%  makes it possible to do many common genetic algorithm operations ``in place". It
 
 %In addition to sharing essential information, across threads. The class DataTC containers role includes performing common in-place conversions and computations. 
 

@@ -1,5 +1,28 @@
 \chapter{Appendix}
 
+Often model data is streamed from a remote machine for example NeuroML-DB. In that case local simulator capabilities are not required in order to make streaming models eligible for Neuronunit tests. The code idiom for working with streaming models is as follows:
+
+\begin{minted}{python}
+import requests
+from neuronunit.models import static_model as sm
+model_scores = []
+# list cell models need to grab from remote machine.
+NeuroMLDB_requests = ["Traub L3-Pyramidal-Cell","Traub-Relay-Cell"]
+for data in NeuroMLDB_requests:
+    # get cell models from remote machine    
+    remote_model = requests.get(data)
+    # get singular trace per model, from remote machine.
+    vm = remote_model.json['vm']
+    # Make the trace a NU model
+    SM = sm.StaticModel(vm)
+    # get model sciunit score.
+    score = test_suite.judge(SM)
+    model_scores.append(score)
+\end{minted}
+\label{code:idiom2}
+
+This idiom was also utilized for complex models that lack neuronunit support. In the majority of cases not much is gained by re-implenting complex model simulator code, instead, one can simply source simulated models as if they are being streamed remotely when in fact they coexist in the same python program.
+
 \section{Details of Open Source Code Repositories}
 The optimization Application presented earlier in this work, depends on two actively developed code repositories:
 Neuronunit \url{https://github.com/russelljjarvis/neuronunit}.
@@ -29,26 +52,43 @@ Julia Spiking Neural Networks and some optimization in Julia:
 %\end{table} 
 %\end{figure}
 
-\subsection{Best Fitting Model Parameters for two models on 12 data-driven test sets}\begin{tabular}{lrrrrrrrrrr}
+\subsection{Best Model Fitted Parameters for two models on 12 data-driven test sets}
+
+\subsection{Best Model Fitted Parameters Izhikevich model}
+
+\newpage
+
+\begin{table}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lrrrrrrrrrr}
+
 \toprule
-{} &           C &         k &         vr &         vt &      vPeak &         a &          b &          c &           d &  celltype \\
+{} &           C &         k &         vr &         vt &      vPeak &         a &          b &          c &           d &  regime-type \\
 experiment                         &             &           &            &            &            &           &            &            &             &           \\
 \midrule
 4824937611                         &  190.317718 &  0.766233 & -59.750208 & -40.787616 &  42.848335 &  0.012862 &  -1.021203 & -58.379143 &   48.911618 &         6 \\
 4718194011                         &  162.783673 &  1.583689 & -66.487855 & -48.634210 &  30.282912 &  0.057584 &  -1.159059 & -56.473425 &  135.693471 &         7 \\
-6238931771                         &  187.915295 &  1.130626 & -63.584364 & -49.477821 &  37.111777 &  0.060086 &   8.714604 & -57.494334 &   89.571208 &         3 \\
+6238931771                         &  187.915295 &  1.130626 & -63.584364 & -49.477821 &  37.111777 &  0.060086 &   8.714604 & -57.494334 &   89.571208 &         1-3 \\
 6239608801                         &  190.848367 &  0.770070 & -65.461028 & -49.496538 &  31.461532 &  0.058770 &  13.916167 & -58.159122 &   38.738638 &         7 \\
 482493761                          &   70.602307 &  1.548712 & -55.046278 & -41.489000 &  28.329709 &  0.139405 &  13.190249 & -46.060902 &   78.195696 &         5 \\
 471819401                          &  120.971231 &  1.257246 & -70.654637 & -47.630679 &  30.290391 &  0.056750 &  -0.489954 & -56.034978 &  138.825641 &         7 \\
 623893177                          &  179.359764 &  1.533041 & -56.883517 & -35.949970 &  43.403127 &  0.101416 &  -0.536745 & -45.430678 &  148.242124 &         7 \\
 623960880                          &  198.460449 &  1.598985 & -56.469868 & -43.352802 &  48.817602 &  0.186193 &  -1.357591 & -47.647756 &  112.958369 &         6 \\
-olf\_mit                            &  166.596093 &  1.029132 & -61.718758 & -45.325164 &  48.016614 &  0.011900 &  -1.736929 & -55.525865 &  124.999833 &         3 \\
+olf\_mit                            &  166.596093 &  1.029132 & -61.718758 & -45.325164 &  48.016614 &  0.011900 &  -1.736929 & -55.525865 &  124.999833 &         1-3 \\
 Neocortex pyramidal cell layer 5-6 &  181.287370 &  0.850828 & -63.836556 & -57.404674 &  25.079898 &  0.106505 &  12.399936 & -54.668152 &   85.950173 &         7 \\
 Cerebellum Purkinje cell           &   24.623228 &  1.048620 & -61.377334 & -48.928462 &  29.775470 &  0.100447 &  11.356889 & -48.328073 &   14.756462 &         6 \\
 Hippocampus CA1 pyramidal cell     &  100.863146 &  0.713266 & -65.220970 & -45.078885 &  29.810374 &  0.067234 &  14.615355 & -52.826220 &   97.845439 &         5 \\
 \bottomrule
-\end{tabular}
-\subsection{Collated parameters}\begin{tabular}{lrrrrrrrrrrr}
+\end{tabular}}
+\caption[Best Model Fitted Parameters Izhikevich model]{Best Model Fitted Parameters Izhikevich model, the final parameter value, regime number, is a meta parameter that usually modifies $u$ the recovery variable in the Izhikevich equation. Notice too, that it looks like many row elements are duplicated except for differing by '1'. Row elements that are purely numeric denote Allen cell type specimen id's. The extra '1' denotes an easy test set consisting of only FITest, and Rheobase Test.}
+\end{table}
+\clearpage
+\subsubsection{Best Model Fitted Parameters AdEx}
+
+\begin{table}
+\resizebox{\textwidth}{!}{
+
+\begin{tabular}{lrrrrrrrrrrr}
 \toprule
 {} &          cm &    v\_spike &    v\_reset &     v\_rest &      tau\_m &          a &          b &   delta\_T &       tau\_w &   v\_thresh &  spike\_delta \\
 experiment                         &             &            &            &            &            &            &            &           &             &            &              \\
@@ -66,13 +106,15 @@ Neocortex pyramidal cell layer 5-6 &  170.450121 & -24.032164 & -51.492037 & -67
 Cerebellum Purkinje cell           &  717.111118 & -48.432357 & -34.206502 & -62.769947 &  24.473459 &   5.282332 &  11.820173 &  9.344534 &  257.794528 & -31.630191 &    40.033220 \\
 Hippocampus CA1 pyramidal cell     &  113.878716 & -27.492145 & -30.350509 & -65.176063 &  13.857807 &  18.884843 &   9.699535 &  7.508661 &  349.611826 & -37.237156 &    34.804450 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
+\caption[]{Although it looks like many row elements are duplicated except for differing by '1'. Row elements that are purely numeric denote Allen cell type specimen id's. The extra '1' denotes an easy test set consisting of only FITest, and Rheobase Test. Absence of '1'  denotes a more conflicted test set of Rheobase, Time Constant, Input Resistance and Resting Membrane Potential. Olfactory Mitral cell is contracted to just "olf_mit". Olf mitral cells, and cerebellum cells where two universal optimization failures.}
+\end{table}
 
 
 \subsection{Across Model Performance Comparisons}
 \begin{tabular}{lllrr}
 \toprule
-{} & model\_value &                            exp\_cell &   chi\_square &       p\_value \\
+{} & model type &                            exp\_cell &   $\chi^{2}$ &       p-value \\
 \midrule
 0 &        IZHI &                          4824937611 &     0.034791 &  1.000000e+00 \\
 0 &        IZHI &                          4718194011 &     0.051691 &  1.000000e+00 \\
@@ -1029,7 +1071,7 @@ InjectedCurrentAPThresholdTest &        -38.9 mV &      -52.08 mV &     2.54 \\
 \end{tabular}
 \end{comment}
 
-
+\begin{comment}
 \begin{figure}
 \begin{verbatim}
 'AP1RateOfChangePeakToTroughTest_3.0x',
@@ -1083,4 +1125,6 @@ InjectedCurrentAPThresholdTest &        -38.9 mV &      -52.08 mV &     2.54 \\
 \label{fig:reference_feature_list}
 List of complete 47 features used in the analysis down from 466 after data cleaning.
 \end{figure}
+\end{comment}
 
+ 

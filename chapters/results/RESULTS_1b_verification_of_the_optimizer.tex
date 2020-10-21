@@ -1,22 +1,28 @@
-\section{Verification of the optimizer}
-Sometimes during optimizer development we used aprior arguments
+\section{Verification of the Optimizer}
+\label{sec:optimizer-verification}
+Sometimes during optimizer work a-prior arguments shaped optimizer validation and design.
 Four factors needed to be controlled for, before we locate the cause of poor model/experiment fits. Those factors were: the informativeness of measurement errors, the performance of the optimizer, data quality, and model quality.
 
-The digital models we used were known to be not flexible enough to match all electrical features from cell experiments all the time; as compact mathematical functions these models are by nature, self-constrained and therefore they cannot to be fitted to all experimental waveforms. Additionally the data sources may also have some fidelity problems, it was necessary to create data source independent "ground truths", by synthesising plausible data, with the digital models, and optimizing against these ground truths. Because the DEAP genetic algorithm, has been shown to be able solve Rastrigrins function, we expect that our derivative frame work, should be able to fit to simulated data sources, with a high degree of precision, and that is what we found.
+The digital models we used were known to be not flexible enough to match all electrical features from cell experiments all the time; as compact mathematical functions these models are by nature, self-constrained and therefore they cannot to be fitted to all experimental waveforms. Often its good that models can't fit every part of experimental traces all the time, that way fitted models easily exclude noise in membrane potential recordings.
+
+Additionally the data sources may also have some fidelity problems, it was necessary to create data source independent "ground truths", by synthesising plausible data, with the digital models, and optimizing against these ground truths. Because the DEAP genetic algorithm, has been shown to be able solve Rastrigrins function, we expect that our derivative frame work, should be able to fit to simulated data sources, with a high degree of precision, and that is what we found.
 
 The optimizer was capable of producing perfect fits under ideal circumstances. We showed that the measurements the genetic algorithm was using were able to act as informative guides. Since we are confident about the optimizers ability to fit to synthesized data we can then locate sources of model/data disagreement in other places. 
 
-In the subsequent tables and figures when the measurements:time constant, capacitance, Rheobase, Resting potential and Input resistance are used to constrain optimization.
+In the subsequent tables and figures when the measurements:time constant, capacitance, rheobase, resting potential and input resistance are used to constrain optimization.
 \begin{figure}
     \centering
     \includegraphics[scale=0.75]{figures/radar_coordinates.png}
-    \caption{This radar plot of model parameters, reveals two mutually inclusive sets. On the plot I have individually mapped out coordinates for a randomly selected set of model parameters, and the parameters of an optimized model which was trying to constrained by measurements from the random model. The result was two almost identical sets of parameters. There is a small discrepancy about, 'cm', 'v-reset' and 'v-spike' were a red margin is showing}
+    \caption{This radar plot of model parameters reveals two mostly identical parameter sets.
+    On the plot I have individually mapped out a random models parameter set, and the parameters of an optimized model.
+    As discussed the random model acted as a ``ground-truth". 
+    Measurements were derived from the ground truth and those measurements guided optimisation of a candidate model.
+    The result of this process was two almost identical sets of parameters.
+    There is a small discrepancy about $cm$, $v-reset$ and $v-spike$.
+    The only place in $3$ out of $11$ parameters where red and brown traces are slightly distinguishable from each other.
+    }
     \label{fig:my_label}
 \end{figure}
-
-
-%coincide 
-
 
 \begin{figure}
     \centering
@@ -34,7 +40,7 @@ In the subsequent tables and figures when the measurements:time constant, capaci
 \begin{figure}
     \begin{center}
     \includegraphics[scale=0.65]{figures/passive_model_agreement}
-    \caption{For contrast, this is the Izhikevich model undergoing the same $-10.pA$ current injection value. There is no rebound spike. The model with the blue trace does rebound slightly. Agreement between a simulated constraint waveform, and an optimized waveform, when both simulated constraint model and optimized model undergo a current injection value of $-10pA$}
+    \caption[Izhikevich model undergoing a negative square stimulus]{For contrast, this is the Izhikevich model undergoing the same $-10.pA$ current injection stimulus. Although there are no rebound spikes. The model with the blue trace does rebound visibly, but it also fails to rebound spike owing to the Izhikevich model possessing a more conservative value of membrane capacitance. Agreement between a simulated constraint waveform, and an optimized waveform, when both simulated constraint model and optimized model undergo a current injection value of $-10pA$}
     \end{center}
     \label{fig:my_label}
 \end{figure}
@@ -58,7 +64,7 @@ The plot of model membrane potential, as the model undergo's a $-10pA$ current i
 \begin{figure}
     \centering
     \includegraphics[scale=0.7]{figures/optimizer_internal_validation}
-    \caption[Optimizer error over generations]{Optimizer evolution, green line tracks evolution of best fitness, blue line average fitness, orange line is worst fitness. GA params, $NGEN=200$, $MU=50$,$cxp=0.3$,$mupb=0.2$ from this plot can see that genes are storing and exploiting information, $cxp+mutpb=0.5$, a changing number of genes are conserved between generations }
+    \caption[Optimizer error over generations]{Optimizer evolution, green line tracks evolution of best fitness, blue line average fitness, orange line is worst fitness. GA params, $NGEN=200$, $\mu=50$, $cxp=0.3$, $mutpb=0.2$ from this plot can see that genes are storing and exploiting information, $cxp+mutpb=0.5$. Using these variables to control cross over and mutation rates meant that a significant but variable number of genes are conserved between generations }
     \label{fig:my_label}
 \end{figure}
 

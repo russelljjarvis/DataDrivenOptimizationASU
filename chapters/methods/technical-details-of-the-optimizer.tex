@@ -76,8 +76,8 @@ The optimization literature has developed many competing approaches for doing th
 NSGA2 uses some additional ranking mechanisms, to re-weight the perceived fitness of each chromosome and influence the probability that it survives (or is bred into) the next generation.
 For example, it tries to minimize ``crowding distance", penalizing chromosomes that aggregate in clusters, as persistent cluster formation means that the GA becomes preoccupied with more limited regions of the solution space, harming solution diversity.
 Another meta-constraint called ``non-dominated sorting" ranks most highly each chromosomes that is not unanimously defeated by any other chromosome on any feature score.
-For example, though one parameter set $P$ might produce a model which score poorly on all features except Input Resistance, if no other parameter set has a higher-scoring Input Resistance feature then $P$ is retained. Consistent with personal communication with \cite{van2007neurofitter}, adding in crowding distance and non-dominated sorting can harm optimizer performance in the context of neuronal model optimization, though the reason for this remain unclear.
-A simpler ``select best" algorithm (labelled IBEA) dispenses with these tricks, performs no meta-constraint scoring, and simply retains the fittest chromosomes for mutation, crossover, and selection.
+For example, though one parameter set $P$ might produce a model which score poorly on all features except Input Resistance, if no other parameter set has a higher-scoring Input Resistance feature then $P$ is retained. Consistent with personal communication with \cite{van2007neurofitter}, adding in crowding distance and non-dominated sorting typically harms optimizer performance, in the context of neuronal model optimization, though the reason for this is not proven conclusively, I speculate on a likely cause in \ref{sec:discussion}.
+A simpler ``select best" algorithm (labelled IBEA) dispenses with these tricks, performs no meta-constraint scoring, and simply retains the fittest chromosomes for mutation, crossover, and selection. This simpler selection algorithm was found to work well when optimizing reduced neuronal models.
 
 \subsection{Comparison to Previous Approaches to Optimization}
 
@@ -85,7 +85,7 @@ A simpler ``select best" algorithm (labelled IBEA) dispenses with these tricks, 
 Other labs have previously developed schemes to optimize neuron models, e.g. \cite{druckmann2007novel}.
 I retained the conceptual insights of these approaches where they were useful for the problems at hand.
 For example, I utilized a time-dependent mutation magnitude ($\eta$).
-The idea is that big mutations are more helpful in the early stage of optimization, when it is important to explore the vast hyper-volume of parameter sets and get a general picture of the error surface, and that these mutations should be smaller during the later ``refinement" stage of optimization, as the best solutions are approached.
+The idea is that big mutations are more helpful in the early stage of optimization, when it is important to explore the vast hyper-volume of parameter sets and get a general picture of the error surface, and that these mutations should be smaller during the later ``refinement" stage of optimization, as the best solutions are approached. Time diminishing \eta did improve genetic algorithm on reduced model optimization problems.
 
 \subsubsection{Variants on somatic current injection}
 Nearly all neuron optimization work (including this one) relies on the responses to somatically-injected current as the domain for optimization.
@@ -113,7 +113,7 @@ I greatly extended the number of such features/tests covered by NeuronUnit in or
 \label{sec:elephant}
 Elephant \citep{elephant18} provides feature extraction capabilities for membrane potential time series expressed using the Neo library in Python \citep{davison_neo}.
 Eight NeuronUnit tests (five used here) are derived from Elephant feature extraction, particularly those associated with passive membrane properties assessed with subthreshold stimuli, or action potential waveform properties assessed at rheobase.
-Fundamental quantities such as capacitance or input resistance are among these are of  particular interest since they are not "emergent properties" of the model but are roughly predictable from the parameters of the model equations.
+Fundamental quantities such as capacitance or input resistance are among these, though they are not ``emergent properties" of the model since they are roughly predictable from the parameters of the model equations.
 
 \subsubsection{Electrophysiology Feature Extraction Library (EFEL)}
 \label{sec:efel}
@@ -125,5 +125,5 @@ The Blue Brain Project developed the Electrophysiology Feature Extraction Librar
 The Allen Institute offers yet another set of tools for feature extraction, applying to both sub- and suprathreshold features of neuron responses to current injection.
 The reason to use these in addition to the above is that some of these features are predicated on particular current stimuli (e.g. a stimulus that is exactly 20 pA stronger than the rheobase current).
 Such stimuli either were or were not delivered to the various experimentally recorded neurons, and for the purposes of this thesis there is no going back and delivering additional ones.
-Consequently, it makes sense to use features--and the stimuli that generate them--that can be directly compared to the recorded neurons.
+Consequently, for model testing and optimization it makes sense to use features--and the stimuli that generated them--that can be directly compared to the recorded neurons.
 For the biological neurons in the Allen Cell Types database, these features are available in the Allen SDK.

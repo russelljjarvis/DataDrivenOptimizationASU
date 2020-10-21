@@ -52,8 +52,11 @@ Since some of the NeuroElectro data sources were more challenging to fit, we als
 The $\chi^{2}$ statistic, and the p-value give us a formally indicates how convincing each fitted model was in its mimicry of biological measurements.
 Because we already have a list of Z-scores, the $\chi^{2}$ statistic can be obtained by squaring each Z-score and summing the result. A sum of squares less than 1, tells us that models performed well.
 \begin{equation}
-\chi^{2}=\Sigma_{i}^{n} (Z_{i}^{2})
+\chi^{2}=\sum\limits_{i=1}^{n}(Z_{i}^{2})
 \end{equation}
+
+% $\chi^{2}=\Sigma_{i}^{n} $
+
 
 %https://en.wikipedia.org/wiki/Chi-square_distribution
 %This allows you to state this as a hypothesis test with a p-value.  The chi-square statistic would simply be , and the p-value would be 1-scipy.stats.chi2.cdf(x, 8) where 8 is the number of elephant tests (and Z-scores).  A very small p-value (which would come from very large chi-square statistic, much larger than expected for random variation) %would mean the optimizer was less successful at recovering the true model.

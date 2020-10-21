@@ -13,7 +13,7 @@
 %\subsubsection{2a}
 
 \section{Performance of Optimized Models}
-
+\label{sec:optimization-performance}
 
 \subsection{Somatosensory Layer 5 Pyramidal Neuron Model Applied to NeuronUnit Data Driven Tests}
 
@@ -23,13 +23,15 @@ This model subserved as one of many component neurons in the original formulatio
 
 This elaborate biophysical model is the philosophical opposite of the reduced models focused on in the majority of this thesis work, since the model incorporates electrically complex phenomena instead of excluding it from the model.
 The complex model includes a dendritic action potential which can travel ``backwards" from distal dendrite to soma where it is free to summate with incoming EPSPs.
-As you can see in the list of parameters (Figure \ref{fig:ca1_parameters}), The model has different adjustable conductance's in 3 out of 4 membrane domains including axons, dendrites, and soma. In the figure \ref{fig:brief_shape} you can membrane zones with different channels are color coded: apical dendrites (magenta), basal dendrites, and axons.
+As you can see in the list of parameters (Figure \ref{fig:ca1_parameters}), The model has different adjustable conductance's in 3 out of 4 membrane domains including axons, dendrites, and soma. 
 
 
 \begin{figure}%{.2\textwidth}
   \begin{center}
     \includegraphics[scale=0.8]{figures/morphology_view.png}
-    \caption[l5 pyramidal neuron tree]{This l5 pyramidal neuron model is spatially extended, so a 2D depiction of its dendrite and axonal tree is warranted.}
+    \caption[Visualization of the Layer 5 Pyramidal neuron Tree Form]{This l5 pyramidal neuron model is spatially extended, so a 2D depiction of its dendrite and axonal tree is warranted.
+    Membrane zones with different channels are color coded: apical dendrites (magenta), basal dendrites red, and axons blue or pastel-purple (depending on the rendering of your PDF viewer).
+    }
   \label{fig:brief_shape}
   \end{center}
 \end{figure}
@@ -47,7 +49,7 @@ Neuroelectro lumps together, prefrontal cortex, somatosensory cortex and V1 PC c
 %\subsection{Section 2.1}
 %
 %, so it is probably not comparable to NeuroElectro Data.
-A suite of neuronunit tests containing the tests: rheobase value, membrane voltage time constant ($Tau_{m}$), input resistance was computed. This multi-compartment, conductance based model served as a useful benchmark, for us to evaluate the relative performance of reduced model fits. 
+A suite of neuronunit tests containing the tests: rheobase value, membrane voltage time constant ($\tau_{m}$), input resistance was computed. This multi-compartment, conductance based model served as a useful benchmark, for us to evaluate the relative performance of reduced model fits. 
 
 %A test suite was constructed using NeuroElectro for the layer 4/5 Prefrontal Cortex pyramidal cell, and we were able to evaluate this layer 5 PC cells against the criteria of the neuroelectro test suite.
 
@@ -66,14 +68,14 @@ It is possible that the majority neuroelectro recordings of L5PC, spike width we
 \begin{figure}
   \centering
     \includegraphics[scale=0.8]{figures/correct_active_l5pc.png}
-    \caption[Short duration spike in the L5PC model]{A current injection sufficient for causing a single spike is applied to cell soma, for a whole second from $100ms-1100ms$ in this model. The spike shape is brief and more complicated than reduced model spike shapes. After the very brief spike soma voltage seems to plateau over the entire length of the simulation. The simulation is not long enough for the soma voltage to return to resting membrane potential}
+    \caption[Short duration spike in the L5PC model]{A current injection sufficient for causing a single spike is applied to cell soma, for a whole second from $100ms-1100ms$ in this model. The spike shape is brief and more complicated than reduced model spike shapes. After the very brief spike soma voltage seems to plateau over the entire length of the simulation. Genuine plateau potentials do occur in the layer 5 PC dendrites, where $Ca^{2+}$ channels play a role \citep{zhu2000maturation}. The normal effect of plateau potential in the dendrites, is a burst in the soma. A plateau in the soma may not be an intentionally modelled behavior. The simulation is not long enough for the soma voltage to return to resting membrane potential}
   \label{fig:sub1}
 \end{figure}
 
 \begin{figure}
  \begin{center}
     \includegraphics[scale=0.8]{figures/spike_shape.png}
-    \caption[Complex spike in the L5PC model]{The above plot warranted a closer look, therefore, this plot features the same model and the same virtual experiment as above, only a smaller time interval has been inflated to fill the whole time axis. In this plot of increased time resolution there is a visible detour in the spikes path to re-polarisation. This unusual feature may be related to a back-propogating dendritic spike, which, a depolarisation wave may have returned from the distal dendrite and has re-invaded the soma, causing the voltage to plateau far above resting membrane potential. These are behaviors, that are obviously neglected in reduced model design}
+    \caption[Complex spike in the L5PC model]{The above plot warranted a closer look, therefore, this plot features the same model and the same virtual experiment as above, only a smaller time interval has been inflated to fill the whole time axis. In this plot of increased time resolution there is a visible detour in the spikes path to re-polarisation. This unusual feature may be related to a back-propogating dendritic spike, which, a depolarisation wave may have returned from the distal dendrite and has re-invaded the soma, causing the voltage to plateau far above resting membrane potential. These are behaviors that are obviously deliberately neglected in reduced model design}
   \label{fig:sub1}
   \end{center}
 \end{figure}
