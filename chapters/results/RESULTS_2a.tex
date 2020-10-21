@@ -19,9 +19,22 @@
 
 Below I introduce a different approach to parameter fitting work: a multi-compartment, conductance based layer 5 pyramidal cell model \citep{van2016bluepyopt}, was appropriated from BluePyOpt optimization framework, and massaged into the NeuronUnit framework.
 This model subserved as one of many component neurons in the original formulation of the Blue Brain Project \cite{markram2015reconstruction}.
+
+
 This elaborate biophysical model is the philosophical opposite of the reduced models focused on in the majority of this thesis work, since the model incorporates electrically complex phenomena instead of excluding it from the model.
 The complex model includes a dendritic action potential which can travel ``backwards" from distal dendrite to soma where it is free to summate with incoming EPSPs.
-As you can see in the list of parameters (Figure \ref{fig:ca1_parameters}), The model has different adjustable conductance's in 3 out of 4 membrane domains including axons, dendrites, and soma.
+As you can see in the list of parameters (Figure \ref{fig:ca1_parameters}), The model has different adjustable conductance's in 3 out of 4 membrane domains including axons, dendrites, and soma. In the figure \ref{fig:brief_shape} you can membrane zones with different channels are color coded: apical dendrites (magenta), basal dendrites, and axons.
+
+
+\begin{figure}%{.2\textwidth}
+  \begin{center}
+    \includegraphics[scale=0.8]{figures/morphology_view.png}
+    \caption[l5 pyramidal neuron tree]{This l5 pyramidal neuron model is spatially extended, so a 2D depiction of its dendrite and axonal tree is warranted.}
+  \label{fig:brief_shape}
+  \end{center}
+\end{figure}
+
+
 There are also other parameters (not displayed here) which are fixed, but those specified in Figure  \ref{fig:ca1_parameters} are amenable to fitting in the context of optimization.
 
 
@@ -116,21 +129,26 @@ A suite of Neuronunit tests containing the tests: rheobase value, membrane volta
 Significant development work went into making the model eligible to take NeuronUnit tests, and amenable to NeuronUnit driven optimization, to make this complicated conductance based multi-compartment model interoperable with the NeuronUnit test judging paradigm.
 The intention is that by making this model inter-operable with NeuronUnit the model will be able to amenable to different, optimization. 
 
-\begin{figure}
-    \begin{center}
-    \includegraphics{figures/l5pc_before_opt}
-    \caption[Behavior of the L5PC model before optimization under default parameters]{Behavior of the L5PC model is explored under three different stimulus strengths. Membrane potential this time is viewed from recording locations in the soma and dendrites. In this recording site at the dendrite there is a singular backpropogating spike. Although the soma and axon hillock, trigger an adapting spike train, lasting more than a second, the dendrite only receives one backpropogating potential, which has a large spike half width. The reason the axon fires multiple times, but the dendrites fire once, is because  dendrites contain dominating passive mechanisms, that can low pass filter invading currents}
-    \label{fig:my_label}
-    \end{center}
-\end{figure}
+%\begin{figure}
+%    \begin{center}
+%    \includegraphics{figures/l5pc_before_opt}
+    % \label{fig:my_label}
+%    \end{center}
+%\end{figure}
+
+
+%Behavior of the L5PC model is explored under three different stimulus strengths.
 
 \begin{figure}
     \begin{center}
     \includegraphics{figures/l5pc}
-    \caption[Behavior of the L5PC model under optimized parameters]{Behavior of the L5PC model is explored under only one stimulus strength. Membrane potential this time is viewed from recording locations in the soma and dendrites}
+    \caption[Behavior of the L5PC model under optimized parameters]{Behavior of the L5PC model is explored under only one stimulus strength. Membrane potential this time is viewed from recording locations in the soma and dendrites.  Membrane potential this time is viewed from recording locations in the soma and dendrites. In this recording site at the dendrite there is a singular backpropogating spike. Although the soma and axon hillock, trigger an adapting spike train, lasting more than a second, the dendrite only receives one backpropogating potential, which has a large spike half width. The reason the axon fires multiple times, but the dendrites fire once, is because  dendrites contain dominating passive mechanisms, that can low pass filter invading currents} 
     \label{fig:after_optimization}
     \end{center}
-\end{figure}
+\end{figure}    
+    %\caption[Behavior of the L5PC model before optimization under default parameters]{}
+%   }
+
 
 \begin{figure}
     \begin{center}
@@ -152,30 +170,21 @@ The intention is that by making this model inter-operable with NeuronUnit the mo
 %As a reference point for understanding 
 %    \caption{The spike shape is very brief in duration, and so it is worth zooming in for a closer look}
 
-\begin{figure}%{.2\textwidth}
-  \begin{center}
-    \includegraphics[scale=0.8]{figures/L5Somatosensory_not_optimized.png}
-    \caption[Plot of at threshold firing pyramidal neuron]{$V_{m}$ in $(mV)$ versus time $ms$, plots include a above threshold (top) and below threshold stimulus (below)}
-  \label{fig:brief_shape}
-  \end{center}
-\end{figure}
+%\begin{figure}%{.2\textwidth}
+%  \begin{center}
+%    \includegraphics[scale=0.8]{figures/L5Somatosensory_not_optimized.png}
+%    \caption[Plot of at threshold firing pyramidal neuron]{$V_{m}$ in $(mV)$ versus time $ms$, plots include a above threshold (top) and below threshold stimulus (below)}
+%  \label{fig:brief_shape}
+%  \end{center}
+%\end{figure}
 
-\begin{figure}%{.2\textwidth}
-  \begin{center}
-    \includegraphics[scale=0.8]{figures/morphology_view.png}
-    \caption[l5 pyramidal neuron tree]{This l5 pyramidal neuron model is spatially extended, so a 2D depiction of its dendrite and axonal tree is warranted.}
-  \label{fig:brief_shape}
-  \end{center}
-\end{figure}
-
-\begin{figure}%{.2\textwidth}
-  \begin{center}
-    \includegraphics[scale=0.8]{figures/correct_passive_l5pc.png}
-    \caption[plot of negative amplitude current stimulus]{A current injection value of -$10pA$ is applied to the cell for the duration of $200ms-700ms$}
-  \label{fig:passive_properties}
-  \end{center}
-\end{figure}
-
+%\begin{figure}%{.2\textwidth}
+%  \begin{center}
+%    \includegraphics[scale=0.8]{figures/correct_passive_l5pc.png}
+%    \caption[plot of negative amplitude current stimulus]{A current injection value of -$10pA$ is applied to the cell for the duration of $200ms-700ms$}
+%  \label{fig:passive_properties}
+%  \end{center}
+%\end{figure}
 
 
 A test suite was constructed using NeuroElectro for the non specific [cortical regions] layer 4/5 cortex pyramidal cell, and we were able to evaluate this layer 5 PC cells against the criteria of the neuroelectro test suite. Note the unnatural looking brief spike duration of the model cell spike  \ref{fig:brief_shape}. It is possible that the majority neuroelectro experiments on the layer 5 pyramidal cell were conducted under room temperature as opposed to body temperature, as there is evidence that the temperature of cortical tissue modulates spike width \cite{goldin2017temperature}, in particular cooling can contract their spike width

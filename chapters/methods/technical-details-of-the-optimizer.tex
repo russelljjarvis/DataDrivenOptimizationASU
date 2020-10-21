@@ -1,12 +1,14 @@
 \section{Technical Details of the Optimizer}
 \label{sec:tech-details}
 The sections above describe my innovations in model construction and simulation, as well as the experimental data brought to bear on optimization. These data are used to parameterize NeuronUnit tests, one per measurement type.
-For example the input resistance data for one neuron type in NeuroElectro, or one specific neuron in the Cell Types database, is passed to an \textit{InputResistanceTest} defined in NeuronUnit.
-This test "asks" the model to generate a corresponding simulation, measures the input resistance in this simulation output, and then assesses model/data agreement, resulting in a score.
+For example, input resistance data for one neuron type in NeuroElectro, or one specific neuron in the Cell Types database, is passed to an \textit{InputResistanceTest} defined in NeuronUnit.
+This test ``asks" the model to generate a corresponding simulation, measures the input resistance in this simulation output, and then assesses model/data agreement, resulting in a score.
 These mechanics have been described at length previously in \cite{omar2014collaborative}, \cite{gerkin_neuronunit}, and \cite{birgiolas2019towards}.
 
+\subsection{Generating and Using Scores}
 \begin{figure}
 \begin{center}
+    \label{fig:normal-dist}
 	\includegraphics{figures/normal_distribution}
     \caption[Z-scores for NeuronUnit Tests]{As discussed in the section \ref{sec:neuronunit}, error functions were evaluated with the assistance of the \emph{NeuronUnit} library.
     This involves obtaining an experimental distribution over electrophysiology feature measurements for a cell type, measuring corresponding model output features and then locating those features in that experimental distribution. 
@@ -17,96 +19,109 @@ These mechanics have been described at length previously in \cite{omar2014collab
 \end{figure}
 %XXXX Something about Z-score vs RatioScore.
 
-When doing sub threshold fitting with NeuroElectro data, its possible to use Z-scores, as discussed in pitfalls Z-scores enable one to assess biological plausibility of a fitted model, assuming that underlying data is normally distributed.  When the data is one single experiment RatioScore is used instead, this is the case for tests constructed from Allen Cell Types and BlueBrain Project data sources.
+One way to ask whether the simulated feature is a good match to the biological data distribution is to use a Z-score.
+The Z-score is defined as:
+\begin{equation}
+Z-Score = \frac{s - b_{\mu}}{b_{\sigma}}
+\end{equation}
+where $s$ is the value of the feature in the model simulation, and $b_{\mu}$ and $b_{\sigma}$ are the mean and standard deviation of that feature in the biological data distribution.
+The Z-score does not specifically assume that the biological data are normally distributed, although this generates the most natural interpretations (Figure \ref{fig:normal-dist}).
+In cases when the biological data from one neuron type comes from a single experiment on a single neuron (as with some data from the Allen Cell Types database or the Blue Brain Project), there is no mean or standard deviation, so I compute a \emph{RatioScore}:
+\begin{equation}
+Ratio-Score = \frac{s}{b}
+\end{equation}
+where $b$ is the observed biological feature value.
+Both types of scores were then normalized to produce a an error signal in the range $(0, \inf)$ for use by the optimizer.
+For example, suppose a feature(e.g. the rheobase current) had value $\mu \pm \sigma = (100pA \pm 40pA)$ in the biological data, and $110 pA$ in the simulated model output.
+Then the following steps were taken to transform it into an error signal:
+\begin{enumerate}
+ \item A Z-score is computed: $\frac{110 pA - 100 pA}{40 pA} = 0.25$
+ \item This is converted to the range (0, 1) using the error function: $abs(erf(Z)) = 0.27$ 
+ \item The logarithm is computed: $\log_{10}(0.27) = 0.56$ 
+\end{enumerate}
+The value 0.56 above represents a larger model/data disagreement than the ``best" possible value of 0 (corresponding to a Z-score of 0), but less disagreement then the ``worst" possible value of $\inf$ (truncated in practice at 100) representing a Z-score of $+\inf$ or $-\inf$. The summed error signal over all $n$ NeuronUnit tests (e.g. rheobase, input resistance, spike rate adaptation, etc.) is:
+\begin{equation}
+Total Error = \sum_i^n error_i
+\end{equation}
+i.e. the sum of all of the errors.  Again, 0 would represent perfect model/data agreement across all tests.
 
-\begin{itemize}
-    \item known Gaussian distribution $(\mu, \sqrt{\sigma}) = (100pA, 40pA)$
-    \item normalized to 1: Z-score: 
-        \subitem For example: An evaluated model returns $110pA$ as a rheobase current
-        \subitem The value $110pA$ is mapped onto normalized distribution: $\frac{abs(110pA-\mu)}{\sqrt{\sigma^{2}}} = 0.25$
-    \item $\log_{10}(1-0.25) $ 
-    \item best fitness is $0.0$, worst fitness is arbitrary, for simplicity lets call it $100$.
-        \subitem  $ error = $ abs(log-norm-score))$ = 0.12$ 
-        \subitem $ fitnesses = collection(errors) $
-\end{itemize}
-%XXXX Enumerated list showing how data determines a Z-score (or a RatioScore) which then determines a norm-score, a log-norm-score, and the objective function result.
+\subsection{Mechanics of Optimization using NeuronUnit}
+Here I will describe how I generate these scores concurrently for many parameterizations of the same model and how they guide the optimization path.
+I created two different optimization code bases based on the DEAP Python package for genetic optimization \citep{DEAP_JMLR2012}, one that relied on DEAP directly, and one that relied on the DEAP-derived BluePyOpt package produced by The Human Brain Project \citep{bluepyopt} (These have since been merged together), in order to achieve optimization using NeuronUnit.
+A few key modules are essential to both approaches.
+I wrote the file \emph{optimization-management.py} to contain the logic of and methods for managing complex optimization jobs.
+It helps the optimizer handle both fixed and varying  model parameters, contains methods for random sampling of model parameter spaces, can plot models output for visualization of this space, and assists in computing the F-I curve.
+I also add several methods for inter-converting between representations of the models themselves and the chromosomes that represent only parameter values.
 
-Here I will describe how I generate these scores concurrently for many parameterizations of the same model, and how the scores themselves guide subsequent parameterizations, i.e. how optima are reached.
-
-% TODO
-%XXXX Russell I need you to write a few paragraphs here about the mechanics of your optimizer.  Data Transport containers, evaluation, selection, etc.  You can skip over (or refer to) anything already written in the introduction, i.e. you can assume that mutation/crossover and such things are already understood.
-I created two different DEAP optimization code bases, and slowly merged the two code bases together. Before creating NeuronUnit compatibility inside a branch of BluePyOpt, I crafted a DEAP NeuronUnit specific Optimizer. I will describe a few files that are mutual to both code-bases, and which are essential to the current state of play. A file $optimization_management.py$ contains logic and methods for managing complex optimization jobs. It contains logic for making the optimizer handle fixed both and modifiable model parameters, it also contains methods for random sampling of models, plotting models firing at multiples of rheobase, and logic for solving for finding the current required to cause a given number of spikes. I have also contributed many methods for converting between models and chromosomes, and chromosome to models.
-
-%The method $instance_opt$ was able to instance $NUFeature_standard_suite$, and then by instantiating objective objects, it could aggregate Neuronunit scores, and 
-
-A class NUFeature-standard-suite converts NeuronUnit Features to BluePyOpt objective functions. These classes contain a complicated nesting of fault handling statements, as there are many reasons why an sampled model return discontinuous membrane potentials, so values like NaN and infinity needed to be recast as poor optimizer scores. There are two flavors of $NUFeature_standard_suite$, one for supra-threshold experiments and another for at threshold or sub-threshold virtual experiments. These different virtual experiments utilize different feature extractors, and so it is natural to separate the source code into dedicated modules. Another reason for the test suite split is because each of these two types of virtual experiment has its own pattern of fault causing behavior (there are more ways for a model not to elicit multiple comparable spikes, there are less ways to produce un-comparable single spikes).
+A created a \emph{NUFeature\_standard\_suite} class to convert NeuronUnit features to BluePyOpt objective functions, as outlined in simpler terms in the enumerated list above.
+These classes contain a complicated nesting of fault handling statements, as there are many reasons why a candidate model could return unusable simulation output (typically non-biological parameter values), resulting in values like $NaN$ and $\inf$; such values must be recast as poor but finite errors so that the optimizer can see a smooth error surface.
+There are two flavors of \emph{NUFeature\_standard\_suite}, one for supra-threshold simulation experiments and another for at threshold or sub-threshold experiments, since each experiment type produces different feature requiring different feature extractors, and producing different sets of edge cases to be handled independently.
+For example, there are more ways for a model to fail to elicit multiple action potentials (causing all ISI-based feature extraction functions to return $NaN$ values), then there are to fail to exhibit a hyperpolarizing response to a small outward current injection for the measurement of input resistance.
  
-I also contributed a model-parameters.py file, which was a collection of Ordered dictionaries, that informed the optimizer what parameters are modifiable and what are their boundaries. Later, I would make this file and its methods inter-operable with BluePyOpts model parameters scheme.
+I created a \emph{model-parameters.py} file, a collection of ordered dictionaries, that informed the optimizer which parameters should be modifiable (in the highest-dimensional cases, all of them) and what are reasonable (biologically plausible) search boundaries.
+This file also contains example parameter sets representing notable dynamical regimes, such as those shown in \cite{izhikevich2003simple}.
+I also made this file and its methods inter-operable with BluePyOpt model parameter management scheme.
 
-%-- System of fault handling
-%-- Recasting NeuronUnit scores into objective function values (e.g. log norm score)Aggregation of neuronunit scores into multi-objectives
-%-- etc
-
-Typical parameters for robust optimization were number of generations=$NGEN=150$, population size=$\mu=35$.
-In other words, it took about $150$ generations to achieve convergence, and in each generation about $25$ individual parameter sets needed to be retained in order to achieve an acceptable balance between exploration of the parameter space and exploitation of favorable regions.
+\subsubsection{Optimization Parameters}
+Optimization requires searching for better and better solution across multiple generations of chromosomes (parameter sets), as noted in section \ref{sec:genetic-algorithms}.
+Robust optimization for the models used here required $NGEN\sim150$ generations with a population size (number of parameter sets explored in each generation) of $\mu=35$.
+In other words, it took about $150$ generations of mutation, crossover, and selection to achieve convergence, and in each generation about $35$ models had each of their feautures computed and scored.
+These parameter values achieved an acceptable balance between exploration of the parameter space and exploitation of favorable regions.
 In some cases, values as small as $NGEN=10$ and $\mu=10$ were tolerable, for example when optimizing only low-dimensional cross-sections of parameter space.
 In other cases, such as when the number of optimization objectives (i.e. the number of electrophysiological features being tested) was $NOBJ>25$, values as high as $NGEN=300$ and $\mu=100$ were required to obtain adequate results.
 
-One potential goal is to maintain a diverse set of solutions (i.e. very different parameter sets that nonetheless each produce simulations that adequately match observed experimental measurements).
-The optimization literature has developed many competing approaches for doing this \cite{deb2000fast}, but it usually involves  
+\subsubsection{Multiobjective Scoring and Selection}
+One potential scientific goal is to maintain a diverse set of solutions (i.e. very different parameter sets that nonetheless each produce simulations that adequately match observed experimental measurements).
+The optimization literature has developed many competing approaches for doing this \citep{deb2000fast}, but it usually involves two popular algorithms, named IBEA and NSGA2, which I investigated here.
+NSGA2 uses some additional ranking mechanisms, to re-weight the perceived fitness of each chromosome and influence the probability that it survives (or is bred into) the next generation.
+For example, it tries to minimize ``crowding distance", penalizing chromosomes that aggregate in clusters, as persistent cluster formation means that the GA becomes preoccupied with more limited regions of the solution space, harming solution diversity.
+Another meta-constraint called ``non-dominated sorting" ranks most highly each chromosomes that is not unanimously defeated by any other chromosome on any feature score.
+For example, though one parameter set $P$ might produce a model which score poorly on all features except Input Resistance, if no other parameter set has a higher-scoring Input Resistance feature then $P$ is retained. Consistent with personal communication with \cite{van2007neurofitter}, adding in crowding distance and non-dominated sorting can harm optimizer performance in the context of neuronal model optimization, though the reason for this remain unclear.
+A simpler ``select best" algorithm (labelled IBEA) dispenses with these tricks, performs no meta-constraint scoring, and simply retains the fittest chromosomes for mutation, crossover, and selection.
 
-Two popular algorithms, named IBEA and NSGA2, were investigated here.
-% XXXX Russell write about why IBEA is better.
-NSGA2 uses some additional ranking mechanisms, to re-weight the perceived value genetic fitnesses when chromosomes are chosen to breed according to "meta" constraints. One type of meta-constraint: "crowding distance", is a way of penalizing chromosomes that aggregate in clusters, as persistent cluster formation means that the GA becomes preoccupied with more limited regions of the solution space harming solution diversity. Another meta constraint "non-dominated sorting" re-weights chromosomes and improves likelihood of mating only if all of their fitness values go down together. Consistent with personal communication with \cite{van2007neurofitter} in neuronal model optimization adding in crowding distance and non-dominated sorting harms optimizer performance, the reason for this is unclear, but the result is persistent. It could be that the mechanism of domination, where initially only one fitness value goes down dramatically at the expense of others going up or staying the same, better facilitates uphill exploration. IBEA may better facilitate moving up over a hump or a "lip" to then, fall into gravity of error wells, were soon after all errors are able to fall together. The simpler select best algorithm (labelled IBEA) allows for single error domination effect to occur, as it IBEA performs no additional list sorting, and does not apply meta-constraints.
+\subsection{Comparison to Previous Approaches to Optimization}
 
-%Both resulted in similar solution quality, but this varied in a problem specific manner.
-
-%I found that IBEA usually produced better results faster, although in some cases it yielded solutions that were overly dominated by performance on a single test, and thus it was difficult to trust this algorithm across the board.
-%NSGA2 was thus used for the remainder of the results shown here.
-
-\subsection{Similarities and Differences from Previous Approaches to Optimization}
+\subsubsection{Time-dependent mutation}
 Other labs have previously developed schemes to optimize neuron models, e.g. \cite{druckmann2007novel}.
 I retained the conceptual insights of these approaches where they were useful for the problems at hand.
 For example, I utilized a time-dependent mutation magnitude ($\eta$).
-The idea is that big mutations are more helpful in the early stage of optimization, when it is important to explore the vast hyper-volume of parameter sets and get a general picture of the error surface, and that these mutations should be smaller during the later "refinement" stage of optimization, as the best solutions are approached.
+The idea is that big mutations are more helpful in the early stage of optimization, when it is important to explore the vast hyper-volume of parameter sets and get a general picture of the error surface, and that these mutations should be smaller during the later ``refinement" stage of optimization, as the best solutions are approached.
 
+\subsubsection{Variants on somatic current injection}
 Nearly all neuron optimization work (including this one) relies on the responses to somatically-injected current as the domain for optimization.
-
-This is largely motivated by the existence of a common and simple experimental analogue using patch clamp (which drives experimental design for both the Allen Cell Types database and The Blue Brain Project portal).
+This is largely motivated by the existence of a common and simple experimental analogue using patch clamp (which drives experimental design for both the Allen Cell Types Database and The Blue Brain Project).
 But there are three different strategies for choosing the subset of these experiments that are recapitulated in optimization.
+
 The first strategy involves blindly choosing a fixed set of current amplitudes (e.g. ascending 100 pA steps) from the data and probing the model with these, then comparing model and data within this subset.
+This strategy is more direct and slightly more rapid, but it is inefficient in terms of constraining the model, because all of the "action" in the F-I curve occurs above rheobase, but not too far above rheobase (i.e. not at currents that induce depolarization block).
 
 The second strategy involves first identifying the rheobase current, and choosing multiples of or steps around that current for subsequent evaluation. This strategy was used not just in optimization, but also in the analysis and re-organization of existing ephys data.
+Action potential waveforms are most regular and consistent in shape when evaluated very near rheobase. 
+if the rheobase uniquely determined the entire F-I curve, and if all neurons showed an identical regular, non-accommodating spiking pattern, this strategy would probably be sufficient to identify the rheobase current and move on. To the extent that this (poor) assumption is violated, various additional suprathreshold current injections will be needed. 
+If one follow this strategy, one must also decide how many current amplitudes (above rheobase) must be evaluated in order to adequately constrain model parameters.
 
-The third strategy took place in when fitting to multiple model/experiment spike fits. The second strategy involved counting the number of spikes in experimental data, and directly searching the model for the minimum current required to cause the same spike number. With matching spike counts, both model and data were more readily comparable.
-%with multi spiking waveforms could be compared by causing models to illicit the same number of spikes. 
-
-The first strategy is more direct and slightly more rapid, but it is inefficient in terms of constraining the model, because all of the "action" in the F-I curve occurs above rheobase, but not too far above rheobase (i.e. not at currents that induce depolarization block).
-Action potential waveforms are also more regular and consistent in shape when evaluated very near rheobase. 
-% orphaned sentences:
-%The second and third strategy thus use the data (and simulations) that are most informative in terms of constraining model parameters. 
-%I use the third strategy though the plots of multiple spike fits seen later in the document.
-%I use this second strategy throughout.
-
-If one were to follow the second strategy, one must then decide how many current amplitudes (above rheobase) must be evaluated in order to adequately constrain model parameters.
-For example, if the rheobase uniquely determined the entire F-I curve, and if all neurons showed an identical regular, non-accommodating spiking pattern, it would probably be sufficient to identify the rheobase current and move on. To the extent that this (poor) assumption is violated, various additional suprathreshold current injections will be needed. 
-
-The third strategy approaches the problem differently, for every chromosome models are made to fire the same number of spikes as experiments. Disagreement in spike shape, and spike irregularity are only modulated by differences in model parameters. The consequences of these decisions are explored in the Results section.
+The third strategy is like the second, but deliberately samples different locations on the F-I curve (not just rheobase).
+It attempts to identify the minimum current required to cause some target spike number observed in a dataset. With matching spike counts across simulated and biological data, downstream feature analysis (e.g. spike rate adaptation indices) are likely to be more directly comparable.
+Differences in spike shape and spike timing statistics are thus only modulated by differences in model parameters.
+The consequences of these decisions are explored in the Results section.
 
 \subsection{Feature Extraction}
 Each NeuronUnit test used in the optimizer represents the evaluation of a single feature of simulated output, for example the Input Resistance.
 I greatly extended the number of such features/tests covered by NeuronUnit in order to produce a rich, multi-objective optimizer that could capture important spiking dynamics and to obtain insights into what would be the most compact subset for subsequent use in unique identification of models.
 
 \subsubsection{Elephant Features Test Suite}
-Elephant \cite{elephant18} provides feature extraction capabilities for membrane potential time series expressed using the Neo library in Python \cite{davison_neo}.
+\label{sec:elephant}
+Elephant \citep{elephant18} provides feature extraction capabilities for membrane potential time series expressed using the Neo library in Python \citep{davison_neo}.
 Eight NeuronUnit tests (five used here) are derived from Elephant feature extraction, particularly those associated with passive membrane properties assessed with subthreshold stimuli, or action potential waveform properties assessed at rheobase.
 Fundamental quantities such as capacitance or input resistance are among these are of  particular interest since they are not "emergent properties" of the model but are roughly predictable from the parameters of the model equations.
 
 \subsubsection{Electrophysiology Feature Extraction Library (EFEL)}
+\label{sec:efel}
 %Most suprathreshold dynamics were summarized by descriptive statistics of patterns of action potentials. For example, the coefficient of variation of the inter-spike intervals in a spike train can serve as a measure of "burstiness". -- No EFEL has many spike shape qualities. as the noted well as spike train statistics. I'd say the ratio of spike train statistics to spike shape measurements is about 1:1.
-The Blue Brain Project developed the Electrophysiology Feature Extraction Library (EFEL) to compute many such statistics from spike trains, and I used these to generate tests of suprathreshold dynamics for optimization.
+The Blue Brain Project developed the Electrophysiology Feature Extraction Library (EFEL) to compute many such statistics from spike trains, and I used these to generate tests of suprathreshold dynamics for optimization \citep{EFEL}.
 
 \subsubsection{Allen Institute Software Development Kit (Allen SDK)}
+\label{sec:allensdk}
 The Allen Institute offers yet another set of tools for feature extraction, applying to both sub- and suprathreshold features of neuron responses to current injection.
 The reason to use these in addition to the above is that some of these features are predicated on particular current stimuli (e.g. a stimulus that is exactly 20 pA stronger than the rheobase current).
 Such stimuli either were or were not delivered to the various experimentally recorded neurons, and for the purposes of this thesis there is no going back and delivering additional ones.

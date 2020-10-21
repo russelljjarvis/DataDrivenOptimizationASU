@@ -57,19 +57,18 @@ In other cases, these conditions were not met, as exemplified in the figures bel
 %\includegraphics[width=0.7\linewidth]{notebooks_converted/needata_thesis_files/needata_thesis_5_8}
 %\end{center}
 %
-For the majority of NeuroElectro neurons, data sources was uni-modal and well described by a normal distribution. However, as a precaution to ensure data integrity, that a normally distributed data is not a reliable assumption I have humanely identified a minority of distributions that violate this assumption.
+For the majority of cell types and electrophysiological features, the distributions obtained from NeuroElectro were well-described by a normal (or log-normal) distribution.
+However, I manually identified and labeled those cases were the data were not so well-behaved, as these might be likely to produced optimized models that did not reflect anything of biological relevance.
 
-%YYYY Done Russell: break this into two plots: one for "good" data and two for "bad" data: of the bad data ones, give one example for bimodal, and one example for skewed.
-
-This analysis was cursory and human driven, although some methods for hypothesis testing that a distribution is bi-modal exist \citep{maechler2013package}, there was not enough time to automate this code. It is estimated, that in all Neuroelectro data sampled here, about $2/3rds$ is well represented by a Gaussian distribution. In the remaining third that was not well represented by a Gaussian reasons for failure included: skewed distribution, bi-modal distribution, uniform distribution, or not enough samples to know inform knowledge of distribution.
-
-
-\subsubsection{Data well represented by Gaussian normal Distribution}    
+Some methods for hypothesis testing that a distribution is unimodal exist \citep{maechler2013package}, however I achieved greater quality control by simply inspecting each case manually.
+I estimated that across all NeuroElectro data sampled here, about $2/3$ is well represented by a unimodal and normal-ish distribution (e.g. Figure \ref{fig:normal-feature} and Figure \ref{fig:normal-feature2}.
+In the remaining $1/3$ where this did not hold, I observed a number of odd cases: highly skewed distributions (Figure \ref{fig:skewed-feature}), bimodal distribution (Figure \ref{fig:bimodal-feature}), uniform-like distributions (Figure \ref{fig:uniform-feature}), and distribution with insufficient samples to make any judgement at all.
 
 \begin{figure} 
     \begin{center}
    \includegraphics[scale=0.8]{figures/mean_well_served.png}
    \caption[AP Threshold Data Distribution, Layer 5 Pyramidal Cell]{The majority of Neuroelectro data sets were well served by a Gaussian normal distribution. As you can see in this plot the mean is surrounded by a very high density of samples, which slowly thin out with increasing distance from the mean. The distribution is approximately symmetrical, especially for a real data set.}
+   \label{fig:normal-feature}
     \end{center}
 \end{figure}   
 
@@ -78,17 +77,14 @@ This analysis was cursory and human driven, although some methods for hypothesis
     \includegraphics[scale=0.8]{figures/mean_well_served2.png}
     \end{center}
     \caption[AP Amplitude Data Distribution, Layer 5 Pyramidal Cell]{Although the data is skewed to the left and it has outliears. I believe this data distribution is symmetrical enough, to be considered "overall" a normal distribution. In this plot the mean is surrounded by a very high density of samples, which slowly thin out with increasing distance from the mean, although there are a small proportion of outliers these are likely explained by experimental noise.}
+    \label{fig:normal-feature2}
 \end{figure}   
  
-% The distribution is approximately symmetrical, especially for a real data set. 
-
-%YYYY What percentage of ephys features are in each of these categories. I answered this else whare its about 1/3 bad 2/3 good.
-\subsubsection{Comparison of Existing Data sets to Normal Distribution}    
-
 \begin{figure} 
     \begin{center}   \includegraphics[scale=0.8]{figures/skewed_distribution.png}
     \end{center}
     \caption[Example of skewed NeuroElectro data]{In this distribution of Input Resistance for the Neo-cortical Pyramidal neuron, one can see that values are skewed, and fall off quickly to the right, in this case the median represents the middle of the data better than the mean or the mode.}
+    \label{fig:skewed-feature}
 \end{figure}   
 
 
@@ -129,6 +125,7 @@ This analysis was cursory and human driven, although some methods for hypothesis
       \caption{Among different measurement sources of neuroelectro data, the resting membrane potential of the Olfactory Mitral cell, showed the greatest tendency of an underlying bi-modal distribution
       In the top panel of this plot we see a binned histogram of Resting membrane potential in the olfactory mitral cell. Although excluded here for considerations of brevity, the input resistance of the olfactory neuron, also perhaps followed a bi-modal or uniform distribution. 
       }
+      \label{fig:bimodal-feature}
 \end{center}     
 \end{figure}
 %%
@@ -149,12 +146,17 @@ This analysis was cursory and human driven, although some methods for hypothesis
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.7\linewidth]{chapters/notebooks_converted/needata_thesis_files/needata_thesis_5_16}
+\caption{This is a binned histogram of Neuroelectro spike width measurements in the CA1 basket cell neuron.
+The mode is of the distribution is denoted by a blue vertical line. In this way the mode of the data distribution can be compared to the mean in the box plot. Often modes, and means of the measurements disagree, as they do in the case of CA1 basket cell spike widths. When consulting NeuroElectro measurement, a very common distribution shape is one which is possibly uniform, or multi-modal. It is perhaps obvious but worth noting that a uniform distribution, is not well described by a normal distribution. Under a normal distribution a range of measurement values are equally likely to occur.}
+\label{fig:uniform-feature}
 \end{center}
 \end{figure}
+
 \begin{figure}
 \begin{center}
-     \includegraphics[scale=0.8]{chapters/notebooks_converted/needata_thesis_files/needata_thesis_5_23}
-\caption{In the top panel of this plot we see a binned histogram of Neuro electro spike width measurements in the CA1 basket cell Neuron, in the bottom panel we see a violin plot, and a box plot of the same data. In both top and bottom panels, the mode is of the distribution is denoted by a blue vertical line. In this way the mode of the data distribution can be compared to the mean in the box plot. Often modes, and means of the measurements disagree, as they do in the case of CA1 basket cell spike widths. When consulting NeuroElectro measurement, a very common distribution shape is one which is possibly uniform, or multi-modal. It is perhaps obvious but worth noting that a uniform distribution, is not well described by a normal distribution. Under a normal distribution a range of measurement values are equally likely to occur.}
+\includegraphics[scale=0.8]{chapters/notebooks_converted/needata_thesis_files/needata_thesis_5_23}
+\caption{Similar to the figure above, but for a different neuron type.}
+\label{fig:uniform-feature2}
 \end{center}
 \end{figure}
 
@@ -165,57 +167,49 @@ In order to ensure that reduced models could be optimized against data recorded 
 This Cell Types database consists of summary physiological, morphological, and histological data for thousands of individual neurons (across a few dozen subtypes) from mouse visual cortex, obtained using patch clamp recordings in slices.
 Each experiment is done using exactly the same methods and with the same sequence of stimuli (described in \cite{celltypes}), ensuring not only that models generated using this data are directly comparable, but that each such model is reflective of a single neuron.
 
+The Cell Types Database does provide some limited pre-computed measures of action potential waveform details. 
+However, the data is not organized in a way that makes it is useful for the types of optimization and data analysis I perform here.
+Specifically, I require features that are computed on cell responses to current injection values that are fixed multiples of rheobase.
+Additionally, the pre-computed features are thin relative to those that I brought to bear in the optimizations described in the Results section.
+Because raw data is available through the Cell Types API, I therefore re-computed all necessary features from this raw data, according to the consistent standard reflected in the NeuronUnit code.
 
-
-The Cell Types Database does provide some limited pre-computed measures of action potential waveform details, however, the data is not organized in a way that makes it is useful for the types of optimization and data analysis I perform,  specifically, I need features computed at on sweeps current injection values that are integer multiples of rheobase. Additionally, pre-computed feature set naturally lack EFEL feature sets which I require, and therefore I need to obtain, through dedicated code.
-
-Because raw data is available through the Cell Types API, it is possible to achieve the required organization by re-computing Allen and EFEL features and I used this to recompute each measurement according to the consistent standard reflected in the NeuronUnit code.
 In contrast to NeuroElectro, the Cell Types database also has a great deal more information relevant to the above threshold dynamics of neurons, such as the number and pattern of action potentials they discharge in response to somatically-injected currents much larger than rheobase, or in response to non-square injected currents.
-In order to exploit these, I developed several additional NeuronUnit tests, such as: ``time to first spike test" and ``mean AP amplitude test". In principal any EFEL feature, that was measured in Allen Data could be upgraded to a NeuronUnit test, as I created a templates class-code generation method to perform this task. I also created some hard coded EFEL tests on Allen Features too, among the template generated classes, the tests that I re-used for the supra-threshold fits displayed in this work are:
-
+In order to exploit these, I developed several additional NeuronUnit tests, such as: ``time to first spike test" and ``mean AP amplitude test". In principal any feature measured in the Cell Types Data could be upgraded to a NeuronUnit test, and I created a code-generation template to accelerate this task.
+I also created some tests manually, especially those adapted from other descriptions of feature extraction from the literature (as described in sections \ref{sec:allensdk}, \ref{sec:efel}, and \ref{sec:elephant}.
+These are shown in Table \ref{tab:featurez}.
 
 \begin{table}
 \centering
+
+\resizebox{\textwidth}{!}{
 \begin{tabular}{ll}
             \textbf{Test Name} & \textbf{Test Description}\\
-adaptation-index      & Measures spiking fatigue in response to constant current          \\
- adaptation-index2   & Measures adaption at second place in spike train for more accuracy    \\
-time-to-first-spike       & amount of time elapsed until first spike \\ mean-AP-amplitude & The average spike height in a spike train \\    The width of a spike is obtained at point when spike height is half its total amplitude & is the depth of the    
-\end{tabular}
+adaptation-index & Measures spiking fatigue in response to constant current\\
+ adaptation-index2 & The same as Adaption index1, except it is used as an alternative when spikes below $0mV$ occur.   \\
+time-to-first-spike & amount of time elapsed until first spike \\ mean-AP-amplitude & The average spike height in a spike train \\
+spike-half-width & The width of a spike is obtained at point when spike height is half its total amplitude\\    
+AHP-depth & The after hyperpolarisation depth\\
+minimum-voltage & The minimum voltage\\
+peak-voltage & the maximum voltage, usually a spike peak. \\
+time-to-last-spike & The time of last spike onset \\
+AHP-depth-abs & After Hyperpolarisation depth.\\
+all-ISI-values & All interspike interval times\\
+voltage-base & minimum voltage while undergoing stimulus, often below the threshold of APs. \\
+min-voltage-between-spikes & Needed because during  high frequency firing AHPs may be skipped.\\
+Spikecount & Just the number of spikes that occured in the provided stimulus window\\
+\end{tabular}}
+\caption[List of features]{A number of features that were encoded into NeuronUnit tests for optimization}
+\label{tab:featurez}
 \end{table}
-%\begin{figure}
-\begin{enumerate}
-\item adaptation-index
-\item adaptation-index2
-\item time-to-first-spike
-\item mean-AP-amplitude
-\item spike-half-width
-\item AHP-depth
-\item minimum-voltage
-\item peak-voltage
-\item time-to-last-spike
-\item AHP-depth-abs
-\item all-ISI-values
-\item voltage-base
-\item min-voltage-between-spikes
-\item Spikecount
-\end{enumerate}
-
-%\label{verbatim:supra-threshold-tests}
-%\end{figure}
 
 Below I include some graphs of the many different features utilized in optimization.
 
 \begin{figure}
     \centering
     \includegraphics{figures/voltage_features.png}
-    \caption[passive membrane properties probed with a negative amplitude current stimulus]{Although applying a negative current stimulus, only tends to activate so called ``passive" ion channels in the membrane, probing the neuron membrane in this way is simple way of ascertaining essential information about neuron membrane resistance and capacitance.  Figures  copied verbatim from https://efel.readthedocs.io/en/latest/eFeatures.html}
+    \caption[Passive membrane properties probed with a negative amplitude current stimulus]{Although applying a negative current stimulus, only tends to activate so called ``passive" ion channels in the membrane, probing the neuron membrane in this way is simple way of ascertaining essential information about neuron membrane resistance and capacitance. Figure taken from \url{https://efel.readthedocs.io/en/latest/eFeatures.html}}
     \label{fig:voltage_figures}
 \end{figure}
-
-
-
-
 
 \begin{figure}
     \centering
@@ -231,24 +225,22 @@ Below I include some graphs of the many different features utilized in optimizat
     \label{fig:sag_amplitude}
 \end{figure}
 
-Two adaption indexs are used to improve the fidelity of adaption measurements, I presume the two different adaption indexs measure adaption in different segments of spike train recordings.
-
 %XXXX Russell, can you list the new tests above.
 
 These tests can be used to assess the agreement between model and biological neurons on suprathreshold dynamics, largely reflected in patterns of spiking such as bursting and adaptation, but also mean spike height, and mean spike width
 
 \subsection{The Blue Brain Project Neocortical Microcircuit Portal}
-I also made use of one additional data source, similar in some ways to the Allen Institute Cell Types database but reflecting measurements taken from mouse somatosensory cortex (again in patch-clamp recordings from slices). In terms of the Blue Brain Data set I exclusively used a collection of experiments from animal B-95 \url{http://microcircuits.epfl.ch/#/animal/8ecde7d1-b2d2-11e4-b949-6003088da632}.
-Conceptually, this did not add anything new, but it does allow for high-quality optimized models to be produced from another brain region.
-However, these data are linked to--and constrain--the on-going Human Brain Project effort to simulated biophysically-detailed multi-compartmental models of the same neurons (and whole neural circuits).
-This means that the reduced models produced here can be compared directly to those more detailed models, or that the general NeuronUnit-driven genetic optimization framework developed here can be used to optimize detailed models which should, in principle, be similar to those produced through the larger Human Brain Project effort.
+\label{sec:bluebrain-data}
+I also made use of one additional data source, the The Blue Brain Project Neocortical Microcircuit Portal, similar in some ways to the Allen Institute Cell Types Database but reflecting measurements taken from mouse somatosensory cortex (again in patch-clamp recordings from slices).
+From this dataset I exclusively used a collection of experiments from animal B-95, which for reasons unknown yielded a tremendous amount of data (\url{http://microcircuits.epfl.ch/#/animal/8ecde7d1-b2d2-11e4-b949-6003088da632}).
+Conceptually, this dataset added anything new, but it did allow for high-quality optimized models to be produced from another brain region (somatosensory, rather than visual cortex).
+These data are also linked to--and constrain--the on-going Human Brain Project effort to simulated biophysically-detailed multi-compartmental models of the same neurons (and whole neural circuits).
+This means that the reduced models produced here can be compared directly to those more detailed models, or that the general NeuronUnit-driven genetic optimization framework developed here could be used to optimize detailed models which should, in principle, be similar to those produced through the larger Human Brain Project effort.
+Indeed, the Human Brain Project is already a user of the SciUnit framework developed in my lab, on which NeuronUnit is based.
 
-The tests which lead to the best fits in the above threshold experiments, where the tests derived from the above EFEL features applied to NeuronUnit data \ref{fig:supra-threshold-tests}, the measurement type, and the test type did not change between Allen Cell Types, and Blue Brain Data, only the reference data which informed comparison measurements changed.
+The tests which lead to the best fits in the above threshold experiments, where the tests derived from the above EFEL features applied to NeuronUnit data (Figure \ref{fig:supra-threshold-tests}), the measurement type, and the test type did not change between Allen Cell Types, and Blue Brain Data, only the reference data which informed comparison measurements changed.
 
-%YYYY Russell, can you list the new HBP/BBP tests you made above. I believe I have completed this task.
-
-
-The table below is constitutes a summary of both Neuroelectro and Allen experimental data reports. This data can naturally be reported in tabular form. 
+The table below is constitutes a summary of both NeuroElectro and Allen experimental data reports. This data can naturally be reported in tabular form. 
 
 \subsection{The Experimental Measurements}
 

@@ -241,6 +241,7 @@ Rastrigin's function \citep{rastrigin1974systems}  is a function for creating er
 The surface described by the function is densely populated by local minima, each of which is placed on a globally convex envelope, such that the true minimum of Rastrigin's function is at its centre. As a certain number of genes are retained between generations, genes made on previous generations act as memories of previously experienced error surface. Due to this memory effect, the genetic algorithm is able to exploit the global shape of Rastrigrin's function \ref{fig:rastrigin}. It should be noted that there are error functions that contain no useful or learn-able information in the error surface. A satisfactory solution to such problems might still be obtained due to the exploratory and stochastic nature of the GA, however, much of the advantage of the genetic algorithm approach is lost, as the approach presupposes learn-able features about error surfaces. 
 
 \subsection{Genetic Algorithms}
+\label{sec:genetic-algorithms}
 A variety of numerical optimization techniques exist, where algorithm performance depends on the demands of the problem.
 For functions with many local minima, it is often best to broadly sample the error surface, rather than attempt a ``greedy" search for the global minimum.
 Several notable algorithms including genetic algorithms (GA, Figure \ref{fig:GeneticAlgOver}) and stochastic gradient descent (SGD) have been developed to address this use case.

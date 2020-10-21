@@ -33,8 +33,19 @@ optimized_model = test_suite.optimize(MyModelClass)
 \end{minted}
 %\end{lstlisting}
 
+Often model data is streamed from a remote machine for example NeuroML-DB. In that case local simulator capabilities are not required in order to make streaming models eligible for Neuronunit tests. The code idiom for working with streaming models is as follows:
 
-
+\begin{minted}{python}
+import requests
+from neuronunit.models import static_model as sm
+model_scores = []
+for data in NeuroMLDB_requests:
+    remote_model = requests.get(data)
+    vm = remote_model['vm']
+    SM = sm.StaticModel(vm)
+    score = test_suite.judge(SM)
+    model_scores.append(score)
+\end{minted}
 
 
 %\input{chapters/methods/model_implementation_assesment}

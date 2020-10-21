@@ -9,8 +9,8 @@ The optimizer was capable of producing perfect fits under ideal circumstances. W
 In the subsequent tables and figures when the measurements:time constant, capacitance, Rheobase, Resting potential and Input resistance are used to constrain optimization.
 \begin{figure}
     \centering
-    \includegraphics{figures/radar_coordinates.png}
-    \caption{This radar plot of model parameters, reveals two mutually inclusive sets, both model parameter values 1 randomly selected, 2 found by the optimizer closely match.}
+    \includegraphics[scale=0.75]{figures/radar_coordinates.png}
+    \caption{This radar plot of model parameters, reveals two mutually inclusive sets. On the plot I have individually mapped out coordinates for a randomly selected set of model parameters, and the parameters of an optimized model which was trying to constrained by measurements from the random model. The result was two almost identical sets of parameters. There is a small discrepancy about, 'cm', 'v-reset' and 'v-spike' were a red margin is showing}
     \label{fig:my_label}
 \end{figure}
 
@@ -20,13 +20,13 @@ In the subsequent tables and figures when the measurements:time constant, capaci
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.75]{figures/simulated_data_supra_threshold.png}
-    \caption{Caption}
+    \includegraphics[scale=0.85]{figures/simulated_data_supra_threshold.png}
+    \caption{Agreement between the randomly generated model, and the model which was found by using the optimizer to search for the random model. In this context, the random model is used to generate ground truth measurements, errors are derived from the random models electrical properties, in this way the random models features are used inform the search.}
     \label{fig:my_label}
 \end{figure}
 \begin{figure}
     \centering
-    \includegraphics[scale=0.75]{figures/simulated_data_sub_threshold.png}
+    \includegraphics[scale=0.85]{figures/simulated_data_sub_threshold.png}
     \caption{Agreement between a simulated waveform, and an optimized waveform, when both simulated constraint model and optimized model undergo a current injection value of $-10pA$}
     \label{fig:adexp_model_rebound_spike}
 \end{figure}

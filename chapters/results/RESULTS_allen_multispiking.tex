@@ -73,7 +73,7 @@ Although it is not obvious there is significant variation in ISIs (although the 
 \begin{figure}
     \centering
     \includegraphics{figures/IZHI_B95.png}
-    \caption{An Izhikevich model was fitted to both the spike time, and spike shape data in a sweep from Blue Brain Project. The Spike amplitude, and spike numbers are matched, spike times are not perfectly aligned}
+    \caption{An Izhikevich model was fitted to both the spike time, and spike shape data in a sweep from Blue Brain Project. The Spike amplitude, and spike numbers are matched, spike times are not perfectly aligned. Although this optimisation solution obviously resulted in some misaligned spike times, bare in mind, that the some of the best optimized models only predict $86\%$ of spike times at best, and that is when they are supplied with some highly specific excitatory and inhibitory currents}
     \label{fig:B95_IZHI}
 \end{figure}
 
@@ -86,7 +86,6 @@ The result that the adaptive exponential model is better able to fit spike times
 \begin{figure}
     \centering
     \includegraphics[scale=5.0]{figures/IZHIkevich_fit_60Adexp_80.jpg}
-    \caption[The spectrum of model fits]{This great figure from the publication: \citep{rossant2011fitting} shows how the majority of models that fit spike time, do not also fit spike shape. Spike shape and AP timing constitute a persistent conflicted priority with regards to model fitting. Included in this figure are fits from reduced models used in this work AIF, and Izhikevich model.
-    }
+    \caption[The spectrum of model fits]{This figure from the publication: \citep{rossant2011fitting} shows how the majority of models that fit spike time, do not also fit spike shape. Spike shape and AP timing constitute a persistent conflicted priority with regards to model fitting. Included in this figure are fits from reduced models used in this work. Including the Izhikevich model, and the AIF model (herein named AdExp). In this  context the MAT2 model correctly predicts $86$ of spike times, but you can see that the spike threshold is much higher in the model compared to the experiment. The Izhikevich model only predicts $62$ of spike times, and it displays much more below threshold activity than the data and the other models.} 
     \label{fig:my_label}
 \end{figure}

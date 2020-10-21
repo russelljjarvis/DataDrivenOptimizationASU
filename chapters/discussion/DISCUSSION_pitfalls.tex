@@ -260,6 +260,10 @@ In the figures below, I describe the spectrum of error surface quality.
    
    It is almost impossible to make progress without some prior knowledge of the error surfaces, as knowledge of the error surface is a prerequisite for constraining optimization. Not all surfaces, provide equally useful information. There are spectrums of surface quality between convex traingular or parabolic depressions acting as the best solution surfaces, and flat functions. 
    
+   It could be that the mechanism of domination, where initially only one fitness value goes down dramatically at the expense of others going up or staying the same, better facilitates uphill exploration.
+IBEA may better facilitate moving up over a hump or a "lip" to then, fall into gravity of error wells, were soon after all errors are able to fall together.
+
+   
 
 \subsection{Parameter Boundaries}
 When setting parameter boundaries there is a dilemma: If the upper and lower parameter margins are closer together than necessary, then optimized models may be deprived of the scope they need to reach their best fit. On the other hand if the boundaries are too far apart, then the governing equations of the model may yield unstable solutions, which may impair the tractibility of the error surface as I will describe below.
@@ -280,7 +284,14 @@ When error surface is flat it is uninformative. Flatness in the viable middle re
 Consider \ref{fig:best_at_edge}, in this figure a global minima is positioned at the intersection two parameter edges in both $Kdr$ and $NaP$. It would be easy to formulate the same optimization problem to have truncated scope about the extremes of $NaP$ and $Kdr$ and as a consequence to miss the uniquely positioned global optima situated on the intersection. The alternative optima that would be reported is the broad spanning region that shares the same second lowest value to the optima. 
 
 %The genetic algorithm
-As discussed, model-solution instability can occur when the optimizer samples model parameters that are outside of the models intended scope, or when a model returns a nan value inside its intended scope. It is tempting to think of these flat regions as a flat ledge that neatly encases the error hyper volume like in the figure below \ref{fig:cliff} (and as described above), unfortunately however, because each model has a large number of parameters typically $>10$, any particular model instance, only one of these parameters need be evaluating an unstable model when exceeding a margin, the rest of the parameters may be in the middle of their range, and so such a ledge may mostly be experienced as a hyper dimensional "tower", this tower could actually be experienced in the middle of parameter space in 10 out of 11 parameters, while still being on at the edge for only the 11th parameter. The unfortunate consequence of such towers is to lesion in the middle of parameter space inhibits the migration of chromosomes between regions. Overall the genetic algorithm is robust, and any middle region discontinuities, are a minor temporary hindrance that only slow down learning. When considering the GA overall, there are is only a small number of samples that can occur, so the occurrence of middle region lesions in error surface need to reduced  to maximize the informativeness of every precious sample. 
+As discussed, model-solution instability can occur when the optimizer samples model parameters that are outside of the models intended scope, or when a model returns a nan value inside its intended scope. It is tempting to think of 
+
+Usually these flat cliffs that neatly encase the error hyper volume like in the figure below \ref{fig:cliff} (and as described above).
+
+% Not helpful for audiance to understand.
+%unfortunately however, because each model has a large number of parameters typically $>10$, any particular model instance, only one of these parameters need be evaluating an unstable model when exceeding a margin, the rest of the parameters may be in the middle of their range, and so such a ledge may mostly be experienced as a hyper dimensional "tower", this tower could actually be experienced in the middle of parameter space in 10 out of 11 parameters, while still being on at the edge for only the 11th parameter. The unfortunate consequence of such towers is to lesion in the middle of parameter space inhibits the migration of chromosomes between regions. 
+
+Overall the genetic algorithm is robust, and any middle region discontinuities, are a temporary hindrance that only slow down learning. When considering the GA overall, there are is only a small number of samples that can occur, so the occurrence of middle region lesions in error surface need to reduced  to maximize the informativeness of every precious sample. 
 
 The major strategy for circumvent unnecessary ridges and towers is to pick and chose error functions sparingly and to assess results in a piecemeal basis. Utilizing a "sparing" inclusion policy will have to occur despite the large conflicting incentive to employ as many objective functions as possible.
 
