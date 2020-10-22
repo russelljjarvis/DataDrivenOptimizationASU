@@ -127,26 +127,30 @@ In experiments these protocols had already been run, but a re-organising of thos
 
 Principle component 2 had non zero loadings for ranked (highest to lowest)
 \begin{table}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{llll}
 \toprule
+
 Feature Name & Feature Description & Extraction Library &  Stimulus Strength \\
- upstroke-t & Description & Allen & $1.5 \times$ Rheobase\\
- peak-t & Description & Allen & $1.5 \times$ Rheobase \\
-threshold-t & Description & Allen & $1.5 \times$ Rheobase \\
+ upstroke-t & The time of upstrokes, this is the below $V_{T}$ first upward phase of AP & Allen & $1.5 \times$ Rheobase\\
+ peak-t & Time(s) maximum $V_{M}$ occurs & Allen & $1.5 \times$ Rheobase \\
+threshold-t & Time(s) $V_{T}$ is surpassed & Allen & $1.5 \times$ Rheobase \\
 fast-trough-t & Description & Allen & $1.5 \times$ Rheobase \\ 
-fast-trough-t & Description & Allen & $3.0 \times$ Rheobase \\
-upstroke-t & Description & Allen & $3.0 \times$ Rheobase \\ 
-peak-t & Description &Allen & $3.0 \times$ Rheobase \\ 
-threshold-t & Description & Allen & $3.0 \times$ Rheobase \\ 
-peak-indices & Description & EFEL & $1.5 \times$ Rheobase \\
-min-AHP-indices & Description & EFEL & $1.5 \times$ Rheobase \\
+fast-trough-t & Same as above but at $3 \times$ Rheobase & Allen & $3.0 \times$ Rheobase \\
+upstroke-t & Same as above but at $3 \times$ Rheobase & Allen & $3.0 \times$ Rheobase \\ 
+peak-t & Same as above but at $3 \times$ Rheobase &Allen & $3.0 \times$ Rheobase \\ 
+threshold-t & Same as above but at $3 \times$ Rheobase & Allen & $3.0 \times$ Rheobase \\ 
+peak-indices & Indexs into array where peak voltages occur & EFEL & $1.5 \times$ Rheobase \\
+min-AHP-indices & Indexs into array where minimum After Hyperpolarisation occur & EFEL & $1.5 \times$ Rheobase \\
 \bottomrule
 \end{tabular}
+}
 \caption[Features of first principal component in sparse PCA]{Features of first principal component in sparse PCA. It is notable that Principle component one described variance, common to both models and experiments, it did not seperate models and experiments into different clusters.}
 
 \end{table}
 
 \begin{table}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{llll}
 \toprule
 Feature Name & Feature Description & Extraction Library  & Stimulus Strength \\
@@ -160,7 +164,7 @@ peak-index-3.0x & Description & Allen & $3.0 \times$ Rheobase \\
 upstroke-index-3.0x & Description & Allen & $3.0 \times$ Rheobase \\ 
 threshold-index-3.0x & Description & Allen & $3.0 \times$ Rheobase \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption[Features of second principal component in sparse PCA]{Features of second principal component in sparse PCA. It is notable that mainly these features contributed to the seperation of model and experiment clusters}
 \end{table}
 
@@ -203,11 +207,10 @@ Another observation is that a small majority of features used to create the spar
 At $1.5 \times rheobase $ I believe there to be more spike time variation, at $3.0 \times rheobase $  I believe there to be more spike amplitude variation.
 
 \subsection{Sparse PCA}
-Sparse PCA revealed five overlapping different groups of neuronal identity's, and three non overlapping clusters. Models and experiments clustered separately to each other in the low dimensional space. Models and data were easily separable in the direction of the 2nd Eigen Vector.
+
 
 %The first principle component 
-Models and experiments shared the same breadth of variability across the first principal component, with only slightly more variance in the experiments than in the data. Allen cell types experiments seemed to encompass the most variability out of models and experiments across all data sets. Models clustered tightly and varied less than in vitro experiments.
-
+Models and experiments shared the same breadth of variability across the first principal component, with only slightly more variance in the experiments than in the data. Allen cell types experiments seemed to encompass the most variability out of models and experiments across all data sets see the right figure inset in \ref{fig:pca_data_points}. Models clustered tightly and varied less than in vitro experiments. There was one group of Allen cell type experiments that clustered on their own, making one set of the cluster.
 
 
 Although imputation was successfully used to avoid dropping a large number of samples, about half of all initial BBP/Allen models data types were excluded from a final analysis, because they did not all capable of meeting inclusion criteria.  
@@ -215,10 +218,7 @@ Although imputation was successfully used to avoid dropping a large number of sa
 \ref{fig:reference_feature_list}
 List of complete 47 features used in the analysis down from 466 after data cleaning.
 
-
-There was one group of Allen cell type experiments that clustered on their own, making one set of the cluster.
-
-sparse PCA 2nd Eigen Vector. 
+Sparse PCA 2nd Eigen Vector. 
 Disagreement between models and in-vivo neurons may reflect limitations of model design and can be investigated by probing the key features used by classifiers to distinguish these two populations. 
 
 \begin{figure}    
@@ -226,6 +226,8 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
     \caption[Is this visible]{}
     \label{fig:}
 \end{center}
+\caption[Sparse PCA, variance explained, 1st and 2nd Principal Components]{Sparse PCA revealed five overlapping different groups of neuronal identity's, and three non overlapping clusters. Models and experiments clustered separately to each other in the low dimensional space. Models and data were easily separable in the direction of the 2nd Eigen Vector.}
+\label{fig:pca_data_points}
 \end{figure}    
 
 
@@ -233,6 +235,8 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
 \begin{figure}    
     \begin{center}
     \includegraphics[scale=0.75]{figures/cortical_model_data_agreement_54_1.png}
+    \caption[Component Loadings used to make Eigen Vectors of sparse PCA]{}
+    
     
     
 %fast_trough_indexes : numpy array of indexes at the start of the trough (i.e. end of the spike)
@@ -246,8 +250,8 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
     \centering
     \includegraphics[scale=0.75]{figures/features_that_disagree}
     \caption[Features that disagree. Slow Trough indexs, from the Allen cell types feature extraction]{The sparse PCA graph is very abstract, it's important to understand that much variance found by the sparse PCA algorithm originates from differences between model distributions and experiment distributions Simple stacked histograms of data are able to show such differences. By "Fast" in fast trough indexs, all that is meant is the beginning time of troughs occurrence, this would contrast with the "slow" or ending time of the spikes. This is arguably a bad naming scheme.
-        https://allensdk.readthedocs.io/en/latest/allensdk.ephys.ephys_features.html
-        }
+    \url{https://allensdk.readthedocs.io/en/latest/allensdk.ephys.ephys_features.html}
+    }
         \label{fig:from_poster_disagree}
 \end{figure}
 

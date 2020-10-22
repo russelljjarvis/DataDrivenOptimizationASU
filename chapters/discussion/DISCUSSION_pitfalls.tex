@@ -67,9 +67,9 @@ In this work, I grappled with two types of error surface defect. Some error surf
 As stated above the amplitude of the error surface disturbances was relatively small, this meant it was possible for humans to conceptualize the surface defects as low amplitude noise.
 Unfortunately this did not mean it no longer a problem for the genetic algorithms. NSGA2 a type of genetic selection ranks solutions according to a principle of non-domination, where improvements to fitness must co-occur. Under this scheme the best chromosomes are the ones where all fitness criteria improve together. Potentially fitter solutions are penalized, if some improvements occur at the expense of other criteria. Unfortunately the principles of this algorithm imply that it is not sensitive to the amplitude of error improvements, as it only senses the sign of relative improvement: "positive" or "negative". Therefore NSGA2 has a greater propensity to become fixated with the basins of the low amplitude corrugations. Unlike NSGA2 IBEA was better able to distinguish big from small and it was more resilient to getting stuck in these low amplitude surface defects. 
 
-It is possible that permitting dominating errors to occur is helpful for guiding chromosomes uphill against error when leaving a local minima. When experiencing dominant error improvements, initially only one fitness value goes down dramatically at the expense of others which may get worse. If the lip of a valley is exists in all but one dimension, domination combined with mutation, may make for a push-pull type effect, that better facilitates uphill exploration. 
+% It is possible that permitting dominating errors to occur is helpful for guiding chromosomes uphill against error when leaving a local minima. When experiencing dominant error improvements, initially only one fitness value goes down dramatically at the expense of others which may get worse. If the lip of a valley is exists in all but one dimension, domination combined with mutation, may make for a push-pull type effect, that better facilitates uphill exploration. 
 
-Another way to think about this is, the simple select-best algorithm may better facilitate moving up over a lip of a valley to then fall into gravity other error wells, were soon after all errors are able to fall together.
+% Another way to think about this is, the simple select-best algorithm may better facilitate moving up over a lip of a valley to then fall into gravity other error wells, were soon after all errors are able to fall together.
 
 % DISCONTINUITIES -> IRREGULARITIES.  not sure that these are discontinuties. To use tectonic metaphors: A discontinuity is like misaligned tectonic plate after an earth quake. A corrogation can be smooth like a sinewave, or pond ripple.
 
@@ -95,7 +95,7 @@ All the figures below employ a consistent color coding scheme where red encodes 
 \begin{figure}
     \centering
     \includegraphics[scale=0.7]{figures/friendly_error_surface.png}
-    \caption[Using only constant currents causes simple tractable error surfaces]{Because a constant current injection of $-10pA$ was applied, the error surface is simple informative and very easy to navigate, although only one slice into the error hypervolume is shown. Plots of GA learning speed provide also demonstrate that the error surface is free from both corrogations and discontinuties. Other plots (not shown here) demonstrate that all other slices into the hypervolume have simple convex shape.}
+    \caption[Using only constant currents causes simple tractable error surfaces]{Because a constant current injection of $-10pA$ was applied, the error surface is simple informative and very easy to navigate, although only one slice into the error hypervolume is shown. Plots of GA learning speed provide also demonstrate that the error surface is free from both corrugation and discontinuity. Other plots (not shown here) demonstrate that all other slices into the hypervolume have simple convex shape.}
     \label{fig:constant_current}
 \end{figure}
 
@@ -191,7 +191,7 @@ Another approach is to dispense with the rheobase entirely, and simply test usin
 This seems extremely direct, but it in some cases it fails to explore the most interesting peri-threshold portion of the F-I curve, where the dynamics of single spikes contain a great deal of information about peri-threshold dynamics.
 For example, an after-hyperpolarization that is visible after single spike at rheobase may become completely swamped by the combination of inward pipette current and sodium current at values of injected current that are high above threshold.
 
-\subsubsection{Inconsistent feature calculation algorithms}
+\subsubsection{Feature Calculation Algorithm That Unifies Diverging Laboratory Practices}
 The NeuronUnit core, the Ephysiology Feature Extraction Library \cite{EFEL}) EFEL, the Allen SDK, and the tests derived from \cite{druckmann2008evaluating} all contain independently written algorithms for computing features from simulated membrane potentials.
 In some cases, the same feature (e.g. action potential threshold) is computed in many different ways across these feature extraction libraries.
 All compute the threshold by first taking the first difference of the membrane potential, but they differ in subsequent steps, for example what value the first difference must reach to be considered at or beyond threshold.
@@ -255,7 +255,7 @@ In the figures below, I describe the spectrum of error surface quality.
 \centering
       \label{fig:test1}
       \centering
-      \includegraphics[scale=0.85]{figures/spectrum_worst_error_surfaces2.jpg}
+      \includegraphics[scale=0.75]{figures/spectrum_worst_error_surfaces2.jpg}
       \caption[Hypothetical Error Functions, Worse than Rastrigrins function]{Rastrigrins function describes a challenging error surface, but one with learnable global features that a genetic algorithm can exploit. Consider the bottom inset figure, which is a cross section of a Rastrigin like function. Along the course of evolution, there is plenty of opportunity for genes like A and B to recombine, often producing fitter children like C. It's important to note that there are much worse error surfaces, and these may show up in practice consider for example the middle inset figure, where cross-over has nothing useful to contribute.
       The situation in the topmost inset is worse again still. In this context learning is a disadvantage, if the optimizer "learns", then it actually slows obtaining an optimal solution, which it can only with a very lucky/just right large random mutation. It is likely that a GA on this surface will be slower than grid search. The second type of error surface actually a 1D (and upside down) cross section of the 2D pond diagram, only actively misleads locally, globally it simply contains no helpful global information. Learning will not be of any assistance in obtaining the optima, but also learning won't be a disadvantage either, the Genetic Algorithm, will simply behave as a random sample testing algorithm, the GA will find the optimum in time, but possibly not as quickly or reliably as exhaustive search would. The second figure is a cross section of the pond ripple argument}
       \label{fig:test2}

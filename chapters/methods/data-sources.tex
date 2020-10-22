@@ -60,14 +60,14 @@ In other cases, these conditions were not met, as exemplified in the figures bel
 For the majority of cell types and electrophysiological features, the distributions obtained from NeuroElectro were well-described by a normal (or log-normal) distribution.
 However, I manually identified and labeled those cases were the data were not so well-behaved, as these might be likely to produced optimized models that did not reflect anything of biological relevance.
 
-Some methods for hypothesis testing that a distribution is unimodal exist \citep{maechler2013package}, however I achieved greater quality control by simply inspecting each case manually.
+Some methods for hypothesis testing that a distribution is unimodal exist \citep{maechler2013package}, however I achieved greater quality control by simply inspecting each case in a peace-meal graphic manner. % manually means to do something by hand. 
 I estimated that across all NeuroElectro data sampled here, about $2/3$ is well represented by a unimodal and normal-ish distribution (e.g. Figure \ref{fig:normal-feature} and Figure \ref{fig:normal-feature2}.
-In the remaining $1/3$ where this did not hold, I observed a number of odd cases: highly skewed distributions (Figure \ref{fig:skewed-feature}), bimodal distribution (Figure \ref{fig:bimodal-feature}), uniform-like distributions (Figure \ref{fig:uniform-feature}), and distribution with insufficient samples to make any judgement at all.
+In the remaining $1/3$ where this did not hold, I observed a small but still significant number of odd cases: highly skewed distributions (Figure \ref{fig:skewed-feature}), bimodal distributions (Figure \ref{fig:bimodal-feature}), uniform-like distributions (Figure \ref{fig:uniform-feature}), and distribution with insufficient samples to make any judgement at all.
 
 \begin{figure} 
     \begin{center}
    \includegraphics[scale=0.8]{figures/mean_well_served.png}
-   \caption[AP Threshold Data Distribution, Layer 5 Pyramidal Cell]{The majority of Neuroelectro data sets were well served by a Gaussian normal distribution. As you can see in this plot the mean is surrounded by a very high density of samples, which slowly thin out with increasing distance from the mean. The distribution is approximately symmetrical, especially for a real data set.}
+   \caption[AP Threshold Data Distribution, Layer 5 Pyramidal Cell]{The majority of Neuroelectro data sets were well served by a Gaussian normal distribution. As you can see in this plot the mean is surrounded by a very high density of samples, which slowly thin out with increasing distance from the mean. The distribution is approximately symmetrical, or as symmetrical as one might hope when examining real data sets.}
    \label{fig:normal-feature}
     \end{center}
 \end{figure}   
@@ -146,7 +146,7 @@ In the remaining $1/3$ where this did not hold, I observed a number of odd cases
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.7\linewidth]{chapters/notebooks_converted/needata_thesis_files/needata_thesis_5_16}
-\caption{This is a binned histogram of Neuroelectro spike width measurements in the CA1 basket cell neuron.
+\caption{This is a binned histogram of Neuroelectro spike width measurements in the Neocortical Pyramidal neuron.
 The mode is of the distribution is denoted by a blue vertical line. In this way the mode of the data distribution can be compared to the mean in the box plot. Often modes, and means of the measurements disagree, as they do in the case of CA1 basket cell spike widths. When consulting NeuroElectro measurement, a very common distribution shape is one which is possibly uniform, or multi-modal. It is perhaps obvious but worth noting that a uniform distribution, is not well described by a normal distribution. Under a normal distribution a range of measurement values are equally likely to occur.}
 \label{fig:uniform-feature}
 \end{center}
@@ -160,7 +160,12 @@ The mode is of the distribution is denoted by a blue vertical line. In this way 
 \end{center}
 \end{figure}
 
-\subsection{The Allen Institute Cell Types Database}
+\subsection{EFEL and The Allen Institute Cell Types Database}
+The Blue Brain Project developed the Electrophysiology Feature Extraction Library (EFEL) \citep{EFEL}. Although EFEL computes common spike train statistics related to spike timing, approximately 2/3rds of features extracted by EFEL pertain to spike shapes, and some of those features are shown below. The Allen SDK comes with a very comprehensive python based feature extraction suite. Just like EFEL, the Allen suite does well to represent a large number of spike shape measurements as well as spike train statistics. Unfortunately, the Allen SDK feature extractor is significantly slower than EFEL as EFEL was implemented using the very fast language $C++$. The performance cost may not be felt when dispatching single runs, but slow performance is a significant impediment to optimization. In optimisation feature extraction is directly coupled to chromosome fitness calculations, and it is executed very often across the evolution of the genetic algorithm. Additionally by default, the AllenSDK feature extractor assumes that its user will be applying very high sample frequency and noisy NeuronData Without Borders \citep{teeters2015neurodata} encoded traces. These traces require filtering before they can have Allen features computed on them. Significant intervention is required to turn off filtering. In appropriately applying filtering to model traces causes problems, because the the lower sampling frequency intrinsic to simulated model traces is not predicted by the digital filter. Overall, the EFEL was fast enough to be useful, and its default settings where appropriate to my use case. 
+% Membrane potential waveforms where already stored in a container Neo Neo 
+\cite{garcia2014neo}
+
+
 The data available through NeuroElectro covers a large number of cell types, but recording conditions and measurement algorithms are heterogeneous.
 It is unclear if the distribution of measurements across such an ensemble is actually a good summary of any one, real cell.
 In order to ensure that reduced models could be optimized against data recorded exclusively from single neurons, I also used the Allen Institute Cell Types Database \citep{celltypes}, a project of the Allen Institute for Brain Science.
@@ -174,9 +179,9 @@ Additionally, the pre-computed features are thin relative to those that I brough
 Because raw data is available through the Cell Types API, I therefore re-computed all necessary features from this raw data, according to the consistent standard reflected in the NeuronUnit code.
 
 In contrast to NeuroElectro, the Cell Types database also has a great deal more information relevant to the above threshold dynamics of neurons, such as the number and pattern of action potentials they discharge in response to somatically-injected currents much larger than rheobase, or in response to non-square injected currents.
-In order to exploit these, I developed several additional NeuronUnit tests, such as: ``time to first spike test" and ``mean AP amplitude test". In principal any feature measured in the Cell Types Data could be upgraded to a NeuronUnit test, and I created a code-generation template to accelerate this task.
-I also created some tests manually, especially those adapted from other descriptions of feature extraction from the literature (as described in sections \ref{sec:allensdk}, \ref{sec:efel}, and \ref{sec:elephant}.
-These are shown in Table \ref{tab:featurez}.
+In order to exploit these, I developed several additional NeuronUnit tests using EFEL, such as: ``time to first spike test" and ``mean AP amplitude test". In principal any feature measured in the Cell Types Data could be upgraded to a NeuronUnit test, and I created a code-generation template to accelerate this task.
+I also created some tests from scratch, especially those adapted from other descriptions of feature extraction from the literature (as described in sections \ref{sec:allensdk}, \ref{sec:efel}, and \ref{sec:elephant}. These are shown in Table \ref{tab:featurez}.
+
 
 \begin{table}
 \centering

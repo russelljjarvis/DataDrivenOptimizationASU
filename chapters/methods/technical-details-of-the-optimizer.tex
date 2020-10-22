@@ -39,9 +39,9 @@ Then the following steps were taken to transform it into an error signal:
  \item This is converted to the range (0, 1) using the error function: $abs(erf(Z)) = 0.27$ 
  \item The logarithm is computed: $\log_{10}(0.27) = 0.56$ 
 \end{enumerate}
-The value 0.56 above represents a larger model/data disagreement than the ``best" possible value of 0 (corresponding to a Z-score of 0), but less disagreement then the ``worst" possible value of $\inf$ (truncated in practice at 100) representing a Z-score of $+\inf$ or $-\inf$. The summed error signal over all $n$ NeuronUnit tests (e.g. rheobase, input resistance, spike rate adaptation, etc.) is:
+The value 0.56 above represents a larger model/data disagreement than the ``best" possible value of 0 (corresponding to a Z-score of 0), but less disagreement then the ``worst" possible value of $\inf$ (truncated in practice at 100) representing a Z-score of $+\infty$ or $-\infty$. The summed error signal over all $n$ NeuronUnit tests (e.g. rheobase, input resistance, spike rate adaptation, etc.) is:
 \begin{equation}
-Total Error = \sum_i^n error_i
+Total  Error = \sum_i^n error_i
 \end{equation}
 i.e. the sum of all of the errors.  Again, 0 would represent perfect model/data agreement across all tests.
 
@@ -76,7 +76,7 @@ The optimization literature has developed many competing approaches for doing th
 NSGA2 uses some additional ranking mechanisms, to re-weight the perceived fitness of each chromosome and influence the probability that it survives (or is bred into) the next generation.
 For example, it tries to minimize ``crowding distance", penalizing chromosomes that aggregate in clusters, as persistent cluster formation means that the GA becomes preoccupied with more limited regions of the solution space, harming solution diversity.
 Another meta-constraint called ``non-dominated sorting" ranks most highly each chromosomes that is not unanimously defeated by any other chromosome on any feature score.
-For example, though one parameter set $P$ might produce a model which score poorly on all features except Input Resistance, if no other parameter set has a higher-scoring Input Resistance feature then $P$ is retained. Consistent with personal communication with \cite{van2007neurofitter}, adding in crowding distance and non-dominated sorting typically harms optimizer performance, in the context of neuronal model optimization, though the reason for this is not proven conclusively, I speculate on a likely cause in \ref{sec:discussion}.
+For example, though one parameter set $P$ might produce a model which score poorly on all features except Input Resistance, if no other parameter set has a higher-scoring Input Resistance feature then $P$ is retained. Consistent with personal communication with \cite{van2007neurofitter}, adding in crowding distance and non-dominated sorting typically harms optimizer performance, in the context of neuronal model optimization, though the reason for this is not argued conclusively, I speculate on a likely cause in the discussion of this work.
 A simpler ``select best" algorithm (labelled IBEA) dispenses with these tricks, performs no meta-constraint scoring, and simply retains the fittest chromosomes for mutation, crossover, and selection. This simpler selection algorithm was found to work well when optimizing reduced neuronal models.
 
 \subsection{Comparison to Previous Approaches to Optimization}
@@ -85,7 +85,7 @@ A simpler ``select best" algorithm (labelled IBEA) dispenses with these tricks, 
 Other labs have previously developed schemes to optimize neuron models, e.g. \cite{druckmann2007novel}.
 I retained the conceptual insights of these approaches where they were useful for the problems at hand.
 For example, I utilized a time-dependent mutation magnitude ($\eta$).
-The idea is that big mutations are more helpful in the early stage of optimization, when it is important to explore the vast hyper-volume of parameter sets and get a general picture of the error surface, and that these mutations should be smaller during the later ``refinement" stage of optimization, as the best solutions are approached. Time diminishing \eta did improve genetic algorithm on reduced model optimization problems.
+The idea is that big mutations are more helpful in the early stage of optimization, when it is important to explore the vast hyper-volume of parameter sets and get a general picture of the error surface, and that these mutations should be smaller during the later ``refinement" stage of optimization, as the best solutions are approached. Time diminishing $\eta$ did improve genetic algorithm on reduced model optimization problems.
 
 \subsubsection{Variants on somatic current injection}
 Nearly all neuron optimization work (including this one) relies on the responses to somatically-injected current as the domain for optimization.

@@ -1,16 +1,18 @@
 \subsection{How Often Does an Averaged Model Recapitulate Averaged Measurements?}
-For a selection of three model measurements: we are interested in the question: ``Could misrepresented data, lead to a situation were models try too hard to match targets that the models were not built to explain?" %We were interested in the consequence of this worst case. 
+In the section data-sources, I show that some of the NeuroElectro data distributions look bi-modal. Especially when looking closely at the olfactory mitral cell. In the worst case using the fitting to the mean of a bi-modal distribution might be like fitting a modal to data, that is hard to fit, because its not representative of a real cell. Neuron modellers have some awareness of this problem which has been thoroughly characterized in \cite{marder2011multiple}.
+
+For a selection of three model measurements: we are interested in the question: ``Could misrepresented data, lead to a situation were models cannot match  misconstrued targets?" %We were interested in the consequence of this worst case. 
 
 I placed two different versions of the same  model class in different locations of parameter space. For each location I measured: rheobase, input resistance, capacitance, and membrane time constant.
-I then averaged these measurements together to obtain a mean set of electrical measurements, its this collection of measurements that I refer to as "mean measurements". Next we created a "mean model' by averaging the locations in parameter space together.
+I then averaged these measurements together to obtain a mean set of electrical measurements, its this collection of measurements that I refer to as ``mean measurements". Next we created a ``mean model' by averaging the locations in parameter space together.
 In averaging between two points we create a third point that is midway between the pre-existing coordinates. I refer to the third midway point as a "mean-model".
 The mean model is used to create a third set of model measurements, as we are really interested in the question: "Does the mean model sometimes fail to recapitulate the mean measurement?"
 
 
 %With these different parameter sets we took separate measurements of the listed electrical properties, 
-When we have mean measurements, and also mean model measurements, it enables us to understand if bi-modal distributions of measurements in experimental data can pose a problem for optimization of cells.
+When we have mean measurements, and also mean model measurements, by showing that the two are unequal, we are able to argue that the bi-modal distributions of measurements in experimental data can and do misguide the  optimization of models.
 
-Previously in methods \ref{section:nelectro}, we graphically inspected the neuroelectro data sources closely, in order to assess each measurements distribution.
+Previously in methods \ref{section:nelectro}, we  inspected the NeuroElectro data sources closely, in order to assess each measurements distribution.
 We revealed Bi-modal distributions in input resistance, and cell membrane capacitance, but we do not yet know if it is invalid to fit to the mean of a bi-modal distribution.
 Consider a  cell class which had an underlying bimodal distribution for input resistance. An individual cell from this class produced measurements for input resistance midway between two modes for input resistance.
 Its entirely conceivable that that this mean cell would produce measurements that were also the mean of the two modes, however, we cannot assume that there this to be true, it seems equally likely that this midway cell produces a measurement for input resistance, that is significantly higher or lower than the mean of the two modes. To bolster that this non linear behavior could be a problem with in-silico models of in-vivo experiments.
@@ -43,4 +45,4 @@ We expect the Izhikevich model, and the adaptive exponential models to support `
     \label{fig:my_label}
 \end{figure}
 
-explore if this was a problem for models as well as experimental cells.
+%explore if this was a problem for models as well as experimental cells.
