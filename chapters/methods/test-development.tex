@@ -3,24 +3,22 @@ At the onset of this project, NeuronUnit contained a range of model validation t
 Most such tests were restricted to measurements of passive membrane properties or action potential waveforms.
 However, the rich diversity of neuronal physiology is also reflected in the rate, timing, and sensitivity of patterns of action potentials.
 
-As noted in Section \ref{sec:data-sources} there where two experimental data types, each of which was used to constrain models differently: raw data from which features were (re-)calculated, and pre-computed features as reported in the literature.
+As noted in Section \ref{sec:data-sources} there were two experimental data types, each of which was used to constrain models differently: raw data from which features were (re-)calculated, and pre-computed features as reported in the literature.
 The distinction is important here because in the former case new feature extraction routines are required.
 In order to developed tests based on these newly calculated features, I created an interface to the Allen Cell Types API; this allowed me to automatically create NeuronUnit tests parameterized by features extracted from the membrane potential traces available from the Allen Institute through that API.
 In order to create the new NeuronUnit tests, one must query the Cell Types Database, impose a new organization on the data, extract relevant features, and convert model features for use with NeuronUnit tests.
 A similar API was created in order to work with the Blue Brain data described in section \ref{sec:bluebrain-data}, so that both of these data sources could then guide model fitting.
 These APIs and their use in generating NeuronUnit tests are documented in \url{https://github.com/fun-zoological-computing/BluePyOpt/blob/master/examples/bpo_nu_fusion/allen_efel_nu_deployed_tests_only-thesis.ipynb}
 
-At this stage the range of tests available for optimization in NeuronUnit was still incomplete; the data was adequate, but several key features that distinguish one pattern of spiking from another were still missing. Therefore, I implemented another series of tests in NeuronUnit using the EFEL features (section \ref{sec:efel}).
+At this stage the range of tests available for optimization in NeuronUnit was still incomplete; the data was adequate, but several key features that distinguish one pattern of spiking from another were still missing. Therefore, I implemented another series of tests in NeuronUnit using the EFEL features \citep{EFEL} (section \ref{sec:efel}).
 I developed the ability for all of the EFEL features to be calculated on NeuronUnit models, as well as a new test to compute the slope of the F-I curve.
 I organized these tests into new "at threshold" and suprathreshold test suites, which included features such as
 interspike-interval (ISI) statistics, after-hyperpolarization (AHP) depths, spike frequency adaption ratios, etc.
 
-Adaptation in spike trains is very common, it is so common. When fitting models to spike trains, it is best to measure adaptation directly, and use it as one of many equally weighted objective functions, fitting models against adaptation directly is important for taking full advantage of the Adaptive Exponential model type.
+Adaptation in spike trains is commonly occurring. When fitting models to spike trains it is best to measure adaptation directly, and to use it as one of many equally weighted objective functions. Fitting models against adaptation directly is important for taking full advantage of the Adaptive Exponential model type.
 
-For example, I utilized an existing implementation of the spike frequency adaptation index.
-
-
-The adaptation index is calculated as follows \citep{EFEL}:
+%For example, I utilized an existing implementation of the spike frequency adaptation index.
+% The adaptation index is calculated as follows \citep{EFEL}:
 
 %\begin{equation}
 %A = \frac{1}{N - k - 1} \sum_{i = k}^N \frac{isi_i - isi_{i-1}}{isi_i + isi_{i-1}}

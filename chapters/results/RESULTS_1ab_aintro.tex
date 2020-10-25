@@ -2,22 +2,30 @@
 \section{Limitations of Optimization using Experimental Data}
 \label{sec:limitations-of-optimization}
 
-\subsection{Is Optimization Always Possible?}
-Not all of the available data-sets were conducive to model fitting on the reduced cells. In particular the cerebellum Purkinje cell, demands a very large current stimulus to elicit a rheobase spike: $680pA$, and the reduced cells were generally not able to match this high rheobase value. The physical determinants of the large rheobase current are of interest, Cerebellum Purkinje cells have a very large surface area, in particular their dendrite supports on average 100,000-plus inputs from parallel fibers. The Purkinje cell dendrites have a large surface area to support the large number of post synaptic receptors. The soma and apical dendrite trunk of the purkinje are both also very large. Owing to having both large volume and large surface area, there are a lot of different places electron current can disperse too, besides traveling directly to the axon hillock. Additionally although current injection is applied to the soma, the dendrite is coupled to the soma, so that the dendrite may absorb some of the current injected at the cell soma. 
+\subsection{When is Optimization Possible Using Real Biological Data?}
+Not all of the available data-sets are conducive to optimizing reduced models.
+For example, consider the cerebellar Purkinje cell.
+The Purkinje cells has a very large surface area (much of it the dendrites that support $~100,000$ synaptic inputs).
+It consequently has a large capacitance and a low input resistance, and as such it demands a very large current stimulus to elicit a rheobase spike: $680pA$.
+However, most reduced cells typically cannot exhibit such a large rheobase under any parameterization that otherwise looks like a neuron model.
+The fact that an expansive dendritic tree is able to absorb so much somatically injected current may be difficult for a reduced model to capture.
+Specifically, the upper limit for rheobase found in results was typically as $350-400pA$, but even this comes at the expense of sacrificing fit quality for all other electrophysiological features.
+Consequently, optimized models of the Purkinje cell always failed to be biologically plausible.
+The p-value of the $\chi^{2}$ statistic was always sufficiently low to reject the null hypothesis that such optimized models were representative of the biological data distribution.
+Like the Purkinje cell, the Mitral cells of the main olfactory bulb also escaped successful model fitting.
+These mitral cells also have high membrane capacitance $235pF$, and reduced models could not reproduce their features well.  
+The Izhikevich model was achieved the lowest overall $\chi^{2}$ statistic for Purkinje cells and Mitral cells, being slightly more flexible than the AdEx or  conductance based models.
+In general, however, these reduced models may have been developed with smaller, more electronically compact cortical and hippocampal cells in mind.
 
-% so it makes sense that Purkinje cells should be insensitive to minor fluctuations of stimulus current, 
-Owing to claims above, Purkinje cells should be expected to absorb large currents without firing an AP. Generally the reduced models could not fit too the Purkinje cells demand for a high rheobase current. 
+\subsection{Conflicts between Experimental Features Constraining Optimization}
+Feature values extracted from multiple data sets appeared to be in conflict for some cell types.
+For example, the rheobase value was often incompatible with some passive electrophysiological feature values, such that good optimization could be achieved with one set or the other, but not both together.
+By good optimization I mean that the optimized model exhibited behavior that was consistent with all of the features.
+Models seemed to have particular difficulty in recapitulating an accurate fit for rheobase, while simultaneously satisfying the fitness criteria imposed by the time constant, input resistance, capacitance and resting membrane potential.
+This was less problematic when using the slope of the FI curve as a feature, suggested that it was not spiking \emph{per se} that caused the problem.
 
-Some reduced models could achieve rheobase currents as strong as $350-400pA$, but this was usually at the expense of compromizing all the other fitted measurements. Fitted models of the cerebellum purkinje cell, always failed to be biologically plausible. The p-value of the $\chi^{2}$ statistic always gave reason to reject the null hypothesis.
-
-Just like the Purkinje cell, mitral cell olfatory bulb measurements could not be recapitulated in models. olfactory mitral cells have relatively high membrane capacitance $235pF$, and high input resistance $130MOhm$. Generally reduced models could not reproduce these values.  
-
-Over all the tests, including two of the most challenging cases: the Cerebellar Purkinje cell, and olfactory bulb mitral cell, the Izhikevich model was achieved the lowest overall $\chi^{2}$ p-value, as it was able to perform the best all-round fits. %However if you were to remove those two data sets, and evaluated on the remaining 6-8 out of data sets, the Adaptive Exponential model would be a better fit.
-
-\subsection{Conflicts between experimental constraints}
-Conflicts between Rheobase value, and other static electrical measurements were observed in NeuroElectro and Allen Cell types measurements. When optimizing against NeuroElectro averaged measurements, and Allen Cell types single cell observations, it was common to experience a conflicted ability for the cell to satisfy all constraints simultaneously. 
-Models seemed to have particular difficulty in recapitulating an accurate fit for rheobase, while simultaneously satisfying the larger set of fitness criteria: time constant, input resistance, capacitance and resting membrane potential. There was better agreement between firing rate versus current (FISlope) and the remainder of the electrical observations.
-
+This was also evident when working across datasets.
+For example, when optimizing against data from both NeuroElectro and the Allen Cell types database, it was typically impossible to satisfy data-derived features from both sources simultaneously, even when the same nominal neuron type was being described.
 
 %The l5pc model was pre-optimized to fit to spike times and F/I mainly, and so it should not necessarily be expected to fit other electrical characteristics of the cell. Only the rheobase test, and the time constant test seemed to fall within the range of biological plausibility. None the less, this model remains a useful benchmark for reduced neuronal models.
 %It was desirable to include this extended range of Izhikevich model behavior

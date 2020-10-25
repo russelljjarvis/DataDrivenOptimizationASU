@@ -2,7 +2,7 @@
 \section{Why model the brain?}
 Diseases of the brain are very widespread and cost world governments a significant amount of money \citep{who}.
 The 2015 Global Burden of Disease study estimates that about a third of the population worldwide is affected by mental or neurological disorders across their lifespans.
-Disorders of the brain rank among the leading causes of ill-health and disability and account for 35\% of Europe’s total disease burden with a yearly cost of 800 billion euros, of which 60\% are related to direct health care and non-medical costs\citep{who}. 
+Disorders of the brain rank among the leading causes of ill-health and disability and account for 35\% of Europe’s total disease burden with a yearly cost of 800 billion euros, of which 60\% are related to direct health care and non-medical costs \citep{who}. 
 \subsection{Computational Models}
 In addition to producing actions and goal directed behaviors, the mammal nervous system filters and processes signals in steps that are increasingly understood at mechanical and algorithmric levels \citep{marr1976understanding}.
 The recent success of ``deep-neural networks" and ``recurrent neural networks" is due in part to the simple application of rudimentary neural design principles to networks of computational units.
@@ -40,9 +40,9 @@ For example, in a rodent model of Alzheimer's disease, it is possible to investi
 However, the density of placement of recording electrode arrays is very limited, and so the read out of brain activity from electrode arrays is sparse.
 Immune reactivity and glial scarring may undermine the fidelity of the underlying system, and make such recordings more difficult.
 In \emph{in vitro} recordings, recorded cells are susceptible to ``run-down" \citep{colquhoun1994ion}, where the membrane of the recorded neuron membrane its ionic complement changes too much from its \emph{in vivo} conditions. 
-Cell run-down creates a small time window for learning about cells in animal experiments, fortunately, cell-run down is obviously not. problem for \emph{in-silico} models.
+Cell run-down creates a small time window for learning about cells in animal experiments, fortunately, cell-run down is obviously not a problem for \emph{in-silico} models.
 
-\emph{In-silico} model systems, e.g. computational modeling, represent an alternative approach.
+\emph{In-silico} model systems, e.g. computational models represent an alternative approach.
 Rather than simply thinking of computational models as systems of differential equations used to describe and represent the biological processes under investigation, we can think of them as experimental platforms.
 Much detail will inevitably lost, and a main assumption is that the important features of the biological processes are reflected in electrical activity, e.g. changes in membrane potential, and that other details abstracted out of the model, for example long-term changes to genes and protein expression, are not essential to understand the problem at hand.
 This assumption may be reasonable for investigations of short-time scale phenomenon (e.g. instantaneous responses to stimuli) but not longer-time scales (e.g: glial cell re-organisation associated with learning new skills \citep{draganski2008training}).
@@ -70,19 +70,19 @@ Simplifying assumptions are often needed in modeling, and the simplifying assump
 
 One could also model above the level of neurons, by creating mean-field and population models of brain tissue.
 However, this makes it difficult to understand intra-circuit computations occurring in local circuits, or to understand how a change to e.g. a single conductance might affect a behavior.
-Some also argue that spiking is necessary to reproduce some kinds of population dynamics, especially those that evade intuitive understanding.
-And model-as-simulation-platform is less compiling if the outcomes of the simulations are obvious in advance.
+Some also argue that spiking is necessary to reproduce some kinds of population dynamics, especially those that evade intuitive understanding. 
+
+% In AI, Spiking neural networks are essential for distinguishing sequential features in  temporal signals. Spiking and temporal feature discrimination are necessary for "online-learning". A machine learning paradigm where training and validation are overlapping and ongoing. In online learning Neural network models are constantly undergoing fitness re-evaluation in response to constant and changing signals from the environment. In this way a model of the external world that is fit in the morning, may become invalidated because of radical changes in the local environment by night-time, just like in mammals. For a direct analogy, consider a driver-less car that fatally crashes. A crash caused by a driverless car would cause an instant re-evaluation of the fitness of self driving algorithms. 
+
+And model-as-simulation-platform is less compelling if the outcomes of the simulations are obvious in advance.
 
 % - How are neurons modeled (i.e. math and equations)
-\subsection{Conductance Based Models}
+\subsection{Conductance-based Models}
 Conductance-based models are mathematical representations of the electrical and chemical behavior of semi-permeable neuronal membranes.
 The phospho-lipid membrane of neurons, otherwise a insulative capacitor, contains a variety of conductive pores (ion channels), each permitting the passage of specific ions at specific rates.
-These rates are determined by free energy gradients, jointly determined by transmembrane ionic concentration gradients (entropy) and on the transmembrane voltage changes adjacent to the channel (potential energy).
-Conductance-based models use orginary differential equations to represent the balance of currents and the kinetics for the gating of the channels
-%ion channels are represented as differential equations that explicitly represent the rate at which specific ionic species flow through each channel type at each location on the neuron, i.e. ionic currents.
-Conductance-based models differ in their spatial extent. In its most basic form, a conductance based model can describe an isoelectric sphere (in this case the model is so abstract that it dispenses with the notion of space in nervous tissue).
+These rates are determined by free energy gradients, jointly determined by transmembrane ionic concentration gradients (entropy) and on the transmembrane voltage changes adjacent to the channel (potential energy). Conductance-based models use ordinary differential equations to represent the balance of currents and the kinetics for the gating of the channels, where these models differ in their representation of cell geometry. Some conductance-based models represent an isoelectric patch of membrane (in this case the model is abstract and dispenses with the notion of space in nervous tissue).
 When the spatial aspects of the electrical properties of a neuron are of interest, conductance based models can be combined with a multi-compartment framework where the geometry of the neuron is "modelled", but it is approximated using coupled compartments that create systems of branching patterns \citep{rall1962electrophysiology, hodgkin1952quantitative}.
-Rall took the numerical methods used for modelling heat and electrical conductance in cables and showed that similar equations could be used to accurately predict current flow in the cable of neuron dendrite. This cable equation forms the basis for the electrical properties in the multi-compartment approach.
+Rall took the numerical methods used for modelling heat and electrical conductance in cables and showed that similar equations could be used to accurately predict current flow in a cable representing a neuron dendrite or axon. This cable equation forms the basis for the electrical properties in the multi-compartment approach.
 \\
 \begin{center}
 \begin{equation}
@@ -105,9 +105,11 @@ Clearly, there multicompartment modeling brings a large cost in simulation perfo
 \subsection{Reduced Models}
 Conductance-based models can be complex--both conceptually through implementation details and in computational demands--so it is common to employ a variety of simplifications that retain the general input/output behavior of the full model.
 These ``reduced models" ignore the precise neuron biophysics, usually retaining only the medium-time-scale (milliseconds to tens of milliseconds) dynamics, by assuming that anything faster occurs instantaneously and anything slower can be ignored.
-The 3D structure of biological cells is flattened to a point onto which currents impinge and voltages evolve over time. There is a great diversity of biological neurons, all of which differ substantially in their electrical behavior. There are a few different classes of general purpose neuronal models, that can reproduce these different types of electrical behaviours, given appropriate parameterizations of the models. A selection of key reduced models is described below.
+The 3D structure of biological cells is reduced to a point onto which currents impinge and voltages evolve over time. There is a great diversity of biological neurons, all of which differ substantially in their electrical behavior \citep{quadrato2017cell}. There are a few different classes of general purpose neuronal models that can reproduce these different types of electrical behaviours, given appropriate parameterizations of the models. A selection of key reduced models is described below.
 \subsubsection{The Leaky Integrate and Fire Model}
 %...
+
+
 \subsubsection{The Quadratic LIF Model}
 %...
 \subsubsection{The Generalized LIF Model}
@@ -177,8 +179,8 @@ While the Izhikevich model has quadratic multiplicative terms, in contrast the G
 
 Typically, a network simulation is only as fast as the slowest neuron model that is part of the network, since the next updated state of the network may depend on that neuron.
 Consequently, replacing biophysically detailed models with the reduced models described above may be required to complete simulations in a reasonable amount of time.
-However, the accuracy of these models is also paramount.
-Yet there are no reports of large numbers of reduced models with demonstrated agreement with many pieces of experimental data.
+However, the accuracy of these models in representing neuron behavior is also paramount.
+Yet there are no reports of large numbers of reduced models with demonstrated agreement with many characteristics of experimental data.
 
 Because multi-compartment conductance models represent more details about the biophysical properties of the membrane, it is tempting to think that this modelling paradigm is likely to produce models that maximally agree with data, however, newer generations of simpler models such as the GLIF model, may actually be better at recapitulating some experimental measurements \citep{meunier2002playing}.
 
@@ -246,18 +248,16 @@ A variety of numerical optimization techniques exist, where algorithm performanc
 For functions with many local minima, it is often best to broadly sample the error surface, rather than attempt a ``greedy" search for the global minimum.
 Several notable algorithms including genetic algorithms (GA, Figure \ref{fig:GeneticAlgOver}) and stochastic gradient descent (SGD) have been developed to address this use case.
 Both of these algorithms are able to avoid putting all of their "eggs" in one local minimum "basket", allowing them to discover over many iterations that a lower minimum is available.
-For example, given enough samples, a genetic algorithm will learn the global minimum of the Rastrigin's function, although it is very likely to sample wells spanning many depths of the error function on the way down.
+For example, given enough samples, a genetic algorithm will learn the global minimum of the Rastrigin's function, although it is very likely to sample wells of the error function at many depths on the way to the solution.
 
 % illustrate how a Genetic Algorithm (GA) generally works.
 \begin{figure}
 \begin{center}
-
-    \includegraphics[width=0.7\linewidth]{figures/How_Genetic_Alg_Works.png}
-  \caption[Schematic of genetic algorithm flow]{\textbf{Schematic of genetic algorithm flow.} Genetic algorithms find satisfactory solutions by incompletely sampling the solution space. Evolution of the algorithm is guided by the combined application of stochastic sampling and selective pressure. Stochastic contributions that guide GA sampling incentivise the exploration of regions beyond local minima. Stochasticity is applied in the combined actions of cross-over, and mutation. Model parameterizations are encoded as binary strings called genes. When genes breed, eligible pairs of genes are aligned and at random bit locations, the status of a bit is exchanged.  
+\includegraphics[width=0.7\linewidth]{figures/How_Genetic_Alg_Works.png}
+\caption[Schematic of genetic algorithm flow]{\textbf{Schematic of genetic algorithm flow.} Genetic algorithms (GA) find satisfactory solutions by incompletely sampling the solution space. The evolution of the algorithm is guided by the combined application of stochastic sampling and selective pressure. Stochastic contributions that guide GA sampling provide incentives for exploring regions beyond the local minima. Stochasticity is applied in the combined actions of cross-over and mutation. Model parameterizations are encoded as binary strings called genes. When genes breed, eligible pairs of genes are aligned and the status of a bit is exchanged at random bit locations.  
 }
-  \label{fig:GeneticAlgOver}
+\label{fig:GeneticAlgOver}
 \end{center}
-
 \end{figure}
   
 I use genetic algorithms in the work presented here, and while there are many variations on this approach, they all involve some combination of the following features:
@@ -276,13 +276,13 @@ A mutation reflects a (random) change to a single gene, i.e. a change to a singl
 Later in this work I will talk about a property denoted $\eta$ this property controls the magnitude or step-size of gene changes made via either mutation or cross over. In the cross-over context, $\eta$ describes how similar child chromosomes are to their parents. In the context of mutation, $\eta$ changes the location of bits (from Least Significant position to Most Significant Bit). At specified bit locations the bits that encode genes are randomly toggled on or off in mutation.
 
 \begin{figure}
-%width=0.9
 \begin{center}
 
-\includegraphics[scale=0.5]{figures/rastagrind}
-\caption[Rastrigin's function]{Rastrigin's function is a function that is challenging to optimize, as it contains hundreds of local optima which would trap a gradient descent algorithm \citep{rastrigin1974systems}.}
+%width=0.9
+%\includegraphics[scale=0.5]{figures/rastagrind}
+\includegraphics[scale=0.85]{figures/rastagrind.jpg}
+\caption[Rastrigin's function]{\textbf{Rastrigin's function} Rastrigin's function is challenging to optimize, as it contains hundreds of local optima which would trap a gradient descent algorithm \citep{rastrigin1974systems}. This function offers a paradigm for testing and examining the capabilities of an optimization algorithm.}
 \label{fig:rastrigin}
-
 \end{center}
 
 \end{figure}
@@ -312,7 +312,7 @@ The experimental data may also come from multiple data sources, leading to solut
 
 A multi-objective optimization paradigm that admits diverse sets of solutions to a list of constraints might better reflect biology, while also imposing less opinion about which measurements are most important.
 The so-called ``non-dominated sort" is one such paradigm.
-It considers each objective function separately, and only considers one chromosome to be superior to another if it ``dominates" that other, meaning that the objective function output is lower (i.e. smaller error) for each objective function.
+This approach considers each objective function separately, and only considers one chromosome to be superior to another if it ``dominates" that other, meaning that the objective function output is lower (i.e. smaller error) for each objective function.
 If even a single objective function has a larger value for the latter chromosome, then it is not dominated.  Any chromosome that is not dominated by any other chromosome is considered ``non-dominated" and is retained (i.e. for mutation, cross-over, or elitist selection) into the next generation.
 
 The non-dominated set of chromosomes has a simple interpretation: each of its members would minimize a single, weighted objective function for some set of weights.
@@ -393,7 +393,7 @@ More relevant to reduced models, even very basic information about spiking patte
 However, since most fast numerical methods are incompatible with missing data, an additional component of model development--especially in the context of optimization--remains, which is the synthesis of plausible missing values.
 
 \subsection{Closed Loop Development}
-The speed of simulation is critical to successful optimization. However, even when using High Performance Computing (HPC) resources, errors may arise and require special handling or visualizations to diagnose.  These errors may even reveal that the model is mis-specified, but this may not be revealed until thousands of simulations have already run.
+The speed of simulation is critical to successful optimization. However, even when using High Performance Computing (HPC) resources, errors may arise and require special handling or visualizations to diagnose.  These errors may even reveal errors in the model specification, but this may not be revealed until thousands of simulations have already run.
 The ability to address and correct such mistakes requires rapid and verbose feedback during optimization, as well as simulations of sufficient speed to allow error "breakpoints" to be reached in a reasonable amount of time.
 
 \subsection{Successful Optimization} 
@@ -425,5 +425,5 @@ Additionally, the Brian2 simulator supports some model fitting
 
 %To the best of my knowledge few or no python modules exist for the optimization of generic reduced neuronal models, that also optimize spike shape. 
 
-Some core components of the optimization procedure detailed here do not deviate from those described elsewhere \citep{druckmann2008evaluating,bluepyopt}. Both of these optimization approaches use a multi-objective feature-based framework; however, there are several key differences. Critically, in this work we fit reduced models instead of conductance-based models, and this work seeks to formalize the quality of fits using Z-score, $\chi^{2}$ distributions, allowing us to compare the overall quality of data driven fits within and between model types. This allows us to answer questions such as: ``Does one model type lead to better fits?" and ``Are some \emph{in vivo} neuron measurements outside of the reduced model parameter scope?" %intended range for example a=[0.1,5]. Outside a>=5.1
+Some core components of the optimization procedure detailed here do not deviate from those described elsewhere \citep{druckmann2008evaluating,bluepyopt}. These established optimization approaches use a multi-objective feature-based framework; however, there are several key differences. Critically, in this work we fit reduced models instead of conductance-based models, and this work seeks to formalize the quality of fits using Z-score, $\chi^{2}$ distributions, allowing us to compare the overall quality of data driven fits within and between model types. This allows us to answer questions such as: ``Does one model type lead to better fits?" and ``Are some \emph{in vivo} neuron measurements outside of the reduced model parameter's intended range?" %intended range for example a=[0.1,5]. Outside a>=5.1
 Additionally, in this body of research we fit models using a novel range of electrical properties. One such property is the firing rate versus current (FI) slope, which is chosen to guide optimization because it produces models that are believed to be pre-tuned for use in networks. Models that fit the same FI-slope have the ability to fire at prescribed rates for a given amount of excitatory current. It is important that network neurons are calibrated in this respect, such that the behavior of the modelled network has  balanced firing rates and realistic interspike intervals.

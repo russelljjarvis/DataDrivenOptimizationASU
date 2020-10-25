@@ -1,53 +1,48 @@
 \documentclass[12pt,letterpaper]{report}
-\usepackage{natbib}
-\usepackage{geometry}
-\usepackage{fancyhdr}
-\usepackage{afterpage}
-\usepackage{graphicx}
-\usepackage{amsmath,amssymb,amsbsy}
-\usepackage{dcolumn,array}
-\usepackage{tocloft}
-\usepackage{asudis}
-\usepackage{graphicx}
-%\usepackage{subfigure}
-\usepackage{tcolorbox}
-\usepackage{hyperref}
-\usepackage{sectsty}
-\usepackage{caption,setspace}
-\captionsetup{font={large,stretch=1.3}}
 \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
-
-\usepackage[font=singlespacing]{caption}
-
 \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+\usepackage{array}
+\usepackage{afterpage}
+\usepackage{amsmath,amssymb,amsbsy}
+\usepackage{booktabs}
+\usepackage[font=doublespacing,font=footnotesize]{caption}
+%\captionsetup{font={large,stretch=1.3}}
+\usepackage{comment}
+\usepackage{courier}
+\usepackage{dcolumn}
+\usepackage{enumerate} % Needed for markdown enumerations to work
+\usepackage{eurosym} % defines \euro
+\usepackage{fancyhdr}
+\usepackage{fancyvrb} % verbatim replacement that allows latex
 \usepackage{float}
 \floatplacement{figure}{H} % forces figures to be placed at the correct location
-\usepackage{xcolor} % Allow colors to be defined
-\usepackage{enumerate} % Needed for markdown enumerations to work
-\usepackage{geometry} % Used to adjust the document margins
-\usepackage{amsmath} % Equations
-\usepackage{amssymb} % Equations
+\usepackage{geometry}
+\usepackage{tocloft}
+\usepackage{natbib}
+\usepackage{asudis}
+\usepackage{graphicx}
+\usepackage{grffile} % extends the file name processing of package graphics 
+\usepackage{hyperref}
+\usepackage{listings}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=0pt,frame=single}
+\usepackage{longtable}
+\usepackage{minted}
+
+\usepackage{sectsty}
+%\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
 \usepackage{textcomp} % defines textquotesingle
+
+\usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+\usepackage{upquote} % Upright quotes for verbatim code
+\usepackage{xcolor} % Allow colors to be defined
+
 % Hack from http://tex.stackexchange.com/a/47451/13684:
 \AtBeginDocument{%
     \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
 }
-\usepackage{upquote} % Upright quotes for verbatim code
-\usepackage{eurosym} % defines \euro
-\usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
-\usepackage{fancyvrb} % verbatim replacement that allows latex
-\usepackage{grffile} % extends the file name processing of package graphics 
-\usepackage{longtable}
-\usepackage{graphicx}
-\usepackage{siunitx}
-\usepackage{booktabs}
-\usepackage{comment}
-\usepackage{listings}
-\usepackage{courier}
-\usepackage{minted}
-
-\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
-\lstset{framextopmargin=0pt,frame=single}
 
 \begin{document}
 \pagenumbering{arabic}
@@ -65,37 +60,25 @@
 \memberFour{ }
 
 \maketitle
-\include{abstract}
+\include{chapters/abstract}
 \dedicationpage{\input{chapters/acknowledgements}}
 \include{ack}
 \tableofcontents
-% This puts the word "Page" right justified above everything else.
 \addtocontents{toc}{~\hfill Page\par}
-% Asking LaTeX for a new page here guarantees that the LOF is on a separate page
-% after the TOC ends.
 \newpage
-% Making the LOT and LOF "parts" rather than chapters gets them indented at
-% level -1 according to the chart: top of page 4 of the document at
-% ftp://tug.ctan.org/pub/tex-archive/macros/latex/contrib/tocloft/tocloft.pdf
 \addcontentsline{toc}{part}{LIST OF TABLES}
 \renewcommand{\cftlabel}{Table}
 \listoftables
-% This gets the headers for the LOT right on the first page.  Subsequent pages
-% are handled by the fancyhdr code in the asudis.sty file.
 \addtocontents{lot}{Table~\hfill Page \par}
 \newpage
 \addcontentsline{toc}{part}{LIST OF FIGURES}
 \addtocontents{toc}{CHAPTER \par}
 \renewcommand{\cftlabel}{Figure}
 \listoffigures
-% This gets the headers for the LOF right on the first page.  Subsequent pages
-% are handled by the fancyhdr code in the asudis.sty file.
 \addtocontents{lof}{Figure~\hfill Page \par}
-%-----------------------body
-%\doublespace
 \setcounter{secnumdepth}{5}
-
 \allsectionsfont{\raggedright}
+
 \include{chapters/introduction}
 \include{chapters/methods}
 \include{chapters/results}
@@ -103,12 +86,10 @@
 \include{chapters/appendix}
 
 {\singlespace
-% Making the references a "part" rather than a chapter gets it indented at
-% level -1 according to the chart: top of page 4 of the document at
-% ftp://tug.ctan.org/pub/tex-archive/macros/latex/contrib/tocloft/tocloft.pdf
 \addcontentsline{toc}{part}{REFERENCES}
 \bibliographystyle{chapters/asudis}
 \bibliography{chapters/dis}}
+
 \renewcommand{\chaptername}{APPENDIX}
 \addtocontents{toc}{APPENDIX \par}
 \appendix

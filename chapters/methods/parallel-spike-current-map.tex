@@ -49,7 +49,7 @@ As architectures with hundreds of cores are now common, speedups of 7-10 fold ar
 \begin{figure}    
   \begin{center}
   \includegraphics[width=0.9\linewidth]{{figures/rheobase_algorithm.png}}
-    \caption[Parallel rheobase algorithm]{I developed a generic algorithm which found the minimal current injection value that would cause only one spike (rheobase). While the would normal proceed by brute force or binary search, I implemented an N-ary search that used multiple parallel simulations to more rapidly identify the rheobase. This lead to significant speed-ups for testing and optimization in all models.}
+    \caption[Parallel rheobase algorithm]{\textbf{Parallel Rheobase Algorithm.} I developed a generic algorithm which finds the minimal current injection value needed for one spike (rheobase). Rather than a brute force or binary search, I implemented an N-ary search that uses multiple parallel simulations to rapidly identify the rheobase. This leads to significant speed-ups for testing and optimization in all models.}
     \label{fig:rheobase}
   \end{center}
 \end{figure} 

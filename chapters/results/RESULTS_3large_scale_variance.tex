@@ -2,11 +2,19 @@
 %3. Study of variance between models and data.  The optimized models part of this section is predicated on result 1b (so that optimization results can be believed).  You already have the poster for this.
 %I think this captures most of your results in three themes.  Other results which are really methods, like parallel rheobase search, can stay in the methods, and you will get credit for them there.
 
-\section{Published models vs optimized models}
+\section{Published Models vs Optimized Models}
 \label{sec:optimizing-published-models}
-It is known that neural models and experimental measurements generally diverge in important ways, however, it is desirable to know the specific sources of divergence. Models and experiments may disagree for two reasons: \emph{A} the model is not flexible enough to satisfy a particular constraint simultaneously to a collection of constraints, or, \emph{B} the model was incorrectly fitted to the a type of conflicting constraints (for example model fitted to spike times at the expense of Rheobase, and FISlope). 
+Neural models and real neurons may have divergent features.
+Ideally, we would identify such features and modify the parameters (or form) of the models to eliminate this divergence.
+This divergence may arise for two reasons: \emph{A} the model class was not flexible enough to simultaneously satisfy all of the constraints associated with those features, or \emph{B}: the model was incorrectly fitted to constraints that are inherently conflicting, due to issues in the underlying experimental data (see results for NeuroElectro data in previous sections).
 
-Since we don't yet have complete knowledge of model/experiment divergence, we don't necessarily know the best features to target with regards to model fitting. Specific knowledge of model/data disagreement facilitates the prioritized selection of features that should guide optimization. 
+In the absence of complete knowledge about the sources of model/experiment divergence for a given model, it is unknown which features should be used to fix the problem.
+Modifying parameters to bring some features into alignment with experimental data may cause other features to fall out of alignment.
+Ideally, we would identify that subset of features which, when handed to the optimizer, would produce a model which satisfies not only that feature subset, but all other features as well. 
+
+I presented some features of membrane potential waveforms back in Section  \ref{sec:data-sources}.
+Here I conducted a multivariate analysis analyzing hundreds of such features, asking which were useful for optimizing published neuron models to better reflect experimental data.
+This high dimensional feature space is then summarized by a lower-dimensional subspace of key features on which optimized models differ from their pre-optimized published counterparts, as well as from experimental data.
 
 %\begin{figure}
 %    \centering
@@ -36,60 +44,20 @@ Since we don't yet have complete knowledge of model/experiment divergence, we do
 %    \label{fig:sag_amplitude}
 %\end{figure}
 
-
-\subsection{Features} 
-
-For many of these features it will be useful to refer back to the methods \ref{sec:data_sources} section, where I some key features were depicted. 
-
-Consider a voltage recording at the location of the membrane of a neuron. Teams of researchers have already segmented voltage recordings into labelled sections, each section has a classification that is based on the shape of waveform in a limited region see figure \ref{fig:voltage_figures} for example. Rather than specifying by name each measurement it is often useful to refer collectively to these measurable shapes as "features". 
-
-In the following multivariate analysis we analyze hundreds of such features, and we summarize important differences in a subset of this high dimensional feature space.  Below, I describe some neuronal model features that agreed well with experiments, and some features that diverged.
-
-
-\subsection{Publications Associated with Model Sources}
-$972$ models, $448$ experiments.
+\subsection{Models and Features} 
+In order to conduct this analysis I used $972$ neuron models found in NeuroML-DB \citep{} and $448$ experiments on cortical neurons \emph{in vitro} from \cite{gouwens2018systematic} (example in Fig. \ref{fig:adaptionm}) and \cite{markram2006blue} (example in Fig. \ref{fig:bbp_trace_adaption_late_spike}).
 $1276$ samples. This did not include some blue brain cells. After data cleaning many data points were dropped.  $244$
 $1420$
-
-
-Allen Institute for Brain Science Cell Types Database \citep{celltypes} can be accessed using the SDK.
-The Blue Brain Project Dataset \citep{toledo} can be obtained from the Data Navigator, or an API.
-
-\begin{itemize}
-\item Allen Institute V1 \cite{gouwens2018systematic}
-\item Somatosensory Cortex \cite{markram2006blue} 
-\end{itemize}
-
-\subsubsection{Feature Extraction Libraries}
-\begin{table}
-\centering
-%\resizebox{\textwidth}{!}{
-\begin{tabular}{lll}
-%\toprule
-{} EFEL Ephys Feature Extraction Library & AllenSDK & Druckmann (2012) 
-%\bottomrule
-\end{tabular}
-%}
-\end{table}
-
-
-
-
-%\begin{tabular}{lll}
-%\toprule
-%{} Injection 1 & Injection 2 & %Injection 3 \\
-% at $1.0 \times$ Rheobase & at $1.5 %\times$ Rheobase & at $3.0 \times$ %Rheobase 
-%\bottomrule
-%\end{tabular}
-
-
-
+Although missing data imputation was used successfully to fill out the dataset, handling features that could not be fully imputed based on the available waveforms, about half of all initial models and experiments were nonetheless excluded from a final analysis, because they did not all capable of meeting inclusion criteria.
+These include straightforward rules such as ``does this neuron exhibit spikes?", but also requirements about which stimuli were tested, and whether these were appropriate for computing the features that I used. 
+Ultimately, \ref{fig:reference_feature_list}
+47 features were used for the subsequent analysis (out of a total of 466 from the initial list that are technically computable in some scenarios).
 
 %\includegraphics[]{chapters/app_tex/Allen_rush}
 \begin{figure}
     \begin{center}
     \includegraphics[width=0.6\linewidth]{figures/multi_spiking_large_allen}
-    \caption{A voltage recording from a supra-threshold experiment waveform used as a basis for the Allen Brain Institute cell types data base. Publication Gouwens rat \citep{gouwens2018systematic}}
+    \caption[Example from Cell Types Database]{A voltage recording from a supra-threshold experiment waveform used as a basis for the Allen Brain Institute cell types data base. Publication Gouwens rat \citep{gouwens2018systematic}}
     \label{fig:adaptionm}
     \end{center}
 \end{figure}    
@@ -97,45 +65,64 @@ The Blue Brain Project Dataset \citep{toledo} can be obtained from the Data Navi
 \begin{figure}  
     \begin{center}
     \includegraphics[width=0.6\linewidth]{figures/multi_spiking_large_bbp}
-    \caption{Another example of a supra threshold experimental protocol. Publication Jouvanile rat \citep{toledo}}
+    \caption[Example from BBP]{Another example of a supra threshold experimental protocol. Publication Jouvanile rat \citep{toledo}}
     \label{fig:bbp_trace_adaption_late_spike}
     \end{center}
 \end{figure}    
 
-In order to identify electrical measurements or "features" that were responsible for the most variance in models and in-vitro, we performed Sparse Principle Component Analysis \citep{zou2006sparse} on the combined pool of model and \emph{in vitro} experiments. 
-
-\subsection{Sources of Model/Experiment Disagreement}
-The key advantage of using sparse PCA is the results are readily interpret able. 
-A common sceanario in regular Principal Component Analysis is you may obtain a low dimensional embedding plot made from unit rotation vectors that maximize variance, but no way of relating the reduced dimensions back to the sources of variance in the system of interest. 
-
-Sparse PCA yields an interpretable list of features, that build the principle components.
-This list of features is ranked and sorted with respect to their total contributions to the Eigen Vectors. Since two Eigen Vectors where made these are.
-
-Principle component 1 had non zero loadings for ranked (highest to lowest).
-The first Eigen Vector does not facilitate discrimination between models and experiments, but the second Eigen Vector spaces models and experiments into three seperate clusters.
+I applied feature extraction to the raw data from these experiments, using 3 approaches, which I adapted to NeuronUnit: (1) EFEL, developed by the Human Brain Project and described in section \ref{XXXX}, (2) the Allen Institute SDK, developed as a companion to the Cell Types Database (but not exclusively so) and (3) \cite{druckman-2013}, a general-purpose set of features for spike pattern analysis, as previously implemented for NeuronUnit in \cite{birgiolas2019towards}.
+A common patterns was to apply somatic current injection at fixed multiples of rheobase, and extract features from the resulting spike patterns (Table \ref{table:three-step-stim}).
 
 \begin{table}
-\begin{tabular}{lll}
+\begin{tabular}{ccc}
 \toprule
 {} Injection 1 & Injection 2 & Injection 3 \\
- at $1.0 \times$ Rheobase & at $1.5 \times$ Rheobase & at $3.0 \times$ Rheobase 
-
+ \midrule
+ $1.0 \times$ Rheobase & $1.5 \times$ Rheobase & $3.0 \times$ Rheobase \\
+\bottomrule
 \end{tabular}
 \caption[Model Specific, Three Step Stimulus Protocol]{Under the three step protocol rheobase current is determined uniquely for each model or experiment. Then mutiples of rheobase are applied for two increasingly stronger rheobase strengths at $\times 1.5$ and $\times 3.0 Rheobase$.
 In experiments these protocols had already been run, but a re-organising of those preexisting experiments was required in order to make the experiments consistent with the model evaluation scheme.}
+\label{table:three-step-stim}
 \end{table}
 
-Principle component 2 had non zero loadings for ranked (highest to lowest)
+\subsection{Identification of Salient Features}
+In order to identify the electrophysiological measurements or ``features" that characterized variance in the models and the experimental data, as well as their differences, I performed Sparse Principle Component Analysis (Sparse PCA) \citep{zou2006sparse} on the ensemble.
+Sparse PCA, unlike conventional PCA, yields readily interpretable components, each of which includes only a handful of features, rather than an indecipherable mix of all possible features. 
+A low-dimensional embedding of models and data can then be obtained by re-plotting their features along the principal axes suggested by these components.
+Sparse PCA yields an interpretable list of features, that build the principle components.
+
+The non-zero loadings of Principle Component 1 are shown in Table \ref{table:spca-component1}.
+This principal component did not distinguish between models and experiments, instead capturing a source of variance that was common to both of them.
+By contrast, the second Principal Component discriminated models and experiments, indicating that it had captured some systematic difference between most published models and the experimental data for similar (but not necessarily the same) neurons.
+It's non-zero loadings are shown in Table \ref{table:spca-component2}.
+Models and experiments shared the same breadth of variability across the first principal component, with only slightly more variance in the experiments than in the data.
+Allen Cell Types Database experiments exhibited the greatest variability out of all models and experiments (Figure \ref{fig:pca_data_points}).
+Altogether, these two principal components were sufficient to partition models and data into three separate clusters (right panel in Figure \label{fig:pca_data_points}).
+The full set of PCs are shown in Figure \ref{fig:spca-heatmap}.
+Perhaps surprisingly, models clustered tightly and varied less than experimental data--one subset of Allen Cell Types database experiments even formed their own cluster--suggesting that perhaps past modeling efforts have been insufficiently bold in accounting for the diversity of cortical neuron types.
+
+\begin{figure}    
+    \begin{center}
+    \includegraphics[scale=0.75]{figures/cortical_model_data_agreement_54_1.png}
+    \caption[Sparse PCA Components]{Component Loadings used for a Sparse PCA decomposition of models and data.
+    Features are organized hierarchically, such that features with similar PC loadings are near each other.}
+%fast_trough_indexes : numpy array of indexes at the start of the trough (i.e. end of the spike)
+%adp_indexes : numpy array of adp indexes (np.nan if there was no ADP in that ISI
+%slow_trough_indexes : numpy array of indexes at the minimum of the slow phase of the trough
+    \end{center}
+    \label{fig:spca-heatmap}
+\end{figure}    
+
 \begin{table}
 \resizebox{\textwidth}{!}{
 \begin{tabular}{llll}
 \toprule
-
 Feature Name & Feature Description & Extraction Library &  Stimulus Strength \\
  upstroke-t & The time of upstrokes, this is the below $V_{T}$ first upward phase of AP & Allen & $1.5 \times$ Rheobase\\
  peak-t & Time(s) maximum $V_{M}$ occurs & Allen & $1.5 \times$ Rheobase \\
 threshold-t & Time(s) $V_{T}$ is surpassed & Allen & $1.5 \times$ Rheobase \\
-fast-trough-t & Description & Allen & $1.5 \times$ Rheobase \\ 
+fast-trough-t & the times when when begginings of troughs were detected & Allen & $1.5 \times$ Rheobase \\ 
 fast-trough-t & Same as above but at $3 \times$ Rheobase & Allen & $3.0 \times$ Rheobase \\
 upstroke-t & Same as above but at $3 \times$ Rheobase & Allen & $3.0 \times$ Rheobase \\ 
 peak-t & Same as above but at $3 \times$ Rheobase &Allen & $3.0 \times$ Rheobase \\ 
@@ -146,7 +133,7 @@ min-AHP-indices & Indexs into array where minimum After Hyperpolarisation occur 
 \end{tabular}
 }
 \caption[Features of first principal component in sparse PCA]{Features of first principal component in sparse PCA. It is notable that Principle component one described variance, common to both models and experiments, it did not seperate models and experiments into different clusters.}
-
+\label{table:spca-component1}
 \end{table}
 
 \begin{table}
@@ -154,26 +141,27 @@ min-AHP-indices & Indexs into array where minimum After Hyperpolarisation occur 
 \begin{tabular}{llll}
 \toprule
 Feature Name & Feature Description & Extraction Library  & Stimulus Strength \\
-fast-trough-index & Description & Allen & $1.5 \times$ Rheobase\\
-peak-index-1.5x & Description & Allen & $1.5 \times$ Rheobase \\
-upstroke-index-1.5x & Description & Allen & $1.5 \times$ Rheobase \\
+fast-trough-index & Index into array when begging of trough occurs & Allen & $1.5 \times$ Rheobase\\
+peak-index-1.5x & Index into array when peaks occurs & Allen & $1.5 \times$ Rheobase \\
+upstroke-index-1.5x & index into array of detection of first upward phase of AP & Allen & $1.5 \times$ Rheobase \\
 threshold-index-1.5x & Description & Allen & $1.5 \times$ Rheobase \\ 
-fast-trough-time & Description & Allen & $1.5 \times$ Rheobase \\
-fast-trough-index-3.0x & Description & Allen & $3.0 \times$ Rheobase \\ 
-peak-index-3.0x & Description & Allen & $3.0 \times$ Rheobase \\
-upstroke-index-3.0x & Description & Allen & $3.0 \times$ Rheobase \\ 
-threshold-index-3.0x & Description & Allen & $3.0 \times$ Rheobase \\
+fast-trough-time & The time when a trough is commenced & Allen & $1.5 \times$ Rheobase \\
+fast-trough-index & Indexs into array when the start of a trough is entered & Allen & $3.0 \times$ Rheobase \\ 
+peak-index & indexs into array when voltage peak(s) occur & Allen & $3.0 \times$ Rheobase \\
+upstroke-index & Index into array when first upward phase of a spike commences & Allen & $3.0 \times$ Rheobase \\ 
+threshold-index & Index into array when threshold(s) are surpassed & Allen & $3.0 \times$ Rheobase \\
 \bottomrule
 \end{tabular}}
 \caption[Features of second principal component in sparse PCA]{Features of second principal component in sparse PCA. It is notable that mainly these features contributed to the seperation of model and experiment clusters}
+\label{table:spca-component2}
 \end{table}
 
-Adaptation index 1 and adaptation 2 are the same but adaptation 2 evaluates for when there are skipped peaks. A skipped peak is when a spike or a spiklet does not surpass the nominated threshold for spike detection. 
+%Adaptation index 1 and adaptation 2 are the same but adaptation 2 evaluates for when there are skipped peaks. A skipped peak is when a spike or a spiklet does not surpass the nominated threshold for spike detection. 
 
 %The parameter \myid{spike skipf} is the fraction of skipped peaks, $k$ is the minimum of \myid{spike skipf} times $N$ and \myid{max spike skip}.
 
 % FAIL "Minimum 4 spike needed for feature [adaptation\_index]." \- \\
-The adaptation index is defined as "the Normalized average difference of two consecutive ISIs". "The adaptation index is zero for a constant firing rate and bigger than zero for a decreasing firing rate \citep{EFEL}"
+%The adaptation index is defined as "the Normalized average difference of two consecutive ISIs". "The adaptation index is zero for a constant firing rate and bigger than zero for a decreasing firing rate \citep{EFEL}"
 
   %All peaks in the time interval of \myid{stim start}$-$\myid{offset} and \myid{stim end}$+$\myid{offset} are regarded, \myid{offset} defaults to zero.
   
@@ -189,42 +177,21 @@ The adaptation index is defined as "the Normalized average difference of two con
 %  sum$_0$, \ldots, sum$_{i-1} =$ isi$_1 +$ isi$_0$, \ldots, isi$_{j-1} +$ isi$_{j-2}$ \\
 %  APPEND $\frac{1}{i-1} \sum_{n=0}^{i-1} \frac{\mathrm{sub}_n}{\mathrm{sum}_n}$ TO adaptation\_index}
  % All peaks in the time interval of \myid{stim start}$-$\myid{offset} and \myid{stim end}$+$\myid{offset} are regarded, \myid{offset} defaults to zero.
-The adaptation index is zero for a constant firing rate and bigger than zero for a decreasing firing rate:
+%The adaptation index is zero for a constant firing rate and bigger than zero for a decreasing firing rate:
   
-
-
 %Adaptation index 2  {Normalized average difference of two consecutive ISIs}
 
 % The parameter \myid{spike skipf} is the fraction of skipped peaks, $k$ is the minimum of \myid{spike skipf} times $N$ and \myid{max spike skip}.
 
-\url{https://github.com/BlueBrain/eFEL/blob/master/docs/source/tex/efeatures.tex#L382}
+%\url{https://github.com/BlueBrain/eFEL/blob/master/docs/source/tex/efeatures.tex#L382}
 
-These are the weighted features that were used to make Eigen vectors 1 and 2, are responsible for most of the variance. Interestingly these features mostly belong to the Allen SDK feature extraction set, with two exceptions: $peak-indices-1.5x$ $min-AHP-indices-1.5 \times$ belonging to EFEL efel 
-
-%Move to Discussion 
-Another observation is that a small majority of features used to create the sparse Eigen Vectors, are in the range of $1.5 \times$  rheobase, and slightly fewer are features from a $3.0\times$ rheobase experiment. A reason for this is as follows, larger spike time variability $C_{V}$ is expressed in intermediate ranges of current injection. Under the highest current injections, high frequency evenly spaced spikes are likely, although spike frequency adaption is possible, the higher current may force to spikes to occur promptly after their refractory period, and in this case you might observe diminishing amplitude of spikes with increasing stimulus duration.
-
-At $1.5 \times rheobase $ I believe there to be more spike time variation, at $3.0 \times rheobase $  I believe there to be more spike amplitude variation.
-
-\subsection{Sparse PCA}
-
-
-%The first principle component 
-Models and experiments shared the same breadth of variability across the first principal component, with only slightly more variance in the experiments than in the data. Allen cell types experiments seemed to encompass the most variability out of models and experiments across all data sets see the right figure inset in \ref{fig:pca_data_points}. Models clustered tightly and varied less than in vitro experiments. There was one group of Allen cell type experiments that clustered on their own, making one set of the cluster.
-
-
-Although imputation was successfully used to avoid dropping a large number of samples, about half of all initial BBP/Allen models data types were excluded from a final analysis, because they did not all capable of meeting inclusion criteria.  
-
-\ref{fig:reference_feature_list}
-List of complete 47 features used in the analysis down from 466 after data cleaning.
-
-Sparse PCA 2nd Eigen Vector. 
-Disagreement between models and in-vivo neurons may reflect limitations of model design and can be investigated by probing the key features used by classifiers to distinguish these two populations. 
+Of the dozens of features considered, the features described in the table above make up the first two prinicipal components of sparse PCA decomposition, and are responsible for $\sim 50\%$ of the overall variance (left panel in Fig. \label{fig:pca_data_points}) in the ensemble of models and data.
+Interestingly these features mostly belong to the Allen SDK feature extraction set, with two exceptions: $peak-indices-1.5x$  and $min-AHP-indices-1.5 \times$ which belong to EFEL.
+This suggests that the Allen SDK might be nearly sufficient for both characterizing and discriminating between existing models and data.
 
 \begin{figure}    
 \begin{center} \includegraphics[width=1.0\linewidth]{figures/cortical_model_data_agreement_52_1}
-    \caption[Is this visible]{}
-    \label{fig:}
+\label{fig:}
 \end{center}
 \caption[Sparse PCA, variance explained, 1st and 2nd Principal Components]{Sparse PCA revealed five overlapping different groups of neuronal identity's, and three non overlapping clusters. Models and experiments clustered separately to each other in the low dimensional space. Models and data were easily separable in the direction of the 2nd Eigen Vector.}
 \label{fig:pca_data_points}
@@ -233,18 +200,42 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
 
 
 \begin{figure}    
-    \begin{center}
-    \includegraphics[scale=0.75]{figures/cortical_model_data_agreement_54_1.png}
-    \caption[Component Loadings used to make Eigen Vectors of sparse PCA]{}
-    
-    
-    
-%fast_trough_indexes : numpy array of indexes at the start of the trough (i.e. end of the spike)
-%adp_indexes : numpy array of adp indexes (np.nan if there was no ADP in that ISI
-%slow_trough_indexes : numpy array of indexes at the minimum of the slow phase of the trough
-    \end{center}
+\begin{center} \includegraphics[width=0.75\linewidth]{figures/optimized_model_fit_onto_big_distribution.png}
+    \label{fig:}
+\end{center}
+\caption[A TSNE Low Spatial Embedding Optimized Models]{A TSNE spatial embedding, showing how optimized models, fair relative to other published models. Looking at this plot, the first interpretation is one of great optimism. Other interpretations are possible.}
+\label{fig:tsne_opt_model_points}
 \end{figure}    
-\cite{wang2019sag}
+
+\begin{figure}    
+\begin{center} \includegraphics[width=0.75\linewidth]{figures/data_experiment_fits.png}
+    \label{fig:}
+\end{center}
+\caption[PCA clustering]{Data Points}
+\label{fig:pca_cluster}
+\end{figure}    
+
+
+In the figures ( \ref{fig:tsne_opt_model_points} and \ref{fig:pca_cluster
+}). I have projected pre-optimized models into the same low dimensional embeddings, given by some dimensionality reduction algorithms. The advantage of such plots is that in theory they provide a seperate and indipendent means of validating models outside of the neuronunit-Zscore frame work. Additionally they provide a means to e valuate generality of model fits, as the models here where only optimized against 8 different Neuroelectro tests (of at or below threshold behaviors), in this new context, those same cells are now being compared against 48 different spike-train-shape features.
+
+Inspecting In the figures ( \ref{fig:tsne_opt_model_points} and \ref{fig:pca_cluster
+}). It looks as if optimized (Izhikevich) models, are better fits for experimental data, than many pre-published models, since the optimized models (yellow) are clustered with the experiments (green). There are some important caveats that make drawing strong optimistic conclusions hard. The first caveat is that at this point, about 50\% of rows, had many absent features that where filled with $0s$, the rest had significantly normal values in the missing features. This artifact artificially boosted variance in several features, that realistically lacked variance. Once the zeros where identified and imputed, other real sources of variance in the data were much more highly weighted in their contribution to PCA transformation. With other variance sources now weighted more highly, the optimized cells where repositioned more distant from the experimental cluster.
+
+% In the low dimensional embedding, could  optimized reduced models where plotted
+
+% Unfortunately there were some confounding factors.
+
+
+A small majority of features identified by sparse PCA are derived from the $1.5 \times$ rheobase stimulus, slightly fewer are from the $3.0\times$ rheobase stimulus.
+This may be because spike time and spike count variability in the most sensitive (highest slope) part of the FI curve, slightly above rheobase, is greater than under the highest current injections, where the neuron is much close to responding as quickly as possible (i.e. near its absolute refractory period).
+
+\subsection{What distinguishes published models from experimental data}
+Disagreement between models and real neurons may reflect limitations of model design and can be investigated by probing the features identified by a classifiers trained to distinguish these two populations. 
+Figure \ref{fig:from-poster_disagree} shows the distributions of two features for models (red) and for experimental data (blue).
+Rather than the distributions being separable, the major observation is that the distribution of these features across published models is simply much narrower.
+The diversity of feature values in real neurons is simply not being adequately captured by published models.
+%\cite{wang2019sag}
 
 \begin{figure}
     \centering
@@ -252,10 +243,8 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
     \caption[Features that disagree. Slow Trough indexs, from the Allen cell types feature extraction]{The sparse PCA graph is very abstract, it's important to understand that much variance found by the sparse PCA algorithm originates from differences between model distributions and experiment distributions Simple stacked histograms of data are able to show such differences. By "Fast" in fast trough indexs, all that is meant is the beginning time of troughs occurrence, this would contrast with the "slow" or ending time of the spikes. This is arguably a bad naming scheme.
     \url{https://allensdk.readthedocs.io/en/latest/allensdk.ephys.ephys_features.html}
     }
-        \label{fig:from_poster_disagree}
+    \label{fig:from_poster_disagree}
 \end{figure}
-
-
 
 \begin{comment}
 \begin{itemize}
@@ -284,8 +273,8 @@ Disagreement between models and in-vivo neurons may reflect limitations of model
 %    \item threshold\_index\_3.0x allen feature
 %\end{itemize}
 
-After identifying specific sources of model and experiment divergence, it is now possible in theory to start fitting models which seek to resolve specific types of disagreement.
-However, as alluded to in the introduction, it was found that were two other important factors. 
+%After identifying specific sources of model and experiment divergence, it is %now possible in theory to start fitting models which seek to resolve specific %types of disagreement.
+%However, as alluded to in the introduction, it was found that were two other %important factors. 
 
 %Model repurposing is common and it is done on a network scale \cite{traub} and an individual cell scale.
 %Experimental evidence is starting to reveal that model re-purposing of pyramidal neurons might not be a good idea.

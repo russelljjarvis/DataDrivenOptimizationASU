@@ -1,15 +1,15 @@
 \chapter{Methods}
-In addition to the deployment of existing methods to achieve my research goals, this dissertation contains a number of innovations which are best described as methodological.  I include some of these innovations here, especially those of an extremely technical nature.  Some other methodological innovations, especially those of more interest to the computational neuroscience community, are reported later in the Results chapters.
+In addition to the deployment of existing methods to achieve my research goals, this dissertation contains a number of innovations which are best described as methodological.  I include some of these innovations here, especially those of an extremely technical nature.  Some other methodological innovations, especially those of more interest to the computational neuroscience community, are reported later in Results.
 
 \section{Approach to Optimization using NeuronUnit}
 Model optimization follows the following basic approach:
 \begin{enumerate}
 	\item Identify a model class whose parameters are to be optimized, e.g. the Izhikevich model.
-	\item Identify a neuron whose experimental data will be used to guide optimization.
-	\item Identify a suite of tests that can use that experimental data to guide the optimizer.
+	\item Identify experimental data associated with a neuron that will be used to guide optimization.
+	\item Identify a suite of tests that can use the experimental data to guide the optimizer.
 	\item Execute optimization of that model class against that suite of tests to return an optimized model.
 \end{enumerate}
-Within these steps are also a number of smaller decisions, including where the experimental data will be obtained and what kind of simulator will be used to run the model.
+Within these steps are a number of smaller decisions, including where the experimental data will be obtained and what kind of simulator will be used to run the model.
 Using NeuronUnit, the steps above take the follow pseudo-code form:
 \clearpage
 %\begin{lstlisting}[language=python]
@@ -32,7 +32,7 @@ test_suite = TestSuite([test1, test2])
 optimized_model = test_suite.optimize(MyModelClass)
 \end{minted}
 
-This was the approach used to get the majority of results in this work, however some other important results where obtain using a second code pattern, which is stated in the appendix \ref{code:idiom2}.
+This approach was used to obtain the majority of results in this work; however, some other important results were obtained using a second equally import code pattern, which is stated in the appendix. \ref{code:idiom2}.
 %\end{lstlisting}
 
 %\input{chapters/methods/model_implementation_assesment}

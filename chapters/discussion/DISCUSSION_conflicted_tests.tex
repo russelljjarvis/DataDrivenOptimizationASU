@@ -1,3 +1,12 @@
+\section{Conflicting Optimization Constraints}
+
+\subsection{Conflicts in Models Between Experimental Constraints}
+
+I identified multiple conflicts between features used for optimization.
+In some cases, the conflicts may arise from limitations of the model, i.e. the model may lack the richness to lie at precisely the points in features space that some real neurons lie in.
+However, I found that even for biophysically detailed neuron models, this limitation was sometimes still observed.
+Thus, there must be some other source of these conflicts, which I identified as a conceptual pitfall in optimization: feature values computed from the mean of the corresponding features across many neurons (as in NeuroElectro) may not actually describe any real, single neuron (or in some cases any possible neuron). 
+This was typical when combining the Rheobase, Input Resistance, and Time Constant, for example.
 
 \subsection{Neuroelectro Measurements that were not Amenable to the Optimization Framework}
 \begin{itemize}
@@ -48,3 +57,14 @@ tool chain:
 \item time-to-last-spike
 \item voltage-base
 \end{enumerate}
+
+\subsubsection{Persistently Incompatible Tests: Trends and Patterns}
+
+Time Constant measurements were consistently harder to fit, and where often incompatible, in almost or all model types (including conductance based models, reduced models, and including all data types (NeuroElectro data, and Allen cell-types single experiment data). When the membrane time constant was mismatched, this didn't seem to be of much consequence to other membrane timing measurements in the cell, for instance membrane capacitance, spike widths and spike-thresholds could still be accurate. Frequently mismatched membrane time constants suggests either one of two possibilities: Either our method for measuring membrane time constant is wrong, and is off by a factor of 10, or, model builders write equations that are founded on electrical properties that are preference AP features and electrical properties slightly that don't involve the membrane time constant.
+
+Interestingly there was better compatibility between firing rate versus current (FISlope) and the remainder of the electrical observations (where the remaining measurements tended to agree well with each other), than between rheobase and the same measurements. Compatibility was also experienced between the FISlope and Rheobase tests, so two natural clusters of tests that emerged are: FI curve properties, versus the other electrical properties.
+
+As discussed in the methods \ref{sec:parallel-rheobase} Rheobase is defined as the minimum current injection to evoke exactly one spike, therefore, rheobase can sensibly be drawn onto the FISlope for an experimental cell.. The FI line is not fully defined by the slope, as the slope defines the lines gradient but not its bias, however, because the rheobase value falls on the FI-curve, it intersects with the line which has both the bias and the slope of the FI curve. 
+
+%Taken together,
+In the situation where, FI-slope is matched, other electrical measurements match, but rheobase is mismatched; when electrical properties agree with the FI-slope but not the rheobase, this suggests, that the overall linear relationship is correct but the exact quantity of current that biases the FIslope is wrong in models. One reason for this could be due to the difference between modelled resistance, and material resistance in neurons. Another reason, might be because, in the virtual experiments where I measured rheobase, I only used a single value of integration time that was a $1$ second duration,  square current pulse, but experiments could have used either shorter times (stronger currents needed to evoke single spike), or longer integration times (less current needed to evoke a spike).

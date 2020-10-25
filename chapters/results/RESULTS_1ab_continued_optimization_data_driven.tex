@@ -7,9 +7,6 @@
 
 %In type of standard, the NeuronUnit tests, themselves act as the final judge of model quality, in the absence of a spike width tests, many AdExp models were able to get very good fits on against supplied constraints, but plots of actual spike shape looked very unnatural, as spike width lasted $>=$ 6ms. Applying extra standards beyond the NeuronUnit tests creates a dilemna. As all the GLIF models, presented unusual spike shapes.
 
-
-There was a need to create extra constraints for fitting models, as the set of Allen Constraints was too few in extent, and not sufficient to properly constrain models.
-
 %
 %Although the Rheobase was the cause of  significantly impeding error, it was not so much of a problem to include this test itself, it was more of a problem to include tests that where contingent on its value.
 
@@ -20,16 +17,159 @@ There was a need to create extra constraints for fitting models, as the set of A
 
 
 
-\subsection{Experiment Fitted Model Results} 
+\subsection{Experiment Fitted Model Results on Reported Data Types} 
+Because some features derived from the data were incompatible or unreliable, it was necessary to created additional NeuronUnit tests from other feature extraction libraries, as described in the Methods.
+Ultimately, over four different Allen cell-type summaries, and four different different cell type  electrical reported measurements, we created eight unique data sets, and then converted these eight data sets to neuronunit test suites. Additionally, to explore if FITests, and Rheobase fitted better on their own an additional four non unique test sets where also created. The entire set of tests is presented tabular form (\ref{table:tests_derived_from_reports}) below. See \ref{sec:allen_report_data} in the Appendix for the URLS for the data sources.
 
-%Allen Brain Institute, Cell-types E-Physiological data, Elephant Tests
-%\subsection{Experiment Fitted Results Neuroelectro data, Elephant Tests}
+%id's:623960880,623893177,471819401,482493761
 
-Over four different Allen experimental sweeps, and four different different cell type specific electrical observations, we created eight unique data sets, and then converted these eight data sets to neuronunit test suites.
+\begin{table}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lllllllllllll}
+\toprule
+name & Hippocampus CA1 pyramidal cell & Cerebellum Purkinje cell & Neocortex pyramidal cell layer 5-6 &      olf\_mit &      623960880 &      623893177 &      471819401 &      482493761 &  6239608801 &  6238931771 &  4718194011 &  4824937611 \\
+\midrule
+RheobaseTest                   &                      189.24 pA &                680.79 pA &                          213.85 pA &          NaN &        70.0 pA &       190.0 pA &       190.0 pA &        70.0 pA &     70.0 pA &    190.0 pA &    190.0 pA &     70.0 pA \\
+InputResistanceTest            &                    107.08 Mohm &              142.06 Mohm &                        120.67 Mohm &  130.08 Mohm &  241.0 megaohm &  136.0 megaohm &  132.0 megaohm &  132.0 megaohm &         NaN &         NaN &         NaN &         NaN \\
+TimeConstantTest               &                        24.5 ms &                      NaN &                           15.73 ms &     24.48 ms &        23.8 ms &        27.8 ms &        13.8 ms &        24.4 ms &         NaN &         NaN &         NaN &         NaN \\
+CapacitanceTest                &                        89.8 pF &                620.27 pF &                          150.58 pF &    235.75 pF &            NaN &            NaN &            NaN &            NaN &         NaN &         NaN &         NaN &         NaN \\
+RestingPotentialTest           &                      -65.23 mV &                -61.59 mV &                          -68.25 mV &    -58.14 mV &       -65.1 mV &       -77.0 mV &       -77.5 mV &       -71.6 mV &         NaN &         NaN &         NaN &         NaN \\
+InjectedCurrentAPWidthTest     &                        1.32 ms &                  0.41 ms &                            1.21 ms &      1.61 ms &            NaN &            NaN &            NaN &            NaN &         NaN &         NaN &         NaN &         NaN \\
+InjectedCurrentAPAmplitudeTest &                       86.36 mV &                 71.23 mV &                           80.44 mV &      68.4 mV &            NaN &            NaN &            NaN &            NaN &         NaN &         NaN &         NaN &         NaN \\
+InjectedCurrentAPThresholdTest &                       -47.6 mV &                -46.89 mV &                          -42.74 mV &     -38.9 mV &            NaN &            NaN &            NaN &            NaN &         NaN &         NaN &         NaN &         NaN \\
+FITest                         &                            NaN &                      NaN &                                NaN &          NaN &            NaN &            NaN &            NaN &            NaN &  0.18 Hz/pA &  0.12 Hz/pA &  0.18 Hz/pA &  0.09 Hz/pA \\
+\bottomrule
+\end{tabular}}
+\end{table}
+\label{table:tests_derived_from_reports}
 
-We then took three different models, and we attempted to fit each test set to each model. The result of was a three $\times $ eight factorial of model data combinations. For each each member of this $24$ set factorial we wanted to know if the fitted model behaved in a biological plausible manner, we were interested to know if fitted models were convincing mimics of in-vivo cells, at least with respect to the measurements models were trained to fit.
+I then used three different models (AdEx, Izhikevich, Conductance based) and optimized them using these test suites. I attempted to also use GLIF models here, although test results often looked convincing, GLIF model waveforms looked strange.
+The result is $3 \times 8 = 24$ model-data combinations.
+For each each member of this $24$ element matrix we wanted to know if the fitted model behaved in a biological plausible manner, we were interested to know if fitted models were convincing mimics of \emph{in vivo} cells, at least with respect to the measurements models were trained to fit.
+In the process of coalescing results the single 24 element matrix, the matrix was broken into two: one 24 element matrix %\ref{tab:main_chi2} 
+and a smaller matrix consisting of only the conductance based model test combinations that executed without failure . 
+%\ref{tab:HH_chi2}
 
-\subsection{Standard Error of the Mean}
+\subsection{Across Model Performance Comparisons}
+
+\begin{table}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{cccc}
+\toprule
+ web-source & cell id & subset of co-listed tests & sample type  \\
+\midrule
+Allen & 48249376[1] & Y &     n=1 \\
+Allen & 47181940[1] & Y &     n=1 \\
+Allen & 623893177[1] & Y &     n=1 \\
+Allen & 623960880[1] & Y &   n=1 \\  
+Allen & 482493761 & N &     n=1 \\  
+Allen & 471819401 & N &     n=1 \\
+Allen & 623893177 & N &    n=1 \\
+Allen & 623960880 & N &     n=1 \\
+NeuroElectro & Olfactory Mitral Cell & N &     pooled samples \\
+NeuroElectro & Neocortex pyramidal cell layer 5-6 &      N &     pooled samples \\
+NeuroElectro & Cerebellum Purkinje cell & N &     pooled samples \\
+NeuroElectro & Hippocampus CA1 pyramidal cell & N &     pooled samples \\
+\bottomrule
+\end{tabular}}
+
+\caption[Properties of Different Data Driven Tests Used]{Properties of of the different data driven tests used. These where used to fit at or below threshold experimental cells. This table acts as a legend to assist in the interpretation of proceeding tables}
+
+\label{tab:main_chi2}
+
+\end{table}
+
+
+\begin{table}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{cccc}
+\toprule
+ model type &         experiment cell & $\chi^{2}$ & p-value  \\
+\midrule
+        IZHI &              4824937611 &     0.034791 &  1.000000e+00 \\
+        IZHI &              4718194011 &     0.051691 &  1.000000e+00 \\
+        IZHI &              6238931771 &     0.086530 &  9.999999e-01 \\
+        IZHI &              6239608801 &     0.001550 &  1.000000e+00 \\
+        IZHI &              482493761 &     1.292924 &  9.956362e-01 \\
+        IZHI &              471819401 &     1.443618 &  9.936050e-01 \\
+        IZHI &              623893177 &     1.334789 &  9.951233e-01 \\
+        IZHI &              623960880 &     1.014464 &  9.981553e-01 \\
+        IZHI &              Olfactory Bulb Mitral Cell &  6915.484007 &  0.000000e+00 \\
+        IZHI &  Neocortex pyramidal cell layer 5-6 &     2.443396 &  9.643182e-01 \\
+        IZHI &            Cerebellum Purkinje cell &    19.885113 &  1.077956e-02 \\
+        IZHI &      Hippocampus CA1 pyramidal cell &     1.273070 &  9.958661e-01 \\
+       ADEXP &              4824937611 &     0.000017 &  1.000000e+00 \\
+       ADEXP &              4718194011 &     0.011029 &  1.000000e+00 \\
+       ADEXP &                          6238931771 &     0.005062 &  1.000000e+00 \\
+       ADEXP &              6239608801 &     0.000083 &  1.000000e+00 \\
+       ADEXP &              482493761 &    86.949529 &  1.887379e-15 \\
+       ADEXP &              471819401 &     0.370856 &  9.999575e-01 \\
+       ADEXP &              623893177 &     0.273030 &  9.999870e-01 \\
+       ADEXP &              623960880 &     0.140222 &  9.999990e-01 \\
+       ADEXP &              olf\_mit &    10.353878 &  2.410614e-01 \\
+       ADEXP & Neocortex pyramidal cell layer 5-6 &     0.013262 &  1.000000e+00 \\
+       ADEXP &            Cerebellum Purkinje cell &   353.692447 &  0.000000e+00 \\
+      ADEXP &      Hippocampus CA1 pyramidal cell &     0.735616 &  9.994308e-01 \\
+\bottomrule
+\end{tabular}}
+
+\caption[Comparable $\chi^{2}$ for optimized results of AdEx and Izhikevich models]{Comparable $\chi^{2}$ for optimized results of the conductance based model. Not all models could be evaluated, as optimization took a long time.}
+
+\label{tab:main_chi2}
+
+\end{table}
+
+\begin{table}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lllrr}
+%\begin{tabular}{cccc}
+\toprule
+model type &                            exp-cell &   $ \chi^{2} $ & p-value \\
+\midrule
+conductance model & Hippocampus CA1 pyramidal cell & 17.21 &  0.027 \\
+conductance model & olf-mit & 26487.51 &  0.0 \\
+conductance model & Neo cortex pyramidal cell layer 5-6 &  2.56 & 0.95 \\
+conductance model & 4824937611 &   2.17 &  0.97 \\ 
+conductance model & 471819401 &  0.870 &  0.99 \\
+conductance model & 482493761 &  0.036 &  0.99 \\
+conductance model & 6238931771 & 1.441259 & 0.993641 \\
+\bottomrule
+\end{tabular} 
+}
+\caption[$\chi^{2}$ for Comparing Optimized Results of the Conductance Based Model]{Not all models could be evaluated as optimization took a long time or lead to failure. Of the 12 model test combinations only 6 are known.}
+\label{tab:HH_chi2}
+\end{table}
+
+
+
+%See appendix:\ref{table:static_electrical_properties}
+As stated in the Methods, I use the $\chi^2$ statistic as a summary of optimized model quality, with smaller values reflecting fits that better recapitulate the biological experimental data, and non-significant p-values--lack of evidence that the model disagrees with that data--as evidence of success.
+The Izhikevich Model and a Conductance-Based Point Neuron Model were able to achieve such small $\chi^2$ statistics (and non-significant p-values) when seven or eight of the tests were considered together.
+For example the Izhikevich model fitted to a Hippocampus CA1 pyramidal cell data achieved ($\chi^2$, p-value) = (2.13, 0.98), and the Olfactory Bulb Mitral cell achieved ($\chi^2$, p-value) = (2.02, 0.98).
+A model whose every feature was exactly equal to the mean observed in the experimental data would have all Z-scores equal to 0, a $\chi^2$ statistic of 0, and a p-value of 1, by definition.
+Thus an extremely high p-value (such as those above) is evidence that the optimized model is much closer to the mean of the data distribution than a random experimental neuron.
+This is exactly the result one would expect from successful optimization.
+
+\subsection{Sources of Optimization Failures}
+When optimization was not successful, was this due to a fundamental inability of a given reduced model to represent the behavior of a given neuron type?
+In order to make this claim, I must first had to rule out alternative possibilities.
+
+\subsubsection{Distributions not well summarized by the mean}
+The optimizer fits to the mean of a feature value, but as shown in section \ref{sec:neuroelectro}, the mean value of a feature is in some cases a misleading summary of the typical values.
+For example, the olfactory bulb Mitral cell exhibited bi-modal feature distributions (possibly due to lumping with the Tufted cell, a distinction that may not have been appreciated when the data was originally collected).
+Beyond that, the Neuroelectro data reflects a mean over different laboratories, animals, and recording epochs. The mean of a population can often be a robust summary, however there are circumstances when this is not true.
+I plotted all the feature distributions for all the neurons used here (see Appendix), examined these by eye and made note of those where the mean was not a good summary of the typical value (due to multimodality, extreme skew, or small sample size).
+Note that this only applies to the Neuroelectro data; the other data sources report features for single instances of neurons, so the model being fit is a model of that specific neuron, not of a neuron type more generally.
+
+\subsubsection{Distributions with an uncertain mean}
+The NeuroElectro data represented distributions over cells of the same nominal type.
+For some cell types, reduced models were hard to optimize against these data even when the distributions are normal-like, and thus the mean and the mode are well-matched.
+In order to understand whether the source of these difficulties was in the data themselves, I examined the standard error of the mean (SEM) for each feature.
+Like the standard deviation, the SEM is a prediction of uncertainty in each measurement, but it reflects uncertainty about the value of the mean itself, rather than simply the variability in the measurement across neurons of the same type.
+A large SEM might reflect such variability, or simply a small sample size. 
+In either case, a large SEM means that the optimization target may not reflect the true properties of a typical neuron of that type.
+These SEM values, for several cells and electrophysiological features, are shown in Table \ref{table:neuroelectro-sem}.
+
 \begin{table}
 \resizebox{\textwidth}{!}{
 \begin{tabular}{lrrrrrrr}
@@ -44,59 +184,28 @@ Neocortex pyramidal cell layer 5-6 &    128.87 &            1.92 &            0.
 \bottomrule
 \end{tabular}
 }
-\caption[Standard Error of the mean across NeuroElectro Data Sources]{A table of SEM values that describe dispersal in many of the different measurements I used to fit the optimized models to (NeuroElectro only).}
+\caption[Standard Error of the Mean across NeuroElectro Data Sources]{A table of SEM values that describe dispersal in many of the different measurements I used to fit the optimized models to (NeuroElectro only).}
+\label{table:neuroelectro-sem}
 \end{table}
 
-Since some of the NeuroElectro data sources were more challenging to fit, we also computed the Standard Error of the Mean, so that later we could interpreted model fitting failure. Like variance, the SEM is a prediction of each measurements dispersal, it is more theoretically sound that a standard deviation measurement. Without knowing the true underlying data distribution, one can not know the true standard deviation, but it is possible to estimate the standard error of the mean. 
-
-The $\chi^{2}$ statistic, and the p-value give us a formally indicates how convincing each fitted model was in its mimicry of biological measurements.
-Because we already have a list of Z-scores, the $\chi^{2}$ statistic can be obtained by squaring each Z-score and summing the result. A sum of squares less than 1, tells us that models performed well.
-\begin{equation}
-\chi^{2}=\sum\limits_{i=1}^{n}(Z_{i}^{2})
-\end{equation}
-
-% $\chi^{2}=\Sigma_{i}^{n} $
-
-
-%https://en.wikipedia.org/wiki/Chi-square_distribution
-%This allows you to state this as a hypothesis test with a p-value.  The chi-square statistic would simply be , and the p-value would be 1-scipy.stats.chi2.cdf(x, 8) where 8 is the number of elephant tests (and Z-scores).  A very small p-value (which would come from very large chi-square statistic, much larger than expected for random variation) %would mean the optimizer was less successful at recovering the true model.
-
-%See appendix:\ref{table:static_electrical_properties}
-The Izhikevich Model and the Point Conductance Model were able to achieve high p-values, and small chi-squared statistics when seven or eight of the tests were considered together.
-For example the Izhikevich model fitted to Hippocampus CA1 pyramidal cell data achieved ($\chi^2$, p-value) = (2.13, 0.98)
-The Olfactory Bulb Mitral cell achieved ($\chi^2$, p-value) = (2.02, 0.98).
-An extremely high p-value (such as those above) is evidence that the optimized model is much closer the mean of the data distribution than a random experimental neuron.
-This is exactly the result one would expect from successful optimization.
-\subsection{Results for Four Model Classes}
-%were only modestly good for the Izhikevich Model and the Point Conductance Model}
-
-To make the argument that limitations in reduced neural models were the cause of modest model/experiment agreement, we first had to rule out alternative possibilities. One possibility was that the experimental measurements were faulty, and that the measurements were possibly spurious because of in appropriate averaging. It was found that mainly the olfactory bulb mitral cell was prone to having underlying bi-modal data distributions, and this was especially true for resting membrane
-
-that the models shouldn't be able to reproduce. When considering the data sources, the methods of data collection and data quality should be reliable, the one main 
-
-we first needed to exclude the possibility that there might be something wrong with the data, we are fitting models to.
-
-We needed to rule out was that the data sources did not reflect bi-modal distributions, since the neuroelectro data was the actually the mean over different laboratories, animals, and recording epochs. The mean of a population can often be a robust representation of a population, however there are circumstances when the opposite is true, such as when the underlying data is generated by two different processes, leading to bimodal distributions. Fortunately, it is not hard to test if experimental data, has an underlying bimodal distribution. That test was performed using human judgement for all measurements that were used to fit the model to experiments. Except in the case of the Allen Brain data, because the Allen Brain data consisted of individual raw experiments, and population averaging did not apply. For measurements used in the elephant optimization pipeline.
-
-\begin{comment}
-
-Below I show distributions for  Time Constant, Input Resistance, Capacitance, Rheobase, Resting Membrane Potential, bimodal distributions did not apply, so we could rule out inaccurate data as a reason for poor model performance.
+%\begin{comment}
+%Below I show distributions for  Time Constant, Input Resistance, Capacitance, Rheobase, Resting Membrane %Potential, bimodal distributions did not apply, so we could rule out inaccurate data as a reason for poor %model performance.
 
 %\begin{comment}
 
-There is no reason to believe that reduced neural models could not be made to fit inaccurate neural recordings as well as real ones, if the fiction is just caused by noise, then it is still possible that hypothetical spurious values would still be in reach of the Izhikevich model. The izhikevich model can be made to generate some physiologically implausible waveform shapes. 
+%There is no reason to believe that reduced neural models could not be made to fit inaccurate neural recordings %as well as real ones, if the fiction is just caused by noise, then it is still possible that hypothetical %spurious values would still be in reach of the Izhikevich model. The izhikevich model can be made to generate %some physiologically implausible waveform shapes. 
 % a different question, of are the models arbitary waveform generators? 
 
-Besides even if the data was wrong, it wouldn't necessarily follow that models couldn't reproduce the inaccurate data. Instead what we see is, that models can fit one type of experimental measurement at a time, but they can't fit all measurements at once. This result suggests that model flexibility is the most fundamental cause of modest, model experiment disagreement.
+%Besides even if the data was wrong, it wouldn't necessarily follow that models couldn't reproduce the %inaccurate data. Instead what we see is, that models can fit one type of experimental measurement at a time, %but they can't fit all measurements at once. This result suggests that model flexibility is the most %fundamental cause of modest, model experiment disagreement.
 
 
 %In light of this result, one might ask, i
-If reduced models are not excellent at fitting data, are brain simulations really that much more realistic, when we use data driven fitted models in the place of generic model parameters? 
+%If reduced models are not excellent at fitting data, are brain simulations really that much more realistic, %when we use data driven fitted models in the place of generic model parameters? 
 
-% To answer this question we would need to run brain simulations. From my own experience adding in realistic cells to pre-existing network topologies requires that the network be re-tuned to demonstrate tonic firing with realistic CV again.
+% To answer this question we would need to run brain simulations. From my own experience adding in realistic %cells to pre-existing network topologies requires that the network be re-tuned to demonstrate tonic firing %with realistic CV again.
 
-If data driven model fits lead to models that fit one measurement better than others, which fitness criteria will lead to the greatest consequence for network simulations?
-\end{comment}
+%If data driven model fits lead to models that fit one measurement better than others, which fitness criteria %will lead to the greatest consequence for network simulations?
+%\end{comment}
 
 
 %to answer that question we have created some large

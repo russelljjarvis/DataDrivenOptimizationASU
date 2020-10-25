@@ -1,34 +1,7 @@
 \section{Challenges of optimization}
-\subsection{Conflicts in Models Between Experimental Constraints}
-
-Conflicts between rheobase value, input resistance, and time constant  were observed in NeuroElectro and Allen measurements. When optimizing against measurements derived from literature, and Allen Brain single cell observations, it was common to experience a conflicted ability for a given model to satisfy all constraints simultaneously. 
-
-Models seemed to have particular difficulty in recapitulating an accurate fit for rheobase, while simultaneously satisfying some of the other fitness criteria: time constant, input resistance, capacitance, resting membrane potential and FISlope. 
-
-
-\subsection{Ability of models to Fit Allen Institute Data (Sweeps).}
-
-In this work I show examples of fitting models with many mixed collections of constraints, were not all constraints are equally informative and many are known to contain ripples or corrogations.
-
-Despite defects in error surfaces, in many cases satisfactory and more than satisfactory solutions are still found, so it is important to ask the question: "Exactly how harmful are defects in the error surface?" One easy answer way to answer this question is to reflect on the scale of error values. In many cases when corrugations are present, they exist on a much smaller scale than other more important large scale information in the error surface. Because in many cases these two scales co-exist, the human can think of the issue as analogous to a signal to noise ratio. The deleterious effect of noise often depends on the system in question. As previously discussed, the NSGA2 selection algorithm seemed to be vulnerable to troughs in the corrogations, because it is not as sensative to the magnitude of error improvements. As long as the large amplitude of the useful information in the error function dominates the small amplitude corrugation, then you can still expect good optimization solutions, but there is a caveat, when looking over the optimizers evolution graph, and gauging the optimizers effectiveness in bringing down the population error, one should not expect to see evidence of efficient-learning, in later stages of learning when the optimizer will become more sensitive to the smaller amplitudes of errors. In the early stages when exploration of the error surface dominates refinement, efficient learning is likely, at the latest "refinement" stage during small $\eta$, the GA will be reduced to a bounded random sampler. Within a bounded/confined space it will be randomly trying different parameters, unable to utilize learned information on the small scale.
-
-
-%%%
-% direct qoute.
-%Inter-trial variability of neural responses to repeated presentations of stimuli poses a problem for measuring the performance of predictive models. The neural variability inherently limits how similar one can expect the prediction of even a perfect model to be to the observed responses. Thus, when using prediction accuracy as a measure of performance, inherent response variability is a confound, and the need to control for this has been widely acknowledged (e.g., Panzeri and Treves, 1996; Sahani and Linden, 2003; Hsu et al., 2004; David and Gallant, 2005; Laudanski et al., 2012).
-%%%
-\subsection{Ability of models to Fit Allen Institute Data Electrical features from single cells.}
-
-Although not yet employed here Stratified K-means cross validation provides a framework for producing a canonical set of fitness criteria, criteria that can train models to best satisfy multiple experimental protocols, rather than just one particular experiment.
-
-The approach would  involve starting with a wide set of supra and sub threshold experiments, and systematically shuffling the objectives into "validation" and "train" sets. Cross-Validation may provide a strategy for dealing with  conflicted fitness criteria, such as the rheobase test. If models fail to recapitulate a test, beyond the important insight that  reduced models don't agree with Rheobase experiments, while they are held against other electrical constraints, its is important to find out, if training models to fit tests, which we know they models cannot align to, harms the models ability to generalize and satisfy the majority of other tests. If its the case, that trying to satisfy rheobase tests, harms the generalizability of a model, it would be better to instead document the model weakness, and drop Rheobase from collection of optimization constraints.
-
-%, but towards satisfying multiple protocols. We have already seen in the m
 
 \subsection{Ability of models to Fit NeuroElectro Literature statistics (NeuroElectro).}
-%\begin{itemize}
-Two classes of experimental measurements were used to fit models in conjunction with genetic algorithms. These consisted of four groups of eight neuroelectro observations, and and $8$ and also $60$ different EFEL measurements that were obtained by sampling Allen Brain sweep Data.
-
+Three classes of experimental measurements were used to fit models in conjunction with genetic algorithms. These consisted of four groups of eight neuroelectro observations, and four groups of Allen electrical measurements from single cells. And also a group of  $14$ different EFEL measurements that were obtained by sampling Allen Brain sweep Data.
 
 When comparing generic single compartment models, to the BBP neocortical layer 5 neuron, one can see that there are often conflicts between Rheobase, FISlope and Time Constant mearurements. As a pattern the Multi compartment and single compartment conductance based models optimized in this work seemed to have trouble satisfying these three measurements at the same time.
 
@@ -40,50 +13,19 @@ See tables: \ref{tab:conductance_623960880}, \ref{tab:conductance_623893177}, \r
 %Final list of Elephant tests used to guide optimization: 
 %\textbf{RheobaseTest}, InputResistanceTest, TimeConstantTest, CapacitanceTest, RestingPotentialTest.
 
+In the Izhikevich model for each of the four different classes of experimental cell types, The optimizer finds a varied set of solutions, that are each within the range of empirical validity. Although overall neuronunit scores were found to be biologically plausible, the general pattern was that rheobase fitness was compromised as was required to bring all other measurements into a state of high fitnesss. % uncover models that were the fittest with respect to all the other fitness criteria.
 
-In the Izhikevich model for each of the four different classes of experimental cell types, The optimizer finds a varied set of solutions, that are each within the range of empirical validity. The general pattern was that Rheobase values needed to be compromised, in order to uncover models that were the fittest with respect to all the other fitness criteria.
+Likewise In the single compartment conductance model, and the AdEx model, it was typically input resistance tests that experienced dominated solutions. 
 
-Likewise In the single compartment conductance model, and the AdExp model, it was typically input resistance tests that experienced "dominated" solutions. 
-
-As indicated by the $\chi^{2}$ statistic and $p$-$value$, many but not all model-test combinations were able approach empirical validity, the pathway to trading off, and letting fitness criteria dominate was different for different model types.
+As indicated by the $\chi^{2}$ statistic and $p$-$value$, many but not all model-test combinations were able approach empirical validity, the pathway to trading off, and letting fitness criteria dominate showed some consistency across model types.
 
 %by all other fitness criteria in order for the optimizer to 
-\begin{comment}
-
-\begin{table}[]
-    \centering
-    \begin{tabular}{c|c|c}
-        
-        AHP-depth-abs & $3.0 \times $ & 1 
-        sag-ratio2 & $3.0 \times $ & 1 ohmic-input-resistance & $1.5 \times $ & 1
-        peak-voltage & $3.0 \times $ & 1
-        voltage-base & $3.0 \times $ & 1
-        Spikecount & $3.0 \times $ & 1
-        ohmic-input-resistance-vb-ssse & $1.5 \times $ & 1
-    \end{tabular}
-    \caption{Caption}
-    \label{tab:my_label}
-\end{table}
-\end{comment}
+%\begin{comment}
+%\end{comment}
 %The EFEL measurements on Allen Data
 
 
-Which is the best model to optimize with?
-Multi-time scale variants of the adaptive exponential model also won, the INCF competition \cite{incf_multi}.
 
-Generally the Izhikevich model was the overall winner, as when averaging across $\chi^{2}$ statistics for 8, tests, the Izhikevich model had the lowest mean $\chi^{2}$, and the highest average $p-value$ however, when regarding each data set as a novel contest, the Adaptive Exponential lost to the Izhikevich model on two or more data sets see appendix \ref{appendix}.
-Adexp $28.55$ versus 
-Izhikevich $1.39$
-The problem was that the Adaptive Exponential failed to find biologically plausible fits on most of the Neuroelectro data sets: olfactory mitral cell and Cerebellum Purkinje cell. however, if you remove these two difficult data sets, and then judge models on 6 of the 8 remaining tests, then the adaptive exponential has the lowest mean $\chi^{2}$ statistic. $AdExp=0.51$	$Izhikevich=0.99$.
-
-Like the AdExp cell, GLIF cell had success only if you consider limited ranges of data. If you consider only Allen cell types sources of data, then the GLIF cell has $\chi^{2}$ values as slightly lower than $1.0$ GLIF 4 Allen Tests only, however, if you include all the 8 tests, then the mean $\chi^{2}$ value is very high. $364.15$
-
-The GLIF cells were able to recapitulate FIslope exactly, however, this caused conflicts with ability to fit time constant, and rheobase values.
-
-The GLIF model was able to optimize cells to be within the biologically plausible range $\chi^{2}<1.0$, however these models were slow, unless $dt>=0.5ms$. and the quality of fits was not astounding, given such slow simulator convergence.
-
-As discussed in methods the Izhikevich model consisted of $4$ different equations, it is of interest to know, if allowing the optimizer access to the broader range of firing regimes improved electrical fits. After consulting the results see \ref{appendix}, we found that in fact, all sub-models excepting for model $6$ (TC - Cat dorsal LGN thalamocortical (TC) cell) were utilized to create best fits. With $4$ Rat barrel cortex Low-threshold  spiking (LTS) interneuron 
-$5$ FS - Layer 5 rat visual cortex fast-spiking (FS) interneuron , used the most often. Equations $1-3$ in this case representing the "regular-spiking" regime all numbers $1-3$ was only used in one fit Allen specimen $id-623960880$.
 
 
 %\item 
@@ -116,7 +58,7 @@ $5$ FS - Layer 5 rat visual cortex fast-spiking (FS) interneuron , used the most
 % This can be a fusion of your sections about multiobjective optimization, unit testing, and data integration (or whatever set of background items you think is fundamental to understanding the novelty of the work you have done).
 The large-scale meta-analysis described here has not been performed previously. For the first time, a large number of cortical neuron and neuronal network models are available in the standardized NeuroML format. Although the Allen Institute for Brain Science modeling project and the Blue Brain project both rigorously analyzed their single cell models, to the best of my knowledge there has not been an overarching meta-analysis across different cell and network model sources.\\
 
-Similarly, numerous modeling efforts have employed data-driven testing in model development workflows, but all these efforts have been based on non-standard ‘in-house’ model types and execution environments. In contrast, this work proposes to expand a pre-existing standardized model testing space, NeuronUnit, that supports model validation and re-use regardless of the model source. To date various NeuronUnit tests of action potential shape, electrical properties, and single cell morphologies exist; yet these tools are not unified. Some tests of network dynamics also currently exist; however, these tests are not integrated into a unified multiscale workflow. Although the work I describe only concerns single cell models in isolation, significantly, a unified workflow for exploring model data agreement would better locate errors in network behavior which are manifest at the network level but are caused by neuron-type models.
+Similarly, numerous modeling efforts have employed data-driven testing in model development workflows, but all these efforts have been based on non-standard ‘in-house’ model types and execution environments. In contrast, this work proposes to expand a pre-existing community driven, standardized model testing space, NeuronUnit, that supports model validation and re-use regardless of the model source. To date various NeuronUnit tests of action potential shape, electrical properties, and single cell morphologies exist; yet these tools are not unified. Some tests of network dynamics also currently exist; however, these tests are not integrated into a unified multiscale workflow. Although the work I describe only concerns single cell models in isolation, significantly, a unified workflow for exploring model data agreement would better locate errors in network behavior which are manifest at the network level but are caused by neuron-type models.
 
 %\section{Stuff that belongs in results or discussion; please move there}%  Generalized Linear Integrate and Fire model\cite{teeter2018generalized} or
 % EVERYTHING IN THE SECTION BELOW HERE BELONGS IN THE RESULTS OR DISCUSSION
@@ -125,21 +67,23 @@ We have used NeuronUnit to guide optimization by taking a flexible model types s
 %As an example, select Best (IBEA) was used to optimize models in conjunction with data driven tests based on pooled data from NeuroElectro.org \cite{tripathy2014neuroelectro}. A variety of compact and fast single compartment models were used to explore model optimization. Figure 4 demonstrates test error at the beginning of the optimization process for models with randomly sampled parameters and the smaller error following optimization. Figure 5 shows the evolution of the error during the optimization process\\
 %\\
 
-Pyramidal neurons should not be considered as inter-changable units, between different animals and across different brain regions. Experiments that span multiple mammal species, and different brain regions suggest that there is too much variation in structure and dynamics of the pyramidal cells even inside the same layer layer to consider pyramidal cells as sub-serving a generic set of roles and capabilities \cite{luebke2017pyramidal}. %Even within humans pyramidal neurons
 
-Optimized neuron models may vary from their neuron counterparts for several reasons. Table 3 shows an example where optimizing the model with respect to the rheobase test comes into conflict with minimizing with respect to input resistance. The solution to the optimization problem consists of two sets of model parameters, which can resolve this conflict differently. Examining the experimental data that these tests were derived from suddenly becomes important. By examining the data, we can see if the rheobase currents and the distributions of input resistance are bi-modal and uniformly distributed. If the data is treated as uni-modal, and the uni-modal mean is used to optimize then the model, then the model is not able to satisfy both constraints simultaneously. In this case, the measurements don’t correspond to neuron data, and the model can’t produce the artificial behavior. When comparing complex data and simple models we find that solutions are better represented using a combination of two optimization solutions.\\
+Optimized neuron models may vary from their experimental counterparts for several reasons. In the appendix generally, there are multiple tables that show that optimizing models with respect to the rheobase fits comes into conflict with minimizing with respect to input resistance. The solution to the optimization problem consists of two sets of model parameters, which can resolve this conflict differently. Examining the experimental data that these tests were derived from suddenly becomes important. By examining the data, we can see if the rheobase currents and the distributions of input resistance are bi-modal and uniformly distributed. If the data is treated as uni-modal, and the uni-modal mean is used to optimize then the model, then the model is not able to satisfy both constraints simultaneously. In this case, the measurements don’t correspond to neuron data, and the model can’t produce the artificial behavior. When comparing complex data and simple models we find that solutions are better represented using a combination of two optimization solutions.\\
 
 Another potential issue to consider when evaluating the scientific merit of a model is that neurons may have different behaviors under different stimulation paradigms. It might be appropriate to compare modeled behavior against measurements specific to each of two or more distinct modes. In this case, when optimizing single cell models, it’s appropriate to accept a solution set, rather than a single solution. For example, the cerebellar Purkinje cell is sensitive to intricately patterned dendrite input current combinations. Depending on a cell’s recent history of synaptic stimulation, a Purkinje cell may toggle between coincidence detection and integration modes \cite{ratte2013impact}.
 
-The are several valid instances when the complete three dimensional form of a neuron is an integral part of a brain simulation, such as in the Blue Brain somato-sensory cortex model \cite{markram2006blue} and the Allen Institute \emph{V1} model \cite{billeh2020systematic}, These simulations are improved by encasing a "core" of biophysically accurate models inside a "shell" of simple fast and reduced Izhikevich, GLIF, or Adaptive Exponential Integrate and Fire models.\\ 
+The are several valid instances when the complete three dimensional form of a neuron (and the 3D form of a network) is an integral part of a brain simulation, such as in the Blue Brain somato-sensory cortex model \cite{markram2006blue} and the Allen Institute \emph{V1} model \cite{billeh2020systematic}, The Allen Institute \emph{V1} simulation was improved by encasing a "core" of biophysically accurate models inside a "shell" of simple fast and reduced GLIF models. Results from this work suggests that pre-existing large scale brain simulations might be further improved by including a shell of AdEx or Izhikevich models.% The literature states only GLIF models, I am not proposing what they should do, only what I have read about.
 
-Encasing a core of complex models inside a shell of simplified models mitigates a harmful edge effect. The problem is that simulations concern sub divisions of brain tissue and without intervention the act of making a subdivision severes synaptic inputs. All published highly detailed simulations to date, have necessitated the simulation of severed volumes of tissue, and this creates another problem to manage.\\
+%Izhikevich, GLIF, or Adaptive Exponential Integrate and Fire models.\\ 
+
+Encasing a core of complex models inside a shell of simplified models mitigates a harmful edge effect. The problem is that simulations concern sub divisions of brain tissue and without intervention the act of making a subdivision severe synaptic inputs. All published highly detailed simulations to date, have necessitated the simulation of severed volumes of tissue, and this creates another problem to manage.\\
 %There is a core of models of realistic models who are missing a substantial number of "extrinsic" synaptic inputs. Many synaptic inputs are severed by the process of making a subdivision.
-Almost all cortical neurons experience "tonic" synaptic input and these tonic inputs originate from neurons from a different part of the brain. One strategy for handling the severed inputs that are external to the region of interest, is to simply model spike trains for each input synapse. This approach to modelling synapses is called a Point Process, or a spike train surrogate. Modern programming languages have tools that can make the synthesis of statistically similar spike trains easy and convenient. One big problem with this approach is that such surrogate spike trains are impervious to LFP analysis, as point processes fail to model current flow in the soma and dendrites. Because synapse activation is predicted using stochastic models, the reason why a synapse chooses to fire may be opaque, there may be no physical sequence of cause and effect steps to explain synapse firing. Although point process modelling sounds potentially simple, Point process models can in fact be very elaborate, and therefore they are expensive to run. Reduced models by contrast, are potentially fast to evaluate, their mechanisms are transparent and have some basis in membrane physics, reduced models can also produce LFPs that can be read out and measure in network models of LFP.
+\subsubsection{Merits of Extending Biophysical Accurate Simulations by Including Reduced Models}
+Almost all cortical neurons experience ``tonic" synaptic input and these tonic inputs originate from neurons from a different part of the brain. One strategy for handling missing inputs to the region of interest, is to simply model spike trains for each input synapse. This approach to modelling synapses is called a Point Process, or a spike train surrogate. Modern programming languages have tools that can make the synthesis of statistically similar spike trains easy and convenient. One big problem with this approach is that such surrogate spike trains are impervious to Local Field Potential (LFP) analysis, as point processes fail to model current flow in the soma and dendrites. Because synapse activation is predicted using stochastic models, the mechanistic reasons that lead to firing are opaque in the point process model, likely there will be no physical sequence of cause and effect steps to explain synapse firing. Although point process modelling sounds potentially simple, point process models can in fact be very elaborate, and therefore they may be slow to execute. Reduced models by contrast, are potentially fast to evaluate, their mechanisms are transparent and have some phenomenological relationship to membrane physics. Reduced models can also produce somatic currents. Somatic currents may facilitate the imputation of dendritic current. Modelled somatic currents can therefore be read-out and measured in network models of Local Field Potential.
 %assumes that post synaptic neurons are mainly influenced by the firing rate of inputs, if they pre-synaptic neurons are actually conveying important code words via exact interspike intervals, a statistical approach to modelling spike trains would not do.\\
 
 %than generating only psuedo random timed inputs to synapses, 
-In the case of the Allen Institute Model, if the region of interest V1 is a "core" of realistic neurons. That is a kernel of realistic neurons encased by a shell of less realistic neurons. Inputs to V1 also come from the outer encasement of neurons. It is therefore of interest if these external GLIF models can or should be substituted with optimized Izhikivich and AdExp models, in case substiting GLIF for Adexp results in an overall more realistic network simulation. In that case, even the external shell of simulation could experience a marginal improvement in accuracy. In network models there are benefits of reduced models over the use of a point process or a spike train surrogate.\\
+In the case of the Allen Institute Model, if the region of interest V1 is a "core" of realistic neurons. That is a kernel of realistic neurons encased by a shell of less realistic neurons. Inputs to V1 also come from the outer encasement of neurons. It is therefore of interest if these external GLIF models can or should be substituted with optimized Izhikivich and AdEx models, in case substiting GLIF for Adex results in an overall more realistic network simulation. In that case, even the external shell of simulation could experience a marginal improvement in accuracy. In network models there are benefits of reduced models over the use of a point process or a spike train surrogate.\\
 
 % benefits: interpretability, transparent function, has current so contributes to LFP
 

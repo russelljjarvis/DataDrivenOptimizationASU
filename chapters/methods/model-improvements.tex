@@ -1,14 +1,12 @@
 
 \section{Pre-Existing Model Class Implementations}
-At first we accessed an implementation of the Izhikevich model that was translated from jNEUROML into a NEURON simulator implementation. The problem with this implementation is that it had fragmented the whole Izhikevich model into chattering and non chattering subtypes. The model implementation seemed to have an internal conflict between two capacitive terms. The problem was that the Izhikevich model requires only one capacitive term.
-
-implemented in NEURON which was derived from a J-NeuroML translation, could not reproduce all of the Izhi original publication figures, because it had two different conflicting sources of capacitance.\\
-\\
-From J-NeuroML we created NEURON version of Izhikich model, however we were not able to make this model execution times brief enough to be useful for optimization. Although the NEURON simulator is designed to be fast, their may be a cost associated with reloading the NEURON environment many times in fast succession.
-
+First I accessed an implementation of the Izhikevich model that was translated from jNEUROML into a NEURON simulator implementation.
+However, this implementation fragmented the family of Izhikevich models into chattering and non-chattering subtypes.
+The model implementation also seemed to have an internal conflict between two capacitive terms and could not reproduce all of the original publication figures.
+Although the NEURON simulator is designed to be fast, there is a cost associated with reloading the NEURON environment many times in fast succession, and implementation odel execution times were not brief enough to be useful for optimization.
 
 \section{Other Model Class Implementations}
-For various reasons described below, existing implementations of some models were not adequate for this research.
+For various reasons described in detail below, existing implementations of some models were not adequate for this research.
 These reasons included speed, generality, and consistency.
 
 \subsection{Model Execution: The Need for Speed}
@@ -25,17 +23,16 @@ These tools included, among others, model designers and neural simulators such a
 However, several unexpected road blocks were encountered on the way.
 
 \subsubsection{NEURON}
-The \emph{NEURON} implementation of the Izhikevich model is fractured.
-There are different implementations for different parameter regimes.
-For a single simulation, this is not much of a problem.
-However, it means that switching between such regimes during optimization (as would occur when a parameter value crossed a regime boundary), is a non-trivial exercise.
-Even if successful, any source code successfully implementing this would be complicated, unreadable, and lack generality.
+The NEURON simulator is a very mature and respected neuron and neural network modelling framework \citep{carnevale2006neuron}. This simulator specializes in multi-compartment conductance based models of neurons and neuronal networks, but the simulator has also been made to accommodate many reduced model implementations. The NEURON implementation of the Izhikevich model is fractured in that there are different NEURON NMODL implementations of the equations for different parameter regimes.
+
+When running only a single model simulation this is not much of a problem. However, switching between Izhikevich model regimes during optimization (as would occur when a parameter value crossed a regime boundary) is a non-trivial exercise.
+Even if successful, any multi-language source code successfully implementing this would be complicated, unreadable, and lack generality.
 Specifically, NEURON requires NMODL files to be compiled for each different regime, and it may be difficult to know in advance which regimes the optimizer is likely to sample from.
-Thus, the claimed performance of the C-based NEURON library is not actualized in an optimization context.
-Because NEURON is well-understood within OSB and NeuroML community, I used it only to produce reference simulations to verify that the output of my model implementations were in fact accurate according to community standards.
+Additionally, the promise of fast performance due to the C-based NEURON library is not actualized with this model.
+Because NEURON is well-understood within the OSB and NeuroML community, I used it only to produce reference simulations to verify that the output of my model implementations were in fact accurate according to community standards.
 
 \subsubsection{PyNN}
-PyNN provides the convenience of working in Python, and with a convenient procedural interface for model design and execution.
+PyNN provides the convenience of working in Python, and with a convenient procedural interface for model design and execution \citep{davison2009pynn}.
 However, its implementations of most reduced models (e.g. Izhikevich) are simply ``wrapped" versions of NEURON models; consequently PyNN has the same disadvantages as NEURON.
 PyNN is also designed with network simulations in mind, which means its designers have chosen performance trade-offs that favor network simulations over single neuron simulations.
 For example, a data-type called the ``lazy-array" is the most elemental container for neuron models in PyNN, but it is meant to store populations of neurons as opposed to single neurons;
@@ -43,14 +40,14 @@ as such the lazy-array adds overhead to accessing single model results.
 
 % in slow single neuron simulations.
 
-Additionally the NEURON implementations that underlie the PyNN-provided AdEx and Izhikevich model classes still suffer from some fidelity issues under certain regimes and parameter sets (see \url{https://github.com/NeuralEnsemble/PyNN/issues/370}, \url{https://github.com/NeuralEnsemble/PyNN/issues/266} for details), compromosing optimization quality.
+Additionally, the NEURON implementations that underlie the PyNN-provided AdEx and Izhikevich model classes suffer from some fidelity issues under certain regimes and parameter sets, compromising optimization quality (see \url{https://github.com/NeuralEnsemble/PyNN/issues/370}, \url{https://github.com/NeuralEnsemble/PyNN/issues/266} for details).
 
 \subsubsection{Brian2}
 Brian2 \citep{stimberg2019brian} is, in principle, an excellent simulator for working with reduced neuron models, as it allows for differential equations to be expressed in an intuitive form, while also keeping track of dimensions and units.
-However, it may not quite be mature enough for complex applications, as it produced errors in optimization contexts that did not occur during routine simulation of single-parameter sets.
+However, it may not be mature enough for complex applications, as it produced errors in optimization contexts that did not occur during routine simulation of single-parameter sets.
 
 Even when these errors did not occur, (e.g. using the Brian2 AdExp model), certain optimization steps (such as identifying the rheobase current for a given set of model parameters) took 2-3 times more simulation time then a reference approach (described in the next section).
-This slowness was not caused by the simulation mechanics themselves (Brian2 is relatively fast and efficient, as described in \cite{stimberg2019brian}).
+This slowness was not caused by the simulation mechanics themselves (Brian2 is relatively fast and efficient, as described in \cite{stimberg2019brian}.)
 Instead, these delays are caused by the way the model is internally defined, specifically using a
 so-called ``neurodynamics" layer \citep{gerstner2014neuronal}.
 
@@ -118,22 +115,21 @@ The JIT implementation of the AdExp model was approximately 1000$\times$ faster 
 Another benefit of the JIT implementation was that it did not require imputation of action potential waveforms (as was required for the Brian2 implementation); without additional work, the JIT implementation produced much more realistic-looking action potential waveforms under most model parameterizations.
 To the extent that action potential shape is an optimization target, this is a decisive advantage for the JIT implementation.
 
-\begin{figure}
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[scale=0.7]{figures/backend_check_files/backend_check_12_10}
-\caption[Brian2 simulation of the AdEx model]{Simulated membrane potential trace from the AdEx model at rheobase using the Brian2 simulator.  The action potential waveform itself has been interpolated at the temporal location at which the simulator reported a spike.}
+\includegraphics[scale=0.7]{figures/backend_check_files/backend_check_12_10.png}
+\caption[Brian2 simulation of the AdEx model]{\textbf{Brian2 simulation of the AdEx model.} Simulated membrane potential trace from the AdEx model at rheobase using the Brian2 simulator. The action potential waveform has been interpolated at the time when the simulator reported a spike.}
 \label{fig:AdEx-Brian2-sim}
 \end{center}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[scale=0.7]{figures/backend_check_files/backend_check_4_2}
-\caption[JIT simulation of the AdEx model]{Simulated membrane potential trace from the AdEx model at rheobase using my JIT implementation. In contrast to Fig. \ref{fig:AdEx-Brian2-sim}, the dynamics of the action potential itself arise naturally from the integrated equations, and do not require interpolation.}
+\includegraphics[scale=0.7]{figures/backend_check_files/backend_check_4_2.png}
+\caption[JIT simulation of the AdEx model]{\textbf{JIT simulation of the AdEx model.} Simulated membrane potential trace from the AdEx model at rheobase using my JIT implementation. In contrast to Fig. \ref{fig:AdEx-Brian2-sim}, the dynamics of the action potential arise naturally from the integrated equations and do not require interpolation.}
 \label{fig:AdEx-JIT-sim}
 \end{center}
 \end{figure}
-
 
 \subsubsection{Comparison of speed and accuracy vs NEURON}
 I also compared the performance of my implementation of the Izhikevich model to the one generated by NEURON from the OpenSourceBrain Izhikevich model NeuroML2 files.
@@ -158,7 +154,7 @@ For example, the standard NEURON-NeuroML2 code only covers the Regular-Spiking f
         
 The NEURON implementation of the Izhikevich model took $78$ seconds to identify the rheobase current.
 In contrast, my implementation identified the rheobase in only $\tilde 0.5 s$.
-This represents a very dramatic speed up, and can largely be attributed to overhead associated with initializing successive simulations.
+This represents a very dramatic speed up, which can largely be attributed to overhead associated with initializing successive simulations.
 Furthermore, my implementation generalizes to all possible parameter values for the Izhikevich model parameters, thus allowing for all of the many diverse spiking behaviors exhibited in the original publication by \cite{izhikevich2003simple}.
 
 %\begin{verbatim}
@@ -193,11 +189,11 @@ Furthermore, my implementation generalizes to all possible parameter values for 
 
 \subsubsection{The GLIF Model: a Limited Model}
 Although GLIF models are intentionally limited in behavior to below threshold firing dynamics, these models are still relevant to the neuronal modelling community.
-I developed a Generalized Leaky Integrate-and-Fire (GLIF) model by manipulating some pre-existing code until it was inter-operable with the NeuronUnit framework.
-Because GLIF models (like the AdEx implementations discussed earlier) do not include spike waveforms, imputation of these waveforms is required for broad spike shape optimization.
-GLIF models are not particularly fast, nor have they historically been good at predicting  spike timing in biological neurons \cite{teeter2018generalized} (although I did not confirm this here).
-However, including GLIF models are abundant within the Allen Institute, with that organization providing cell-specific GLIF models for each neuron that they record.
-So we included them here for completeness and comparison to previous work.
+I developed a Generalized Leaky Integrate-and-Fire (GLIF) model by manipulating some pre-existing code until it was interoperable with the NeuronUnit framework.
+Because GLIF models do not include spike waveforms (like the AdEx implementations discussed above), imputation of these waveforms is required for broad spike shape optimization.
+GLIF models are not particularly fast, nor have they historically been good at predicting  spike timing in neurons \cite{teeter2018generalized}.
+However, GLIF models are widely-used within the Allen Institute, with that organization providing cell-specific GLIF models for each neuron that they record.
+So I included them here for completeness and for comparison to previous work.
 
 %. In practice this class of reduced models is difficult configure without expert knowledge, since it contain more parameters than its competitors, and many of these parameters are vector- rather than scalar-valued.
 %Nonetheless, GLIF models were problematic moderately fast with $dt$ set to $5e-3 seconds $ which is 1000 times the recommended 5e-6 seconds, which is offensively slow, and I used these successfully to optimize models against data provided by the Allen Institute (see XXXX section in Results).

@@ -25,19 +25,20 @@ test_suite = TestSuite([test1, test2, test3])
 results = test_suite.optimize(model)
 \end{lstlisting}
 
-There are two different paradigms for evaluating models in neuronunit, under paradigm 1 the model is a supported by NeuronUnit, therefore dynamic simulation of the model are present on the host computer and cheap to re-run.
+There are two different paradigms for evaluating models in NeuronUnit. Under the first paradigm the model is supported by NeuronUnit, and dynamic simulations of the model are present on the host computer and can be efficiently re-run.
 
-Under paradigm 2 the neuronunit model only consists of model inputs and outputs that are streamed as needed from a different environment this is because the true model is either very complex, and it would not improve clarity to re-implement the model again, or the true model is on a remote machine, and its outputs are accessed via an API. Another way of saying this is that if a "model" is simply a digitized set of waveform, converting it to a model, is as simple as labeling things such that neuronunit and the scientist are both consistent about what is a model and what isn't. The optimization procedures I describe in this work involve both paradigms, optimizing within the second paradigm required dedicated code, that are not supported within the other previously described frameworks.
+Under the second paradigm the NeuronUnit version of the model only consists of model inputs and outputs that are streamed as needed from a different environment. This may be the case due to the complexity of the model, where re-implementing the model would not improve clarity. Or the full model may exist on a remote machine with outputs accessed via an API. 
+%Another way of saying this is that if a "model" is simply a digitized set of waveforms, converting it to a model is as simple as labeling things such that NeuronUnit and the scientist are both consistent about what is a model and what isn't. 
+The optimization procedures I describe in this work involve both paradigms, where optimizing within the second paradigm required dedicated code that is not supported within the previously described frameworks.
 
 \section{Model Class Implementations}
-Because optimization may involve an extremely large number of independent simulations of the same class of model, each varying only in model parameter values, it is critical that both the overhead for model instantiation and the duration of simulation itself, be as low as possible. We built faster python implementations of two neuronal models (Izhikevich model and adaptive Exponential model). One of the implementations was based on MATLAB forward euler implementation of the Izhi model, another implementation of the Adaptive Exponential model came from vectorized python code, which was relatively slow.
+Because optimization may involve an extremely large number of independent simulations of the same class of model, each varying only in model parameter values, it is critical that both the overhead for model instantiation and the duration of simulation be as low as possible. We built faster Python implementations of two neuronal models -- the Izhikevich model and the adaptive exponential integrate and fire model. My implementations of the Izhikevich model was based on an existing MATLAB forward Euler implementation, while my implementation of the adaptive exponential integrate and fire model came from vectorized Python code, which was relatively slow.
 
-I was able to use a tool \cite{numba} enables In Time compilation(JIT), to make both of these models perform faster than standard neuron simulator versions in brian2 and NEURON.
+I was able to use a tool to make both of these models perform faster than the standard versions for the brian2 and NEURON simulators. This tool, \cite{numba}, enables Just In Time compilation (JIT).
  %Without over stating things, 
- When regarding this thesis effort and its contribution to knowledge, some of the value to the neuroscience modelling community comes from the implementation of two fast python neural model simulations. Because these simulations are written in python, the code that implementations them is easy to understand share and execute, because the models are fast to dispatch they maybe useful in both network contexts, and optimization contexts where performance is critical. 
+ When regarding this thesis effort and its contribution to knowledge, some of the value to the neuroscience modelling community comes from the implementation of these two fast Python neural model simulations. Because these simulations are written in Python, the code that implementations them is easy to understand share and execute, because the models are fast to dispatch they are useful in both network and optimization contexts where performance is critical. 
  
 %A component of this work the Izhikevich model, I plan to push to the Open Source Brain %\href{https://github.com/russelljjarvis/IzhikevichModel.git}
-
 
 \subsubsection{Why Existing Approaches Were Not workable}
 In this research effort significant time was spent shoe-horning pre-existing tools into an optimization frame work, with limited success. These tools included:  PyNN, brain2, \emph{NEURON}, jNeuroML-2. However, several unexpected road blocks were encountered on the way.
@@ -92,13 +93,12 @@ parameter regions to find a good fit.\\
 \\
 Over the course of evaluating the brian neural dynamics model \cite{gerstner2014neuronal}. I experienced some phenomena that only occurred in the context of genetic algorithm optimization. The reason why optimization provides a different evaluation context is because, in optimization simulation objects are required to be created and destroyed rapidly and on mass. Brian2 is designed to be an efficient network simulator, the case of being designed for network simulation, may assume you will want to create a lot of neural models that persist efficiently together in memory (this was also a problem with PyNN models). Therefore you might see below, that while only one brian model exists in memory, performance is okay, but when creating and destroying models rapidly and on mass a slow down occurs.\\
 \\
-Below I have implemented a python integrator for the Adaptive Exponential Integrate and fire model. This solver lead to faster evaluations of current injection experiments. The integrator I developed had a $0mV$ spiked when evaluated at default parameter values.\\
+Below I have implemented a Python integrator for the adaptive exponential integrate and fire model. This solver led to faster evaluations of current injection experiments. The integrator I developed has a $0mV$ spike when evaluated at default parameter values.\\
 
-
-Brian2 and sciunits sometimes collided in name space, and logging.
+Brian2 and SciUnit sometimes collided in name space and logging.
 %\href{https://github.com/scidash/sciunit/pull/124/files/83907ba68740642178ebb91084f6e382e06a43c4#diff-d68791d2ed5dfaa96a900be6180bd950}
 
-\section{Profiling the JIT enabled AdExp Model}
+\section{Profiling the JIT Enabled AdExp Model}
 Mean time taken on single model evaluation:$ 0.0012554397583007812s $
 Mean time taken to compute Rheobase:
 $0.183s $
@@ -121,7 +121,7 @@ This was slightly faster than Izhikevich implementation which was for total rheo
     922 ms +- 12.7 ms per loop (mean +- std. dev. of 7 runs, 1 loop each)
 \end{verbatim}
 
-\subsection{Compare parallel to serial speeds, and accuracy}
+\subsection{Comparison of Parallel and Serial Speeds and Accuracy}
 
 Below is the Brian2/NeuralDynamics AdExp model. In-order to make the spike height greater than $0mV$ it was easier to use computer code to schedule waveform modifications that occur straight after the the brian2 simulation, these scheduled waveform modifications can be considered part of a peripheral shell of simulation code. In postprocessing
 the waveform data type is a Neo Wave form object that is artificially the algorithm of determining rheobase and displaying results. The time of this model is determined on multiple factors, as discussed elsewhere, execution time is not uniform across model parameterizations. Models with multispiking behavior will take longer to solve.
@@ -132,6 +132,7 @@ you are running on your computer. Not all models experience a speed up when exec
 this model was faster in the parallel Rheobase determination algorithm. Some common times are: $3.92,6.75,4.48,5.17$. Mean time was:
 
 \subsection{Comparison of Times Taken to Find Rheobase}
+
 Custom implementation JIT enabled implementation: $4.0s$. 
 Brian2 taken to find Rheobase: $4.40s$ (serial), $3.976s$ (parallel).
 
@@ -139,20 +140,19 @@ The evaluation times between Brian2 and the custom written
 integrator are similar. Both have average rheobase solution times of approximately 4 seconds, however the spike shape derived from the custom written integrator look more realistic under default paramaterizations. The biological plausibility of default model paramaterization has consequences for model optimization speed, because when  models undergo mutation and cross-over the mean of random models regressors towards the default model initialization, and if the default model is a bad fit to data, the average model sampled by the genetic algorithm will also be bad to data.\\
 
 \begin{figure}
-\begin{center}
 \centering
-  \centering
 \includegraphics[scale=0.45]{figures/backend_check_files/backend_check_12_10}
 \caption{Model parameterization of the brian2 simulator with the customization: interpolated spike height, forced to be above $0mV$}
+\label{fig:sub1}
+\end{figure}
 
-  \label{fig:sub1}
-  \centering
-  \includegraphics[scale=0.45]{figures/backend_check_files/backend_check_4_2}
-    \caption{Default model parameterization of the custom written integrator}
-  \label{fig:sub2}
+\begin{figure}
+\centering
+\includegraphics[scale=0.45]{figures/backend_check_files/backend_check_4_2}
+\caption{Default model parameterization of the custom written integrator}
+\label{fig:sub2}
 \caption{Comparison between two Adxaptive Exponential Implementations}
 \label{fig:test}
-\end{center}
 \end{figure}
 
 

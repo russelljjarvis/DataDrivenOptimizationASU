@@ -45,6 +45,18 @@ Total  Error = \sum_i^n error_i
 \end{equation}
 i.e. the sum of all of the errors.  Again, 0 would represent perfect model/data agreement across all tests.
 
+While the optimizer attempts to minimize the total error of the model according to the equation above, evaluation of the quality of the optimized model is evaluated using a hypothesis testing framework.
+Specifically, I ask whether there is sufficient evidence that the optimized model is representative of the distribution of feature values observed in the biological data.
+The null hypothesis can be states as ``the observed features of the optimized model were drawn from the distribution of features of biological neurons".
+In order to generate a test statistic for hypothesis testing, I compute $\chi^{2}$, defined as (in the case of Z-scores):
+\begin{equation}
+\chi^{2}=\sum\limits_{i=1}^{n}(Z_{i}^{2})
+\end{equation}
+This equation arises from the fact that a Z-score is simply a standardized normal variable, and a chi-squared distribution with $n$ degrees of freedom is simply the distribution of $n$ independent, squared normal variables.
+I compute a p-value by comparing the observed $chi^2$ statistic to the cumulative distribution function of the $chi^2$ distribution with degrees of freedom equal to the number of NeuronUnit tests used (which is equal to the number of Z-scores produced).
+If this p-value is small (e.g. $<0.05$), that can serve as evidence to reject the null hypothesis, indicating that the optimized model did not ``fit in" well with the observed biological data.
+In contrast, failure to reject the null hypothesis would suggests that the optimized model was somewhat convincing in its mimicry of a biological neuron, for the features in question.
+
 \subsection{Mechanics of Optimization using NeuronUnit}
 Here I will describe how I generate these scores concurrently for many parameterizations of the same model and how they guide the optimization path.
 I created two different optimization code bases based on the DEAP Python package for genetic optimization \citep{DEAP_JMLR2012}, one that relied on DEAP directly, and one that relied on the DEAP-derived BluePyOpt package produced by The Human Brain Project \citep{bluepyopt} (These have since been merged together), in order to achieve optimization using NeuronUnit.
@@ -92,18 +104,42 @@ Nearly all neuron optimization work (including this one) relies on the responses
 This is largely motivated by the existence of a common and simple experimental analogue using patch clamp (which drives experimental design for both the Allen Cell Types Database and The Blue Brain Project).
 But there are three different strategies for choosing the subset of these experiments that are recapitulated in optimization.
 
-The first strategy involves blindly choosing a fixed set of current amplitudes (e.g. ascending 100 pA steps) from the data and probing the model with these, then comparing model and data within this subset.
-This strategy is more direct and slightly more rapid, but it is inefficient in terms of constraining the model, because all of the "action" in the F-I curve occurs above rheobase, but not too far above rheobase (i.e. not at currents that induce depolarization block).
+% The first strategy was to assume that measurements of an at threshold rheobase spike were sufficient to fit the model to the entire F-I curve, and if all neurons showed an identical regular, non-accommodating spiking pattern, this strategy would might be sufficient to identify a model, with all the right at threshold and above threshold dynamics. To the extent that this assumption is violated, various additional above-threshold current injections will be needed, these are described in strategies two and three. 
 
-The second strategy involves first identifying the rheobase current, and choosing multiples of or steps around that current for subsequent evaluation. This strategy was used not just in optimization, but also in the analysis and re-organization of existing ephys data.
-Action potential waveforms are most regular and consistent in shape when evaluated very near rheobase. 
-if the rheobase uniquely determined the entire F-I curve, and if all neurons showed an identical regular, non-accommodating spiking pattern, this strategy would probably be sufficient to identify the rheobase current and move on. To the extent that this (poor) assumption is violated, various additional suprathreshold current injections will be needed. 
-If one follow this strategy, one must also decide how many current amplitudes (above rheobase) must be evaluated in order to adequately constrain model parameters.
+% The second strategy involves first identifying the rheobase currents per model and choosing two extra multiples of rheobase current reserved for further model evaluation. This strategy is more direct and slightly more rapid, but it is inefficient in terms of constraining the model, because all of the "action" in the F-I curve occurs above rheobase, but not too far above rheobase (i.e. not at currents that induce depolarization block).
 
-The third strategy is like the second, but deliberately samples different locations on the F-I curve (not just rheobase).
-It attempts to identify the minimum current required to cause some target spike number observed in a dataset. With matching spike counts across simulated and biological data, downstream feature analysis (e.g. spike rate adaptation indices) are likely to be more directly comparable.
-Differences in spike shape and spike timing statistics are thus only modulated by differences in model parameters.
-The consequences of these decisions are explored in the Results section.
+% The third strategy is like the second, but deliberately samples single above threshold locations on the F-I curve (any location that elicits one spike). It is actually the third strategy that was used to produce multi spiking fits, in this work. 
+
+% The fourth strategy involves making an informed guess to make a fixed set of current amplitudes (e.g. ascending 100 pA steps) from the data and probing the model with these, then comparing model and data within this subset. 
+
+%Here I have described four different strategies for constraining models, 
+In the optimization framework I tested many different strategies for constraining models with current injections, there were only two important differences between all four strategies: one type of strategy constrains cell behavior at multiple values of current injection, and the other strategy constrains cell behavior at a single current injection value (rheobase or otherwise). Each strategy seeks to resolve a ``bias variance trade-off" differently, and so knowledge of bias variance trade-off is important for understanding the dramatically different quantities of fit found.
+
+When only one current injection value is used seemingly great fits of spike shape, and spike time can be achieved, because the reduced models are more able be over-fitted with respect to a limited range of data. When a model is constrained relative to multiple current injection values, over-fitting of the model is less possible. The optimizer produces a model that is compromised on almost all constraints, with few exceptions. %Because of design choices in multispiking optimization the main constraint that is robust against being compromised is the current versus firing rate relationship. This result is compatible with other findings in the literature probably many optimizer compromises have lead to spike shape being poorly recovered by the optimizer but spike times are perfectly recapitulated \citep{rossant2011fitting}. 
+
+Deliberately over-fitting models was an important optimization strategy in the earlier development of the optimizer, as at the time the highest priority was to verify that the optimizer was functional in a multi-spiking context, however, now with functionality well established producing less good but more generalized fits will become a higher imperative.
+
+% , but the majority of other fitness values will be heavily compromised
+%%
+% Not inefficient at constraining model, but efficient at 
+%%
+
+
+%This strategy was used not just in optimization, but also in the analysis and re-organization of existing ephys data.
+% Action potential waveforms are most regular and consistent in shape when evaluated very near rheobase. Are they? 
+
+%If one follows a multiple current injection optimization strategy, one must also decide how many current amplitudes (above rheobase) must be evaluated in order to adequately constrain model parameters.
+
+% 
+
+%There is an further issue
+
+% the second and third strategy, 
+
+% It attempts to identify the minimum current required to cause some target spike number observed in a dataset. With matching spike counts across simulated and biological data, downstream feature analysis (e.g. spike rate adaptation indices) are likely to be more directly comparable. The consequences of these decisions are explored in the Results section.
+
+
+%Differences in spike shape and spike timing statistics are thus only modulated by differences in model parameters.
 
 \subsection{Feature Extraction}
 Each NeuronUnit test used in the optimizer represents the evaluation of a single feature of simulated output, for example the Input Resistance.
@@ -123,7 +159,12 @@ The Blue Brain Project developed the Electrophysiology Feature Extraction Librar
 \subsubsection{Allen Institute Software Development Kit (Allen SDK)}
 \label{sec:allensdk}
 The Allen Institute offers yet another set of tools for feature extraction, applying to both sub- and suprathreshold features of neuron responses to current injection.
-The reason to use these in addition to the above is that some of these features are predicated on particular current stimuli (e.g. a stimulus that is exactly 20 pA stronger than the rheobase current).
+The reason to use Allen features in addition to the above is that some of these features are predicated on particular current stimuli (e.g. a stimulus that is exactly 20 pA stronger than the rheobase current).
+% I don't think the following is needed, and it may be misconceived.
+
+% Here is why: In the Allen sweep data sets, the current that produced the voltage is known and stored (think of it as a current V_M pair), it is not thrown out. 
+
+% In any case, if you have Allen data and Allen features, or Allen data and EFEL features. Comparing the original voltage trace is still possible, comparing to the original current is still possible. The main thing that _is_ lost is the opportunity to align findings with official Allen features, but that's it.
 Such stimuli either were or were not delivered to the various experimentally recorded neurons, and for the purposes of this thesis there is no going back and delivering additional ones.
 Consequently, for model testing and optimization it makes sense to use features--and the stimuli that generated them--that can be directly compared to the recorded neurons.
 For the biological neurons in the Allen Cell Types database, these features are available in the Allen SDK.

@@ -1,6 +1,6 @@
 \chapter{Appendix}
 
-Often model data is streamed from a remote machine for example NeuroML-DB. In that case local simulator capabilities are not required in order to make streaming models eligible for Neuronunit tests. The code idiom for working with streaming models is as follows:
+Often model data is streamed from a remote machine for example NeuroML-DB. In such cases where local simulator capabilities are not required, it is more useful to make ``streamed" remote models eligible for Neuronunit tests. The code idiom for neuronunit scoring of  streamed models is as follows:
 
 \begin{minted}{python}
 import requests
@@ -33,6 +33,17 @@ Analysis of variarance in Experiments and in Models:
 Multi spiking waveform analysis \url{https://github.com/russelljjarvis},
 An API for mining features from NeuroMLDB, Allen Cell Types: using AllenSDK, Druckmann \url{https://github.com/russelljjarvis/AllenEFELDruckmanFeatures}
 \cite{birgiolas2019towards}, \cite{birgiolas2016rapid} \cite{druckmann2007novel}
+
+\subsubsection{Allen Experimental Data From Web pages in Ephysiological Report Form}
+Move to appendix: report form specimen
+specimen id 623960880  \url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/623960880"}
+specimen id 623893177 
+\url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/623893177"}
+specimen id 482493761
+\url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/482493761"}
+specimen id 471819401
+\url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/471819401"}
+\label{sec:allen_report_data}
 
 It seemed important to try to answer the question: ``How much difference does it make to apply data-fitted cell models to pre-existing network simulations?" In order to make it possible to answer that question. I took existing Izhikevich cell network simulations implemented in Julia, and modified the source code to make it inter operable with the approaches to stimulating cells with square currents in python. The julia Izhikevich network provides rapid execution times and requires no specialized computing hardware.
 
@@ -199,19 +210,20 @@ FITest               &     0.18 Hz/pA &   0.18 Hz/pA &        0 \\
 %\end{table}
 
 
-
 \subsection{Hippocampus CA1 pyramidal cell}
-{\resizebox{0.7\textwidth}{!}
+\begin{table}
+\resizebox{0.7\textwidth}{!}{
 \begin{tabular}{lllllllll}
 \toprule
-{} &                 0 &                                      1 &                     2 &                                          3 &                      4 &                        5 &                    6 &                      7 \\
+{} & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
 \midrule
-observations &         189.24 pA &                  107.080327644332 Mohm &   24.5021946169772 ms &                        89.7960714285714 pF &   -65.2261863636364 mV &      1.31895278450363 ms &   86.364525297619 mV &   -47.5985714285714 mV \\
-predictions  &  1.64794921875 pA &  8858252879.330702 kg*m**2/(s**3*A**2) &  84.56529278484899 ms &  9.546497931004928e-12 s**4*A**2/(kg*m**2) &  -85.01509283595476 mV &  6.000000000000001e-05 s &  159.912455929094 mV &  -48.29753952861421 mV \\
+observations & 189.2 pA & 107.1 Mohm & 24.5 ms & 89.8 pF & -65.2 mV & 1.32 ms &   86.4 mV & -47.6 mV \\
+predictions & 1.65 pA & 8.9e10 kg*m**2/(s**3*A**2) & 84.6 ms & 9.5e-12 s**4*A**2/(kg*m**2) & -85.0 mV & 6.0e-05 s & 159.9 mV & -48.3 mV \\
 \bottomrule
 \end{tabular}}
+\end{table}
 
-\subsection{471819401}
+%\subsection{471819401}
 \subsection{olfactory mitral cell}
 \begin{tabular}{llllllll}
 \toprule
@@ -222,7 +234,7 @@ predictions  &       63.21 megaohm &          8.26 ms &       130.73 pF &       
 Z-Scores     &                0.96 &             2.61 &           161.6 &                 0.62 &                      12.97 &                          13.73 &                           2.84 \\
 \bottomrule
 \end{tabular}
-\subsection{623960880}
+%\subsection{Allen Specimen id:  623960880}
 \subsection{Neocortex pyramidal cell layer 5-6}
 \begin{tabular}{llllll}
 \toprule
@@ -233,18 +245,18 @@ predictions  &     54.49 pA &       57.21 megaohm &         14.62 ms &       255
 Z-Scores     &         1.05 &                0.88 &             0.13 &            0.79 &                 0.19 \\
 \bottomrule
 \end{tabular}
-\subsection{482493761}
-\subsection{4824937611}
+%\subsection{482493761}
+\subsection{Allen Specimen id: 4824937611}
 \begin{tabular}{lll}
 \toprule
 {} &       FITest & RheobaseTest \\
 \midrule
 observations &   0.09 Hz/pA &      70.0 pA \\
-predictions  &  [0.2 Hz/pA] &      60.1 pA \\
+predictions  &  0.2 Hz/pA &      60.1 pA \\
 Z-Scores     &         1.47 &         0.12 \\
 \bottomrule
 \end{tabular}
-\subsection{471819401}
+\subsection{Allen Specimen id: 471819401}
 \begin{tabular}{lllll}
 \toprule
 {} & RheobaseTest & TimeConstantTest & RestingPotentialTest & InputResistanceTest \\
@@ -254,7 +266,7 @@ predictions  &     28.12 pA &         12.83 ms &            -66.06 mV &      134
 Z-Scores     &         0.93 &             0.03 &                 0.06 &                0.02 \\
 \bottomrule
 \end{tabular}
-\subsection{482493761}
+\subsection{Allen Specimen id: 482493761}
 \begin{tabular}{lllll}
 \toprule
 {} & RheobaseTest & TimeConstantTest & RestingPotentialTest & InputResistanceTest \\
@@ -264,7 +276,7 @@ predictions  &     56.25 pA &         19.48 ms &            -67.18 mV &      267
 Z-Scores     &         0.17 &             0.08 &                 0.02 &                0.03 \\
 \bottomrule
 \end{tabular}
-\subsection{623893177}
+\subsection{Allen Specimen id: 623893177}
 \begin{comment}
 \begin{tabular}{lllrr}
 \toprule

@@ -1,17 +1,3 @@
-
-
-\subsubsection{Persistently Incompatible Tests: Trends and Patterns}
-
-Time Constant measurements were consistently harder to fit, and where often incompatible, in almost or all model types (including conductance based models, reduced models, and including all data types (NeuroElectro data, and Allen cell-types single experiment data). When the membrane time constant was mismatched, this didn't seem to be of much consequence to other membrane timing measurements in the cell, for instance membrane capacitance, spike widths and spike-thresholds could still be accurate. Frequently mismatched membrane time constants suggests either one of two possibilities: Either our method for measuring membrane time constant is wrong, and is off by a factor of 10, or, model builders write equations that are founded on electrical properties that are preference AP features and electrical properties slightly that don't involve the membrane time constant.
-
-Interestingly there was better compatibility between firing rate versus current (FISlope) and the remainder of the electrical observations (where the remaining measurements tended to agree well with each other), than between rheobase and the same measurements. Compatibility was also experienced between the FISlope and Rheobase tests, so two natural clusters of tests that emerged are: FI curve properties, versus the other electrical properties.
-
-As discussed in the methods \ref{sec:parallel-rheobase} Rheobase is defined as the minimum current injection to evoke exactly one spike, therefore, rheobase can sensibly be drawn onto the FISlope for an experimental cell.. The FI line is not fully defined by the slope, as the slope defines the lines gradient but not its bias, however, because the rheobase value falls on the FI-curve, it intersects with the line which has both the bias and the slope of the FI curve. 
-
-%Taken together,
-In the situation where, FI-slope is matched, other electrical measurements match, but rheobase is mismatched; when electrical properties agree with the FI-slope but not the rheobase, this suggests, that the overall linear relationship is correct but the exact quantity of current that biases the FIslope is wrong in models. One reason for this could be due to the difference between modelled resistance, and material resistance in neurons. Another reason, might be because, in the virtual experiments where I measured rheobase, I only used a single value of integration time that was a $1$ second duration,  square current pulse, but experiments could have used either shorter times (stronger currents needed to evoke single spike), or longer integration times (less current needed to evoke a spike).
-
-
 \subsubsection{A Fitted Model May not Generalize}
 A fitted model may not generalize to current stimulus at higher or lower current strengths, Unless the model is fitted with constraints informed by those different experiments. As discussed above, the true FI curve is described by a gradient and a bias. When one fits to both the slope and the bias of the FI curve, it means that the model will at least be able to recapitulate the right number of spikes for  a given current strength. %Although this does not necessarily mean that the shapes of the each individual spike will agree between model and experiment. 
 % important for network modellers as I discuss elsewhere.
@@ -28,46 +14,56 @@ In reduced neuronal It was found that the electrical properties of cells:
 
  did not encode the above threshold spiking behavior of neurons, when neurons were undergoing a multispiking stimulus regime.
 
- forinstance in Allen cell $482493761$ injecting a current of 
- specified by:
- \begin{minted}{python}
- from quantities import pA, ms
- current = {'amplitude':110*pA,'duration':1100*ms,'delay':100*ms}
- \end{minted}
- should elicit a spike count of $3$, in an optimized Izhikevich model that has good agreement with all values except for Rheobase these values it produces $33$ spikes.
+Which fits generalize better? Which tests have more predictive power?
 
-One can imagine that in cells that have been optimized to rheobase only, that current spike count relationship might be more  accurate and faithful to the experiment.
+I fitted an adaptive exponential model, and an Izhikevich model to experimentally obtained values for input resistance, time constant, resting membrane potential, and rheobase.
 
-In cell 471819401 , $290 pA$ causes $20$ spikes,
-in the optimized Adaptive Exponential model $290$
-specified by:
+Surprisingly fitting to essential electrical properties of neuron membranes was distinctly different from fitting the cells directly to the FIcurve, as I will show below. 
+
+Specifically in in-vitro cell  cell with Allen specimen id $482493761$ injecting a current of $110*pA$ evokes a spike count of $3$, by contrast in an Izhikevich model fitted against criteria listed above, the model produces $33$ spikes, and not $3$ spikes, in otherwords, essential electrical properties did not predict firing rate very well in the model.
+
+In the in vitro cell with Allen specimen id 471819401, $290 pA$ causes $20$ spikes,
+in the optimized Adaptive Exponential model $290pA$ caused only $5$ spikes. 
+
+Motivated by these unexpected discrepancies, I produced a smaller sub group of tests consisting of rheobase and FISlope only, as the discrepancies show that cell capacitance, input resistance, and time constant are generally conflicted with FI curve proportions in in-silico cell models. I discuss a group of canonical tests. These are tests that employ cross-validation, to reveal tests that generalize versus tests that promote ``over-fitting". The first members of a generalizable and canonical set of tests are likely to be the FIcurve and Rheobase tests.
+
+ %specified by:
+ %\begin{minted}{python}
+ %from quantities import pA, ms
+ %current = {'amplitude':110*pA,'duration':1100*ms,'delay':100*ms}
+% \end{minted}
+ 
+One can imagine that in cells that have been optimized to and FIslope rheobase only, that current spike count relationship might be more accurate and faithful to spike count aspects of experiments.
+%and in the Izhikevich model $59$
+
+%specified whih:
 %\begin{lstlisting}[language=python]
 
-\begin{minted}{python}
- from quantities import pA, ms
-current = {'amplitude': 290*pA,
-           'duration': 1100*ms,
-           'delay': 100*ms}
-\end{minted}
+%\begin{minted}{python}
+% from quantities import pA, ms
+%current = {'amplitude': 290*pA,
+%           'duration': 1100*ms,
+%           'delay': 100*ms}
+%\end{minted}
 %\end{lstlisting}
 
-caused only $5$ spikes. and in the Izhikevich model $59$
-
+%
 
 
 \begin{table}
 \centering
 \begin{tabular}{lllll}
             & RheobaseTest & TimeConstantTest & RestingPotentialtest & InputResistanceTest  \\
-Observation & 70.0 pA      & 24.4 ms          & -71.6 mV             & 132.0 MOhm           \\
-Prediction  & 234.67 pA    & 31.31 ms         & -72.08 mV            & 130.26 MOhm          \\
-Z-score     & 3.98         & 0.09             & 0~                   & 0.01                
+Observation & 70.0 pA      & 24.4 ms          & -71.6 mV             & 132.0 M$\Omega$           \\
+Prediction  & 234.67 pA    & 31.31 ms         & -72.08 mV            & 130.26 M$\Omega$          \\
+Z-score     & 3.98         & 0.09             & 0.02                   & 0.01                
 \end{tabular}
+\label{table:allen_single_cell_fit}
 \end{table}
 
 
 Another way of writing this is that fitting a model to electrical properties of cells, does not
-guarantee that the cell is fitted to suprathreshold behavior, at current injection virtual experiments with larger amounts of injected current.
+guarantee that the cell is fitted to above threshold behavior, at current injection virtual experiments with larger amounts of injected current.
 A model fitted to one "sweep" is a model of only that sweep. 
 
 If you apply the sweep fitted model to a different current injection value, you will not get the expected waveform shape fitted.
@@ -85,7 +81,7 @@ because even though one may have optimized to the shape of a single spike, and t
  If both are distal to the axon hillock, both synaptic current, and injected currents may behave in a similar way.
 
 
- These model parameters do not encode the spike frequency.
+These model parameters do not encode the spike frequency.
 you didn't optimize to the spike count at different injection values.
 
 Therefore in order to make realistic network models that make use of reduced models, 
@@ -97,8 +93,3 @@ Are easier for reduced models to fit. I show this in some simulated data, virtua
 
 % With spike counts, and spike frequencies, 
 
-\subsubsection{Future Work}
-Because of the benefits of the NeuroML model specification, data fitted models should be downloadable in a NeuroML format. NeuroML is simulator agnostic, descriptions of the optimized models will be more shareable, if they are not pinned down to their numba-python implementation. NeuroML models should can be deployabled by any mainstream simulator. %When model parameters are inserted into NeuroML cell model definitions, NeuroML encoded models become operational. These NeuroML encodings will if possible be uploaded into NeuroML-DB, where they will be more readily find-able by the neuron modelling community
-% Such files can be used as network components, and they confidently utilized and exchanged, as such files represent a higher degree of rigor. Since there are two classes of model fits, some models are better suited fitted to network modelling and others are better suited to single cell modelling, this is because, by fitting cell models to FI curves, a lot of other realistic electrical behavior that is incompatible with the FI fit diminishes.
-
-At least for the Izhikevich, model links to the reference models, can also be provided.
