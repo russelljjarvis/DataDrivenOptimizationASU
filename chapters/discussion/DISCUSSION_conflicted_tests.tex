@@ -1,48 +1,34 @@
-\section{Conflicting Optimization Constraints}
-
-\subsection{Conflicts in Models Between Experimental Constraints}
-
+\section{Appropriate Optimization Constraints}
+\subsection{Conflicting Optimization Constaints}
 I identified multiple conflicts between features used for optimization.
 In some cases, the conflicts may arise from limitations of the model, i.e. the model may lack the richness to lie at precisely the points in features space that some real neurons lie in.
 However, I found that even for biophysically detailed neuron models, this limitation was sometimes still observed.
 Thus, there must be some other source of these conflicts, which I identified as a conceptual pitfall in optimization: feature values computed from the mean of the corresponding features across many neurons (as in NeuroElectro) may not actually describe any real, single neuron (or in some cases any possible neuron). 
 This was typical when combining the Rheobase, Input Resistance, and Time Constant, for example.
 
-\subsection{Neuroelectro Measurements that were not Amenable to the Optimization Framework}
-\begin{itemize}
-\item ThresholdTest
-\item SpikeHalfWidth
-\item Spike Amplitude
-\end{itemize}
-As discussed previously this is because of an accumulating rheobase error which caused threshold measurements to differs between cells. This may be more of a problem in certain regions of model parameter space, but the problem was general, it occurred in multiple models. As discussed in \ref{section:pitfalls}, error residues from rheobase calculations can be propagated into these tests, where the error amplifies.
-%Aim 1A, write something about tests overall.
-%Overall the some 
-Tests of static electrical properties amenable to optimization:
-\begin{itemize}
-\item FISlopeTests
-\item Capacitance
-\item Input Resistance
-\item Time Constant 
-\end{itemize}
+\subsection{Conflicts in Neuroelectro Measurements}
+The NeuronUnit tests \emph{ThresholdTest},  \emph{SpikeHalfWidth}, and \emph{Spike Amplitude} were often incompatible with other tests due to the contingent discontinuity problem described in the previous section.
+By contrast, I experience few conflicts with \emph{FISlopeTest},  \emph{Capacitance},  \emph{Input Resistance}, and  \emph{Time Constant}.
 
-The following two are amenable to optimization, however, they are a source of potentially growable noise and so they should be used with caution when used as a reference or basis for secondary measurements.
-\begin{itemize}
-\item Rheobase 
-\item Spike Count measurements \end{itemize}
+Membrane Time Constant measurements were consistently harder to use for guiding optimization, being incompatible with other features in almost all model types (including conductance based models, reduced models, and including all data types (NeuroElectro data and Allen Cell Types single experiment data).
+This value is proportional to cell surface area, and it may be that cells taken from, for example, slices of different thicknesses have different capacitances but that this has minimal impact on other measurements.
+Alternatively, most capacitance measurements could be in error due to recording pipette capacitance artifacts.
+Regardless, when the membrane time constant was not included, optimized models were still able to behave in most other respects like their experimental counterparts
 
+As discussed in section \ref{sec:parallel-rheobase} rheobase is strictly defined as the minimum current injection to evoke exactly one spike.
+It does not fully define the FI curve, and there are in infinite number of FI curves that contain the points $(Rheobase^-, 0) and (Rheobase^+, >0)$
+Interestingly, if selecting only one suprathreshold feature to pair in optimization with the remaining physiological features, the FI slope was a better fit than the rheobase.
+It may be that by considering the whole FI curve in optimization counter-intuitively makes optimization more flexible by allowing small misses on matching the rheobase in exchange for a better overall match to the remaining suprathreshold spike counts.
 
-%, , , , test worked but was conflicted. The tests that did not work. This is somewhere else.
-
+\subsection{Sufficient Optimization Constraints}
+Avoiding conflict constraints, which tests are minimally sufficient to produce good optimization results?
 Tests that worked within optimization:
 Via \emph{Elephant} toolchain: FITests, Rheobase, Capacitance, Input Resistance, Time Constant, Resting Membrane Potential.
 Via. 
 
-When optimizing in the supra threshold regime Druckmann used:
-(1) spike rate; (2) an accommodation index; (3) latency to first spike;(4) average AP overshoot; (5)average depth of after hyperpolarization (AHP); 
-(6) average AP width similar to Druckman, when optimizing in the supra threshold regime.
-When optimizing with reduced models, I found that the those 6 measurements were not enough to tightly constrain a fit, and additional constraints were helpful. In this work a minimum of 12 constraints were typically used:
-\emph{EFEL}
-tool chain:
+\cite{druckmann2007novel} optimized neuron models using only suprathreshold stimuli by considering (1) spike rate; (2) an accommodation index; (3) latency to first spike;(4) average AP overshoot; (5) average depth of after hyperpolarization (AHP); and (6) average AP width.
+However, when optimizing reduced neuron models, I found that the those 6 features measurements were insufficient for optimization, and additional constraints were required.
+Overall, I found that the following features from the EFEL library were sufficient:
 \begin{enumerate}
 \item AHP-depth
 \item all-ISI-values
@@ -58,13 +44,15 @@ tool chain:
 \item voltage-base
 \end{enumerate}
 
-\subsubsection{Persistently Incompatible Tests: Trends and Patterns}
+\subsection{Using the whole FI Behavior}
 
-Time Constant measurements were consistently harder to fit, and where often incompatible, in almost or all model types (including conductance based models, reduced models, and including all data types (NeuroElectro data, and Allen cell-types single experiment data). When the membrane time constant was mismatched, this didn't seem to be of much consequence to other membrane timing measurements in the cell, for instance membrane capacitance, spike widths and spike-thresholds could still be accurate. Frequently mismatched membrane time constants suggests either one of two possibilities: Either our method for measuring membrane time constant is wrong, and is off by a factor of 10, or, model builders write equations that are founded on electrical properties that are preference AP features and electrical properties slightly that don't involve the membrane time constant.
+When using Allen experimental data to create multi-spiking tests, there was the potential to more tightly constrain model behavior. In order to evaluate the goodness of fit models the $\chi^{2}$ statistic could no longer be used, instead one could compute the 'variance explained ratio' between the allen institute experimental sweep and the optimized models sweep to a comparable current injection.
 
-Interestingly there was better compatibility between firing rate versus current (FISlope) and the remainder of the electrical observations (where the remaining measurements tended to agree well with each other), than between rheobase and the same measurements. Compatibility was also experienced between the FISlope and Rheobase tests, so two natural clusters of tests that emerged are: FI curve properties, versus the other electrical properties.
+and there is also the potential to check the variance explained ratio of tests. In such a multispiking paradigm the highest possible variance explained ratio of approx $1$. 
 
-As discussed in the methods \ref{sec:parallel-rheobase} Rheobase is defined as the minimum current injection to evoke exactly one spike, therefore, rheobase can sensibly be drawn onto the FISlope for an experimental cell.. The FI line is not fully defined by the slope, as the slope defines the lines gradient but not its bias, however, because the rheobase value falls on the FI-curve, it intersects with the line which has both the bias and the slope of the FI curve. 
 
-%Taken together,
-In the situation where, FI-slope is matched, other electrical measurements match, but rheobase is mismatched; when electrical properties agree with the FI-slope but not the rheobase, this suggests, that the overall linear relationship is correct but the exact quantity of current that biases the FIslope is wrong in models. One reason for this could be due to the difference between modelled resistance, and material resistance in neurons. Another reason, might be because, in the virtual experiments where I measured rheobase, I only used a single value of integration time that was a $1$ second duration,  square current pulse, but experiments could have used either shorter times (stronger currents needed to evoke single spike), or longer integration times (less current needed to evoke a spike).
+There is visibly almost perfect  agreement between simulated and experiments and the optimized models, in the passive experimental conditions, and a close match for the spiking model behavior. There was a standard suite of tests if only spike-half-width, not spike-base-width. The Izhikevich models width as thus free to vary at the base, take that into account when eye balling the two graphs and you can see why almost binary match. EFEL does achieve spike width binary matching because it uses both half-width, and base-width. If you look at the last cells you can see I take a correlation matrix of the optimizers errors over its history. The idea is if it's normalized then I can sum the whole matrix and get a single scaler number to show how uncorrelated both error sets are over the GA evolution. 
+
+It was found that the elephant/neuroelectro-suite of NU tests don't fully constrain the spike width at the base of neuron action potential waveform. Since the base of the waveform was unconstrained, it was free to vary, half-spike-width is constrained, it is more appropriate to talk about variance explained of the spike snippet. $variance explained>0.95$ is a useful heuristic. Allowing some margin acknowledges that we shouldn't assume we have represented all waveform features that can vary. If you want $variance explained==1$   
+you could optimize using a variance explained 
+cost function, but we don't want to do that.

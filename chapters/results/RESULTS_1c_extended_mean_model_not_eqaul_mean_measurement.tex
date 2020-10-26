@@ -1,16 +1,18 @@
 \subsection{What is the value of a model based on average feature values?}
+\label{sec:mean-model}
 I am not the first to observe that fitting a model to the mean of feature values across a distribution of cells of the same type may not result in a model that well-described an actual neuron from that distribution.
 Neuron modelers have some awareness of this problem which has been thoroughly characterized in \cite{marder2011multiple}, though it remains underappreciated.
-This is especially obvious when the feature distribution is multi-modal (such as inset-e in the figure below), but it could also result from hidden covariance structure among the features (Figure \ref{eve_marder}).
+This is especially obvious when the feature distribution is multi-modal (such as inset-e in the figure below), but it could also result from hidden covariance structure among the features (Figure \ref{fig:eve_marder}).
 
 \begin{figure}
 \begin{center}
 
 \includegraphics[scale=0.65]{figures/eve_marder.png}
 \end{center}
-
-\end{figure}
+\caption[Lessons from Marder]{ADD THIS CAPTION}
 \label{fig:eve_marder}
+\end{figure}
+
 
 Previously in methods \ref{section:nelectro}, we showed that some feature distributions are bimodal.
 Consider a cell type which had an underlying bimodal distribution for input resistance, with a mean exactly between the two modes.

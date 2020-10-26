@@ -185,7 +185,7 @@ threshold-index & Index into array when threshold(s) are surpassed & Allen & $3.
 
 %\url{https://github.com/BlueBrain/eFEL/blob/master/docs/source/tex/efeatures.tex#L382}
 
-Of the dozens of features considered, the features described in the table above make up the first two prinicipal components of sparse PCA decomposition, and are responsible for $\sim 50\%$ of the overall variance (left panel in Fig. \label{fig:pca_data_points}) in the ensemble of models and data.
+Of the 48 of features considered, the features described in the table above make up the first two prinicipal components of sparse PCA decomposition, and are responsible for $\sim 50\%$ of the overall variance (left panel in Fig. \label{fig:pca_data_points}) in the ensemble of models and data.
 Interestingly these features mostly belong to the Allen SDK feature extraction set, with two exceptions: $peak-indices-1.5x$  and $min-AHP-indices-1.5 \times$ which belong to EFEL.
 This suggests that the Allen SDK might be nearly sufficient for both characterizing and discriminating between existing models and data.
 
@@ -198,17 +198,21 @@ This suggests that the Allen SDK might be nearly sufficient for both characteriz
 \end{figure}    
 
 
-
+\subsubsection{Proto-type of Secondary Validation Pathway}
+Neuronunits ability to do evaluate a $\chi^{2}$ hypothesis test constitutes a valuable model validation pathway, however, it is desirable to have several indipendant model validation approaches. 
 \begin{figure}    
-\begin{center} \includegraphics[width=0.75\linewidth]{figures/optimized_model_fit_onto_big_distribution.png}
-    \label{fig:}
+\begin{center} \includegraphics[width=0.5\linewidth]{figures/optimized_model_fit_onto_big_distribution.png}
+\label{fig:TSNE}
 \end{center}
-\caption[A TSNE Low Spatial Embedding Optimized Models]{A TSNE spatial embedding, showing how optimized models, fair relative to other published models. Looking at this plot, the first interpretation is one of great optimism. Other interpretations are possible.}
+\caption[A TSNE Low Spatial Embedding Optimized Models]{A TSNE spatial embedding. The data point positions in this plot were later identified to be spurious, however the plot should not be interpreted as a finding, but as a prototype of a valuable validation pathway.}
+
+
+%showing how optimized models, fair relative to other published models. Looking at this plot, the first interpretation is one of great optimism. Other interpretations are possible.}
 \label{fig:tsne_opt_model_points}
 \end{figure}    
 
 \begin{figure}    
-\begin{center} \includegraphics[width=0.75\linewidth]{figures/data_experiment_fits.png}
+\begin{center} \includegraphics[width=0.5\linewidth]{figures/data_experiment_fits.png}
     \label{fig:}
 \end{center}
 \caption[PCA clustering]{Data Points}
@@ -217,10 +221,14 @@ This suggests that the Allen SDK might be nearly sufficient for both characteriz
 
 
 In the figures ( \ref{fig:tsne_opt_model_points} and \ref{fig:pca_cluster
-}). I have projected pre-optimized models into the same low dimensional embeddings, given by some dimensionality reduction algorithms. The advantage of such plots is that in theory they provide a seperate and indipendent means of validating models outside of the neuronunit-Zscore frame work. Additionally they provide a means to e valuate generality of model fits, as the models here where only optimized against 8 different Neuroelectro tests (of at or below threshold behaviors), in this new context, those same cells are now being compared against 48 different spike-train-shape features.
+}). I have projected pre-optimized models into the same low dimensional embedding, given by some dimensionality reduction algorithms. The advantage of such plots is that in theory they provide a separate and indipendent means of validating models outside of the neuronunit-Zscore frame work. Additionally they provide a means to e valuate generality of model fits, as the models here where only optimized against 8 different Neuroelectro tests (of at or below threshold behaviors), in this new context, those same cells are now being compared against 48 different spike-train-shape features.
 
-Inspecting In the figures ( \ref{fig:tsne_opt_model_points} and \ref{fig:pca_cluster
-}). It looks as if optimized (Izhikevich) models, are better fits for experimental data, than many pre-published models, since the optimized models (yellow) are clustered with the experiments (green). There are some important caveats that make drawing strong optimistic conclusions hard. The first caveat is that at this point, about 50\% of rows, had many absent features that where filled with $0s$, the rest had significantly normal values in the missing features. This artifact artificially boosted variance in several features, that realistically lacked variance. Once the zeros where identified and imputed, other real sources of variance in the data were much more highly weighted in their contribution to PCA transformation. With other variance sources now weighted more highly, the optimized cells where repositioned more distant from the experimental cluster.
+Inspecting In the figures ( \ref{fig:tsne_opt_model_points} and \ref{fig:pca_cluster}). It looks as if optimized (Izhikevich) models, are better fits for experimental data, than many pre-published models, since the optimized models (yellow) are clustered with the experiments (green). There are some important caveats that make drawing strong optimistic conclusions hard. The first caveat is that at this point, about 50\% of rows, had many absent features that where filled with $0s$, the rest had significantly normal values in the missing features. This artifact artificially boosted variance in several features, that realistically lacked variance. Once the zeros where identified and imputed, other real sources of variance in the data were much more highly weighted in their contribution to PCA transformation. With other variance sources now weighted more highly, the optimized cells where repositioned more distant from the experimental cluster.
+
+As I have discussed, some of the earlier work in this area was later, in-validated, once I had identified some artificial sources of variance.
+
+Figure \label{fig:pca_data_points}, shows the a rigorous low dimensional embedding of the 48 dimension feature space. Earlier I produced figures: (\ref{fig:tsne_opt_model_points} and \ref{fig:pca_cluster}). The overall structure of the three different plots is inconsistent to a degree which is greater than what can be attributed to in differences of dimensionality reduction algorithm. In the final rigorous plot (\label{fig:pca_data_points}) it is experimental data that falls into two clusters, and models fall into a single central cluster. In the earlier less rigorous plots models fall into two clusters and experiments are united in one central cluster.
+
 
 % In the low dimensional embedding, could  optimized reduced models where plotted
 
@@ -239,12 +247,33 @@ The diversity of feature values in real neurons is simply not being adequately c
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.75]{figures/features_that_disagree}
+    \includegraphics[scale=0.75]{figures/fast_trough}
     \caption[Features that disagree. Slow Trough indexs, from the Allen cell types feature extraction]{The sparse PCA graph is very abstract, it's important to understand that much variance found by the sparse PCA algorithm originates from differences between model distributions and experiment distributions Simple stacked histograms of data are able to show such differences. By "Fast" in fast trough indexs, all that is meant is the beginning time of troughs occurrence, this would contrast with the "slow" or ending time of the spikes. This is arguably a bad naming scheme.
     \url{https://allensdk.readthedocs.io/en/latest/allensdk.ephys.ephys_features.html}
     }
     \label{fig:from_poster_disagree}
 \end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.75]{figures/spike_count_at_3rheobase.png}
+    \caption[Features that agree. SpikeCount]{
+    Not all features disagreed. For example: Spike Counts in models and Experiments agreed. Here you can see that in this skewed distribution of spike counts, the median and mode values in models and data agree. Overall experiments have a greater range of dispersal about spike counts, with significantly more spike counts above 250 spikes. All-together this seems reasonable, each single model only intends to represent a range of behavior, modelling efforts have not yet addressed fitting to the variance of diverse data sets.
+    %The sparse PCA graph is very abstract, it's important to understand that much variance found by the sparse PCA algorithm originates from differences between model distributions and experiment distributions Simple stacked histograms of data are able to show such differences. By "Fast" in fast trough indexs, all that is meant is the beginning time of troughs occurrence, this would contrast with the "slow" or ending time of the spikes. This is arguably a bad naming scheme.
+    \url{https://allensdk.readthedocs.io/en/latest/allensdk.ephys.ephys_features.html}
+    }
+    \label{fig:from_poster_disagree}
+\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics[scale=0.75]{figures/fast_trough}
+%    \caption[Features that agree. SpikeCount]{
+%    Not all features disagreed. Example of Agreement: spike counts in models and experiments. The sparse PCA graph is very abstract, it's important to understand that much variance found by the sparse PCA algorithm originates from differences between model distributions and experiment distributions Simple stacked histograms of data are able to show such differences. By "Fast" in fast trough indexs, all that is meant is the beginning time of troughs occurrence, this would contrast with the "slow" or ending time of the spikes. This is arguably a bad naming scheme.
+%    \url{https://allensdk.readthedocs.io/en/latest/allensdk.ephys.ephys_features.html}
+%    }
+%    \label{fig:from_poster_disagree}
+%\end{figure}
+
 
 \begin{comment}
 \begin{itemize}
