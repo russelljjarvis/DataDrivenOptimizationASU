@@ -120,6 +120,8 @@ The same optimized model was also capable of reproducing the patterns of spikes 
 \subsection{Comparison to Best-Case Scenarios}
 Since these result now concern fits to single neurons, I cannot use the $\chi^2$ measure of agreement between the optimized model and the distribution of the data; the distribution now has only a single member per optimization.
 Instead, I will compare the quality of these results to best-cases scenarios from prior research.
+I will also use the ``variance explained ratio" between the allen institute experimental sweep and the optimized models sweep to a comparable current injection.
+
 Previously, a competition was held \citep{naud} inviting participants to predict spike times (in response to specific patterns of somatic current injection) for well-characterized cortical neuron.
 The best models in this competition were only able to predict $\sim86\%$ of spike times (Fig. \ref{fig:rossant-fits}), and this under conditions with fluctuating somatic currents that actually produce more spike-timing regularity than square currents \citep{mainen}.
 Consequently, it is unlikely that \emph{in silico} models can be expected to produce a perfect match of spike times in response to square wave current injection, tempering expectations for my optimizer.
