@@ -21,14 +21,22 @@ A variety of potential error surfaces are presented in Figure \label{fig:test2}.
       \label{fig:test1}
       \centering
       \includegraphics[scale=0.75]{figures/spectrum_worst_error_surfaces2.jpg}
-      \caption[Hypothetical Error Functions, Worse than Rastrigrins function]{Rastrigrins function describes a challenging error surface, but one with learnable global features that a genetic algorithm can exploit. Consider the bottom inset figure, which is a cross section of a Rastrigin like function. Along the course of evolution, there is plenty of opportunity for genes like A and B to recombine, often producing fitter children like C. It's important to note that there are much worse error surfaces, and these may show up in practice consider for example the middle inset figure, where cross-over has nothing useful to contribute.
-      The situation in the topmost inset is worse again still. In this context learning is a disadvantage, if the optimizer "learns", then it actually slows obtaining an optimal solution, which it will only find using an extremely lucky right large random mutation. It is likely that a GA on this surface will be slower than grid search.}
+      \caption[Challenging Error Surfaces]{\textbf{Challenging Error Surfaces}. 
+      Fitness here should be relabeled "Error".
+      The top panel shows an error surface where an optimizer is unlikely to identify the global minimum error.
+      Any exploration of the region leading towards that minimum is likely to be abandoned prematurely.
+      Only an extremely lucky set of initial chromosomes or a random mutation might result in exploration of the region immediately around the global minimum.
+      The middle panel is more hopeful, showing an error surface that does not actively block the global minimum from being explored.
+      However, the surface is still mostly uninformative.
+      The bottom panel shows a cross-section of Rastrigrin's function (described in the Introduction).
+      Despite its hype, this is really the least challenging of the three error surfaces shown here, as there as at least long-range structure to the error surface that a genetic algorithm can exploit.
+      }
       \label{fig:test2}
 \end{figure} 
 
 \subsection{Defects in the Error Surface}
 The real error surfaces that guide optimization here have ``defects", for example discontinuities (due perhaps to bifurcations in the underlying dynamical system, e.g. from spiking to non-spiking) or to deep local minima, that make optimization challenging.
-I coined the term "corrugated" to describe surfaces low amplitude oscillatory disturbances across the error surface.
+I coined the term ``corrugated" to describe surfaces low amplitude oscillatory disturbances across the error surface.
 
 Some optimization techniques require a perfectly convex error surface to converge.
 Genetic algorithms are more tolerant, up to a point, but an extremely high dimensional optimization problem with a large number of optima can still be intractable.
@@ -42,10 +50,10 @@ Figure \ref{fig:easy-case} gives an example of an error surface that, while not 
 \begin{figure}      
 \centering
       \includegraphics[scale=0.85]{figures/parameter_b_friendly_surface.png}
-      \caption[Cross section of a more ideal objective function]{
-      sag-ratio at 1.5 $\times$ rheobase error is plotted (y-axis) as I sweep across values of b $(x-axis)$. A polynomial regression algorithm (orange trace), is actually a semi reasonable fit of the error function. The quality of it fit entails smoothness.
-    
-    This is a cross section of a useable and tractable error surface, it has learnable global and local information, this surface is likely to be a valuable addition to the optimizer suite. The optima is depicted as a red star, but it is mainly superimposed by blue data points. The optima is find-able via using either the blue dots, or the orange regression lines as guides.}
+      \caption[A non-convex but manageable error surface]{\textbf{A non-convex but manageable error surface}.
+      The vertical axis shows error (model-data disagreement) for ``sag-ratio" feature computed at 1.5 $\times$ rheobase as the value fo the $b$ parameter in the Izhikevich model is slowly varied.
+      The blue dots show the actual error values, and the orange curve shows a low-order polynomoial regression fit.
+      While the fit is clearly not perfect, the fact that the error surface can be approximated by a low-order polynomial suggests that it will not be difficult to find the minimum (red dot).}
       \label{fig:easy-case}
 \end{figure}
 
@@ -100,7 +108,7 @@ By contrast, if that $4th$ objective is actively misleading, the optimizer will 
 %   Not all surfaces, provide equally useful information. There are spectrum's of surface quality between convex triangular or parabolic depressions acting as the best solution surfaces, flat functions, and misleading functions. 
    
 \subsection{Contingent Discontinuities}
-\label{fig:contingent_discontinous}
+\label{sec:contingent_discontinous}
 Some tests used to compute the objective function may depend on the results of other tests.
 They may depend on the measured value of one feature, for example, a test of the action potential width at half-height depends on the height measured from threshold which depends on the threshold.
 Or they may depend on a stimulus parameter derived from a previous test; for example, computing the first inter-spike interval (ISI) at 1.5x rheobase first requires computing rheobase, and then multiplying the rheobase value by 1.5 to generate the stimulus for the ISI test.
@@ -117,7 +125,9 @@ Figure \ref{fig:probably_smooth_constraint} provides a concrete example of the d
 \begin{figure}
 \centering
       \includegraphics[scale=0.85]{figures/parameter_b_hopeless_surface.png}
-      \caption[Cross section of an objective function that harms efficient optimization]{Parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AP1 begin voltage (threshold), was computed for each different value of \emph{a} in the model. Evaluation of swept increments of \emph{a} resulted in the highly rippled error surface visible here. The surface is densely populated by local minima, and it lacks significant convex shape. A polynomial regression algorithm (orange trace), is a very bad fit of the error function. This implies that the function is not very smooth, and seemingly random. The optima value depicted as a red star. The optima is buried in random irregularities of error surface.
+      \caption[A non-convex and unmanageable error surface (1)]{\textbf{A non-convex and unmanageable error surface}.
+      Similar to Figure \ref{fig:easy-case}, but showing the error in another feature (the membrane potential at the start of the AP waveform) as the same parameter is varied.
+      This error surface is extremely corrugated, the polynomial fit has no hope of approximating what is going on for $b<6$, and the optimizer stands little change of finding the global minimum, if such a minimum is even meaningful here.
     }
       \label{fig:probably_smooth_constraint}
 \end{figure}
@@ -131,7 +141,12 @@ An example of this even more challenging case is given in Figure \ref{fig:discon
 \begin{figure}
       \centering
       \includegraphics[scale=0.85]{figures/parameter_b_hopeless_surface2.png}
-      \caption[Cross section of difficult or hopeless error surface]{Parameter b was slowly varied in the Izhikevich model while all other parameters where held constant, the AHP depth differences at $1.5 \times rheobase$, was computed for each different model parameterisation of \emph{a}, this resulted in a highly  discontinuous error surface, densely populated by local minima. A polynomial regression algorithm (orange trace) shows that if the error function is smoothed it looks convex, but it is very doubtfull that the GA would experience the error as anything but random}
+      \caption[A non-convex and unmanageable error surface (2)]{\textbf{Another non-convex and unmanageable error surface}. Similar to Figure  \ref{fig:probably_smooth_constraint}, but now for differences in the depth of the after-hyperpolarization across repeated spikes.
+      This feature is actually uncomputable for some values of the parameter $b$ varied along the x-axis, because as this parameter changes, the rheobase changes, and the number of spikes observed at the rheobase varies between 1 and 2.
+      When the number of spikes is 1, any parameters that describes differences across spikes is undefined.
+      Because the optimizer cannot work with missing data, a very larger error (1000) is imputed.
+      However, this means that it is nearly impossible to identify the global minimum, because many promising chromosomes mutate onto the peaks of the error surface and do not make it into subsequent generations.
+      A genetic algorithm sees the region $b<6$ as essentiall random.}
       \label{fig:discontinuous_constraint}
 \end{figure}
 
@@ -144,8 +159,14 @@ I found that slowly varying a single model parameter in a reduce model can cause
 \begin{figure}
 \begin{center}
 \includegraphics[]{figures/fundamental_cause_of_corrogations.png}
-\caption[Causes of corrugation]{The main cause of corrugated error surfaces in this work was found to be re-calculating special current values on a per-model basis. In this plot, for each data point in blue and orange traces, the model was forced to fire exactly 11 spikes while the value of 'a' was swept between $4.4$-$5.6$, a straight line given by linear regression, approximates where we expect required current injection amplitude to fall, but instead, the real value routinely zig-zags to either side of the straight line. These deviations in current injection values represent a small but measurable amounts of excess currents. Current that was slightly more than sufficient to cause 11 spikes but less sufficient to cause 12 spikes. These current excesses are free to propagate into other measured features of spiking waveforms where they amplify a small but significant amount.
-In the above discussion a hypothetical sceanario was described, where an optimizer measures ISIs at 1.5 $times$ rheobase, because the ISI measurement is contigent on Rheobase measurements, the rheobase approximation error is manifest in ISI too.}
+\caption[Causes of corrugation (1)]{\textbf{The Causes of Corrugation in Error Surfaces: Part A}.
+I identified the main cause of corrugated error surfaces by re-calculating feature values as single parameters were varied.
+Here, I vary parameter $a$ in the AdEx model.
+The orange trace shows the computed rheobase current as this parameter is varied.
+Note that it grows in a step-like manner, not according to the smooth linear fit (blue).
+During periods when the rheobase is not increasing (but the parameter value is), the parameter may cause some other feature, computed at rheobase to vary in one direction.
+Once the rheobase jumps, the stimulus used to compute the feature has changed, so that same feature may vary in the other direction.
+Consequently, a computed feature-value may zig-zag, rather than exhibiting a smooth change, as a parameter is varied.}
 \label{fig:corrugation-cause-1}
 \end{center}
 \end{figure}
@@ -154,7 +175,10 @@ Below I show a more concrete example of the same phenomena.
 \begin{figure}
 \begin{center}
 \includegraphics[]{figures/rh_vs_vt.png}
-\caption[ADD SHORT CAPTION]{An izhikevich model is used to examine the effects of slowly varying parameter 'a' while keeping all other paramters as constant, on the plot, rheobase and $V_{T}$ are calculated for each different value of 'a' and plotted on the same y-axis. It becomes apparent that rheobase (the orange trace) has minor zig-zags in its value, while $V_{T}$, has bigger and more significant zig-zags in its value, at this point all we have done is slowly varied and calculated $V_{T}$ but we have not plotted $V_{T}$ in relation to APs}
+\caption[Causes of corrugation (2)]{\textbf{The Causes of Corrugation in Error Surfaces: Part B}.
+Using an Izhikevich model, I vary a single odel parameter ($a$) as in Figure \ref{fig:corrugation-cause-1}, and plot the rheobase current (orange, normalized to its mean value) but also compute the value of the spike threshold (blue, also normalized).
+Note the non-linear behavior of the response of this feature value to the change in the model parameter.
+This non-linear behavior is mainly driven by a change in the amplitude of the injected current used to evoke it (the rheobase current), and not to underlying non-linearity in the location of the spike threshold for a fixed current.}
 \label{fig:corrugation-cause-2}
 \end{center}
 \end{figure}
@@ -165,9 +189,14 @@ In Figure \ref{fig:variable-vt} the location (in time) of the threshold relative
 \begin{figure}
 \begin{center}
 \includegraphics[]{figures/variable_vt.png}
-\caption[Source of corrugation]{It is clear from the plot above, that $V_{T}$ zigzags in value unpredictably as we smoothly change the value of $'a'$ in the Izhikevich model, but we want to see if this oscillatory behavior is noticeable if we plot $V_{T}$ on AP waveforms, as we vary $'a'$. In the following plot made of inset figures. $'a'$ starts at $0.01$ in the top most figure, and slowly works its way up to $0.1$ in the bottom most figure. For each value of 'a' we calculate Rheobase, and then $V_{T}$ as $V_{T}$ is contingent. Unpredictably $V_{T}$ oscillates backwards and forwards, instead of consistently increasing or decreasing. In this way, I have shown how, small residual errors starting in necessary approximations of rheobase value, have moved into $V_{T}$ where they are slightly amplified, however, this just marks the beginning of the problem.  
-
-AP amplitude measurements and AP width measurements happen to be contingent, on $V_{T}$, but the measured height and width are anchored to $V_{T}$ the very reading that we can see unduly oscillating back and forth. Therefore low amplitude oscillatory error is then introduced into spike height and spike width also.}
+\caption[Causes of corrugation (3)]{\textbf{The Causes of Corrugation in Error Surfaces: Part C}.
+In order to see this effect directly in the responses themselves, I plot the action potential waveforms for the Izhikevich model as the value of parameter $a$ increases in small steps from the bottom panel to the top panel.
+At each value of this parameter, rheobase is computed and the waveform of the spike evoked at rheobase is extracted.
+Each such spike is aligned across panel, so that differences in the lead up to that spike can be examined.
+The spike threshold, identified by the moment when the slope of the membrane potential reaches a target value, is shown with each blue dot, and the time that the threshold is reached is indicated by each vertical line.
+It is clear that while the time of the threshold changes as $a$ is varied, it does not do so systematically.
+Therefore the resulting error surface will not be useful for optimization.
+This demonstrates that making features contingent upon the responses to the rheobase current results in major challenges to optimizaton.}
 \label{fig:variable-vt}
 \end{center}
 \end{figure}
@@ -192,7 +221,10 @@ The error surface is vast, corresponding to all possible combinations of paramet
 Naturally, this is only sparsely and strategically sampled.
 Consequently there is no guarantee that it is has been adequately explored, and that lower error parameter sets do not exist somewhere that the optimizer did not adequately explore.
 
-Next I describe how ``clean" this error surface when using the model-rheobase-driven approach vs an alternative approach using fixed multiples of the experimentally observed rheobase.
+Next I describe how to visibly ``clean" corrugations from the error surface when using an approach based on a small list of non-contingent errors vs an alternative approach using models whose measurements are contingent on parameter dependent current values.
+
+For each model a current is found that forces the model to fire at 12 spikes. Although not the exactly the same as rheobase, the algorithm is structurally identical, and the problems are the same. When eliciting a pre-determined spike count for any model parameterization (1 or x). This algorithm has the same propensity as the rheobase algorithm to introduce small current excesses into readings of subsequent tests, in this case EFEL tests of spike train shape.
+%Because the rheobase algorithm is essentially an algorithm that searches %multiples of the experimentally observed rheobase.
 Figures \ref{fig:constant_current} and \ref{fig:real_problem_nontrivial_surface-1} below show error surfaces from each paradigm.
 Each of these figures depicts a heatmap of a 2D cross-section of the error surface.
 The sensitivity of the objective function to systematic changes (grid search) of two parameters, centered around the optimizer's own solution, was explored.
@@ -217,17 +249,25 @@ This effectively depicts a cross-section of the error surface near that solution
 \begin{figure}
     \centering
     \includegraphics[scale=0.7]{figures/friendly_error_surface.png}
-    \caption[Constant Currents Produce Tractable Error Surfaces]{2D cross-section of the error surface for an Izhikevich model optimized against XXXX. 
-    The tests TimeConstantTest, RestingPotentialTest, InputResistanceTest,  CapacitanceTest, and FITest were used to generate the resulting total error, shown in color.
-    Because a constant current injection of $-10pA$ was applied, the error surface is simple informative and very easy to navigate, although only one slice into the error hypervolume is shown. Plots of GA learning speed provide also demonstrate that the error surface is free from both corrugation and discontinuity. Other plots (not shown here) demonstrate that all other slices into the hypervolume have simple convex shape.}
+    \caption[Constant Currents Produce Tractable Error Surfaces]{\textbf{2D cross-section of the error surface for an Izhikevich model with no Contingent Tests}.
+    The model was optimized against simulated data using 5 features.
+    Any other features whose calculation is contingent on the rheobase were deliberately excluded.
+    A 2D grid search was then applied (for parameters $C$ and $k$) around the resulting optimal set of parameters in order to visualize the local error surface.
+    Although only 2 dimensions are explored here, there is no evidence of corrugation in this error surface, indicating that manageable, convex error surfaces can be realized when contingencies are removed.}
     \label{fig:constant_current}
 \end{figure}
 
+%\begin{figure}
+    %\centering
+ %   \includegraphics[scale=0.75]{figures/corrogated_surface_but_functional.png}
+%\end{figure}  
 \begin{figure}
     \centering
-    \includegraphics[scale=1.25]{figures/adexp_efel_problem.png}
-    \caption[A very complicated but not hopeless error surfaces]{Similar to the figure above, except using an AdEx model and tests adaptation-index, adaptation-index2, time-to-first-spike, mean-AP-amplitude, spike-half-width,  AHP-depth, minimum-voltage, peak-voltage, time-to-last-spike, AHP-depth-abs, all-ISI-values, voltage-base, min-voltage-between-spikes, Spikecount.
-    The optima chosen by the optimizer was actually the one in the centre, and not the one on the left, bear in mind, however, that these are only two out of approximately 12 model dimensions, and these two dimensions may not have weighed heavily in the final summed score (as opposed to the component error depicted here)}
+    \includegraphics[scale=0.75]{figures/corrogations.png}
+        \caption[A Complicated Error Surface]{\textbf{2D cross-section of the error surface for an AdEx model using EFEL features.}
+    Similar to Figure \label{fig:constant_current}, except using an AdEx model and all 14 EFEL features.
+    Despite lacking contingent tests, the error surface is still complex and Rastrigin-like.
+    This shows that even removing contingent tests will not result in convex error surfaces for all combinations of models and tests.}
     \label{fig:real_problem_nontrivial_surface-1}
 \end{figure}
 
@@ -239,7 +279,10 @@ This effectively depicts a cross-section of the error surface near that solution
 %    \label{fig:real_problem_nontrivial_surface-2}
 %\end{figure}
 
-The surprising complexity of these error surfaces did not become apparent to me until I had worked on this project for a few years.
+%%% . 
+%The surprising complexity of these error surfaces did not become apparent to me until I had worked on this project for a few years. Its more complicated than that, I had evidence of complex surface since begining. We were dismissing as bug, as we did not conceptualize where these complex surfaces where coming from. Search slack, there are pictures of complex surfaces, since just after I started working on the project. I think the real problem is we were too confident in the first established NU tests, they where passing unit tests, which was good, but we should not have assumed they were conceptually sound to use in optimization.
+
+%%%
 I suspect that other pre-existing optimizers that aim to fit neuronal models are largely ignorant of the error surface they face.
 In fact, without comprehensive data about the convergence rates of various competing approaches to optimization, we cannot now how efficiently each obtains its solutions, nor about alternative solutions that may have been missed.
 
@@ -251,3 +294,14 @@ However, successful optimization may require periodic exhaustive, local grids se
 %\begin{verbatim}
 %Case1 + RheobaseTest,
 %\end{verbatim}
+
+\section{Satisficing vs Optimizing}
+%Genetic algorithms are favorable because they provide a good solution to the exploration/exploitation trade-off.
+Unless hunting for a new prime number, few are willing to run compute jobs lasting for months, thus there are steeply limited budgets for exploring solution spaces. It therefore seems prudent to accept solutions which are are not optimal but are ``good enough", especially if these solutions can be obtained in a small fraction of the time.
+Not all real neurons, even of the same nominal type, have identical properties, so perhaps we should embrace such variability in optimization results as well.
+If the highest objective is to recover biologically plausible models, and many fitted models can easily meet this objective, then weaknesses in the ability of the optimizer to succeed in identifying the exact optimum in a very complex error surface can be tolerated.
+
+Fortunately the coupling of Neuronunit to a Genetic Algorithm facilitates either optimizing or ``satisficing" as appropriate.
+The term ``satisfice" means that a measured property is either deemed optimal or merely satisfactory \citep{simon1956rational}.
+Although we may not know if a true optimum has been achieved, by using NeuronUnit in the evaluation, we can determine if the result is satisfactory enough, and then terminate optimization early.
+This could be done by tracking the $\chi^2$ statistic during optimization and ending as soon as it drops below a certain level.

@@ -9,7 +9,7 @@ Therefore, if the first step were applying the optimizer to fit models to real b
 It is therefore necessary to create data-source independent ``ground truths", by simulating data from the models themselves, and using the optimizer to see if those model parameters can be recovered from that simulated data.
 Because genetic algorithms (such as the DEAP \citep{DEAP_JMLR2012} implementation used here) has notably good performance in handling complicated error surfaces (such as Rastrigrin's function), I expect that my optimization frame work, which derives from it, should also be able to handle potentially complicated features spaces such as one would expect from the output of a complex dynamical system like a neuron.
 
-I wrote an algorithm that senses the edges of defined model parameter boundaries, and defines uniformly distributed random numbers within those boundaries. Alternatively I could have chosen to draw numbers from uniformly distributed PRNGs, but doing so would risk testing only typical optimization cases and excluding edge cases. In figure (\ref{fig:})
+I wrote an algorithm that senses the edges of defined model parameter boundaries, and defines uniformly distributed random numbers within those boundaries. Alternatively I could have chosen to draw numbers from uniformly distributed random number generators, but doing so would risk testing only typical optimization cases and excluding edge cases.
 % The algorithm I wrote to choose random model parameters samples from uniform distributions across parameter ranges, and the case above, shows a model in a fringe case.
 
 
@@ -21,9 +21,9 @@ NeuronUnit-based electrophysiological features extracted from the traces shown i
 \begin{table}[ht]
 \centering
 \resizebox{\textwidth}{!}{
-\begin{tabular}{llll}
+\begin{tabular}{|l|l|l|l|}
 \toprule
-{} &    observations &     predictions & Z-Scores \\
+{} &    Observations &     Predictions & Z-Scores \\
 \midrule
 RheobaseTest         &         1.62 pA &         1.62 pA &        0 \\
 TimeConstantTest     &        13.18 ms &        13.18 ms &        0 \\
@@ -33,22 +33,25 @@ CapacitanceTest      &        48.65 pF &        48.65 pF &        0 \\
 FITest               &    7.51 Hz/pA &    7.51 Hz/pA &        0 \\
 \bottomrule
 \end{tabular}}
-\caption[Optimizer verification table]{``Observed" and ``Predicted" electrophysiological features match nearly perfectly.
-Generally, ``observed" would refer to observations taken from biological data, but here it refers to observations from simulations of the ground truth model using various stimuli.
-Each test extracts an electrophysiological features from some stimulus.
-``Predicted refers to the predicted values of these features from the optimized model.
-Z-Scores of 0, self-evident from the equality of the first two columns, indicate perfect optimization for this set of features.}
+\caption[Optimizer verification table]{\textbf{``Observed" and ``Predicted" electrophysiological features match to within a few decimal places}.
+Here, ``Observed" refers to values extracted from traces simulated from a ground-truth model.
+The optimizer has no knowledge of the parameters of that model, but uses these ``Observed features" to attempt to discover them using a genetic algorithm.
+The algorithm modified these parameters in order to bring the ``Predicted" features values, extracted from new simulations, in line with the ``Observed" ones.
+Each row refers to a distinct NeuronUnit test used to simulate the model, extract a single electrophysiological feature, and compute a Z-score.
+The outcome of this algorithm is shown in this table, demonstrating that the optimizer has identified a parameter set that perfectly reproduces these features.}
 \label{table:optimizer-verification}
 \end{table}
 
+\clearpage
 \begin{figure}
     \centering
     \includegraphics[scale=0.75]{figures/radar_coordinates.png}
-    \caption[Polor Plot of Optimizer Verification against Ground Truth]{\textbf{Radar Plot of Optimizer Verification against Ground Truth.} This radar plot shows the values of each parameter from the AdEx model for a randomly-chosen target parameterization (red) and the optimizer-discovered optimum parameterization (gray). 
-    The optimizer did not observe the parameter values in red directly, instead it used error guidance described above to ``recover" the parameters, as follows: Before optimization output features of the red model, i.e. it simulated membrane potential traces using the parameters shown in red and found that the parameters shown in gray produce traces that were similar on some features encoded in NeuronUnit tests.
-    
-    The result of this process is two almost identical sets of parameters.
-    Out of the 11 parameters in this model, there is only a trivially small discrepancy in $C_{M}$, $v-reset$ and $v-spike$.
+    \caption[Radar Plot of Optimizer Verification against Ground Truth]{\textbf{Radar Plot of Optimizer Verification against Ground Truth.}
+    ``Target" refers to parameters from the ground-truth model.
+    ``Optimum" refers to parameters obtained by the optimizer when trying to match the features shown in Table \ref{table:optimizer-verification}.
+    Despite having no knowledge of the ground truth parameters,
+    the optimizer can discover them by feature-matching, producing a near perfect match.
+    Nearly all of the 11 Izhikevich model parameters are accurately recovered, with only a trivial discrepancy in $v_spike$.
     }
     \label{fig:optimizer-verification-radar}
 \end{figure}
@@ -56,47 +59,46 @@ Z-Scores of 0, self-evident from the equality of the first two columns, indicate
 \begin{figure}
     \centering
     \includegraphics[scale=0.85]{figures/simulated_data_supra_threshold.png}
-    \caption[Optimizer Verification Example 1]{\textbf{Optimizer Verification Example 1.} The orange trace shows the model waveform recovered during the process of optimization. Blue trace (not visible due to occlusion by orange trace) depicts the source of the electrical measurements that were used to guide optimization.
-    Figure shows agreement in simulated response between the ground truth model and optimized model from Figure \ref{fig:optimizer-verification-radar}. Both the ground truth model and the optimized model are depicted for rheobase current injection values.}
+    \caption[Optimizer Verification Example 1]{\textbf{Optimizer Verification Example 1.} The orange trace shows the model waveform recovered during the process of optimization.
+    Blue trace (not visible due to occlusion by orange trace) depicts the simulated trace (in response to the rheobase current) from the ground truth model that were used to guide optimization.
+    The horizontal axis shows simulation time in seconds.
+    Clear agreement is shown in between simulated responses of the ground truth model and the optimized model from Figure \ref{fig:optimizer-verification-radar}. 
+}
 \label{fig:optimizer-verification-traces-1}
 \end{figure}
 
 \begin{figure}
     \centering
+    \includegraphics[scale=0.85]{figures/capacitance.png}
+    %\includegraphics[scale=0.85]{figures/passive_model_agreement}
+    \caption[Optimizer verification example 2]{
+    Similar to Figure
+    \ref{fig:optimizer-verification-traces-1}, but used a hyperpolarizing current injection value of $-10pA$, applied between $100ms-600ms$.for the Izhevich model.
+    Here the red trace represents the response in the ground truth model, and the green trace the response in the optimized model.
+    This shows that responses to subthreshold stimuli can be adequately reproduced by the optimizer.}
+    \ref{fig:adexp_model_rebound_spike} 
+    \label{fig:optimizer-verification-traces-3}
+\end{figure}
+
+\begin{figure}
+    \centering
     \includegraphics[scale=0.85]{figures/simulated_data_sub_threshold.png}
-    \caption[Optimizer verification example 2]{\textbf{Optimizer Verification Example 2.}
-    In this plot the blue trace represents the ground truth model, and the green trace represents the best solution obtain via optimization.
-    \ref{fig:optimizer-verification-traces-1}. Here I used a constant negative current injection value of $-10pA$, applied between $100ms-600ms$. Because model parameters are assigned to the ground truth model randomly, an unsually small value of 'C' in the AdEx model has lead to the occurrence of multiple rebound bursts, after the inhibitory current was applied.
-    
+    \caption[Optimizer verification example 3]{\textbf{Optimizer Verification Example 2.}
+    Similar to Figure
+    \ref{fig:optimizer-verification-traces-2}, but for the AdEx model.
+    Because model parameters are assigned to the ground truth model randomly, an unsually small value of $C$ in the AdEx model produces rebound spikes and bursts.
     This demonstrates that the match between the ground truth model and the optimized model is not limited to a single stimulus condition or exclusively to only typical model parameters.}
     \label{fig:adexp_model_rebound_spike}
 \end{figure}
 
-
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.85]{figures/passive_model_agreement}
-    \caption[Optimizer verification example 3]{
-    This plot follows the same color coding conventions to the plot above. The main purpose of this plot, is to show similar sorts of results but in a different model type. As stated in the plot above an unusual value of capacitance was randomly selected as a model parameter in the AdEx model. In the current plot a more conventional set of model parameters were randomly sampeled in the Izhikevich model. The addition of this extra plot is to better represent typical
-    model behavior under $10pA$ current injection.   
-        
-    \ref{fig:adexp_model_rebound_spike} 
-    
-    The same $-10.pA$ current injection stimulus is applied, this time in the Izhikevich model. 
-    The model with the blue trace does rebound visibly by an additional $\sim0.1 mV$, reflecting a limitation of the features used for optimization to distinguish changes that are a) so small and b) irrelevant to the features that most physiologists would care about.
-    Obtaining a near-perfect match on a detail such as this would require introducing a new test that measures rebound depolarization after hyperpolarization.}
-    \label{fig:optimizer-verification-traces-3}
-\end{figure}
-
-In these results, only a small number of features were used (Time constant, Capacitance, Rheobase, Resting Potential and Input Resistance, and FI; interestingly only two of these involved a measurement of action potentials.
-Other NeuronUnit tests that measure and judge models according to action potential \emph{width, amplitude, or threshold} did not participate in guiding optimization, because in the model-testing frame-work that I inherited when I entered the ICON laboratory the tests: \emph{width, amplitude, or threshold} where all contingent on variable, per-model rheobase current injection values.
-When spike shape measurements are contingent on variable rheobase values, small rheobase approximation errors get amplified confounding the final high resolution stage of genetic algorithm search. Ordinarily this would not preclude achieving reasonable optimisation results, but this context is different. When seeking to recapitulate a ground truth very high precision of results is paramount, therefore I eschewed several possible tests of spike shape that amplify rheobase approximation errors, because unless they were re-written to use fixed current values they could not give me the level of precision I needed.
+In these results, only a small number of features were used (Time Constant, Capacitance, Rheobase, Resting Potential, Input Resistance, and FISlope); interestingly only two of these involved a measurement of action potentials.
+Other NeuronUnit tests that measure and judge models according to action potential \emph{Width, Amplitude, or Threshold} did not participate in guiding optimization, for reasons that will be described in Section \ref{sec:contingent_discontinous}.
 
 %% No, this is not the reason.
 % because many reduced models simply cannot produce realistic looking waveforms without imputation -- currently false, actually AP shape is fine in these versions of Izhikevich and Adex and they have been shown to achieve experimental agreement in those measurements.
 % The reason is the corrogations/ripples I have been talking about for the last while.
 
-The AdExp model, for example, is far from an arbitrary waveform generators.
+%The AdExp model, for example, is far from an arbitrary waveform generators.
 Results for additional models and parameterizations are given in the Appendix.
 
 Failure of optimization verification, when it occurs, could be indicative of insufficient constraints.
@@ -129,12 +131,12 @@ This takes approximately $10-20$ minutes on a my personal laptop.
     \centering
     \includegraphics[scale=0.7]{figures/optimizer_internal_validation}
     \caption[Optimizer error over generations]{Evolution of optimized model quality over generations.
-    The green line tracks the lowest error in each generation of candidate models, the blue line shows the average error, orange line the highest error.
-    Optimization hyperparameters were: $Number of Generations=200$, $Population Size=50$, $Crossover Probability=0.3$, $Mutation Probability=0.2$.
+    The green line tracks the lowest error in each generation of candidate AdEx models, the blue line shows the average error, and orange line the highest error.
+    Optimization hyperparameters were: Number of Generations=200, Population Size=50, Crossover Probability=0.3, Mutation Probability=0.2.
     The periodic jumps in the orange error represent mutation or crossover events in which poor-performing models were generated.
     These were not typically selected into the subsequent generation.
-    Because the crossover and mutation probabilities only sum to 0.5, specifically (0.3cxpb, and 0.2mutpb), the remaining half of all parameter sets in each generation either filtered out by selection or, are simply carried over to the subsequent generation.
-    Extensive hyperparameter tuning showed that this level of chromosome conservation was a good balance between exploration and exploitation (not shown.}
+    Because the crossover and mutation probabilities only sum to 0.5, the remaining half of all parameter sets in each generation either filtered out by selection or, are simply carried over to the subsequent generation.
+    Extensive hyperparameter tuning (not shown) demonstrated that this level of chromosome conservation was a good balance between exploration and exploitation.}
     \label{fig:optimizer-evolution}
 \end{figure}
 

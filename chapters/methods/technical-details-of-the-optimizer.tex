@@ -8,12 +8,12 @@ These mechanics have been described at length previously in \cite{omar2014collab
 \subsection{Generating and Using Scores}
 \begin{figure}
 \begin{center}
-    \label{fig:normal-dist}
-	\includegraphics{figures/normal_distribution}
-    \caption[Z-scores for NeuronUnit Tests]{As discussed in the section \ref{sec:neuronunit}, error functions were evaluated with the assistance of the \emph{NeuronUnit} library.
-    This involves obtaining an experimental distribution over electrophysiology feature measurements for a cell type, measuring corresponding model output features and then locating those features in that experimental distribution. 
+    \includegraphics{figures/normal_distribution}
+    \caption[Z-scores for NeuronUnit Tests]{\textbf{[Z-scores for NeuronUnit Tests]}. As discussed in the section \ref{sec:neuronunit}, error functions were evaluated with the assistance of the \emph{NeuronUnit} library.
+    This involves obtaining an experimental distribution over electrophysiology feature measurements for a cell type, measuring corresponding model output features, and then locating those features in that experimental distribution. 
     Scores that are closer to the experimental mean are identified as low error.
 	The Z-score encodes this information; a Z-score of 0 is the lowest possible error.}
+	\label{fig:normal-dist}
 \end{center}
 	
 \end{figure}
@@ -25,7 +25,8 @@ The Z-score is defined as:
 Z-Score = \frac{s - b_{\mu}}{b_{\sigma}}
 \end{equation}
 where $s$ is the value of the feature in the model simulation, and $b_{\mu}$ and $b_{\sigma}$ are the mean and standard deviation of that feature in the biological data distribution.
-The Z-score does not specifically assume that the biological data are normally distributed, although this generates the most natural interpretations (Figure \ref{fig:normal-dist}).
+The Z-score does not specifically assume that the biological data are normally distributed, although this generates the most natural interpretations.
+%(Figure \ref{fig:normal-dist}).
 In cases when the biological data from one neuron type comes from a single experiment on a single neuron (as with some data from the Allen Cell Types database or the Blue Brain Project), there is no mean or standard deviation, so I compute a \emph{RatioScore}:
 \begin{equation}
 Ratio-Score = \frac{s}{b}
@@ -59,7 +60,7 @@ In contrast, failure to reject the null hypothesis would suggests that the optim
 
 \subsection{Mechanics of Optimization using NeuronUnit}
 Here I will describe how I generate these scores concurrently for many parameterizations of the same model and how they guide the optimization path.
-I created two different optimization code bases based on the DEAP Python package for genetic optimization \citep{DEAP_JMLR2012}, one that relied on DEAP directly, and one that relied on the DEAP-derived BluePyOpt package produced by The Human Brain Project \citep{bluepyopt} (These have since been merged together), in order to achieve optimization using NeuronUnit.
+I created two different optimization code bases based on the DEAP Python package for genetic optimization \citep{DEAP_JMLR2012}, one that relied on DEAP directly, and one that relied on the BluePyOpt package produced by The Human Brain Project \citep{bluepyopt} (These have since been merged together), in order to achieve optimization using NeuronUnit.
 A few key modules are essential to both approaches.
 I wrote the file \emph{optimization-management.py} to contain the logic of and methods for managing complex optimization jobs.
 It helps the optimizer handle both fixed and varying  model parameters, contains methods for random sampling of model parameter spaces, can plot models output for visualization of this space, and assists in computing the F-I curve.

@@ -19,15 +19,45 @@
 
 \subsection{Experiment Fitted Model Results on Reported Data Types} 
 Because some features derived from the data were incompatible or unreliable, it was necessary to created additional NeuronUnit tests from other feature extraction libraries, as described in the Methods.
-Ultimately, over four different Allen cell-type summaries, and four different different cell type  electrical reported measurements, we created eight unique data sets, and then converted these eight data sets to neuronunit test suites. Additionally, to explore if FITests, and Rheobase fitted better on their own an additional four non unique test sets where also created. The entire set of tests is presented tabular form (\ref{table:tests_derived_from_reports}) below. See \ref{sec:allen_report_data} in the Appendix for the URLS for the data sources.
+We used data from four different distinct cell types with data obtained from NeuroElectro and 4 different single cortical cells from the Allen Cell Types database, for a total of 8 sets of feature data to optimize.
+We then optimized against this data using a suite of 9 NeuronUnit tests. Additionally, to explore if FITests, and Rheobase fitted better on their own an additional four non unique test sets where also created. The entire set of tests is presented tabular form (\ref{table:tests_derived_from_reports}) below. See \ref{sec:allen_report_data} in the Appendix for the URLS for the data sources.
 
 %id's:623960880,623893177,471819401,482493761
 
 \begin{table}
 \resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\toprule
+ Source & Cell ID & Subset of co-listed tests & Sample type  \\
+\midrule
+Allen & 48249376[1] & Y &     Single cell \\
+Allen & 47181940[1] & Y &     Single cell \\
+Allen & 623893177[1] & Y &     Single cell \\
+Allen & 623960880[1] & Y &   Single cell \\  
+Allen & 482493761 & N &     Single cell \\  
+Allen & 471819401 & N &     Single cell \\
+Allen & 623893177 & N &    Single cell \\
+Allen & 623960880 & N &     Single cell \\
+NeuroElectro & Olfactory Mitral Cell & N &     Mean of cells \\
+NeuroElectro & Neocortex pyramidal cell layer 5-6 &      N &     Mean of cells \\
+NeuroElectro & Cerebellum Purkinje cell & N &     Mean of cells \\
+NeuroElectro & Hippocampus CA1 pyramidal cell & N &     Mean of cells \\
+\bottomrule
+\end{tabular}}
+\caption[Properties of Different Experimental Data Used]{\textbf{Properties of the experimental data used in this section}.
+Two data sources (NeuroElectro and the Allen Cell Types database) were used to fit neuron models.
+All Allen Cell Types data comes from cortical neurons of various types.
+Allen Cell Types data corresponds to individual recorded cells, and NeuroElectro data from mean feature values reported across many neurons of the same nominal type.}
+
+\label{tab:main_chi2}
+
+\end{table}
+
+\begin{table}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lllllllllllll}
 \toprule
-name & Hippocampus CA1 pyramidal cell & Cerebellum Purkinje cell & Neocortex pyramidal cell layer 5-6 &      olf\_mit &      623960880 &      623893177 &      471819401 &      482493761 &  6239608801 &  6238931771 &  4718194011 &  4824937611 \\
+name & CA1 pyramidal & Purkinje & NCP Layer 5-6 & Mitral &      623960880 &      623893177 &      471819401 &      482493761 &  6239608801 &  6238931771 &  4718194011 &  4824937611 \\
 \midrule
 RheobaseTest                   &                      189.24 pA &                680.79 pA &                          213.85 pA &          NaN &        70.0 pA &       190.0 pA &       190.0 pA &        70.0 pA &     70.0 pA &    190.0 pA &    190.0 pA &     70.0 pA \\
 InputResistanceTest            &                    107.08 Mohm &              142.06 Mohm &                        120.67 Mohm &  130.08 Mohm &  241.0 megaohm &  136.0 megaohm &  132.0 megaohm &  132.0 megaohm &         NaN &         NaN &         NaN &         NaN \\
@@ -40,51 +70,24 @@ InjectedCurrentAPThresholdTest &                       -47.6 mV &               
 FITest                         &                            NaN &                      NaN &                                NaN &          NaN &            NaN &            NaN &            NaN &            NaN &  0.18 Hz/pA &  0.12 Hz/pA &  0.18 Hz/pA &  0.09 Hz/pA \\
 \bottomrule
 \end{tabular}}
-\end{table}
+\caption[Reported Cell Features]{Reported Cell Features for 12 cells.
+The first 4 are taken from NeuroElectro and the remaining 8 from the Allen Cell Types database.
+Missing values are encoded as ``NaN".}
 \label{table:tests_derived_from_reports}
+\end{table}
 
-I then used three different models (AdEx, Izhikevich, Conductance based) and optimized them using these test suites. I attempted to also use GLIF models here, although test results often looked convincing, GLIF model waveforms looked strange.
+I then used three different models (AdEx, Izhikevich, and a conductance-based point neuron) and optimized them using these test suites. I attempted to also use GLIF models here, although test results often looked convincing, GLIF model waveforms looked strange.
 The result is $3 \times 8 = 24$ model-data combinations.
 For each each member of this $24$ element matrix we wanted to know if the fitted model behaved in a biological plausible manner, we were interested to know if fitted models were convincing mimics of \emph{in vivo} cells, at least with respect to the measurements models were trained to fit.
-In the process of coalescing results the single 24 element matrix, the matrix was broken into two: one 24 element matrix %\ref{tab:main_chi2} 
-and a smaller matrix consisting of only the conductance based model test combinations that executed without failure . 
-%\ref{tab:HH_chi2}
+In the process of coalescing results the single 24 element matrix, the matrix was broken into two: one 24 element matrix (Table \ref{tab:main_chi2})
+and a smaller matrix consisting of only the conductance based model test combinations that executed without failure (Table \ref{tab:HH_chi2}).
 
 \subsection{Across Model Performance Comparisons}
-
 \begin{table}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{cccc}
+\begin{tabular}{|c|c|c|c|}
 \toprule
- web-source & cell id & subset of co-listed tests & sample type  \\
-\midrule
-Allen & 48249376[1] & Y &     n=1 \\
-Allen & 47181940[1] & Y &     n=1 \\
-Allen & 623893177[1] & Y &     n=1 \\
-Allen & 623960880[1] & Y &   n=1 \\  
-Allen & 482493761 & N &     n=1 \\  
-Allen & 471819401 & N &     n=1 \\
-Allen & 623893177 & N &    n=1 \\
-Allen & 623960880 & N &     n=1 \\
-NeuroElectro & Olfactory Mitral Cell & N &     pooled samples \\
-NeuroElectro & Neocortex pyramidal cell layer 5-6 &      N &     pooled samples \\
-NeuroElectro & Cerebellum Purkinje cell & N &     pooled samples \\
-NeuroElectro & Hippocampus CA1 pyramidal cell & N &     pooled samples \\
-\bottomrule
-\end{tabular}}
-
-\caption[Properties of Different Data Driven Tests Used]{Properties of of the different data driven tests used. These where used to fit at or below threshold experimental cells. This table acts as a legend to assist in the interpretation of proceeding tables}
-
-\label{tab:main_chi2}
-
-\end{table}
-
-
-\begin{table}
-\resizebox{\textwidth}{!}{
-\begin{tabular}{cccc}
-\toprule
- model type &         experiment cell & $\chi^{2}$ & p-value  \\
+Model Type & Experimental Data ID & $\chi^{2}$ & p-value  \\
 \midrule
         IZHI &              4824937611 &     0.034791 &  1.000000e+00 \\
         IZHI &              4718194011 &     0.051691 &  1.000000e+00 \\
@@ -98,6 +101,21 @@ NeuroElectro & Hippocampus CA1 pyramidal cell & N &     pooled samples \\
         IZHI &  Neocortex pyramidal cell layer 5-6 &     2.443396 &  9.643182e-01 \\
         IZHI &            Cerebellum Purkinje cell &    19.885113 &  1.077956e-02 \\
         IZHI &      Hippocampus CA1 pyramidal cell &     1.273070 &  9.958661e-01 \\
+\bottomrule
+\end{tabular}}
+\caption[Fit quality for AdEx and Izhikevich models]{Fit quality for two model types optimized against the data in Table \ref{table:tests_derived_from_reports}.
+Lower $\chi^2$ and higher p-value represents a better fit.
+p-values > 0.05 lack evidence to reject the null hypothesis that the optimized model comes from the same distribution as the experimental data.
+p=1 indicates perfects agreement between the optimized model and the experimental data on all measured features.}
+\label{tab:main_chi2-izhi}
+\end{table}
+
+\begin{table}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}
+\toprule
+ Model Type & Experimental Data ID & $\chi^{2}$ & p-value  \\
+\midrule
        ADEXP &              4824937611 &     0.000017 &  1.000000e+00 \\
        ADEXP &              4718194011 &     0.011029 &  1.000000e+00 \\
        ADEXP &                          6238931771 &     0.005062 &  1.000000e+00 \\
@@ -106,25 +124,23 @@ NeuroElectro & Hippocampus CA1 pyramidal cell & N &     pooled samples \\
        ADEXP &              471819401 &     0.370856 &  9.999575e-01 \\
        ADEXP &              623893177 &     0.273030 &  9.999870e-01 \\
        ADEXP &              623960880 &     0.140222 &  9.999990e-01 \\
-       ADEXP &              olf\_mit &    10.353878 &  2.410614e-01 \\
+       ADEXP &              Olfactory Bulb Mitral Cell &    10.353878 &  2.410614e-01 \\
        ADEXP & Neocortex pyramidal cell layer 5-6 &     0.013262 &  1.000000e+00 \\
        ADEXP &            Cerebellum Purkinje cell &   353.692447 &  0.000000e+00 \\
       ADEXP &      Hippocampus CA1 pyramidal cell &     0.735616 &  9.994308e-01 \\
 \bottomrule
 \end{tabular}}
-
-\caption[Comparable $\chi^{2}$ for optimized results of AdEx and Izhikevich models]{Comparable $\chi^{2}$ for optimized results of the conductance based model. Not all models could be evaluated, as optimization took a long time.}
-
-\label{tab:main_chi2}
-
+\caption[Fit quality for AdEx models]{Same as Table \ref{tab:main_chi2-izhi}, but for AdEx models.}
+\label{tab:main_chi2-adex}
 \end{table}
+
 
 \begin{table}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{lllrr}
+\begin{tabular}{|l|l|l|r|r}
 %\begin{tabular}{cccc}
 \toprule
-model type &                            exp-cell &   $ \chi^{2} $ & p-value \\
+Model type & Experimental Data ID & $\chi^{2}$ & p-value \\
 \midrule
 conductance model & Hippocampus CA1 pyramidal cell & 17.21 &  0.027 \\
 conductance model & olf-mit & 26487.51 &  0.0 \\
@@ -136,15 +152,14 @@ conductance model & 6238931771 & 1.441259 & 0.993641 \\
 \bottomrule
 \end{tabular} 
 }
-\caption[$\chi^{2}$ for Comparing Optimized Results of the Conductance Based Model]{Not all models could be evaluated as optimization took a long time or lead to failure. Of the 12 model test combinations only 6 are known.}
+\caption[Fit quality for Condutance-Based models]{Same as Table \ref{tab:main_chi2-izhi}, but for a single-compartment conductance-based model.}
 \label{tab:HH_chi2}
 \end{table}
 
 
-
 %See appendix:\ref{table:static_electrical_properties}
 As stated in the Methods, I use the $\chi^2$ statistic as a summary of optimized model quality, with smaller values reflecting fits that better recapitulate the biological experimental data, and non-significant p-values--lack of evidence that the model disagrees with that data--as evidence of success.
-The Izhikevich Model and a Conductance-Based Point Neuron Model were able to achieve such small $\chi^2$ statistics (and non-significant p-values) when seven or eight of the tests were considered together.
+The Izhikevich Model and a Conductance-Based Point Neuron Model were able to achieve such small $\chi^2$ statistics (and non-significant p-values) when seven or eight of the tests (excluding rheobase) were considered together.
 For example the Izhikevich model fitted to a Hippocampus CA1 pyramidal cell data achieved ($\chi^2$, p-value) = (2.13, 0.98), and the Olfactory Bulb Mitral cell achieved ($\chi^2$, p-value) = (2.02, 0.98).
 A model whose every feature was exactly equal to the mean observed in the experimental data would have all Z-scores equal to 0, a $\chi^2$ statistic of 0, and a p-value of 1, by definition.
 Thus an extremely high p-value (such as those above) is evidence that the optimized model is much closer to the mean of the data distribution than a random experimental neuron.
@@ -184,7 +199,8 @@ Neocortex pyramidal cell layer 5-6 &    128.87 &            1.92 &            0.
 \bottomrule
 \end{tabular}
 }
-\caption[Standard Error of the Mean across NeuroElectro Data Sources]{A table of SEM values that describe dispersal in many of the different measurements I used to fit the optimized models to (NeuroElectro only).}
+\caption[Standard Error of the Mean across NeuroElectro Data Sources]{The standard error of the mean (SEM) described the uncertainty that the sample mean value of a feature (across neurons) is close to the population mean.
+The SEM values describe that uncertainty for the sample means of various features for each of 4 cell types in NeuroElectro.}
 \label{table:neuroelectro-sem}
 \end{table}
 

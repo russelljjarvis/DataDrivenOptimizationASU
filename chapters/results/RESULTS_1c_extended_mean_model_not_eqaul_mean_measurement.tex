@@ -9,12 +9,12 @@ This is especially obvious when the feature distribution is multi-modal (such as
 
 \includegraphics[scale=0.65]{figures/eve_marder.png}
 \end{center}
-\caption[Lessons from Marder]{ADD THIS CAPTION}
+\caption[Lessons from Marder]{As shown in \cite{marder2011multiple}, when neurons of a given type are distributed through parameter space, the mean of these parameters across neurons (red cross) is at a separate location from the model one would obtain by using different neurons to contrain different parameters (blue triangle).}
 \label{fig:eve_marder}
 \end{figure}
 
 
-Previously in methods \ref{section:nelectro}, we showed that some feature distributions are bimodal.
+Previously in the Methods (Section \ref{sec:neuroelectro}), we showed that some feature distributions are bimodal.
 Consider a cell type which had an underlying bimodal distribution for input resistance, with a mean exactly between the two modes.
 If we optimize a neuron against this mean value, then the optimized neuron does not describe the modes (where most of the cells are actually located) at all.
 Conversely, suppose that we optimize each neuron from the distribution individually, and then produce a model which just averages across the parameter values of each of these optimized models.
@@ -27,85 +27,89 @@ What would it even mean to split the difference between two such fundamentally d
 In order to examine this question further in the context of my optimizer applied to reduced models, I created two models from each model class (e.g. Izhikevich) with different sets of parameter values.
 I simulated each of these models, computed all of the measurements associated with the core NeuronUnit tests (rheobase, input resistance, capacitance, and membrane time constant), and then simply averaged them together across the two models.
 I call these the ``mean features" as each one reflects the mean across two parameterizations of the model.
-In parallel, I also create a ``mean model" which reflects the average of the parameters themselves, and then measure the same set of features for this mean model.
+In parallel, I also create a ``mean model" (Figure \ref{fig:mean-model-polar}) which reflects the average of the parameters themselves, and then measure the same set of features for this mean model.
 I then ask the question: "Do the features from the mean model match the mean features?"
 If these match nearly all of the time, we can feel confident that optimizing a model based on the mean features will produce a model that is representative of the parameter space of the neurons individually.
 In other words, if we had access to the measurements from the individual neurons, and fit models to those, then the mean model obtained above should lie somewhere between those models in parameter space.
 By contrast, if the mean model does not match the mean features, that would suggest that models obtained by optimizing against mean features may not be representative in this context.
 
 The results are shown below.
-In Figure \ref{fig:mean-model-1}, I show a representative example using two random locations in parameter space.
+In Figure \ref{fig:mean-model-polar}, I show a representative example using two random locations in parameter space.
 While some of the differences between the two parameter sets may look small, this is only a reflection of the scale being dominated by the parameters that intrinsically have the largest values.
 
 \begin{figure}
 \begin{center}
 \includegraphics[]{figures/polar_coordinates.png}
-
-
-\caption[Random model pair, and mean model]{Virtual Experiment setup. Red trace 'mean' coordinate model, blue trace model 'a', yellow trace model 'b'. Two random models are drawn from uniformly distributed random number generators in the AdEx model parameter range. The mean is taken from the pair of model coordinates, to get the mean set of coordinates. The polar coordinate plot shows this mean model as in between model a and model b. Note in the polar plots generally, each parameter and model measurement occupies disparate ranges of magnitude. Log and absolute value are used to in order to make the relevant proportions accessible, in this plot, but also in all preceding polar plots.}
+\caption[Mean of Random Models]{\textbf{Construction of a mean model.}
+Two random AdEx models (yellow and purple traces) are drawn from multivariate uniformly distributed random number generators.
+The mean model (red trace) is defined as the location in parameter space exactly in between the two random models in every dimension.
+Logarithms and absolute values are used to scale the radial dimension for clarity.}
+\label{fig:mean-model-polar}
 \end{center}
 \end{figure}
 
 
-\begin{table}
+%\begin{table}
+%\begin{adjustbox}{width=\columnwidth,center}
+%\begin{tabular}{lrrrrrrrrrrr}
+%\toprule {} &          cm &    v\_spike &    v\_reset &     v\_rest &      tau\_m &         a &          b &   delta\_T &       tau\_w &   v\_thresh &  spike\_delta \\
+%\midrule
+%a           &  954.283985 & -39.652421 & -33.290058 & -71.274552 &  18.409430 &  8.732663 &  13.449849 &  9.178972 &  205.178522 & -29.526272 &    69.811681 \\
+%b           &  885.614383 & -57.290057 & -57.805723 & -96.183985 &  51.917341 &  0.086329 &  13.464095 &  8.315697 &  271.050894 & -58.339164 &    93.170984 \\
+%mean of a and b &  919.949184 & -48.471239 & -45.547891 & -83.729269 &  35.163385 &  4.409496 &  13.456972 &  8.747335 &  238.114708 & -43.932718 &    81.491333 \\
+%\bottomrule
+%\end{tabular}
+%\end{adjustbox}
+%\caption[coordinate information in tabular form]{The same polar coordinates in tabular form.}
+%\end{table}
 
-
-\begin{adjustbox}{width=\columnwidth,center}
-
-\begin{tabular}{lrrrrrrrrrrr}
-\toprule {} &          cm &    v\_spike &    v\_reset &     v\_rest &      tau\_m &         a &          b &   delta\_T &       tau\_w &   v\_thresh &  spike\_delta \\
-\midrule
-a           &  954.283985 & -39.652421 & -33.290058 & -71.274552 &  18.409430 &  8.732663 &  13.449849 &  9.178972 &  205.178522 & -29.526272 &    69.811681 \\
-b           &  885.614383 & -57.290057 & -57.805723 & -96.183985 &  51.917341 &  0.086329 &  13.464095 &  8.315697 &  271.050894 & -58.339164 &    93.170984 \\
-mean of a and b &  919.949184 & -48.471239 & -45.547891 & -83.729269 &  35.163385 &  4.409496 &  13.456972 &  8.747335 &  238.114708 & -43.932718 &    81.491333 \\
-\bottomrule
-\end{tabular}
-\end{adjustbox}
-\caption[coordinate information in tabular form]{The same polar coordinates in tabular form.}
-\end{table}
-
-
-
-\begin{figure}
-    \centering
-    \includegraphics{figures/mean_model_vs_mean_measurement.png}
-    \caption[100 pairs of randomly sampled AdEx models: mean model mean parameter difference]{100 pairs of randomly sampled AdEx models: mean model mean parameter difference. The value 0.5 signifies midway distance between model 'a' and model 'b'. The majority of histogram counts fall at $~0.5$, but also a significant number of mean models do not agree with the mean of a and b..}
-    \label{fig:mean-model-1}
-\end{figure}
-
-
-\begin{figure}
-    \centering
-    \includegraphics{figures/reproduced_izhi.png}
-    \caption[100 pairs of randomly sampled Izhikevich models: mean model mean parameter difference]{This plot essentially reproduces the findings of the above analysis, but in a different model type. This time the Izhikevich model was used. The Izhikevich model demonstrates more values that are above or below $0.5$, this is expected, because the implementation of the Izhikevich model is not static, to better model various regimes, the Izhikevich model draws upon slightly different versions of governing equations. Therefore slightly different versions of the model governing equations were randomly sampled. The average of two models, that exist between explicitly different equations, are much less likely to result in average measurements at $0.5$}
-    \label{fig:mean-model-2}
-\end{figure}
-
-Although the peak identified in fig(\label{fig:mean-model-2}), looks taller in absolute size compared to (fig {fig:mean-model-1}), the scale along the y-axis is different. Actually {fig:mean-model-1} has more histogram counts at 0.5.
-
-
-
+I then compute an index of agreement between features derived from the mean model vs mean features observed across the original two models.
+This index, $\alpha=\lvert\frac{(x-a)}{(b-a)}\rvert$, where $a$ and $b$ are the feature values for the original two models, and $x$ is the feature value for the mean model, can be interpreted as follows:
+If $\alpha=0.5$, then the mean model produces features precisely in between those produced by the two original models (Figure \ref{fig:mean-model-3}).
+If $\alpha=0$ or $\alpha=1$, then the mean model is nearly identical (in that feature) to one of the original models.
+An example of values ranging between 0 and 1 is shown in Figure \ref{fig:mean-model-4}.
+If $\alpha>1$, then the mean model produces entirely new feature values that would not be expected from an interpolating between the two original models.
 
 \begin{figure}
     \centering
     \includegraphics{figures/model_similarities.png}
-        \label{fig:mean-model-1}
-    \caption[Here I plot some single instance of mean model mean measurement discrepancy]{Since a larger proportion of models agree (produce mean models that are positioned midway between model a and model b, here I show an example of mean model and mean measurement agreement. The distribution plot above is made up of 100 different instances of random model pairs and mean models. There are some small discrepancies visible, but generally most measurements are closely matched}
+    \caption[Example of Mean Model vs Mean Feature Agreement]{\textbf{Example of Mean Model vs Mean Feature Agreement}.
+    Two random models can produce feature values whose mean (green) is equal to the feature values (red) produced by a model defined by the mean of their parameters.
+    In such case the index of agreement $\alpha=0.5$.}
+    \label{fig:mean-model-3}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics{figures/model_differences.png}
-        \label{fig:mean-model-1}
-    \caption[Disparity in mean model, mean measurement agreement]{This time I show a common pattern of disagreement, between mean model and mean measurement. The most prominent discrepencies of measurement are in Capacitance, TimeConstant, and InjectCurrentAPAmplitude}
+    \caption[Example of Mean Model vs Mean Feature Disagreement]{Similar to Figure \ref{fig:mean-model-3}, but now showing several disagreements, between mean model and mean feature value (in Capacitance, Time Constant, and AP Amplitude).}
+    \label{fig:mean-model-4}
+\end{figure}
+
+Figures \ref{fig:mean-model-1} and \ref{fig:mean-model-2} show that, while $\alpha=0.5$ is the mode of the distribution as might be expected, considerable mass lies outside the mode, including many values of $\alpha>1$.
+Therefore any model optimized against the mean feature value across neuron cannot be equivalent to a model drawn from the mean of those neurons' multivariate parameter distribution.
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/mean_model_vs_mean_measurement.png}
+    \caption[Mean Model vs Mean Features for AdEx]{For 100 pairs of randomly sampled AdEx models, I computed the index $\alpha$ of mean model vs mean feature agreement, defined (see text) such that a value of 0.5 indicates that the mean model produces features identical to those obtained by simply averaging feature values produced by the original models.
+    The mode lies at $~0.5$, but density in other regions indicates that many mean models do not agree with the mean feature value.}
+    \label{fig:mean-model-1}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics{figures/model_differences2.png}
-        \label{fig:mean-model-1}
-    \caption[Second example of disparity in mean model, mean measurement agreement]{This time I show a less common pattern of disagreement, between mean model and mean measurement.}
+    \includegraphics{figures/reproduced_izhi.png}
+    \caption[Mean Model vs Mean Features for Izhikevich]{Same as Figure \ref{fig:mean-model-1}, but for the Izhikevich model.}
+    \label{fig:mean-model-2}
 \end{figure}
+
+%\begin{figure}
+%    \centering
+%    \includegraphics{figures/model_differences2.png}
+%        \label{fig:mean-model-5}
+%    \caption[Second example of disparity in mean model, mean measurement agreement]{This time I show a less common pattern of disagreement, between mean model and mean measurement.}
+%\end{figure}
 
 
 %\begin{figure}
@@ -115,8 +119,12 @@ Although the peak identified in fig(\label{fig:mean-model-2}), looks taller in a
 %    \label{fig:my_label}
 %\end{figure}
 
-In Figure \ref{fig:mean-model-2}, I show the computed feature values from simulations of each of the three models in Fig. \ref{fig:mean-model-1}.
+In Figures \ref{fig:mean-model-3} and \ref{fig:mean-model-4}, I show the computed feature values from simulations of the constructed as in Figure \ref{fig:mean-model-polar}.
 While in some cases the mean model produces feature values that lie between (are equal to the mean of) the feature values of the original two models, in other cases there is a massive discrepancy.
+This discrepancy appears more common in the Izhikevich model than in the AdEx model, potentially because there is a greater likelihood that the two original random models describe different dynamical regimes.
+
+%Although the peak identified in Figure \ref{fig:mean-model-2} looks taller in absolute size compared to Figure \ref{fig:mean-model-1}, the scale along the y-axis is different.
+%Figure \ref{fig:mean-model-1} exhibits more histogram counts at 0.5, i.e. the mean model was more likely to exhibit features very similar to the mean features of the two models.
 
 In conclusion, it is not safe to assume that the parameters space and the feature space are isomorphic, and thus fitting models to the mean feature values for a distribution of neurons is a dangerous exercise even if the data themselves are normal-like.
 

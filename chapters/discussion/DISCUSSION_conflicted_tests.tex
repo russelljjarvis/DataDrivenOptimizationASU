@@ -7,8 +7,22 @@ Thus, there must be some other source of these conflicts, which I identified as 
 This was typical when combining the Rheobase, Input Resistance, and Time Constant, for example.
 
 \subsection{Conflicts in Neuroelectro Measurements}
-The NeuronUnit tests \emph{ThresholdTest},  \emph{SpikeHalfWidth}, and \emph{Spike Amplitude} were often incompatible with other tests due to the contingent discontinuity problem described in the previous section.
-By contrast, I experience few conflicts with \emph{FISlopeTest},  \emph{Capacitance},  \emph{Input Resistance}, and  \emph{Time Constant}.
+%%%
+% 
+%The NeuronUnit tests \emph{ThresholdTest},  \emph{SpikeHalfWidth}, and \emph{Spike Amplitude} were often incompatible with other tests due to the contingent discontinuity problem described in the previous section.
+%By contrast, I experience few conflicts with \emph{FISlopeTest},  \emph{Capacitance},  \emph{Input Resistance}, and  \emph{Time Constant}.
+%%%
+
+%%
+% Actually the two test sets above are compatible, the nuance is one set constitutes a reliable optimization guide, the other doesn't
+
+% I found that you can still measure, 
+%%  \emph{ThresholdTest},  \emph{SpikeHalfWidth}, and \emph{Spike Amplitude} after optimizing with the reliable guides and get satisfactory results for those measurements, but I anticipated that would confuse everyone too much.
+
+% I did not want ambiguity the quality of fits on measurements that did not participate in guiding optimization.
+
+% it is much easier to explain the quality of fits for metrics that did participate in optimization.
+
 
 Membrane Time Constant measurements were consistently harder to use for guiding optimization, being incompatible with other features in almost all model types (including conductance based models, reduced models, and including all data types (NeuroElectro data and Allen Cell Types single experiment data).
 This value is proportional to cell surface area, and it may be that cells taken from, for example, slices of different thicknesses have different capacitances but that this has minimal impact on other measurements.
@@ -16,7 +30,17 @@ Alternatively, most capacitance measurements could be in error due to recording 
 Regardless, when the membrane time constant was not included, optimized models were still able to behave in most other respects like their experimental counterparts
 
 As discussed in section \ref{sec:parallel-rheobase} rheobase is strictly defined as the minimum current injection to evoke exactly one spike.
-It does not fully define the FI curve, and there are in infinite number of FI curves that contain the points $(Rheobase^-, 0) and (Rheobase^+, >0)$
+It does not fully define the FI curve, and there are an infinite number of FI curves that contain the points $(Rheobase^-, 0)$ and $(Rheobase^+, >0)$.
+
+%%%
+% I am not sure if I show this.
+% I have (FIcurve + Rheobase)
+% and I have (Rheobase+familiar tests)
+%
+% Actually maybe you are right.
+% I had not thought about it in this way.
+%%
+
 Interestingly, if selecting only one suprathreshold feature to pair in optimization with the remaining physiological features, the FI slope was a better fit than the rheobase.
 It may be that by considering the whole FI curve in optimization counter-intuitively makes optimization more flexible by allowing small misses on matching the rheobase in exchange for a better overall match to the remaining suprathreshold spike counts.
 
@@ -44,13 +68,9 @@ Overall, I found that the following features from the EFEL library were sufficie
 \item voltage-base
 \end{enumerate}
 
-\subsection{Exploting the FI Curve}
+%\subsection{Exploting the FI Curve}
+%There is visibly almost perfect  agreement between simulated and experiments and the optimized models, in the passive experimental conditions, and a close match for the spiking model behavior. There was a standard suite of tests if only spike-half-width, not spike-base-width. The Izhikevich models width as thus free to vary at the base, take that into account when eye balling the two graphs and you can see why almost binary match. EFEL does achieve spike width binary matching because it uses both half-width, and base-width. If you look at the last cells you can see I take a correlation matrix of the optimizers errors over its history. The idea is if it's normalized then I can sum the whole matrix and get a single scaler number to show how uncorrelated both error sets are over the GA evolution. 
 
-and there is also the potential to check the variance explained ratio of tests. In such a multispiking paradigm the highest possible variance explained ratio of approx $1$. 
-
-
-There is visibly almost perfect  agreement between simulated and experiments and the optimized models, in the passive experimental conditions, and a close match for the spiking model behavior. There was a standard suite of tests if only spike-half-width, not spike-base-width. The Izhikevich models width as thus free to vary at the base, take that into account when eye balling the two graphs and you can see why almost binary match. EFEL does achieve spike width binary matching because it uses both half-width, and base-width. If you look at the last cells you can see I take a correlation matrix of the optimizers errors over its history. The idea is if it's normalized then I can sum the whole matrix and get a single scaler number to show how uncorrelated both error sets are over the GA evolution. 
-
-It was found that the elephant/neuroelectro-suite of NU tests don't fully constrain the spike width at the base of neuron action potential waveform. Since the base of the waveform was unconstrained, it was free to vary, half-spike-width is constrained, it is more appropriate to talk about variance explained of the spike snippet. $variance explained>0.95$ is a useful heuristic. Allowing some margin acknowledges that we shouldn't assume we have represented all waveform features that can vary. If you want $variance explained==1$   
-you could optimize using a variance explained 
-cost function, but we don't want to do that.
+%It was found that the elephant/neuroelectro-suite of NU tests don't fully constrain the spike width at the base of neuron action potential waveform. Since the base of the waveform was unconstrained, it was free to vary, half-spike-width is constrained, it is more appropriate to talk about variance explained of the spike snippet. $variance explained>0.95$ is a useful heuristic. Allowing some margin acknowledges that we shouldn't assume we have represented all waveform features that can vary. If you want $variance explained==1$   
+%you could optimize using a variance explained 
+%cost function, but we don't want to do that.

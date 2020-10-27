@@ -1,54 +1,62 @@
 \chapter{Appendix}
+\label{sec:appendix}
+\section{Code Details}
+All of the optimization work newly described here depends on code I developed in two GitHub repositories:
+\begin{itemize}
+\item Neuronunit \url{https://github.com/russelljjarvis/neuronunit}
+\item BluepyOpt \url{https://github.com/russelljjarvis/BluePyOpt}
+\item Features \url{https://github.com/russelljjarvis/AllenEFELDruckmanFeatures}
+\end{itemize}
 
-Often model data is streamed from a remote machine for example NeuroML-DB. In such cases where local simulator capabilities are not required, it is more useful to make ``streamed" remote models eligible for Neuronunit tests. The code idiom for neuronunit scoring of  streamed models is as follows:
+\subsection{Streaming remote data}
+Often model data is streamed from a remote machine for example NeuroML-DB.
+In such cases where local simulator capabilities are not required, it is more useful to make ``streamed" remote models eligible for NeuronUnit tests.
+The code idiom for NeuronUnit scoring of streamed models is as follows:
 
 \begin{minted}{python}
 import requests
 from neuronunit.models import static_model as sm
 model_scores = []
-# list cell models need to grab from remote machine.
+# List cell models desired from from the remote machine.
 NeuroMLDB_requests = ["Traub L3-Pyramidal-Cell","Traub-Relay-Cell"]
 for data in NeuroMLDB_requests:
-    # get cell models from remote machine    
+    # Get those cell models    
     remote_model = requests.get(data)
-    # get singular trace per model, from remote machine.
+    # Get one membrane potential trace per model
     vm = remote_model.json['vm']
-    # Make the trace a NU model
+    # Make the trace usable by NeuronUnit
     SM = sm.StaticModel(vm)
-    # get model sciunit score.
+    # Get a NeuronUnit score for the model
     score = test_suite.judge(SM)
     model_scores.append(score)
 \end{minted}
 \label{code:idiom2}
 
-This idiom was also utilized for complex models that lack neuronunit support. In the majority of cases not much is gained by re-implenting complex model simulator code, instead, one can simply source simulated models as if they are being streamed remotely when in fact they coexist in the same python program.
+This idiom was also utilized for complex models that lack neuronunit support.
+In the majority of cases not much is gained by re-implenting complex model simulator code.
+Instead, one can simply source simulated models as if they are being streamed remotely when in fact they coexist in the same python program.
 
-\section{Details of Open Source Code Repositories}
-The optimization Application presented earlier in this work, depends on two actively developed code repositories:
-Neuronunit \url{https://github.com/russelljjarvis/neuronunit}.
-BluepyOpt \url{https://github.com/russelljjarvis/BluePyOpt}
 %In order to assess how difference 
 
-Analysis of variarance in Experiments and in Models:
-Multi spiking waveform analysis \url{https://github.com/russelljjarvis},
-An API for mining features from NeuroMLDB, Allen Cell Types: using AllenSDK, Druckmann \url{https://github.com/russelljjarvis/AllenEFELDruckmanFeatures}
-\cite{birgiolas2019towards}, \cite{birgiolas2016rapid} \cite{druckmann2007novel}
+\subsection{Analysis of variarance in Experiments and in Models}
+$Druckmann 
+$\cite{birgiolas2019towards}, \cite{birgiolas2016rapid} \cite{druckmann2007novel}
 
-\subsubsection{Allen Experimental Data From Web pages in Ephysiological Report Form}
-Move to appendix: report form specimen
-specimen id 623960880  \url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/623960880"}
-specimen id 623893177 
-\url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/623893177"}
-specimen id 482493761
-\url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/482493761"}
-specimen id 471819401
-\url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/471819401"}
-\label{sec:allen_report_data}
+%\subsection{Allen Experimental Data From Web pages in Ephysiological Report Form}
+%Move to appendix: report form specimen
+%specimen id 623960880  \url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/623960880"}
+%specimen id 623893177 
+%\url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/623893177"}
+%specimen id 482493761
+%\url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/482493761"}
+%specimen id 471819401
+%\url{"http://celltypes.brain-map.org/mouse/experiment/electrophysiology/471819401"}
+%\label{sec:allen_report_data}
 
-It seemed important to try to answer the question: ``How much difference does it make to apply data-fitted cell models to pre-existing network simulations?" In order to make it possible to answer that question. I took existing Izhikevich cell network simulations implemented in Julia, and modified the source code to make it inter operable with the approaches to stimulating cells with square currents in python. The julia Izhikevich network provides rapid execution times and requires no specialized computing hardware.
-
-It was found that applying Izhikevich cells optimized to CA1 Hippocampus pyramidal neurons, and Layer IV Neo Cortical pyramidal neurons, changed 
-Julia Spiking Neural Networks and some optimization in Julia:
+\subsection{Julia Implementation}
+I also created an implementation of some cell models in the Julia programming language.
+This provides even more rapid simulation, intuitive code, and no specialized computing hardware.
+These are documented at
 \url{https://github.com/russelljjarvis/NeuronUnitOpt.jl}
 
 %\section{Model Fits}
@@ -63,11 +71,7 @@ Julia Spiking Neural Networks and some optimization in Julia:
 %\end{table} 
 %\end{figure}
 
-\subsection{Best Model Fitted Parameters for two models on 12 data-driven test sets}
-
-\subsection{Best Model Fitted Parameters Izhikevich model}
-
-\newpage
+\subsection{Tables of Fitted Parameters and Test Scores for Models and Data Used Here}
 
 \begin{table}
 \resizebox{\textwidth}{!}{
@@ -174,6 +178,60 @@ conductance model & 482493761 &  0.036 &  0.99 \\
 \caption[Comparable $\chi^{2}$ for optimized results of the conductance based model]{Comparable $\chi^{2}$ for optimized results of the conductance based model. Not all models could be evaluated, as optimization took a long time.}
 \end{table}
 
+\clearpage
+\textbf{List of complete set of 48 electrophysiological features used here}
+\begin{enumerate}
+\item AP1RateOfChangePeakToTroughTest-3.0x \\
+\item AP2DelaySDTest-1.5x \\
+\item AP2DelaySDTest-3.0x \\
+\item AP-end-indices-3.0x \\
+\item AP-fall-indices-1.5x \\
+\item AP-fall-indices-3.0x \\
+\item AP-rise-indices-1.5x \\
+\item AP-rise-time-1.5x \\
+\item AP-rise-time-3.0x  \\
+\item APlast-width-1.5x \\
+\item AccommodationRateMeanAtSSTest-3.0x \\ 
+\item AccommodationRateToSSTest-3.0x \\
+\item ISIBurstMeanChangeTest-3.0x \\
+\item ISICVTest-3.0x \\
+\item ISI-log-slope-skip-3.0x  \\
+\item Spikecount-stimint-1.5x \\
+\item Spikecount-stimint-3.0x  \\
+\item adaptation-index2-3.0x \\
+\item fast-trough-index-1.5x  \\
+\item fast-trough-index-3.0x \\
+\item fast-trough-t-1.5x  \\ 
+\item fast-trough-t-3.0x  \\
+\item initburst-sahp-vb-1.5x \\
+\item input-resistance \\
+\item maximum-voltage-1.5x  \\
+\item min-AHP-indices-1.5x \\
+\item min-AHP-indices-3.0x \\ 
+\item peak-index-1.5x  \\
+\item peak-index-3.0x \\
+\item peak-indices-1.5x  \\
+\item peak-indices-3.0x \\
+\item peak-t-1.5x \\
+\item peak-t-3.0x \\
+\item peak-time-3.0x \\
+\item steady-state-hyper-1.5x \\
+\item steady-state-voltage-1.5x \\
+\item steady-state-voltage-stimed-1.5x \\
+\item threshold-index-1.5x \\
+\item threshold-index-3.0x \\
+\item threshold-t-1.5x \\
+\item threshold-t-3.0x \\
+\item upstroke-index-1.5x \\
+\item upstroke-index-3.0x \\
+\item upstroke-t-1.5x \\ 
+\item upstroke-t-3.0x \\ 
+\item voltage-after-stim-1.5x \\
+\item voltage-after-stim-3.0x \\  
+%\label{fig:reference_feature_list}
+\end{enumerate}
+
+\begin{comment}
 
 \subsection{Many More Results}
 
@@ -198,7 +256,7 @@ FITest               &     0.18 Hz/pA &   0.18 Hz/pA &        0 \\
 
 
 
-\subsection{Hipocampus CA1 pyramidal cell}
+%\subsection{Hipocampus CA1 pyramidal cell}
 %\begin{table}
 %\resizebox{\textwidth}{!
 %\begin{tabular}{ccccccccc}
@@ -209,10 +267,8 @@ FITest               &     0.18 Hz/pA &   0.18 Hz/pA &        0 \\
 %}
 %\end{table}
 
-
-\subsection{Hippocampus CA1 pyramidal cell}
 \begin{table}
-\resizebox{0.7\textwidth}{!}{
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lllllllll}
 \toprule
 {} & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
@@ -221,10 +277,11 @@ observations & 189.2 pA & 107.1 Mohm & 24.5 ms & 89.8 pF & -65.2 mV & 1.32 ms & 
 predictions & 1.65 pA & 8.9e10 kg*m**2/(s**3*A**2) & 84.6 ms & 9.5e-12 s**4*A**2/(kg*m**2) & -85.0 mV & 6.0e-05 s & 159.9 mV & -48.3 mV \\
 \bottomrule
 \end{tabular}}
+\caption{Hippocampus CA1 pyramidal cell}
 \end{table}
 
-%\subsection{471819401}
-\subsection{olfactory mitral cell}
+\begin{table}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{llllllll}
 \toprule
 {} & InputResistanceTest & TimeConstantTest & CapacitanceTest & RestingPotentialTest & InjectedCurrentAPWidthTest & InjectedCurrentAPAmplitudeTest & InjectedCurrentAPThresholdTest \\
@@ -233,9 +290,12 @@ observations &      130.08 megaohm &         24.48 ms &       235.75 pF &       
 predictions  &       63.21 megaohm &          8.26 ms &       130.73 pF &            -61.23 mV &                     0.1 ms &                       92.37 mV &                      -53.09 mV \\
 Z-Scores     &                0.96 &             2.61 &           161.6 &                 0.62 &                      12.97 &                          13.73 &                           2.84 \\
 \bottomrule
-\end{tabular}
-%\subsection{Allen Specimen id:  623960880}
-\subsection{Neocortex pyramidal cell layer 5-6}
+\end{tabular}}
+\caption{Olfactory Bulb Mitral Cell}
+\end{table}
+
+\begin{table}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{llllll}
 \toprule
 {} & RheobaseTest & InputResistanceTest & TimeConstantTest & CapacitanceTest & RestingPotentialTest \\
@@ -244,9 +304,11 @@ observations &    213.85 pA &      120.67 megaohm &         15.73 ms &       150
 predictions  &     54.49 pA &       57.21 megaohm &         14.62 ms &       255.52 pF &            -66.85 mV \\
 Z-Scores     &         1.05 &                0.88 &             0.13 &            0.79 &                 0.19 \\
 \bottomrule
-\end{tabular}
-%\subsection{482493761}
-\subsection{Allen Specimen id: 4824937611}
+\end{tabular}}
+\caption{Neocortex Layer 5-6 Pyramidal Cell}
+\end{table}
+
+\begin{table}
 \begin{tabular}{lll}
 \toprule
 {} &       FITest & RheobaseTest \\
@@ -256,7 +318,11 @@ predictions  &  0.2 Hz/pA &      60.1 pA \\
 Z-Scores     &         1.47 &         0.12 \\
 \bottomrule
 \end{tabular}
-\subsection{Allen Specimen id: 471819401}
+\caption{Allen Specimen id: 4824937611}
+\end{table}
+
+\begin{table}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lllll}
 \toprule
 {} & RheobaseTest & TimeConstantTest & RestingPotentialTest & InputResistanceTest \\
@@ -265,8 +331,12 @@ observations &     190.0 pA &          13.8 ms &             -77.5 mV &       13
 predictions  &     28.12 pA &         12.83 ms &            -66.06 mV &      134.63 megaohm \\
 Z-Scores     &         0.93 &             0.03 &                 0.06 &                0.02 \\
 \bottomrule
-\end{tabular}
-\subsection{Allen Specimen id: 482493761}
+\end{tabular}}
+\caption{Allen Specimen ID: 471819401}
+\end{table}
+
+\begin{table}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lllll}
 \toprule
 {} & RheobaseTest & TimeConstantTest & RestingPotentialTest & InputResistanceTest \\
@@ -275,9 +345,11 @@ observations &      70.0 pA &          24.4 ms &             -71.6 mV &       25
 predictions  &     56.25 pA &         19.48 ms &            -67.18 mV &      267.95 megaohm \\
 Z-Scores     &         0.17 &             0.08 &                 0.02 &                0.03 \\
 \bottomrule
-\end{tabular}
-\subsection{Allen Specimen id: 623893177}
-\begin{comment}
+\end{tabular}}
+\caption{Allen Specimen id: 482493761}
+\end{table}
+
+\begin{table}
 \begin{tabular}{lllrr}
 \toprule
 {} & model\_value &                            exp\_cell &   $\chi^{2}$ &       p\-value \\
@@ -308,21 +380,19 @@ Z-Scores     &         0.17 &             0.08 &                 0.02 &         
 0 &        GLIF &      Hippocampus CA1 pyramidal cell &  1088.826832 &  0.000000e+00 \\
 \bottomrule
 \end{tabular}
+\caption{Allen Specimen id: 623893177}
+\end{table}
 
-
-
-
+\begin{table}
 \begin{tabular}{lr}
 \toprule
 $\chi^{2}$ &  0.249615 \\
 p\_value    &  0.999991 \\
 \bottomrule
 \end{tabular}
-\\
-%\textit and \textbf
-\newline
-\textbf{Optimal Model Parameters}
-\newline
+\caption{...}
+\end{table}
+
 \begin{table}[ht]
 \centering
 \resizebox{\textwidth}{!}{
@@ -333,6 +403,7 @@ p\_value    &  0.999991 \\
 0 &  198.919612 &  0.718347 & -73.81738 & -43.268924 &  36.359152 &  0.163093 &  14.271092 & -47.109124 &  102.824965 &         5 \\
 \bottomrule
 \end{tabular}}
+\caption{Optimal Model Parameters}
 \end{table} 
 
 \begin{table}[ht]
@@ -346,20 +417,21 @@ TimeConstantTest     &        13.8 ms &        8.12 ms &      0.2 \\
 RestingPotentialTest &       -77.5 mV &      -73.82 mV &     0.02 \\
 InputResistanceTest  &  132.0 megaohm &  44.91 megaohm &     0.45 \\
 FITest               &     0.18 Hz/pA &   [0.18 Hz/pA] &        0 \\
-
 \bottomrule
 \end{tabular}}
+\caption{...}
 \end{table} 
 
-\subsubsection{482493761 IZHI}\begin{tabular}{lr}
+\begin{table}
+\begin{tabular}{lr}
 \toprule
 $\chi^{2}$ &  0.131387 \\
 p\_value    &  0.999999 \\
 \bottomrule
 \end{tabular}
-\\
-\textbf{Optimal Model Parameters} 
-\newline
+\caption{482493761 IZHI Fit Quality}
+\end{table}
+
 \begin{table}[ht]
 \centering
 \resizebox{\textwidth}{!}{
@@ -370,9 +442,10 @@ p\_value    &  0.999999 \\
 0 &  199.955407 &  0.700119 & -68.553123 & -48.573483 &  38.892985 &  0.091763 &  1.356771 & -26.787294 &  131.543528 &         5 \\
 \bottomrule
 \end{tabular}}
+\caption{Optimal Model Parameters for ...} 
 \end{table} 
 
-
+\begin{table}
 \begin{tabular}{llll}
 \toprule
 {} &   observations &   predictions & Z-Scores \\
@@ -384,6 +457,9 @@ InputResistanceTest  &  132.0 megaohm &  69.1 megaohm &     0.25 \\
 FITest               &     0.09 Hz/pA &  [0.09 Hz/pA] &     0.01 \\
 \bottomrule
 \end{tabular}
+\caption{...}
+\end{table}
+
 \subsubsection{623893177 IZHI}
 \begin{tabular}{lr}
 \toprule
@@ -501,6 +577,11 @@ $\chi^{2}$ &  1.706444 \\
 p\_value    &  0.988727 \\
 \bottomrule
 \end{tabular}
+
+%\begin{figure}
+
+
+
 \textbf{Optimal Model Parameters} \begin{tabular}{lrrrrrrrrrr}
 \toprule
 {} &           C &         k &         vr &         vt &      vPeak &         a &         b &          c &          d &  celltype \\
@@ -792,7 +873,7 @@ RheobaseTest         &       190.0 pA &        63.28 pA &     0.68 \\
 TimeConstantTest     &        13.8 ms &       150.67 ms &     1.21 \\
 RestingPotentialTest &       -77.5 mV &       -79.25 mV &     0.01 \\
 InputResistanceTest  &  132.0 megaohm &  132.42 megaohm &        0 \\
-FITest               &     0.18 Hz/pA &    [0.18 Hz/pA] &     0.02 \\
+FITest               &     0.18 Hz/pA &    0.18 Hz/pA &     0.02 \\
 \bottomrule
 \end{tabular}
 \subsubsection{482493761 GLIF}\begin{tabular}{lr}
@@ -1168,60 +1249,7 @@ InjectedCurrentAPThresholdTest &        -38.9 mV &      -52.08 mV &     2.54 \\
 \end{tabular}
 \end{comment}
 
-\begin{comment}
-\begin{figure}
-\begin{verbatim}
-'AP1RateOfChangePeakToTroughTest_3.0x',
-'AP2DelaySDTest_1.5x',
-'AP2DelaySDTest_3.0x',
-'AP_end_indices_3.0x',
-'AP_fall_indices_1.5x',
-'AP_fall_indices_3.0x',
-'AP_rise_indices_1.5x',
-'AP_rise_time_1.5x',
-'AP_rise_time_3.0x', 
-'APlast_width_1.5x',
-'AccommodationRateMeanAtSSTest_3.0x', 
-'AccommodationRateToSSTest_3.0x',
-'ISIBurstMeanChangeTest_3.0x', 
-'ISICVTest_3.0x',
-'ISI_log_slope_skip_3.0x', 
-'Spikecount_stimint_1.5x',
-'Spikecount_stimint_3.0x', 
-'adaptation_index2_3.0x',
-'fast_trough_index_1.5x', 
-'fast_trough_index_3.0x',
-'fast_trough_t_1.5x', 
-'fast_trough_t_3.0x', 
-'initburst_sahp_vb_1.5x',
-'input_resistance', 
-'maximum_voltage_1.5x', 
-'min_AHP_indices_1.5x',
-'min_AHP_indices_3.0x', 
-'peak_index_1.5x', 
-'peak_index_3.0x',
-'peak_indices_1.5x', 
-'peak_indices_3.0x',
-'peak_t_1.5x',
-'peak_t_3.0x',
-'peak_time_3.0x',
-'steady_state_hyper_1.5x',
-'steady_state_voltage_1.5x', 
-'steady_state_voltage_stimend_1.5x',
-'threshold_index_1.5x', 
-'threshold_index_3.0x',
-'threshold_t_1.5x',
-'threshold_t_3.0x',
-'upstroke_index_1.5x',
-'upstroke_index_3.0x',
-'upstroke_t_1.5x', 
-'upstroke_t_3.0x', 
-'voltage_after_stim_1.5x',
-'voltage_after_stim_3.0x'   
-\end{verbatim}
-\label{fig:reference_feature_list}
-List of complete 47 features used in the analysis down from 466 after data cleaning.
-\end{figure}
-\end{comment}
+%\begin{comment}
+%\end{comment}
 
  

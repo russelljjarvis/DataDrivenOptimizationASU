@@ -14,13 +14,176 @@ Consequently, optimized models of the Purkinje cell always failed to be biologic
 The p-value of the $\chi^{2}$ statistic was always sufficiently low to reject the null hypothesis that such optimized models were representative of the biological data distribution.
 Like the Purkinje cell, the Mitral cells of the main olfactory bulb also escaped successful model fitting.
 These mitral cells also have high membrane capacitance $235pF$, and reduced models could not reproduce their features well.  
-The Izhikevich model was achieved the lowest overall $\chi^{2}$ statistic for Purkinje cells and Mitral cells, being slightly more flexible than the AdEx or  conductance based models.
+The Izhikevich model was achieved the lowest overall $\chi^{2}$ statistic for Purkinje cells and Mitral cells, being slightly more flexible than the AdEx or  conductance based models (see Tables \ref{tab:adex-allen} and \ref{tab:izhikevich-allen}).
 In general, however, these reduced models may have been developed with smaller, more electronically compact cortical and hippocampal cells in mind.
 
 \subsection{Conflicts between Experimental Features Constraining Optimization}
 Feature values extracted from multiple data sets appeared to be in conflict for some cell types.
-For example, the rheobase value was often incompatible with some passive electrophysiological feature values, such that good optimization could be achieved with one set or the other, but not both together.
-By good optimization I mean that the optimized model exhibited behavior that was consistent with all of the features.
+For example in the section below I show that the rheobase value was often incompatible with some passive electrophysiological feature values, such that good optimization could be achieved with one set or the other, but not both together.
+
+\subsubsection{Tradeoff Patterns in Data Driven  Tests in Sub and at Threshold Electrical Properties}
+\label{sec:rh_incomp}
+Using data from the Allen Cell Types neuron with ID $471819401$,
+I was able to optimize both AdEx and Izhkevich models, such that both models would agree with rheobase, time constant, resting membrane potential, and input resistance, experimental values. Some tradeoffs were needed in order match all of the values, as these features could not all be perfectly matched at once.
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\toprule
+Test name &   observations &    predictions & Z-Scores \\
+\midrule
+RheobaseTest         &       190.0 pA &      199.52 pA &     0.04 \\
+TimeConstantTest     &        13.8 ms &        6.21 ms &     0.32 \\
+RestingPotentialTest &       -77.5 mV &      -39.29 mV &     0.26 \\
+InputResistanceTest  &  132.0 megaohm &  44.94 megaohm &     0.45 \\
+\bottomrule
+\end{tabular}
+\caption[AdEx model fit quality]{Predicted and observed features for neuron $471819401$ from the Allen Cell Types database, following optimization of the AdEx model against data from this neuron.
+Other neurons showed similar optimization performance, and are shown in the Appendix.}
+\label{tab:adex-allen}
+\end{center}
+\end{table}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\toprule
+{} &   observations &    predictions & Z-Scores \\
+\midrule
+RheobaseTest         &       190.0 pA &      190.48 pA &        0 \\
+TimeConstantTest     &        13.8 ms &         1.9 ms &     0.94 \\
+RestingPotentialTest &       -77.5 mV &      -70.65 mV &     0.03 \\
+InputResistanceTest  &  132.0 $M\Omega$ &  25.47 $M\Omega$ &     0.74 \\
+\bottomrule
+\end{tabular}
+\caption[AdEx model fit quality]{Same as the Table \ref{tab:adex-allen} but for the Izhikevich model.}
+\label{tab:izhikevich-allen}
+\end{center}
+\end{table}
+
+%And different specimen id's For example: 482493761 id:
+%Adex:
+%\newline
+%\begin{center}
+%\begin{tabular}{|l|l|l|l|}
+%\toprule
+%Feature Name &   observations &               predictions & Z-Scores \\
+%\midrule
+%RheobaseTest         &        70.0 pA &                   73.4 pA &     0.04 \\
+%TimeConstantTest     &        24.4 ms &  0.0029 ms &     9.32 \\
+%RestingPotentialTest &       -71.6 mV &                 -49.76 mV &     0.13 \\
+%InputResistanceTest  &  132.0 megaohm &             72.15 megaohm &     0.23 \\
+%\bottomrule
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+
+%Izhikevich:
+%\begin{table}
+%\begin{center}
+%\begin{tabular}{|l|l|l|l|}
+%\toprule
+%{} &   observations &    predictions & Z-Scores \\
+%\midrule
+%RheobaseTest         &        70.0 pA &       71.19 pA &     0.01 \\
+%TimeConstantTest     &        24.4 ms &        2.85 ms &     1.05 \\
+%RestingPotentialTest &       -71.6 mV &      -55.05 mV &      0.1 \\
+%InputResistanceTest  &  132.0 megaohm &  46.06 $M\Ohm$ &     0.43 \\
+%\bottomrule
+%\end{tabular}
+%\end{center}
+%\end{table}
+%\begin{table}
+\subsubsection{6239608801 AdEx}
+The need to match the rheobase appeared to be interfering with the ability of the optimizer to match many other features.
+The rheobase is essentially the knee of the FI curve.
+An alternative strategy is to produce models that match the slope of the FI curve.
+Here I show two out of $12$ examples demonstrating that that fitting models to the FISlope and rheobase only, leads to generally better agreement as there is less conflict between these two tests.
+%\textbf{Model Parameters}
+%\newline
+%\begin{center}
+%\resizebox{0.7\textwidth}{!}{
+%\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|}
+%\toprule
+%{} &          cm &    v\_spike &    v\_reset &     %v\_rest &      tau\_m &         a &         b &   delta\_T &       tau\_w &   v\_thresh &  spike\_delta \\
+%\midrule
+%0 &  147.166079 & -45.027618 & -32.175811 & -51.521467 &  51.323969 &  1.787643 &  5.553571 &  4.143261 &  158.661633 & -25.749411 &    15.471554 \\
+%\bottomrule
+%\end{tabular}}
+%\newline
+%\end{center}
+%\end{table}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\toprule
+{} & observations &   predictions & Z-Scores \\
+\midrule
+FITest       &   0.18 Hz/pA &  0.18 Hz/pA &     0.01 \\
+RheobaseTest &      70.0 pA &      70.26 pA &        0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|r|}
+\toprule
+chi\_square &  0.000083 \\
+p\_value    &  1.000000 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption[Quality of Fit to Experimental Data]{Summary statistics of fit quality using XXXX.
+The very low $\chi^2$ statistic (and high p-value) indicate that there was no evidence that this optimized cell model produced behavior outside of the range of biological neurons of the same type, at least for the features examined here.}
+\label{tab:chi2-p-1}
+\end{table}
+
+%\newline
+
+\subsubsection{6239608801 Izhikevich}
+
+%\newline
+%\textbf{Model Parameters}
+%\newline
+%\begin{center}
+
+%\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|}
+%\toprule
+%{} &           C &        k &         vr &         vt &      vPeak &        a &          b &          c &          d &  celltype \\
+%\midrule
+%0 &  190.848367 &  0.77007 & -65.461028 & -49.496538 &  31.461532 &  0.05877 &  13.916167 & -58.159122 &  38.738638 &         7 \\
+%\bottomrule
+%\end{tabular}}
+%\end{center}
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\toprule
+Features & observations &   predictions & Z-Scores \\
+\midrule
+FITest       &   0.18 Hz/pA &  0.18 Hz/pA &        0 \\
+RheobaseTest &      70.0 pA &      66.61 pA &     0.04 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{center}
+\begin{tabular}{|l|r|}
+\toprule
+chi\_square &  0.00155 \\
+p\_value    &  1.00000 \\
+\bottomrule
+\end{tabular}
+\caption[Quality of Fit to Experimental Data]{Similar to Table \ref{tab:chi2-p-1}, but for XXXX.}
+\end{center}
+\end{table}
+
+
+By ``good optimization" I mean that the optimized model exhibited behavior that was consistent with all of the features.
 Models seemed to have particular difficulty in recapitulating an accurate fit for rheobase, while simultaneously satisfying the fitness criteria imposed by the time constant, input resistance, capacitance and resting membrane potential.
 This was less problematic when using the slope of the FI curve as a feature, suggested that it was not spiking \emph{per se} that caused the problem.
 

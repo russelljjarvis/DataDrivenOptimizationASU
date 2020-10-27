@@ -1,7 +1,5 @@
-\section{How Good was the Optimizer}
+\section{How Good was the Optimizer?}
 %Three classes of experimental measurements were used to fit models in conjunction with genetic algorithms. These consisted of four groups of eight neuroelectro observations, and four groups of Allen electrical measurements from single cells. And also a group of  $14$ different EFEL measurements that were obtained by sampling Allen Brain sweep Data.
-
-See tables: \ref{tab:conductance_623960880}, \ref{tab:conductance_623893177}, \ref{tab:l5pc_table}
 
 % It is worth noting that in both sets of measurements, the types of measurements that can guide optimization are significantly smaller subset of measurements of fitness criteria that can be evaluated on the final model.
 
@@ -9,7 +7,7 @@ See tables: \ref{tab:conductance_623960880}, \ref{tab:conductance_623893177}, \r
 %\textbf{RheobaseTest}, InputResistanceTest, TimeConstantTest, CapacitanceTest, RestingPotentialTest.
 
 When the optimizer is applied to the Izhikevich model for each of the four different classes of experimental cell types, it obtains solutions that are within the range of empirical variability.
-Because the optimizer was not able to resolve conflicts between certain measurements, such as rheobase and time constant, performance is be even better if some of these conflicting features are removed.
+Because the optimizer was not able to resolve conflicts between certain measurements, such as usually rheobase vs (time constant,input resistance, and membrane capacitance) performance is be even better if some of these conflicting features are removed.
 
 In the single-compartment conductance-based model and in the AdEx model, even better solutions were obtained, but in these cases it was the need to match experimental input resistance that posed the greatest drag on solution quality.
 
@@ -76,28 +74,4 @@ Although the Allen Institute for Brain Science modeling project and the Blue Bra
 
 
 %Optimized neuron models may vary from their experimental counterparts for several reasons. In the appendix generally, there are multiple tables that show that optimizing models with respect to the rheobase fits comes into conflict with minimizing with respect to input resistance. The solution to the optimization problem consists of two sets of model parameters, which can resolve this conflict differently. Examining the experimental data that these tests were derived from suddenly becomes important. By examining the data, we can see if the rheobase currents and the distributions of input resistance are bi-modal and uniformly distributed. If the data is treated as uni-modal, and the uni-modal mean is used to optimize then the model, then the model is not able to satisfy both constraints simultaneously. In this case, the measurements don’t correspond to neuron data, and the model can’t produce the artificial behavior. When comparing complex data and simple models we find that solutions are better represented using a combination of two optimization solutions.\\
-
-\section{Other Optimization Pitfalls}
-\subsection{Neurons with State-Dependent Behaviors}
-Some neurons may have different behaviors under different stimulation paradigms. 
-For example, the cerebellar Purkinje cell is sensitive to intricately patterned dendritic input current combinations.
-Depending on that cell’s recent history of synaptic stimulation, it may toggle between coincidence detection and integration modes \cite{ratte2013impact}.
-If the experimental data being used for optimization only describes a subset of these behaviors, then the optimized model may not generalize to the neuron's other behaviors.
-
-%There is a core of models of realistic models who are missing a substantial number of "extrinsic" synaptic inputs. Many synaptic inputs are severed by the process of making a subdivision.
-
-%archictecture.
-
-%\subitem 
-%optimization is an interaction between models and constraints which guides a fitting process. Not all neural models are equally flexible.  
-%\item  
-%Both the choice of constraining equations, and the choice of neural models must be favorable in order for models to be fitted to data.
-%\item 
-%\subitem 
-%if the combination of models and constraints is bad, then then a tractible error surface will not result.  
-
-%\subsubitem 
-%Unfortunately, it is not always possible to know without trying which combinations of A: models, and B, constraints will lead a tractable error surface, however a nicely smooth manifold surface with only minor oscillations is preferable
-
-%that a Genetic Algorithms can use to find a global solution to. As an example consider  
 

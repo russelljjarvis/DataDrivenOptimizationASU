@@ -65,30 +65,33 @@ However, I manually identified and labeled those cases where the data were not w
 Methods for verifying that a distribution is unimodal exist \citep{maechler2013package}; however, rather than entrust this job to top-down automation, I decided to apply my own human knowledge of statistics in order to assess each distribution individually. %, because there seemed to be less opportunity to suffer from some kind of machine introduced violation of intuition. % too each  
 
 %I achieved greater quality control through visual inspection of each case in a piece-meal manner. % manually means to do something by hand. 
-I estimated that across all NeuroElectro data sampled here, about $2/3$ of distributions are well represented by a unimodal and normal distributions (e.g. Figure \ref{fig:normal-feature} and Figure \ref{fig:normal-feature2}.
-In the remaining $1/3$, where this did not hold, I observed a small but still significant number of odd cases: highly skewed distributions (Figure \ref{fig:skewed-feature}), bimodal distributions (Figure \ref{fig:bimodal-feature}), uniform-like distributions (Figure \ref{fig:uniform-feature}), and distribution with insufficient samples to make any judgement.
+I estimated that across all NeuroElectro data sampled here, about $2/3$ of distributions are well represented by a unimodal and normal distributions (e.g. Figure \ref{fig:normal-feature}).
+In the remaining $1/3$, where this did not hold, I observed a small but still significant number of odd cases: highly skewed distributions (Figure \ref{fig:skewed-feature}), bimodal distributions (Figure \ref{fig:bimodal-feature}), uniform-like distributions, and distributions with insufficient samples to make any judgement.
 
 \begin{figure} 
     \begin{center}
    \includegraphics[scale=0.8]{figures/mean_well_served.png}
-   \caption[AP Threshold Data Distribution for Layer 5 Pyramidal Cell]{\textbf{AP Threshold Data Distribution for Layer 5 Pyramidal Cell.} The majority of NeuroElectro data sets followed a normal distribution, where the mean is surrounded by a very high density of samples, which slowly thin out with increasing distance from the mean. The distribution is approximately symmetrical. (Top Panel) Binned histogram of AP Threshold measurements from Layer 5 Pyramidal Cells. (Bottom Panel) A violin plot acts as a smoothed distribution plot. The violin plot is in parallel with a box plot. A vertical line links the top panel and bottom panel together. The box plot contains the mean and standard deviation, the vertical line depicting the mode shows that the mode is well aligned with the mean, and the peak count value of the data.}
+   \caption[AP Threshold Data Distribution for Layer 5 Pyramidal Cell]{\textbf{AP Threshold Data Distribution for Layer 5 Pyramidal Cell.} The majority of NeuroElectro data sets followed a normal distribution, where the mean is surrounded by a very high density of samples, which slowly thin out with increasing distance from the mean. The distribution is approximately symmetrical. Top Panel: A histogram of AP Threshold measurements from Layer 5 Pyramidal Cells; Bottom Panel: A violin plot and a box plot summarizing the same distribution. In this plot, the mean and mode are close together (a necessary condition for near-normality).
+   Analagous plots were generated and inspected for all electrophysiological features computed here.}
    \label{fig:normal-feature}
     \end{center}
 \end{figure}   
 
-\begin{figure} 
-    \begin{center}
-    \includegraphics[scale=0.8]{figures/mean_well_served2.png}
-    \end{center}
-    \caption[AP Amplitude Data Distribution for Layer 5 Pyramidal Cell]{\textbf{AP Amplitude Data Distribution for Layer 5 Pyramidal Cell.} Data are skewed to the left with outliers but are symmetrical enough to be considered normal. In this plot the mean is surrounded by a very high density of samples, which slowly thin out with increasing distance from the mean. A small proportion of outliers are likely explained by experimental noise. (Top Panel) Binned histogram of AP Amplitude measurements from Layer 5 Pyramidal Cells. (Bottom Panel) A violin plot acts as a smoothed distribution plot. The violin plot is in parallel with a box plot. A vertical line links the top panel and bottom panel together. The box plot contains the mean and standard deviation, the vertical line depicting the mode shows that the mode is well aligned with the mean, and the peak count value of the data.}
-    \label{fig:normal-feature2}
-\end{figure}   
+%\begin{figure} 
+%    \begin{center}
+%    \includegraphics[scale=0.8]{figures/mean_well_served2.png}
+%    \end{center}
+%    \caption[AP Amplitude Data Distribution for Layer 5 Pyramidal Cell]{\textbf{AP Amplitude Data Distribution for Layer 5 Pyramidal Cell.} Same as the figure above, but for the AP Amplitude.}
+%    \label{fig:normal-feature2}
+%\end{figure}   
  
 \begin{figure} 
     \begin{center} 
     \includegraphics[scale=0.8]{figures/skewed_distribution.png}
     \end{center}
-    \caption[Example of Skewed  Distribution]{\textbf{Example of Skewed Distribution.} In this distribution of Input Resistance for the neocortical pyramidal neuron from NeuroElectro, values are skewed and fall off quickly to the left. In this case the median represents the middle of the data better than the mean or the mode. (Top Panel) Binned histogram of Input Resistance measurements for neocortical pyramidal neurons. (Bottom Panel) A violin plot acts as a smoothed distribution plot. The violin plot is in parallel with a box plot. A vertical line links the top panel and bottom panel together. The box plot contains the mean and standard deviation, the vertical line depicting one of two data modes shows that the mode is misaligned with the mean, and also the mode is a great representation of part of this data. In this case the violin plot is useful to assess if the distribution is bi-modal/versus a sparse uniform distribution the smoothness shows a visible dip}
+    \caption[Example of Skewed  Distribution]{\textbf{Input Resistance Data Distribution for Layer 5 Pyramidal Cell.} Similar to Figure \ref{fig:normal-feature}, except for Input Resistance.
+    Unlike in that figure, the distribution shows a strong skew towards higher values.
+    The mean and the mode are no longer well-aligned, and therefore the mean is no longer representative of the most typical value of this feature for this neuron type.}
     \label{fig:skewed-feature}
 \end{figure}   
 
@@ -126,7 +129,9 @@ In the remaining $1/3$, where this did not hold, I observed a small but still si
 \begin{figure}  
 \begin{center}     
   \includegraphics[scale=0.8]{chapters/notebooks_converted/needata_thesis_files/needata_thesis_5_22}
-      \caption[Bi-modal Distribution for Resting Membrane Potential from Mitral Cells]{\textbf{Bi-modal Distribution for Resting Membrane Potential from Mitral Cells.} Among different measurement sources of NeuroElectro data, the resting membrane potential of the olfactory mitral cell showed the greatest tendency toward an underlying bi-modal distribution. (Top Panel) Binned histogram of resting membrane potential from the olfactory mitral cell. The input resistance of the olfactory neuron also followed a bi-modal or uniform distribution (not shown) (Bottom Panel) xxx. 
+      \caption[Bi-modal Distribution for Resting Membrane Potential from Mitral Cells]{\textbf{Resting Potential Data Distribution for the Olfactory Bulb Mitral Cell.} Similar to the previous figures, but for a different cell type and electrophysiological feature.
+      In this case, the distribution is clearly bimodal, with each mode containing a similar density of the data.
+      Now both the mean and the median (small red line in box plot) are especially unrepresentative, lying in a region of low probabilty density.
       }
       \label{fig:bimodal-feature}
 \end{center}     
@@ -146,14 +151,14 @@ In the remaining $1/3$, where this did not hold, I observed a small but still si
 %\end{center}
 %\end{figure}
     
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.7\linewidth]{chapters/notebooks_converted/needata_thesis_files/needata_thesis_5_16}
-\caption[Spike Width Measurements from Neocortical Pyramidal Neurons]{\textbf{Spike Width Measurements from Neocortical Pyramidal Neurons.} (Top Panel) Binned histogram of NeuroElectro spike width measurements from neocortical pyramidal neurons.
-The mode is denoted by the blue vertical line. The mode can be compared to the mean shown in the box plot. Often modes and means of measurements disagree.  NeuroElectro shows that a very common distribution shape is one which is possibly uniform or multi-modal. It is worth noting that a uniform distribution is not well-described by a normal distribution.}
-\label{fig:uniform-feature}
-\end{center}
-\end{figure}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.7\linewidth]{chapters/notebooks_converted/needata_thesis_files/needata_thesis_5_16}
+%\caption[Spike Width Measurements from Neocortical Pyramidal Neurons]{\textbf{Spike Width Measurements from Neocortical Pyramidal Neurons.} (Top Panel) Binned histogram of NeuroElectro spike width measurements from neocortical pyramidal neurons.
+%The mode is denoted by the blue vertical line. The mode can be compared to the mean shown in the box plot. Often modes and means of measurements disagree.  NeuroElectro shows that a very common distribution shape is one which is possibly uniform or multi-modal. It is worth noting that a uniform distribution is not well-described by a normal distribution.}
+%\label{fig:uniform-feature}
+%\end{center}
+%\end{figure}
 
 %\begin{figure}
 %\begin{center}
@@ -181,10 +186,10 @@ Additionally, the pre-computed features are thin relative to those that used for
 Because raw data are available through the Cell Types API, I re-computed all necessary features from this raw data, according to the consistent standards reflected in the NeuronUnit code.
 
 In contrast to NeuroElectro, the Cell Types database also has a great deal more information relevant to the above threshold dynamics of neurons, such as the number and pattern of action potentials they discharge in response to somatically-injected currents much larger than rheobase, or in response to non-square injected currents.
-In order to exploit these, I developed several additional NeuronUnit tests using EFEL, such as: ``time to first spike test", ``mean AP amplitude test", ``time to last spike test" and ``adaption index". In principal any feature measured in the Cell Types Data could be upgraded to a NeuronUnit test, and I created a code-generation template to accelerate this task. Effectively, code generation meant, that any EFEL feature, could be turned into a NeuronUnit test. In principle Allen tests can be generated from templates in much the same way. The final set of operational tests
-were EFEL tests that were adapted from descriptions of feature extraction in the literature as described in sections \ref{sec:efel}, and \ref{sec:elephant} and shown in Table \ref{tab:featurez}. Features are shown in Figures \ref{fig:voltage_figures}-\ref{fig:sag_amplitude}.
-
-I also crafted three other additional NeuronUnit tests using basic principles these were: $FITest$, $CVTest$, $ISITest$. 
+In order to exploit these, I developed several additional NeuronUnit tests using EFEL (describe later in sections \ref{sec:efel}), such as: ``time to first spike test", ``mean AP amplitude test", ``time to last spike test" and ``adaption index". In principal any feature measured in the Cell Types Data could be upgraded to a NeuronUnit test, and I created a code-generation template to accelerate this task. Effectively, code generation meant, that any EFEL feature, could be turned into a NeuronUnit test. In principle Allen tests can be generated from templates in much the same way. The final set of operational tests
+were EFEL \cite{EFEL} tests that were adapted from descriptions of feature extraction in the literature and shown in Table \ref{tab:features}. 
+Features are shown in Figures \ref{fig:voltage_figures} and \ref{fig:features_example}.
+I also crafted additional NeuronUnit tests to supplement these including one that measures the slope of the FI curve ($FISlopeTest$) and one that measures the coefficient of variation of the ISI distribution for suprathresholds stimuli ($ISICVTest$), a measure of burstiness. 
 %%
 % \ref{sec:allensdk},
 % Allen are features, not tests (no judge methods).
@@ -197,28 +202,34 @@ I also crafted three other additional NeuronUnit tests using basic principles th
 %%%
 
 
+%\begin{figure}
+%\centering
+%\includegraphics{figures/voltage_features.png}
+%\caption[Passive Membrane Properties Measured from a Hyperpolarizing Current Stimulus]{\textbf{Passive Membrane Properties from a Hyperpolarizing Stimulus.} Applying a negative (outward, hyperpolarizing) current stimulus minimially activates voltage-dependent ion channels, making it a good method for measuring ``passive" membrane properties such as the input resistance (measured as the difference between the resting potential (red) and steady-state hyperolarization (blue).
+%Nonetheless, some intrinsic conductances are activated, allowing for measurment of additional features such as the sag ratio (red trough vs blue steady state). Figure from EFEL documentation \url{https://efel.readthedocs.io/en/latest/eFeatures.html}.}
+%\label{fig:voltage_figures}
+%\end{figure}
+
 \begin{figure}
-\centering
-\includegraphics{figures/voltage_features.png}
-\caption[Passive Membrane Properties from Negative Amplitude Current Stimulus]{\textbf{Passive Membrane Properties from Negative Amplitude Current Stimulus.} Although applying a negative current stimulus only activates ``passive" ion channels in the membrane, probing the neuron membrane in this way is a simple way of ascertaining information about neuron membrane resistance and capacitance. Figure from EFEL documentation \url{https://efel.readthedocs.io/en/latest/eFeatures.html}.}
+\begin{center}
+\includegraphics{figures/sag_amplitude}
+\end{center}
+\caption[Passive Membrane Properties Measured from a Hyperpolarizing Current Stimulus]{\textbf{Passive Membrane Properties from a Hyperpolarizing Stimulus.} Applying a negative (outward, hyperpolarizing) current stimulus minimially activates voltage-dependent ion channels, making it a good method for measuring ``passive" membrane properties such as the input resistance (measured as the difference between the resting potential (red) and steady-state hyperpolarization (green).
+Nonetheless, some intrinsic conductances are activated, allowing for measurment of additional features such as the sag amplitude or ratio (green trough vs blue steady state). Figure from EFEL documentation \citep{efel-docs}.}
 \label{fig:voltage_figures}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics{figures/AP_Amplitude.png}
-\caption[Amplitude Features Measured Against Multiple Spikes]{\textbf{Amplitude Related Features Measured Against Multiple Spikes.} When a neuron fires multiple spikes, many features in the waveform are readily measurable, which include mean AP overshoot, every AP amplitude, wave troughs, spike threshold, and after hyperpolarisation potential (AHP). Figure from EFEL documentation \url{https://efel.readthedocs.io/en/latest/eFeatures.html}.
-    }
+\caption[Action Potential Features Measured from a Depolarizing Current Stimulus]{\textbf{Action Potential Features Measured from a Depolarizing Current Stimulus.} A positive (depolarizing, inward) current of sufficiently amplitude produces one or more action poentials.
+Many features can be computed from these, including their absolute amplitudes (in color), relative amplitudes, widths, thresholds, and afterhyperpolarizations (AHPs).
+Additional features about their number and relative timing can also be computed (not shown).
+Figure from EFEL documentation \citep{efel_documentation}.}
 \label{fig:features_example}
 \end{figure}
 
-\begin{figure}
-\begin{center}
-\includegraphics{figures/sag_amplitude}
-\end{center}
-\caption[EFEL measurements about negative stimulus and $V_{M}$ sag]{\textbf{EFEL measurements about negative stimulus and $V_{M}$ sag title} Caption text}
-\label{fig:sag_amplitude}
-\end{figure}
+
 
 %XXXX Russell, can you list the new tests above.
 
@@ -227,22 +238,17 @@ These tests can be used to assess the agreement between neuron models and biolog
 \subsection{The Blue Brain Project Neocortical Microcircuit Portal}
 \label{sec:bluebrain-data}
 I also made use of an additional data source, the The Blue Brain Project Neocortical Microcircuit Portal, similar in some ways to the Allen Institute Cell Types Database but reflecting measurements taken from mouse somatosensory cortex (again in patch-clamp recordings from slices).
-From this dataset I exclusively used a collection of experiments from animal $B-95$, which for reasons unknown yielded a tremendous amount of data (\url{http://microcircuits.epfl.ch/#/animal/8ecde7d1-b2d2-11e4-b949-6003088da632}).
+From this dataset I exclusively used a collection of experiments from animal $B95$, which for reasons unknown yielded a tremendous amount of data \citep{ramaswamy2015neocortical}.
 Conceptually, this dataset did not add anything new, but it did allow for high-quality optimized models to be produced from another brain region (somatosensory, rather than visual cortex).
 These data are also linked to--and constrain--the on-going Human Brain Project effort to simulate biophysically-detailed multi-compartmental models of the same neurons (and whole neural circuits).
 This means that the reduced models produced here can be compared directly to those more detailed models, or that the general NeuronUnit-driven genetic optimization framework developed here could be used to optimize detailed models which should, in principle, be similar to those produced through the larger Human Brain Project effort.
 Indeed, the Human Brain Project is already a user of the SciUnit framework developed in my lab, on which NeuronUnit is based.
 
-% There is no "NeuronUnit" data. What does this mean?
-The tests which lead to the best fits in the above threshold experiments were the tests made from application of EFEL features to Allen data sources (Figure \ref{fig:voltage_figures}). The measurement type and the test type did not change between Allen Cell Types and Blue Brain Data. Only the reference data which informed comparison measurements changed. % \ref{fig:supra-threshold-tests})
-
-The table below (\ref{tab:features}) constitutes a summary of both NeuroElectro and Allen experimental data reports. %This data can naturally be reported in tabular form. 
-
 \begin{table}
 \centering
 
 \resizebox{\textwidth}{!}{
-\begin{tabular}{ll}
+\begin{tabular}{|l|l|}
             \toprule
             \textbf{Test Name} & \textbf{Test Description}\\
 \midrule
@@ -254,36 +260,46 @@ AHP-depth & The after hyperpolarisation depth\\
 minimum-voltage & The minimum voltage\\
 peak-voltage & the maximum voltage, usually a spike peak. \\
 time-to-last-spike & The time of last spike onset \\
-AHP-depth-abs & After Hyperpolarisation depth.\\
+AHP-depth-abs & After Hyperpolarisation depth (absolute value).\\
 all-ISI-values & All interspike interval times\\
 voltage-base & minimum voltage while undergoing stimulus, often below the threshold of APs. \\
 min-voltage-between-spikes & Needed because during  high frequency firing AHPs may be skipped.\\
 Spikecount & Just the number of spikes that occured in the provided stimulus window\\
 \bottomrule
 \end{tabular}}
-\caption[List of features]{A number of features that were encoded into NeuronUnit tests for optimization}
+\caption[List of EFEL features]{14 key features identified in the EFEL \citep{EFEL} library that I impemented and encoded into NeuronUnit tests for optimization.}
 \label{tab:features}
 \end{table}
 
-\subsection{Experimental Measurements}
+% There is no "NeuronUnit" data. What does this mean?
+The tests which lead to the best fits in the above threshold experiments were the tests made from application of EFEL features to Allen data sources (Figure \ref{fig:voltage_figures}). The measurement type and the test type did not change between Allen Cell Types and Blue Brain Data. Only the reference data which informed comparison measurements changed. % \ref{fig:supra-threshold-tests})
+
+Table \ref{tab:features} constitutes a summary of both NeuroElectro and Allen experimental data reports. %This data can naturally be reported in tabular form. 
+
+%\subsection{Experimental Measurements}
 
 \begin{table}[ht]
 \centering
 \resizebox{\textwidth}{!}{
-\begin{tabular}{lllllllll}
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|}
 \toprule
-name & Hippocampus CA1 pyramidal cell & Cerebellum Purkinje cell & Neocortex pyramidal cell layer 5-6 &      olf\_mit &      623960880 &      623893177 &      471819401 &      482493761 \\
+Test Name / Cell Type & CA1 Pyramidal & Purkinje & NCP Layer 5-6 &      Mitral Cell & 623960880 & 623893177 & 471819401 & 482493761 \\
 \midrule
 RheobaseTest                   &                      189.24 pA &                680.79 pA &                          213.85 pA &          NaN &        70.0 pA &       190.0 pA &       190.0 pA &        70.0 pA \\
-InputResistanceTest            &                    107.08 Mohm &              142.06 Mohm &                        120.67 Mohm &  130.08 Mohm &  241.0 megaohm &  136.0 megaohm &  132.0 megaohm &  132.0 megaohm \\
+InputResistanceTest            &                    107.08 $M\Omega$ &              142.06 $M\Omega$ &                        120.67 $M\Omega$ &  130.08 $M\Omega$ &  241.0 $M\Omega$ &  136.0 $M\Omega$ &  132.0 $M\Omega$ &  132.0 $M\Omega$ \\
 TimeConstantTest               &                        24.5 ms &                      NaN &                           15.73 ms &     24.48 ms &        23.8 ms &        27.8 ms &        13.8 ms &        24.4 ms \\
 CapacitanceTest                &                        89.8 pF &                620.27 pF &                          150.58 pF &    235.75 pF &            NaN &            NaN &            NaN &            NaN \\
 RestingPotentialTest           &                      -65.23 mV &                -61.59 mV &                          -68.25 mV &    -58.14 mV &       -65.1 mV &       -77.0 mV &       -77.5 mV &       -71.6 mV \\
 InjectedCurrentAPWidthTest     &                        1.32 ms &                  0.41 ms &                            1.21 ms &      1.61 ms &            NaN &            NaN &            NaN &            NaN \\
 InjectedCurrentAPAmplitudeTest &                       86.36 mV &                 71.23 mV &                           80.44 mV &      68.4 mV &            NaN &            NaN &            NaN &            NaN \\
 InjectedCurrentAPThresholdTest &                       -47.6 mV &                -46.89 mV &                          -42.74 mV &     -38.9 mV &            NaN &            NaN &            NaN &            NaN \\
-FITest                         &                            NaN &                      NaN &                         0.05 Hz/pA &          NaN &     0.18 Hz/pA &     0.12 Hz/pA &     0.18 Hz/pA &     0.09 Hz/pA \\
+FISlopeTest                         &                            NaN &                      NaN &                         0.05 Hz/pA &          NaN &     0.18 Hz/pA &     0.12 Hz/pA &     0.18 Hz/pA &     0.09 Hz/pA \\
 \bottomrule
 \end{tabular}}
+\caption[Neuroelectro Data]{Data for 9 tests (features) across 8 cells.
+The first 4 cells are specific cell types spanning several brain regions, and the corresponding data comes from neuroelectro.org.
+The remaining 4 are single (cortical) cells comes from the Allen Cell Types database, and the features were directly computed using NeuronUnit tests.
+``NCP" indicates neocortical pyramidal.}
+\label{tab:neuroelectro-data}
 \end{table}
 

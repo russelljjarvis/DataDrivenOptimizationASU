@@ -1,4 +1,5 @@
 \section{Optimized single neurons}
+\label{sec:optimized-single-neurons}
 In the previous sections we saw that optimization of models to the mean features reported across many neurons, even of the same nominal type, is conceptually and empirically flawed.
 The remainder of the optimization results will focus instead on the optimization of single neurons.
 In other words, I will produce optimized models that used only features extracted from recordings of the same neuron, and those models will putatively represent any neuron that behaves as that one did.
@@ -14,7 +15,7 @@ These constaints were different from those used in the NeuronUnit tests for two 
 \begin{table}[]
     \centering
     \resizebox{1\textwidth}{!}{
-    \begin{tabular}{c|c|c}
+    \begin{tabular}{|c|c|c|}
     \toprule
 Feature Name & Description \\
 adaptation-index & Adaption Index for above $0mV$ spikes \\
@@ -33,11 +34,17 @@ min-voltage-between-spikes & The minimum voltage between spike in $V_{M}$, while
 Spikecount & Number of spikes observed in model, given appropriate AP \\
 \bottomrule
     \end{tabular}}
-    \caption[Constraints for Suprathreshold Single Neuron Model Fits]{A table of constraints that were used to guide single neuron optimization using suprathreshold stimuli.
-    This set varied across optimizations, depending on which underlying stimuli were available in the recorded experimental data.
-    While features such as AHP depth and Minimum Voltage between spikes improved optimization, all things being equal, if they were given too much priority (over statistics derived from spike times or amplitudes) then fit quality was reduced.}
+    \caption[Suprathreshold Features Used for Single Neuron Model Fits]{\textbf{Suprathreshold Features Used for Single Neuron Model Fits.}
+    These 14 features were identified from \cite{EFEL} as useful for fitting single neuron models for which responses to suprathreshold stimuli were available.
+    Unlike the features used in NeuroElectro, these features can distinguish between different temporal patterns of spiking.
+    Special care was taken to minimize the impact of AHP depth and Minimum Voltage between spikes, as reduced models struggle to match these due to inherently impoverished dynamics.}
     \label{tab:single-neuron-constraints}
 \end{table}
+
+
+%\begin{tabular}{lr}
+%\toprule\n{} &         0 \\\\\n\\midrule\nAHP\\_depth\\_1.5x                  &  0.707200 \\\\\nAHP\\_depth\\_abs\\_1.5x              &  0.413800 \\\\\nSpikecount\\_1.5x                 &  0.000000 \\\\\nadaptation\\_index2\\_1.5x          &  0.008393 \\\\\nall\\_ISI\\_values\\_1.5x             &  0.004261 \\\\\nmean\\_AP\\_amplitude\\_1.5x          &  0.387600 \\\\\nmin\\_voltage\\_between\\_spikes\\_1.5x &  0.394000 \\\\\npeak\\_voltage\\_1.5x               &  0.005194 \\\\\nspike\\_half\\_width\\_1.5x           &  0.892900 \\\\\ntime\\_to\\_first\\_spike\\_1.5x        &  0.182200 \\\\\ntime\\_to\\_last\\_spike\\_1.5x         &  0.016420 \\\\\nvoltage\\_base\\_1.5x               &  0.107100 \bottomrule
+%\end{tabular}
 
 % \end{verbatim}
 
@@ -70,21 +77,22 @@ For example, while spike rate adaptation can be observed in this neuron, it is n
 Nonetheless, the optimizer achieves a reasonably good match to this pattern of spikes, as well as to the resting potential and the spike threshold.
 It performs less well at capturing the hyperpolarization between spikes.
 Similar results are shown using an Izhikevich model (Figure \ref{fig:B95_IZHI}).
-The AdEx model is somewhat better at matching spike times than the Izhikevich model, consistent with the literature \cite{rossant2011fitting}. 
+The AdEx model is somewhat better at matching spike times than the Izhikevich model, consistent with the literature \citep{rossant2011fitting}. 
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.75]{figures/bbp_multispiking_fit.png}
-    \caption[Optimized AdEx model from BBP]{An Adaptive Exponential (AdEx) model was optimized to both the spike times and shapes from a single neuron in the Blue Brain Project Microcircuit Portal data (taken from animal ID B95)
+    \caption[Optimized AdEx model from BBP]{\textbf{AdEx model optimized against BBP data}. An Adaptive Exponential (AdEx) model was optimized to both the spike times and shapes from a single neuron in the Blue Brain Project (BBP) Microcircuit Portal data (taken from animal ID B95).
+    The real biological neuron is the orange trace, and the simulated trace is shown in blue.
     %\url{http://microcircuits.epfl.ch/#/animal/8ecde7d1-b2d2-11e4-b949-6003088da632}
-    While there as some ``misses" in the subthreshold behavior in between spikes, and in the amplitudes of the spikes, the basic pattern of spiking is successfully recapitulated.}
+    While there as some ``misses" in the subthreshold behavior in between spikes, and in the amplitudes of the spikes, due to fundamental limitations in the dynamics of the model, the basic pattern of spiking is successfully recapitulated.}
     \label{fig:B95Adexp}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics{figures/IZHI_B95.png}
-    \caption[Optimized Izhikevich model from BBP]{Similar to Fig. \ref{fig:B95Adexp}, but instead using an Izhikevich model.
+    \caption[Optimized Izhikevich model from BBP]{\textbf{Izhikevich model optimized against BBP data}. Similar to Fig. \ref{fig:B95Adexp}, but instead using an Izhikevich model.
     Here optimisation is a bit worse, but not poorer than the best out-of-sample predictions of spike timing from previous efforts.}
     \label{fig:B95_IZHI}
 \end{figure}
@@ -98,32 +106,35 @@ The same optimized model was also capable of reproducing the patterns of spikes 
 \begin{figure}
     \centering
     \includegraphics[scale=1]{figures/adexp_fit_allen_spec_id_476053392.png}
-    \caption[Optimized AdEx model from Allen Cell Types (A)]{An adaptive Exponential Model was fitted to both the spike time, and spike shape data in a sweep from Allen specimin id: 476053392}
+    \caption[Optimized AdEx model from Allen Cell Types (A)]{\textbf{AdEx model optimized against Allen Cell Types data}.
+    An AdEx Model was fitted to suprathreshold responses from Allen Cell Types cell id 476053392.
+    The optimized model matches the spikes times of the experimental data in response to the same stimulus.}
     \label{fig:specimen_476053392_A}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[scale=1]{figures/28spikesB95}
-    \caption[Optimized AdEx model from Allen Cell Types (B)]{An adaptive Exponential Model was fitted to both the spike time, and spike shape data in a sweep from Allen specimin id: 476053392}
+    \caption[Optimized AdEx model from Allen Cell Types (B)]{Same as above, but for a somatic current injection of a larger magnitude.}
     \label{fig:specimen_476053392_B}
 \end{figure}
 
 %Similar to Druckmann Suprathreshold depolarizing step currents \cite{druckmann2008evaluating}.
-\begin{figure}
-    \centering
-    \includegraphics[scale=1]{figures/adexp_fit_allen_specid_325479788.png}
-    \caption[Optimized AdEx model from Allen Cell Types (C)]{ An adaptive Exponential Model was fitted to both the spike time, and spike shape data in a sweep from Allen specimin id: 325479788}
-    \label{fig:specimen_325479788}
-\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics[scale=1]{figures/adexp_fit_allen_specid_325479788.png}
+%    \caption[Optimized AdEx model from Allen Cell Types (C)]{\textbf{AdEx model optimized against Allen Cell Types Data}.
+%    Same as above, but for cell ID 325479788}
+%    \label{fig:specimen_325479788}
+%\end{figure}
 
 \subsection{Comparison to Best-Case Scenarios}
 Since these result now concern fits to single neurons, I cannot use the $\chi^2$ measure of agreement between the optimized model and the distribution of the data; the distribution now has only a single member per optimization.
 Instead, I will compare the quality of these results to best-cases scenarios from prior research.
-I will also use the ``variance explained ratio" between the allen institute experimental sweep and the optimized models sweep to a comparable current injection.
+I will use the ``variance explained ratio" between the experimentally recorded data and the model simulation in response to the same stimulus.
 
-Previously, a competition was held \citep{naud} inviting participants to predict spike times (in response to specific patterns of somatic current injection) for well-characterized cortical neuron.
-The best models in this competition were only able to predict $\sim86\%$ of spike times (Fig. \ref{fig:rossant-fits}), and this under conditions with fluctuating somatic currents that actually produce more spike-timing regularity than square currents \citep{mainen}.
+Previously, a competition was held \citep{incf_multi} inviting participants to predict spike times (in response to specific patterns of somatic current injection) for well-characterized cortical neuron.
+The best models in this competition were only able to predict $\sim86\%$ of spike times (Fig. \ref{fig:rossant-fits}), and this under conditions with fluctuating somatic currents that actually produce more spike-timing regularity than square currents \citep{mainen1995reliability}.
 Consequently, it is unlikely that \emph{in silico} models can be expected to produce a perfect match of spike times in response to square wave current injection, tempering expectations for my optimizer.
 As noted in the previous optimization efforts \citep{druckmann2007novel}, it is probably mistaken to fit models to precise spike times; real cortical neurons produce and receive noisy currents, and likely rarely exhibit identical spike trains even in response to the same nominal stimulus.
 Optimization on derived features of spike timing and rate, such as statistics of distributions of ISIs, of F-I curves, is a more promising approach.
@@ -131,7 +142,11 @@ Optimization on derived features of spike timing and rate, such as statistics of
 \begin{figure}
     \centering
     \includegraphics[scale=5.0]{figures/IZHIkevich_fit_60Adexp_80.jpg}
-    \caption[Model Fits in Prior Work]{This figure from  \cite{rossant2011fitting} shows how the majority of models that fit spike time, do not also fit spike shape. Spike shape and AP timing constitute a persistent conflicted priority with regards to model fitting. Included in this figure are fits from reduced models used in this work. Including the Izhikevich model, and the AIF model (herein referred to as AdEx). In this  context the MAT2 model correctly predicts $86$ of spike times, but you can see that the spike threshold is much higher in the model compared to the experiment. The Izhikevich model only predicts $62\%$ of spike times (this is also consistent with my results), and it displays much more below threshold activity than the data and the other models.} 
+    \caption[Model Fits in Prior Work]{\textbf{Conflicts between spike timing and spike shape}.
+    This figure from  \cite{rossant2011fitting} shows how reduced models that can fit spike times typically cannot also fit spike shape.
+    Several models are shown in this figure including the Izhikevich model used in current work and a ``MAT2" model, which is a more well-equipped version of the AdEx model.
+    The MAT2 model correctly predicts $86\%$ of experimental spike times, but exhibits a spike threshold (a components of spike shape) that is much higher in the model compared to the experiment.
+    The Izhikevich model only predicts $62\%$ of spike times (this is also consistent with the results in this thesis), but it displays richer subthreshold and more accurate peri-threshold behavior than the more mercenary MAT2 model.} 
     \label{fig:rossant-fits}
 \end{figure}
 

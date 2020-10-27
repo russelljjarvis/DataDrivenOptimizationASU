@@ -19,7 +19,7 @@ Our medical understanding of the brain and digital implementations of brain algo
 
 In this thesis I describe and document tools I developed that improve the speed and accuracy of some classes of neural models.
 The speed improvements come from the implementation of a low-level model simulation, largely relying on existing research, although I also identify and exploit some opportunities for faster model dispatch and simulation.
-The accuracy improvements--which constitute most of the novelty here--derive from application of optimization techniques to improve the agreement between models and corresponding "wet lab" experiments in biological neurons.
+The accuracy improvements--which constitute most of the novelty here--derive from application of optimization techniques to improve the agreement between models and corresponding ``wet lab" experiments in biological neurons.
 By improving single cell models, these tools will also serve as a basis for improved neural circuit models, of which many neuron types are among the components.
 Since network models many consist of many thousands (or more) of cell models, both speed and accuracy are essential.
 \\
@@ -28,7 +28,7 @@ Since network models many consist of many thousands (or more) of cell models, bo
 
 \subsection{Simulation as an Experimental Platform}
 The human brain is inaccessible to many experiments for technical and ethical reasons.
-Neuroscience relies instead on "model systems" for understanding the human brain.
+Neuroscience relies instead on ``model systems" for understanding the human brain.
 One such model system is the animal model (of which there are many), chosen due to biological similarities to the organization of the human brain, and the relatively smaller ethical issues associated with experimentation.
 However, animal models have limitations which can make them scientifically unfavorable
 Animal models often involve years of investment, genetic engineering, complex surgery, or complicated behavioral learning paradigms.
@@ -47,7 +47,7 @@ Rather than simply thinking of computational models as systems of differential e
 Much detail will inevitably lost, and a main assumption is that the important features of the biological processes are reflected in electrical activity, e.g. changes in membrane potential, and that other details abstracted out of the model, for example long-term changes to genes and protein expression, are not essential to understand the problem at hand.
 This assumption may be reasonable for investigations of short-time scale phenomenon (e.g. instantaneous responses to stimuli) but not longer-time scales (e.g: glial cell re-organisation associated with learning new skills \citep{draganski2008training}).
 
-However, all model systems are imperfect; the \emph{in vitro} brain slice is not an \emph{in vivo} brain, and lacks many putatively important features of a real brain, such as long-range connectivity or even complete dendritic trees.
+However, all model systems are imperfect; the \emph{in vitro} brain slice is not an \emph{in vivo} brain, and lacks many putatively important features of a real brain, such as long-range connectivity or even complete axonal or dendritic trees.
 The limitations expressed in the paragraph above may limit measurement quality.
 Ultimately, the question is whether results from the model system will translate to the biological system, and how and whether a good simulation platform can outperform an \emph{in vitro} animal model system is an open question.
 To achieve this, it is likely that the simulation platform will need to utilize model components as faithful to the biological system as possible, and thus it is important that reduced neural models are the most faithful to the cell behavior they represent. 
@@ -59,8 +59,9 @@ Conventionally, each neuron has been regarded as an independent generator of eve
 
 Although cortical neurons have many interconnections \citep{ball2014rich}, these connections themselves are plastic, changing with development and learning.
 In contrast, the dynamics of the neurons themselves are typically considered less variable over most relevant timescales, i.e. the parameters of the underlying equations may be fixed.
-Consequently by placing static neurons at the center of modeling efforts, and letting only synapses change over time, one can still model a large number of relevant neuroscience problems.
-But just because the modeled neurons are static does not mean they are monolithic: there are many thousands of different classes of neurons, each with its own idiosyncratic dynamics and connectivity.
+Consequently the rules governing these neurons are assumed to be static over short time-scales.
+whicat the center of modeling efforts, and letting only synapses change over time, one can still model a large number of relevant neuroscience problems.
+But just because the modeled neurons can be approximated with static rules does not mean they should be considered monolithic: there are many thousands of different classes of neurons, each with its own idiosyncratic dynamics and connectivity.
 And many such classes might be essential for the generation of even simple behaviors.
 Therefore understanding the brain may require the ability to accurately model not just neurons per se, but many kinds of neurons.
 
@@ -70,11 +71,16 @@ Simplifying assumptions are often needed in modeling, and the simplifying assump
 
 One could also model above the level of neurons, by creating mean-field and population models of brain tissue.
 However, this makes it difficult to understand intra-circuit computations occurring in local circuits, or to understand how a change to e.g. a single conductance might affect a behavior.
-Some also argue that spiking is necessary to reproduce some kinds of population dynamics, especially those that evade intuitive understanding. 
-
-% In AI, Spiking neural networks are essential for distinguishing sequential features in  temporal signals. Spiking and temporal feature discrimination are necessary for "online-learning". A machine learning paradigm where training and validation are overlapping and ongoing. In online learning Neural network models are constantly undergoing fitness re-evaluation in response to constant and changing signals from the environment. In this way a model of the external world that is fit in the morning, may become invalidated because of radical changes in the local environment by night-time, just like in mammals. For a direct analogy, consider a driver-less car that fatally crashes. A crash caused by a driverless car would cause an instant re-evaluation of the fitness of self driving algorithms. 
-
+Some also argue that spiking is necessary to reproduce some kinds of population dynamics, especially those that evade intuitive understanding.
 And model-as-simulation-platform is less compelling if the outcomes of the simulations are obvious in advance.
+
+In AI, spiking neural networks are useful for distinguishing sequential features in temporal signals.
+Spiking and temporal feature discrimination are necessary for "online-learning".
+%A machine learning paradigm where training and validation are overlapping and ongoing.
+In online-learning, neural networks are constantly being remodeled in response to constant and changing signals from the environment
+%In this way a model of the external world that is fit in the morning, may become invalidated because of radical changes in the local environment by night-time, just like in mammals. For a direct analogy, consider a driver-less car that fatally crashes. A crash caused by a driverless car would cause an instant re-evaluation of the fitness of self driving algorithms. 
+
+
 
 % - How are neurons modeled (i.e. math and equations)
 \subsection{Conductance-based Models}
@@ -82,7 +88,9 @@ Conductance-based models are mathematical representations of the electrical and 
 The phospho-lipid membrane of neurons, otherwise a insulative capacitor, contains a variety of conductive pores (ion channels), each permitting the passage of specific ions at specific rates.
 These rates are determined by free energy gradients, jointly determined by transmembrane ionic concentration gradients (entropy) and on the transmembrane voltage changes adjacent to the channel (potential energy). Conductance-based models use ordinary differential equations to represent the balance of currents and the kinetics for the gating of the channels, where these models differ in their representation of cell geometry. Some conductance-based models represent an isoelectric patch of membrane (in this case the model is abstract and dispenses with the notion of space in nervous tissue).
 When the spatial aspects of the electrical properties of a neuron are of interest, conductance based models can be combined with a multi-compartment framework where the geometry of the neuron is "modelled", but it is approximated using coupled compartments that create systems of branching patterns \citep{rall1962electrophysiology, hodgkin1952quantitative}.
-Rall took the numerical methods used for modelling heat and electrical conductance in cables and showed that similar equations could be used to accurately predict current flow in a cable representing a neuron dendrite or axon. This cable equation forms the basis for the electrical properties in the multi-compartment approach.
+
+\cite{rall1962electrophysiology} took the numerical methods used for modelling heat and electrical conductance in cables and showed that similar equations could be used to accurately predict current flow in a cable representing a neuron dendrite or axon.
+This cable equation forms the basis for the electrical properties in the multi-compartment approach.
 \\
 \begin{center}
 \begin{equation}
@@ -161,8 +169,9 @@ The AdExp model is a special instance of leaky integrate and Fire model. The AdE
 This model's instantaneous spiking rate is calculated by consulting the recent spike history in a finite time "window". 
 Adaptation is achieved by looking back into the window and counting the number of spikes that occurred in the previous $10ms$, for example. 
 \subsubsection{Izhikevich Model}
-One existing family of neuron models, often referred to as the Izhikevich model \citep{izhikevich2003simple} (Iz model), was published with parameter sets believed produce model outputs that accurately align with a variety of outputs from experimentally derived neuron data. However since the publication of the Iz model, specific electrophysiological recordings have accumulated that in undermine this model/experiment agreement. However, it is now possible to constrain the Izhikevich model to find new parameterizations that allow for more accurate representations of recently published experimental data.
-The original formulation involves the integration of a quadratic function:
+One existing family of neuron models, often referred to as the Izhikevich model \citep{izhikevich2003simple}, was published with parameter sets believed to produce model outputs that accurately align with a variety of outputs from experimentally derived neuron data.
+Is it possible to choose parameters for the Izhikevich model that allow the electrophysiological behavior of any neuron to be capture?.
+The original formulation of that model involves the integration of a quadratic function:
 
 \begin{displaymath}
 \frac{dv}{dt}=0.04v^{2}+5v+140-u+I
@@ -170,12 +179,11 @@ The original formulation involves the integration of a quadratic function:
 if v>=30mV,
 \end{displaymath}
  then $ v \rightarrow c + u 	\rightarrow u+ d$.
-However, an alternative, more versatile implementation can be fitted to a wider range of parameters:
-WHAT GOES HERE?
+An alternative, more versatile implementations (as used here) includes additional parameters, for example allowing the coefficients in the quadratic to vary.
 
 The Izhikevich model and the AdEx model are both related to simple Integrate and Fire model.
-The Izhikevich model takes a current injection value, and a capacitive current, a membrane potential is created by integrating an equation $\frac{dV_{M}}{dt}$.
-While the Izhikevich model has quadratic multiplicative terms, in contrast the GLIF and the AdExp models have exponential multiplicative terms.
+The Izhikevich model accounts for the change in membrane potential, $\frac{dV_{M}}{dt}$, in response to and externally supplied current (e.g. from a patch pipette or a synaptic current), the membrane capacitance, and internal cellular mechanisms that are abstracted away.
+$\frac{dV_{M}}{dt}$ in the Izhikevich model is quadratic in $V$, in contrast to the GLIF and the AdExp models which are exponential in $V$.
 
 Typically, a network simulation is only as fast as the slowest neuron model that is part of the network, since the next updated state of the network may depend on that neuron.
 Consequently, replacing biophysically detailed models with the reduced models described above may be required to complete simulations in a reasonable amount of time.
@@ -187,8 +195,8 @@ Because multi-compartment conductance models represent more details about the bi
 %based models are based on from the botltom up, smaller models like ion channels,
 
 \subsection{Simulation of reduced models}
-Although this model is potentially fast, often python implementations of it are slow due to code that was written to make running populations of many neurons fast, at the expense of running single neurons. 
-For instance, Brian2, and a related tool neurodynamics, have code for running AdExp neurons, however brian2 has network c-level Cython code that interferes with DEAP python code \citep{DEAP_JMLR2012}.
+Although this class of model is in principle potentially fast due to the limited number of equations and state variables, python implementations of it are typically slow due to code that was written to make running populations of many neurons fast, at the expense of running single neurons. 
+%For instance, Brian2, and a related tool neurodynamics, have code for running AdExp neurons, however brian2 has network c-level Cython code that interferes with DEAP python code \citep{DEAP_JMLR2012}.
 \\
 %Its as if a reduced model is a black box representation of a neuron, and the reduced model is a transfer function that maps inputs to outputs. Typically reduced models are very fast to solve.\\
 %\\
@@ -198,18 +206,18 @@ For instance, Brian2, and a related tool neurodynamics, have code for running Ad
 % 2-5pages
 \section{Parameter Fitting and Model Optimization}
 Model parameters dictate model behavior, but many parameters either (a) cannot be easily measured in experiments for technical reasons or (b) don't correspond to any measurable quantity.
-As an example of the latter, consider any "emergent behavior" with observables that do not map directly onto any specific model parameter.
+As an example of the latter, consider any ``emergent behavior" with observables that do not map directly onto any specific model parameter.
 In the transition from conductance-based models to reduced models, the number of unknown parameters of form (b) increase relative to those of form (a).
-In either case, these unknown parameter values make specification of realistic model specification difficult.
+In either case, these unknown parameter values make specification of realistic models difficult.
 
-Model simulation corresponds to numerical approximation of the solutions to a model's differential equations to obtain the time-varying values of the state variables.
-Some of these state variables may be observable.
-In all of the reduced models described above, the only observed state variable is the membrane potential, $V$.
-Additionally, there is another state variable $I$, corresponding to somatic current injection, that is under control of the operator of the simulation experiment, and which is (for a single neuron model), independent of all other parameter values or state variables.
-If the model is simulated enough times with enough different values of $I$, it may be possible in principle to identify the values of all other parameters by observing the corresponding time-dependent trajectories of $V$.
-By analogy, it is possible to solve a system of linear equations when the number of equations is greater than the number of unknowns.
+%Model simulation corresponds to numerical approximation of the solutions to a model's differential equations to obtain the time-varying values of the state variables.
+%Some of these state variables may be observable.
+%In all of the reduced models described above, the only observed state variable is the membrane potential, $V$.
+%Additionally, there is another state variable $I$, corresponding to somatic current injection, that is under control of the operator of the simulation experiment, and which is (for a single neuron model), independent of all other parameter values or state variables.
+%If the model is simulated enough times with enough different values of $I$, it may be possible in principle to identify the values of all other parameters by observing the corresponding time-dependent trajectories of $V$.
+%By analogy, it is possible to solve a system of linear equations when the number of equations is greater than the number of unknowns.
 
-One strategy for inferring model parameters, sometimes called "parameter-fitting", is to identify those parameter values which produce model simulation data which agree (according to some criteria) with corresponding observable experimental measurements.
+One strategy for inferring model parameters, sometimes called ``parameter-fitting", is to identify those parameter values which produce model simulation data which agree (according to some criteria) with corresponding observable experimental measurements.
 For example, a common approach for approximating unknown ion channel densities is to ‘optimize’ or iteratively simulate the model, altering the parameters systematically until the simulated time series for $V$ matches some membrane potential trace recorded under similar conditions in a neuron.
 
 What does it mean for the simulated and experimental time series of $V$ to match?
@@ -217,7 +225,7 @@ Recall that both neuron models and neurons can be injected with specific amounts
 For many classes of cells, abundant experimental data exist concerning the responses (membrane potential time series) to each magnitude or shape of somatic current injection.
 A crude measure of error would be to simply directly compare the model and biological time series, using the mean-squared-difference, for example.
 However, because excitability reflects a non-linear transformation between input and output, this means that very small differences in input (or parameters) can have massive differences on output, especially its timing.
-A single action potential shifted by a millisecond (approximately the width of one action potential) might be insignificant from a practical perspective, but produce a massive "error" signal using mean-squared difference.
+A single action potential shifted by a millisecond (approximately the width of one action potential) might be insignificant from a practical perspective, but produce a massive ``error" signal using mean-squared difference.
 Consequently, I use an approach based on more robust statistical summaries of the membrane potential, including those believed to be meaningful in neural coding.
 These are described in more detail below.
 
@@ -230,31 +238,26 @@ In its most general form, it contains 10 tunable parameters.
 Evaluating even 25 values of each parameter implies $25^10$ parameter sets, or nearly 100 trillion parameters sets.
 Even if one million parameter sets could be checked every second, evaluating all parameter sets would require three years, where this cost grows exponentially with increases in parameter resolution or number.
 
-Fortunately, more efficient approaches exist, but the utility depends on the shape of the so-called "error surface".
+Fortunately, more efficient approaches exist, but the utility depends on the shape of the so-called ``error surface".
 For any specific instance of a model, with a given set of parameter values, its suitability is evaluated according to some "objective function" that compares the simulated output under one or more conditions to some corresponding experimental data.
 By convention, the objective function may report this suitability as an error metric, minimal when the simulated and biological results disagree to the smallest extent possible (which may not be zero, see below).
 Model ``optimization" then corresponds to finding the parameter set which minimizes this objective function. 
-Because the objective function returns a measure of error, the "error surface" corresponds to the output of the objective function for each possible set of parameter values.
+Because the objective function returns a measure of error, the ``error surface" corresponds to the output of the objective function for each possible set of parameter values.
 Ideally, this surface is perfectly ``convex", meaning that there is a single minimum, and from any starting point one can follow some variant of a gradient descent strategy to find that minimum.  
-
-\subsection{Local Minima} Many practical optimization problems have error surfaces that are not perfectly convex but instead are rippled, with multiple troughs of similarly low error value (local minima).
-These ripples make navigating the error surface non-trivial.
-Rastrigin's function \citep{rastrigin1974systems}  is a function for creating error surfaces to test the robustness of algorithms that attempt to overcome moderately difficult error surfaces that are densely populated with local minima, but with a global convex shape.
-The surface described by the function is densely populated by local minima, each of which is placed on a globally convex envelope, such that the true minimum of Rastrigin's function is at its centre. As a certain number of genes are retained between generations, genes made on previous generations act as memories of previously experienced error surface. Due to this memory effect, the genetic algorithm is able to exploit the global shape of Rastrigrin's function \ref{fig:rastrigin}. It should be noted that there are error functions that contain no useful or learn-able information in the error surface. A satisfactory solution to such problems might still be obtained due to the exploratory and stochastic nature of the GA, however, much of the advantage of the genetic algorithm approach is lost, as the approach presupposes learn-able features about error surfaces. 
 
 \subsection{Genetic Algorithms}
 \label{sec:genetic-algorithms}
 A variety of numerical optimization techniques exist, where algorithm performance depends on the demands of the problem.
 For functions with many local minima, it is often best to broadly sample the error surface, rather than attempt a ``greedy" search for the global minimum.
 Several notable algorithms including genetic algorithms (GA, Figure \ref{fig:GeneticAlgOver}) and stochastic gradient descent (SGD) have been developed to address this use case.
-Both of these algorithms are able to avoid putting all of their "eggs" in one local minimum "basket", allowing them to discover over many iterations that a lower minimum is available.
+Both of these algorithms are able to avoid putting all of their "eggs" in one local minimum ``basket", allowing them to discover over many iterations that a lower minimum is available.
 For example, given enough samples, a genetic algorithm will learn the global minimum of the Rastrigin's function, although it is very likely to sample wells of the error function at many depths on the way to the solution.
 
 % illustrate how a Genetic Algorithm (GA) generally works.
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.7\linewidth]{figures/How_Genetic_Alg_Works.png}
-\caption[Schematic of genetic algorithm flow]{\textbf{Schematic of genetic algorithm flow.} Genetic algorithms (GA) find satisfactory solutions by incompletely sampling the solution space. The evolution of the algorithm is guided by the combined application of stochastic sampling and selective pressure. Stochastic contributions that guide GA sampling provide incentives for exploring regions beyond the local minima. Stochasticity is applied in the combined actions of cross-over and mutation. Model parameterizations are encoded as binary strings called genes. When genes breed, eligible pairs of genes are aligned and the status of a bit is exchanged at random bit locations.  
+\includegraphics[width=0.7\linewidth]{figures/GA_process.png}
+\caption[Schematic of genetic algorithm flow]{\textbf{Schematic of genetic algorithm flow.} Genetic algorithms (GA) find satisfactory solutions by incompletely sampling the solution space. The evolution of the algorithm is guided by the combined application of stochastic sampling and selective pressure. Stochastic contributions that guide GA sampling provide incentives for exploring regions beyond the local minima. Stochasticity is applied in the combined actions of cross-over and mutation. Model parameterizations are encoded as binary strings called genes. When genes breed, eligible pairs of genes are aligned and the status of a bit is exchanged at random locations.  
 }
 \label{fig:GeneticAlgOver}
 \end{center}
@@ -267,9 +270,9 @@ In the context of genetic algorithms, a chromosome is the complete set of model 
 These parameter sets are collections of floating point numbers, for example -65.7 for a reversal potential in mV.
 \subsubsection{Genes}
 In the context of genetic algorithms, a gene is a single model parameter.  Consequently, the number of genes in a chromosome is equal to the number of parameters in the model.
-There are at least two stochastic operations that over time provide a gentle "exploratory drive" for the algorithm, that cause genes to either double down on exploration of a local minimum, or possibly "jump" out of a local minimum to realize lower error.  These operations are applied, with some user-determined frequency, with each ``generation" of the population of chromosomes, to determined the members of the subsequent generation.
+There are at least two stochastic operations that over time provide a gentle ``exploratory drive" for the algorithm, that cause genes to either double down on exploration of a local minimum, or possibly ``jump" out of a local minimum to realize lower error.  These operations are applied, with some user-determined frequency, with each ``generation" of the population of chromosomes, to determined the members of the subsequent generation.
 \subsubsection{Simulated Genetic Recombination: Cross-over}
-Cross-over is the exchange of genes between chromosomes.  In a population of many chromosomes, one can "mate" two of them, producing off-spring which represent a fraction of genes from parent 1 and the remainder from parent 2.  If each chromosome represents two opposing vertices of an n-dimensional hypercube (for n model parameters), then cross-over is capable of producing offspring representing any of the other vertices in that hypercube.
+Cross-over is the exchange of genes between chromosomes.  In a population of many chromosomes, one can ``mate" two of them, producing off-spring which represent a fraction of genes from parent 1 and the remainder from parent 2.  If each chromosome represents two opposing vertices of an n-dimensional hypercube (for n model parameters), then cross-over is capable of producing offspring representing any of the other vertices in that hypercube.
 \subsubsection{Simulated Genetic Mutation}
 A mutation reflects a (random) change to a single gene, i.e. a change to a single model parameter.  In some implementation this is achieved by flipping one bit in the binary representation of the floating-point value of the parameter, with the magnitude of the resulting change in the parameter value depending on which binary digit was flipped.  Often mutations are limited to a particular range for a given parameter.
 
@@ -287,13 +290,18 @@ Later in this work I will talk about a property denoted $\eta$ this property con
 
 \end{figure}
 
+\subsection{Local Minima} Many practical optimization problems have error surfaces that are not perfectly convex but instead are rippled, with multiple troughs of similarly low error value (local minima).
+These ripples make navigating the error surface non-trivial.
+Rastrigin's function \citep{rastrigin1974systems}  is a function for creating error surfaces to test the robustness of algorithms that attempt to overcome moderately difficult error surfaces that are densely populated with local minima, but with a global convex shape.
+The surface described by the function is densely populated by local minima, each of which is placed on a globally convex envelope, such that the true minimum of Rastrigin's function is at its centre. As a certain number of genes are retained between generations, genes made on previous generations act as memories of previously experienced error surface. Due to this memory effect, the genetic algorithm is able to exploit the global shape of Rastrigrin's function \ref{fig:rastrigin}. It should be noted that there are error functions that contain no useful or learn-able information in the error surface. A satisfactory solution to such problems might still be obtained due to the exploratory and stochastic nature of the GA, however, much of the advantage of the genetic algorithm approach is lost, as the approach presupposes learn-able features about error surfaces. 
+
 \subsubsection{Elitism}
 The number of chromosomes (model instantiations) in each generation is typically fixed, with some chromosomes in generation $n+1$ coming from crossover of chromosomes in generation $n$ and others from mutation.
 The remainder are often chosen from the fittest, i.e. lowest error, members of generation $n$, a strategy known as elitism.
 The degree of elitism essentially controls the amount of evolution that is allowed to occur in each generation.
 
 \subsection{Multi-objective optimization} Multi-objective optimization problems are a subset of optimization problems.
-In a multi-objective optimization, model fitness is evaluated using multiple "objective functions" of model fitness, each contributing either independently or in conjunction to the error surface.
+In a multi-objective optimization, model fitness is evaluated using multiple ``objective functions" of model fitness, each contributing either independently or in conjunction to the error surface.
 Each function may ask a different question about the model; for example, one may ask how well the model reproduces the shapes of action potentials, and another function may ask how well the model reproduces the counts of action potentials.
 The output of each such function is a scalar, with a lower values representing greater model/data agreement, i.e. lower error.
 These functions are sometimes called constraints. 
@@ -327,7 +335,7 @@ Brute-force exploration of parameter space requires computation time that scales
 % First include a section about NeuronUnit more generally.  NeuronUnit really isn't/wasn't about optimization until your thesis.  
 \section{Data Fitting and Optimization with NeuronUnit}
 \label{sec:neuronunit}
-The ASU ICON laboratory previously developed a Python package called ``SciUnit" for scoring scientific models according to their agreement with various experimentally-derived data (encoded as "validation tests") \citep{omar2014collaborative}.  The objective functions that I use here are implemented using this scoring process.
+The ASU ICON laboratory previously developed a Python package called ``SciUnit" for scoring scientific models according to their agreement with various experimentally-derived data (encoded as ``validation tests") \citep{omar2014collaborative}.  The objective functions that I use here are implemented using this scoring process.
 In particular, I used a SciUnit-based Python library called ``NeuronUnit" which provides a number of such validation tests for neuron models, and I developed additional tests in the course of my research.
 
 \subsection{Constraint Scoring}
@@ -367,7 +375,7 @@ These existing components may include reduced models, for example embedded into 
 
 Open Source Brain \citep{gleeson2019open} is a collaborative, model development environment based on the NeuroML format, which contains collections of model-descriptions and model implementations, along with tools for simulation and visualization.
 These collections are well tested and understood, and the Open Source Brain platform was a practical tool for learning the Izhikevich models correct parameter ranges (which can vary depending on preferred units).
-The OSB was also used to compare new model implementations to established ones thus verifying correct model behavior.
+%OSB has also used to compare new model implementations to established ones thus verifying correct model behavior.
 
 NEURON focuses on efficient simulation of multi-compartmental models, while NeuroML provides for model exchange. 
 However, neither tool was designed with the optimization of reduced models in mind.
@@ -394,10 +402,10 @@ However, since most fast numerical methods are incompatible with missing data, a
 
 \subsection{Closed Loop Development}
 The speed of simulation is critical to successful optimization. However, even when using High Performance Computing (HPC) resources, errors may arise and require special handling or visualizations to diagnose.  These errors may even reveal errors in the model specification, but this may not be revealed until thousands of simulations have already run.
-The ability to address and correct such mistakes requires rapid and verbose feedback during optimization, as well as simulations of sufficient speed to allow error "breakpoints" to be reached in a reasonable amount of time.
+The ability to address and correct such mistakes requires rapid and verbose feedback during optimization, as well as simulations of sufficient speed to allow error ``breakpoints" to be reached in a reasonable amount of time.
 
 \subsection{Successful Optimization} 
-Integrating the above ideas, I aimed to develop a framework for rapid, debuggable optimization of reduced neuron models subject to multiple constraints forged by experimental data, and to use this framework to optimize and share such models.
+Integrating the above ideas, I aimed to develop a framework for rapid optimization of reduced neuron models subject to multiple constraints forged by experimental data, and to use this framework to optimize and share such models.
 Here I will describe a number of methods and simulation experiments which demonstrate the successful implementation of many of these ideas, focusing on genetic algorithms that retain a diverse set of model parameterizations, potentially reflecting  within-type neuronal diversity.
 
 The interactions between model constraints cannot always be known in advance, and in fact some constraints are mutually exclusive, either causing optimization to fail, or leading to a compromise. I also aimed to catalog such cases and use this knowledge to produce a more robust set of constraints, implemented via \emph{NeuronUnit} tests for future optimization work.
@@ -406,12 +414,12 @@ No model--including those that are published-- should be regarded as final.
 Instead, I aimed to develop tools to improve these models by making them agree with experimental data, in the hopes that such models may be of general use to the neuroscience community in future work.
 At best, replacing complex cell models with simplified models is a way to reduce the complexity of electrical brain activity to fundamental mechanisms \citep{teeter2018generalized}. At worst, simplified cell models may capture only a subset or a single aspect of important traits such as spike times \citep{hertag2012approximation}. %Many approaches to parameter fitting are limited to making models that reproduce spike times \cite{}
 
-A simple way to fit a model to an experiment involves computing the difference between modelled waveforms and recorded waveforms. Computing the root mean square error between the two vectors, might seem like an appropriate approach, however, the $RMSE$  will be unduly more sensitive to spike timing and not as sensitive to agreement in spike shapes that occur at different times. It's very possible that a neuroscientist may care more about modelling the spike shape, than the spike time, and to address this missing need, we have appropriately decided to extract spike shape features from waveforms and to use these as our distance metrics.
+%A simple way to fit a model to an experiment involves computing the difference between modelled waveforms and recorded waveforms. Computing the root mean square error between the two vectors, might seem like an appropriate approach, however, the $RMSE$  will be unduly more sensitive to spike timing and not as sensitive to agreement in spike shapes that occur at different times. It's very possible that a neuroscientist may care more about modelling the spike shape, than the spike time, and to address this missing need, we have appropriately decided to extract spike shape features from waveforms and to use these as our distance metrics.
 
-When comparing two waveforms ``proportion of variance explained" $(VE)$ is often used to overcome limitations in RMSE \citep{schoppe2016measuring}. An alternative to this approach, is to select only a few electrical features from the recorded waveform that are deemed to be important, and to fit to those limited feature sets to experiments instead. A feature based approach to data fitting, is more likely to produce models that are not over-fitted, less fitted to noise, and models which generalize better. For example consider a neuron recording that contains $15$ spikes, and a model undergoing fitting to the data which has produced a waveform containing $16$ spikes. The VE of these two different waveforms might be quiet low, whereas the waveform shapes between model and experiment might agree on important features, such as spike width and height, and the voltage between spikes.
+%When comparing two waveforms ``proportion of variance explained" $(VE)$ is often used to overcome limitations in RMSE \citep{schoppe2016measuring}. An alternative to this approach, is to select only a few electrical features from the recorded waveform that are deemed to be important, and to fit to those limited feature sets to experiments instead. A feature based approach to data fitting, is more likely to produce models that are not over-fitted, less fitted to noise, and models which generalize better. For example consider a neuron recording that contains $15$ spikes, and a model undergoing fitting to the data which has produced a waveform containing $16$ spikes. The VE of these two different waveforms might be quiet low, whereas the waveform shapes between model and experiment might agree on important features, such as spike width and height, and the voltage between spikes.
 
 
-We chose to fit models to selected electrical features of the waveform, instead of simply fitting voltage traces, by 
+%We chose to fit models to selected electrical features of the waveform, instead of simply fitting voltage traces, by 
 % direct qoute -- "Creating simplified models is a way to reduce the complexity of the brain to its most fundamental mechanisms. In addition to the benefits of clarifying mechanisms for single-neuron behavior, single-neuron models can be used in larger network models that attempt to explain network computation. Thus, many models of a wide range of complexity have been developed to describe and recreate various aspects of neuronal behavior3. For an in-depth characterization of the diversity of neuron models, see the review4, and for their capacity to reproduce spike times see ref. 5.."
 
 

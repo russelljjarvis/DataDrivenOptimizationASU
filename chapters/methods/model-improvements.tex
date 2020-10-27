@@ -40,7 +40,7 @@ as such the lazy-array adds overhead to accessing single model results.
 
 % in slow single neuron simulations.
 
-Additionally, the NEURON implementations that underlie the PyNN-provided AdEx and Izhikevich model classes suffer from some fidelity issues under certain regimes and parameter sets, compromising optimization quality (see \url{https://github.com/NeuralEnsemble/PyNN/issues/370}, \url{https://github.com/NeuralEnsemble/PyNN/issues/266} for details).
+Additionally, the NEURON implementations that underlie the PyNN-provided AdEx and Izhikevich model classes suffer from some fidelity issues under certain regimes and parameter sets, compromising optimization quality (see \cite{neuralensembleadexp2, neuralensembleadexp} for details).
 
 \subsubsection{Brian2}
 Brian2 \citep{stimberg2019brian} is, in principle, an excellent simulator for working with reduced neuron models, as it allows for differential equations to be expressed in an intuitive form, while also keeping track of dimensions and units.
@@ -80,7 +80,7 @@ In other words, it cannot be used to simply speed up any pre-existing Python cod
 %all code is hand-coded, even cutting and pasting is done by hand suggested synonym crafted.
 I crafted the two model types above to be JIT-compliant, with the result that both became significantly faster than analogous models using NEURON or Brian2 simulators.
 Importantly, simulation outputs retained a binary near-match in all cases, confirming that nothing was lost in the course of gaining this performance improvement.
-I used these new implementations extensively throughout the project, and they are available to others at \url{https://github.com/russelljjarvis/jit_hub.git}. 
+I used these new implementations extensively throughout the project, and they are available to others at \cite{jithub}. 
 The code that implements them is fairly easy to understand, share, and execute, and I hope they may be useful to others who have similar performance needs, either for optimization contexts or in large network models on generic commodity computer hardware where small performance gains are worth chasing. 
 
 Some models were executed in their native implementations using the NEURON simulator with an adaptive time step.
@@ -118,7 +118,8 @@ To the extent that action potential shape is an optimization target, this is a d
 \begin{figure}[!htb]
 \begin{center}
 \includegraphics[scale=0.7]{figures/backend_check_files/backend_check_12_10.png}
-\caption[Brian2 simulation of the AdEx model]{\textbf{Brian2 simulation of the AdEx model.} Simulated membrane potential trace from the AdEx model at rheobase using the Brian2 simulator. The action potential waveform has been interpolated at the time when the simulator reported a spike.}
+\caption[Brian2 simulation of the AdEx model]{\textbf{Brian2 simulation of the AdEx model.} Simulated membrane potential trace from the AdEx model at rheobase using the Brian2 simulator. The action potential waveform has been interpolated at the time when the simulator reported a spike.
+The horizontal axis shows time in seconds.}
 \label{fig:AdEx-Brian2-sim}
 \end{center}
 \end{figure}
