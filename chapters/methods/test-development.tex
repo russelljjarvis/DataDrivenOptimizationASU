@@ -41,7 +41,7 @@ Multi-core and or multi-threaded optimization requires that information about mo
 However, some very common data types used in programming are not easily shareable between CPUs.
 The release of Python 3.8 solved a subset of these problems, but this did not occur until late 2019 so I implemented an alternative scheme for cross-thread sharing of models.
 I created a new NeuronUnit class ``Data Transport Container" (DTC), which can circulate essential data about model parameters and state variables between threads.
-Models on one thread were collapsed into this container, shared between threads, and then reconstituted on a new thread.
+Models on one thread were coalesced into this container, shared between threads, and then reconstituted on a new thread.
 This added a small amount of overhead, but this computational cost was negligible when measured against the gains of using multi-threaded processing.
 
 Beyond the multi-threading context described above the DTC class constitutes the necessary expansion of Neuronunit model class needed to make optimization work. The DTC class enables the creation chromosomes from models to evaluate the fitness of any single chromosomes, and to convert chromosomes back to models, these types of conversions are essential to visualising Genetic Algorithm jobs.%, and they represent the difference between merely writing a one-off optimisation job versus making an actual optimisation package, ie re-usable software that promotes predictable code-patterns, and workflows. 

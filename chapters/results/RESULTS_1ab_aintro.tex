@@ -95,7 +95,7 @@ InputResistanceTest  &  132.0 $M\Omega$ &  25.47 $M\Omega$ &     0.74 \\
 %\end{table}
 %\begin{table}
 \subsubsection{6239608801 AdEx}
-The need to match the rheobase appeared to be interfering with the ability of the optimizer to match many other features.
+The need to match the rheobase appeared to be interfering with the ability of the optimizers to match many other features.
 The rheobase is essentially the knee of the FI curve.
 An alternative strategy is to produce models that match the slope of the FI curve.
 Here I show two out of $12$ examples demonstrating that that fitting models to the FISlope and rheobase only, leads to generally better agreement as there is less conflict between these two tests.
@@ -136,7 +136,7 @@ p\_value    &  1.000000 \\
 \bottomrule
 \end{tabular}
 \end{center}
-\caption[Quality of Fit to Experimental Data]{Summary statistics of fit quality using XXXX.
+\caption[Quality of Fit to Experimental Data]{Summary statistics of fit quality using AdEx model, when it is constrained against FITest, and Rheobase Test alone.
 The very low $\chi^2$ statistic (and high p-value) indicate that there was no evidence that this optimized cell model produced behavior outside of the range of biological neurons of the same type, at least for the features examined here.}
 \label{tab:chi2-p-1}
 \end{table}
@@ -178,7 +178,8 @@ chi\_square &  0.00155 \\
 p\_value    &  1.00000 \\
 \bottomrule
 \end{tabular}
-\caption[Quality of Fit to Experimental Data]{Similar to Table \ref{tab:chi2-p-1}, but for XXXX.}
+\caption[Quality of Fit to Experimental Data]{Similar to Table \ref{tab:chi2-p-1}, but for Izhikevich model. Since two major model classes are better able to fit to FITest and Rheobase alone, it suggests that these two measurements might be less conflicted in models.
+}
 \end{center}
 \end{table}
 

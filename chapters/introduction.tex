@@ -114,48 +114,48 @@ Clearly, there multicompartment modeling brings a large cost in simulation perfo
 Conductance-based models can be complex--both conceptually through implementation details and in computational demands--so it is common to employ a variety of simplifications that retain the general input/output behavior of the full model.
 These ``reduced models" ignore the precise neuron biophysics, usually retaining only the medium-time-scale (milliseconds to tens of milliseconds) dynamics, by assuming that anything faster occurs instantaneously and anything slower can be ignored.
 The 3D structure of biological cells is reduced to a point onto which currents impinge and voltages evolve over time. There is a great diversity of biological neurons, all of which differ substantially in their electrical behavior \citep{quadrato2017cell}. There are a few different classes of general purpose neuronal models that can reproduce these different types of electrical behaviours, given appropriate parameterizations of the models. A selection of key reduced models is described below.
-\subsubsection{The Leaky Integrate and Fire Model}
+%\subsubsection{The Leaky Integrate and Fire Model}
 %...
 
 
-\subsubsection{The Quadratic LIF Model}
+%\subsubsection{The Quadratic LIF Model}
 %...
-\subsubsection{The Generalized LIF Model}
+%\subsubsection{The Generalized LIF Model}
 %%\url{https://www.biorxiv.org/content/10.1101/104703v1.full.pdf}
 % this is not yet correct.
 
 % not finished yet
-\begin{equation}
-V \prime (t)=\frac{1}{C} 
-\end{equation}
-\begin{equation}
-I_{e}(t) + \sigma I_{j}X_{j}I_{j}(t) -1R(V (t)- E_{L})  \end{equation}
-\begin{equation} 
-s(t) = -bs \theta s(t)  
-\end{equation}
+%\begin{equation}
+%V \prime (t)=\frac{1}{C} 
+%\end{equation}
+%\begin{equation}
+%I_{e}(t) + \sigma I_{j}X_{j}I_{j}(t) -1R(V (t)- E_{L})  \end{equation}
+%\begin{equation} 
+%s(t) = -bs \theta s(t)  
+%\end{equation}
 
-\begin{equation}
-I_{j}(t) = -k_{j} I_{j} (t); j = 1, 2  
-\end{equation}
+%\begin{equation}
+%I_{j}(t) = -k_{j} I_{j} (t); j = 1, 2  
+%\end{equation}
 
-\begin{equation}
- v(t) = av(V (t) - E_{L}) - bv\theta v(t) 
-\end{equation}
+%\begin{equation}
+% v(t) = av(V (t) - E_{L}) - bv\theta %v(t) 
+%end{equation}
 
-\begin{equation}
-V (t+) \leftarrow E_{L} + fv \times (V (t-) - E_{L}) - \delta V 
-\end{equation}
+%\begin{equation}
+%V (t+) \leftarrow E_{L} + fv \times (V %(t-) - E_{L}) - \delta V 
+%\end{equation}
 
-\begin{equation}
-s \theta (t+) \leftarrow \theta s(t-) + \delta \theta s 
-\end{equation}
+%\begin{equation}
+%s \theta (t+) \leftarrow \theta s(t-) + %\delta \theta s 
+%\end{equation}
 
-\begin{equation}
-I_{j} (t+) \leftarrow fj \times I_{j} (t-) + \delta I_{j}
-\end{equation}
-\begin{equation}
-\Theta v (t+) \leftarrow \Theta v(t-) 
-\end{equation}
+%\begin{equation}
+%I_{j} (t+) \leftarrow fj \times I_{j} %(t-) + \delta I_{j}
+%\end{equation}
+%\begin{equation}
+%\Theta v (t+) \leftarrow \Theta v(t-) 
+%\end{equation}
 
 \subsection{Adaptive Exponential Integrate and Fire Model}
 \begin{displaymath}

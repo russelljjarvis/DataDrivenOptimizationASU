@@ -20,8 +20,13 @@ This model subserved as one of many component neurons in the original formulatio
   \end{center}
 \end{figure}
 
-This elaborate biophysical model is philosophically the opposite of the reduced models focused on in the majority of my thesis work. This elaborate model incorporates complex, biophysically detailed phenomena instead of excluding them in the hopes of capturing the key dynamics of membrane potential time series.
-For example, this model is capable of a phenomenon the back-propagating action potential (BaP). BaPs can move travel in reverse direction, when they originate from distal dendrites and arrive at the soma where BaPs are free to sumate with incoming EPSPs (\url{https://github.com/BlueBrain/BluePyOpt/blob/master/examples/l5pc/L5PC.ipynb}).
+This elaborate biophysical model is philosophically the opposite of the reduced models focused on in the majority of my thesis work. This model incorporates complex, biophysically detailed phenomena instead of excluding them in the hopes of capturing the key dynamics of membrane potential time series.
+For example, this model is capable of a phenomenon the back-propagating action potential (BaP). BaPs can move travel in reverse direction, when they originate from distal dendrites and arrive at the soma where BaPs are free to sumate with incoming EPSPs (\cite{spruston2013information}).
+
+
+
+% The most likely answer to this puzzling question is that the dendritic spike, although not propagating actively, does deliver additional charge to the axon, over and above the charge entering at synapses alone. In this way, dendritic excitability lowers the number of excitatory synapses required to initiate action potential firing in the axon. 
+
 This results in action potential waveforms far more complex than those produced by reduced models (none of which implement BaP waveforms at all) are capable of (Figs. \ref{fig:l5pc-a} and \ref{fig:l5pc-b}).
 
 \begin{figure}
@@ -59,8 +64,9 @@ The model itself is extremely complex and contains many free parameters.
 Some of these can be seen in the partial list of parameters in Figure \ref{fig:ca1_parameters}.
 For example, these parameters include a number of distinct ionic conductances with distinct values in the soma, apical dendrites, and axon.
 There are also other parameters (not displayed in Figure \ref{fig:ca1_parameters}) which are fixed, i.e. they are not modified during optimization.
-\begin{center}
 \begin{table}
+\begin{center}
+%\resizebox{\textwidth}{!}{
 \begin{tabular}{|l|r|}
 \toprule
 Parameter Name &           Value \\
@@ -87,6 +93,8 @@ decay\_CaDynamics\_E2.somatic   &  210.5 \\
 gCa\_LVAstbar\_Ca\_LVAst.somatic &    0.000333 \\
 \bottomrule
 \end{tabular}
+\end{center}
+
 
 \caption[Subset of model parameters in the conductance-based L5PC neuron]{The Layer 5 Pyramidal Cell model (L5PC, \citep{van2016bluepyopt}
 ) contains hundreds of parameters, but only a subset of these are tunable.
@@ -95,7 +103,6 @@ Most models considered in this thesis have $<14$ parameters; by contrast, having
 My optimizer explore the space spanned by these 20 parameters to produce a Primar Somatosensory Cortex Layer 5 Pyramdial Cell model that agrees with the experimental data.}
 \label{fig:ca1_parameters}
 \end{table}
-\end{center}
 
 %\begin{figure}
 %    \begin{center}
@@ -104,7 +111,8 @@ My optimizer explore the space spanned by these 20 parameters to produce a Prima
 %\end{figure}
 
 An existing model of a layer 5 somato sensory rat, hind leg region was acquired by cloning an the BluePyOpt GitHub Repository \citep{van2016bluepyopt}.
-In order to optimize this model using NeuronUnit tests, I created a dedicated NeuronUnit model simulation backend for this complex conductance-based, multi-compartmental model class.
+In order to optimize this model using NeuronUnit tests I used a novel methodological approach described in the appendix (\label{sec:streaming}). I ``streamed" waveforms that were evoked in the complex model, and assigned them to a temporary  NeuronUnit model types as needed. This code I used to implement this approach is available in the public repository: \citep{l5pcnu}. 
+%NeuronUnit model simulation backend for this complex conductance-based, multi-compartmental model class.
 
 I then applied my optimizer to this model and evaluated the quality of the resulting optimized model (Table \ref{table:l5pc-table}).
 %Due to computational limitations this model was only run for 
