@@ -1,4 +1,5 @@
-\section{One Feature Extraction Package to Rule Them All}
+%\section{One Feature Extraction Package to Rule Them All}
+\section{The Largest Possible Survey of Features}
 The NeuronUnit core, the Electrophysiology Feature Extraction Library \citep{EFEL}) EFEL, the Allen SDK, and the tests derived from \citep{druckmann2008evaluating} all contain independently written algorithms for computing features from simulated membrane potentials.
 In some cases, the same feature (e.g. action potential threshold) is computed in many different ways across these feature extraction libraries.
 All compute the threshold by first taking the first difference of the membrane potential, but they differ in subsequent steps, for example what value the first difference must reach to be considered at or beyond threshold.
@@ -16,7 +17,7 @@ If a more robust form of imputation was achieve, it could act as a Rosetta stone
 
 % It may be possible to generate predicted features from one stimulus convention based on observed features from the other, allowing imputation of a full set of features across all algorithms, but this is beyond the scope of my thesis work. ISNT THIS WHAT I DID IN SOMEWAYS? IF I COULDN"T COMPARE ACROSS LAB PROTOCALS THEN THE ANALYSIS I DID WAS POINTLESS WAS IT NOT?
 
-\section{Cross-Validation for Feature Selection.}
+\section{Cross-Validation for Feature Selection: One Feature Set to Rule Them All}
 The features identified during multivariate analysis utlilized the entire collection of models, data, and stimuli.
 By contrast, a machine learning approach would have held out some of these for cross-validation, checking to see whether the features identified on a training set were in fact that features that best cluster, discriminate, or simply explain variance in the a held-out set of models and data.
 For example, future work could identify a canonical set of stimuli and features fitness criteria, criteria that can train models to best satisfy multiple experimental protocols, rather than just one particular experiment.

@@ -164,8 +164,8 @@ I identified the main cause of corrugated error surfaces by re-calculating featu
 Here, I vary parameter $a$ in the AdEx model.
 The orange trace shows the computed rheobase current as this parameter is varied.
 Note that it grows in a step-like manner, not according to the smooth linear fit (blue).
-During periods when the rheobase is not increasing (but the parameter value is), the parameter may cause some other feature, computed at rheobase to vary in one direction.
-Once the rheobase jumps, the stimulus used to compute the feature has changed, so that same feature may vary in the other direction.
+During periods when the rheobase is not increasing (but the parameter value is), the parameter may cause some other feature, computed at the current that causes 14 spikes to fire to vary in one direction.
+Once the 14 spike current jumps, the stimulus used to compute the feature has changed, so that same feature may vary in the other direction.
 Consequently, a computed feature-value may zig-zag, rather than exhibiting a smooth change, as a parameter is varied.}
 \label{fig:corrugation-cause-1}
 \end{center}
@@ -265,7 +265,7 @@ This effectively depicts a cross-section of the error surface near that solution
     \centering
     \includegraphics[scale=0.75]{figures/corrogations.png}
         \caption[A Complicated Error Surface]{\textbf{2D cross-section of the error surface for an AdEx model using EFEL features.}
-    Similar to Figure \label{fig:constant_current}, except using an AdEx model and all 14 EFEL features.
+    Similar to Figure \ref{fig:constant_current} except using an AdEx model and all 14 EFEL features.
     As the approach for creating multispiking model fits also contained contingent tests, the error surface is complex and Rastrigin-like}
     \label{fig:real_problem_nontrivial_surface-1}
 \end{figure}
@@ -286,7 +286,7 @@ I suspect that other pre-existing optimizers that aim to fit neuronal models are
 In fact, without comprehensive data about the convergence rates of various competing approaches to optimization, we cannot now how efficiently each obtains its solutions, nor about alternative solutions that may have been missed.
 
 Nonetheless, I am confident that genetic algorithms (in general) are preferable to to exhaustive search (which is impractical for all but the smallest models) and to gradient-descent-like approaches (due to the nature of the error surface).
-However, successful optimization may require periodic exhaustive, local grids searches of the parameters space near the optimized values, in order to evaluate whether the error surface was tractable in the first place.
+However, successful optimization may benefit from periodic exhaustive, local grids searches of the parameters space near the optimized values, in order to evaluate whether the error surface was tractable in the first place.
 % NB, this is harder to understand than the residual rheobase error idea.    
 % dont need to share complexity with reader.
 %Although not shown here a third case is worth describing, as this third test combination achieved many useful results: Izhikevich model at threshold virtual experiment. Constraints used:
