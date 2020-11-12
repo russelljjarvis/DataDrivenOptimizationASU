@@ -83,16 +83,13 @@ Injection 1 & Injection 2 & Injection 3 \\
  $1.0 \times$ Rheobase current & $1.5 \times$ Rheobase current & $3.0 \times$ Rheobase current\\
 \bottomrule
 \end{tabular}
-\caption[Three Step Stimulus Protocol]{\textbf{Three Step Stimulus Protocol}. Under the so-called three-step protocol, the rheobase current is first determined uniquely for each model or experiment, and features extracted from the response to this stimulus.
+\caption[Three Step Stimulus Protocol]{Under the so-called three-step protocol, the rheobase current is first determined uniquely for each model or experiment, and features extracted from the response to this stimulus.
 Then mutiples of rheobase ($\times 1.5$ and $\times 3.0$) are provided as stimuli, producing additional features that can be extracted using the library provided by \cite{EFEL}.
 In the real experiments, similar protocols had been run (but using additive increments rather than multiples of rheobase).
 I used interpolation to identify which of these additive increments to use as a proxy for the multiples of rheobase required to extract the current features.}
 \label{table:three-step-stim}
 \end{center}
-
 \end{table}
-
-
 
 \subsection{Identification of Salient Features}
 In order to identify the electrophysiological measurements or ``features" that characterized variance in the models and the experimental data, as well as their differences, I performed Sparse Principle Component Analysis (Sparse PCA) \citep{zou2006sparse} on the ensemble.
@@ -234,19 +231,16 @@ Neuronunits ability to do evaluate a $\chi^{2}$ hypothesis test constitutes a va
 \end{figure}    
 
 \begin{figure}    
-\begin{center} \includegraphics[width=0.5\linewidth]{figures/data_experiment_fits.png}
-    \label{fig:}
+\begin{center} 
+\includegraphics[width=0.5\linewidth]{figures/data_experiment_fits.png}
 \end{center}
-\caption[PCA with cluster centers drawn]{Similar Dimensionality reduction to above, but instead PCA is used instead of TSNE, and cluster centers drawn. The purpose of this plot is to introduce the prototype of a validation pathway, although specific data points shown here are spurious.}
+\caption[PCA with Cluster Centers]{\textbf{PCA with Cluster Centers.} Similar Dimensionality reduction to above, but instead PCA is used instead of TSNE, and cluster centers drawn. The purpose of this plot is to introduce the prototype of a validation pathway, although specific data points shown here are spurious.}
 \label{fig:pca_cluster}
 \end{figure}    
 
+In figures (\ref{fig:tsne_opt_model_points} and \ref{fig:pca_cluster}). I have projected pre-optimized models into the same low dimensional embedding, given by some dimensionality reduction algorithms. The advantage of such plots is that in theory they provide a separate and indipendent means of validating models outside of the neuronunit-Zscore frame work. Additionally they provide a means to e valuate generality of model fits, as the models here where only optimized against 8 different Neuroelectro tests (of at or below threshold behaviors), in this new context, those same cells are now being compared against 48 different spike-train-shape features.
 
-
-In the figures ( \ref{fig:tsne_opt_model_points} and \ref{fig:pca_cluster
-}). I have projected pre-optimized models into the same low dimensional embedding, given by some dimensionality reduction algorithms. The advantage of such plots is that in theory they provide a separate and indipendent means of validating models outside of the neuronunit-Zscore frame work. Additionally they provide a means to e valuate generality of model fits, as the models here where only optimized against 8 different Neuroelectro tests (of at or below threshold behaviors), in this new context, those same cells are now being compared against 48 different spike-train-shape features.
-
-Inspecting In the figures ( \ref{fig:tsne_opt_model_points} and \ref{fig:pca_cluster}). It looks as if optimized (Izhikevich) models, are better fits for experimental data, than many pre-published models, since the optimized models (yellow) are clustered with the experiments (green). There are some important caveats that make drawing strong optimistic conclusions hard. The first caveat is that at this point, about 50\% of rows, had many absent features that where filled with $0s$, the rest had significantly normal values in the missing features. This artifact artificially boosted variance in several features, that realistically lacked variance. Once the zeros where identified and imputed, other real sources of variance in the data were much more highly weighted in their contribution to PCA transformation. With other variance sources now weighted more highly, the optimized cells where repositioned more distant from the experimental cluster.
+Inspecting In figures (\ref{fig:tsne_opt_model_points} and \ref{fig:pca_cluster}). It looks as if optimized (Izhikevich) models, are better fits for experimental data, than many pre-published models, since the optimized models (yellow) are clustered with the experiments (green). There are some important caveats that make drawing strong optimistic conclusions hard. The first caveat is that at this point, about 50\% of rows, had many absent features that where filled with $0s$, the rest had significantly normal values in the missing features. This artifact artificially boosted variance in several features, that realistically lacked variance. Once the zeros where identified and imputed, other real sources of variance in the data were much more highly weighted in their contribution to PCA transformation. With other variance sources now weighted more highly, the optimized cells where repositioned more distant from the experimental cluster.
 
 As I have discussed, some of the earlier work in this area was later, in-validated, once I had identified some artificial sources of variance.
 \end{comment}
@@ -263,7 +257,7 @@ As I have discussed, some of the earlier work in this area was later, in-validat
 A small majority of features identified by sparse PCA are derived from the $1.5 \times$ rheobase stimulus, slightly fewer are from the $3.0\times$ rheobase stimulus.
 This may be because spike time and spike count variability in the most sensitive (highest slope) part of the FI curve, slightly above rheobase, is greater than under the highest current injections, where the neuron is much close to responding as quickly as possible (i.e. near its absolute refractory period).
 
-\subsection{What distinguishes published models from experimental data?}
+\subsection{What Distinguishes Published Models from Experimental Data?}
 Disagreement between models and real neurons may reflect limitations of model design and can be investigated by probing the features identified by a classifiers trained to distinguish these two populations. 
 Figure \ref{fig:from-poster_disagree} shows the distributions of two features for models (red) and for experimental data (blue).
 Rather than the distributions being separable, the major observation is that the distribution of these features across published models is simply much narrower.

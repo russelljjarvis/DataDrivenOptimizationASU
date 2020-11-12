@@ -50,7 +50,7 @@ Figure \ref{fig:easy-case} gives an example of an error surface that, while not 
 \begin{figure}      
 \centering
       \includegraphics[scale=0.85]{figures/parameter_b_friendly_surface.png}
-      \caption[A non-convex but manageable error surface]{\textbf{A non-convex but manageable error surface}.
+      \caption[A Non-convex but Manageable Error Surface]{\textbf{A Non-convex but Manageable Error Surface}.
       The vertical axis shows error (model-data disagreement) for ``sag-ratio" feature computed at 1.5 $\times$ rheobase as the value fo the $b$ parameter in the Izhikevich model is slowly varied.
       The blue dots show the actual error values, and the orange curve shows a low-order polynomoial regression fit.
       While the fit is clearly not perfect, the fact that the error surface can be approximated by a low-order polynomial suggests that it will not be difficult to find the minimum (red dot).}
@@ -125,7 +125,7 @@ Figure \ref{fig:probably_smooth_constraint} provides a concrete example of the d
 \begin{figure}
 \centering
       \includegraphics[scale=0.85]{figures/parameter_b_hopeless_surface.png}
-      \caption[A non-convex and unmanageable error surface (1)]{\textbf{A non-convex and unmanageable error surface}.
+      \caption[A Non-convex and Unmanageable Error Surface (1)]{\textbf{A Non-convex and Unmanageable Error Surface}.
       Similar to Figure \ref{fig:easy-case}, but showing the error in another feature (the membrane potential at the start of the AP waveform) as the same parameter is varied.
       This error surface is extremely corrugated, the polynomial fit has no hope of approximating what is going on for $b<6$, and the optimizer stands little change of finding the global minimum, if such a minimum is even meaningful here.
     }
@@ -141,12 +141,12 @@ An example of this even more challenging case is given in Figure \ref{fig:discon
 \begin{figure}
       \centering
       \includegraphics[scale=0.85]{figures/parameter_b_hopeless_surface2.png}
-      \caption[A non-convex and unmanageable error surface (2)]{\textbf{Another non-convex and unmanageable error surface}. Similar to Figure  \ref{fig:probably_smooth_constraint}, but now for differences in the depth of the after-hyperpolarization across repeated spikes.
+      \caption[A Non-convex and Unmanageable Error Surface (2)]{\textbf{Another Non-convex and Unmanageable Error Surface}. Similar to Figure  \ref{fig:probably_smooth_constraint}, but now for differences in the depth of the after-hyperpolarization across repeated spikes.
       This feature is actually uncomputable for some values of the parameter $b$ varied along the x-axis, because as this parameter changes, the rheobase changes, and the number of spikes observed at the rheobase varies between 1 and 2.
       When the number of spikes is 1, any parameters that describes differences across spikes is undefined.
       Because the optimizer cannot work with missing data, a very larger error (1000) is imputed.
       However, this means that it is nearly impossible to identify the global minimum, because many promising chromosomes mutate onto the peaks of the error surface and do not make it into subsequent generations.
-      A genetic algorithm sees the region $b<6$ as essentiall random.}
+      A genetic algorithm sees the region $b<6$ as essentially random.}
       \label{fig:discontinuous_constraint}
 \end{figure}
 
@@ -159,7 +159,7 @@ I found that slowly varying a single model parameter in a reduce model can cause
 \begin{figure}
 \begin{center}
 \includegraphics[]{figures/fundamental_cause_of_corrogations.png}
-\caption[Causes of corrugation (1)]{\textbf{The Causes of Corrugation in Error Surfaces: Part A}.
+\caption[Causes of Corrugation (1)]{\textbf{The Causes of Corrugation in Error Surfaces: Part A}.
 I identified the main cause of corrugated error surfaces by re-calculating feature values as single parameters were varied.
 Here, I vary parameter $a$ in the AdEx model.
 The orange trace shows the computed rheobase current as this parameter is varied.
@@ -171,11 +171,11 @@ Consequently, a computed feature-value may zig-zag, rather than exhibiting a smo
 \end{center}
 \end{figure}
 
-Below I show a more concrete example of the same phenomena.
+In Figure \ref{fig:corrugation-cause-2}, I show a more concrete example of the same phenomena.
 \begin{figure}
 \begin{center}
 \includegraphics[]{figures/rh_vs_vt.png}
-\caption[Causes of corrugation (2)]{\textbf{The Causes of Corrugation in Error Surfaces: Part B}.
+\caption[Causes of Corrugation (2)]{\textbf{The Causes of Corrugation in Error Surfaces: Part B}.
 Using an Izhikevich model, I vary a single odel parameter ($a$) as in Figure \ref{fig:corrugation-cause-1}, and plot the rheobase current (orange, normalized to its mean value) but also compute the value of the spike threshold (blue, also normalized).
 Note the non-linear behavior of the response of this feature value to the change in the model parameter.
 This non-linear behavior is mainly driven by a change in the amplitude of the injected current used to evoke it (the rheobase current), and not to underlying non-linearity in the location of the spike threshold for a fixed current.}
@@ -189,7 +189,7 @@ In Figure \ref{fig:variable-vt} the location (in time) of the threshold relative
 \begin{figure}
 \begin{center}
 \includegraphics[]{figures/variable_vt.png}
-\caption[Causes of corrugation (3)]{\textbf{The Causes of Corrugation in Error Surfaces: Part C}.
+\caption[Causes of Corrugation (3)]{\textbf{The Causes of Corrugation in Error Surfaces: Part C}.
 In order to see this effect directly in the responses themselves, I plot the action potential waveforms for the Izhikevich model as the value of parameter $a$ increases in small steps from the bottom panel to the top panel.
 At each value of this parameter, rheobase is computed and the waveform of the spike evoked at rheobase is extracted.
 Each such spike is aligned across panel, so that differences in the lead up to that spike can be examined.
@@ -249,7 +249,7 @@ This effectively depicts a cross-section of the error surface near that solution
 \begin{figure}
     \centering
     \includegraphics[scale=0.7]{figures/friendly_error_surface.png}
-    \caption[Constant Currents Produce Tractable Error Surfaces]{\textbf{2D cross-section of the error surface for an Izhikevich model with no Contingent Tests}.
+    \caption[Constant Currents Produce Tractable Error Surfaces]{\textbf{2D Cross-section of the Error Surface for an Izhikevich Model with No Contingent Tests}.
     The model was optimized against simulated data using 5 features.
     Any other features whose calculation is contingent on the rheobase were deliberately excluded.
     A 2D grid search was then applied (for parameters $C$ and $k$) around the resulting optimal set of parameters in order to visualize the local error surface.
@@ -264,7 +264,7 @@ This effectively depicts a cross-section of the error surface near that solution
 \begin{figure}
     \centering
     \includegraphics[scale=0.75]{figures/corrogations.png}
-        \caption[A Complicated Error Surface]{\textbf{2D cross-section of the error surface for an AdEx model using EFEL features.}
+        \caption[A Complicated Error Surface]{\textbf{2D Cross-section of the Error Surface for an AdEx Model using EFEL Features.}
     Similar to Figure \ref{fig:constant_current} except using an AdEx model and all 14 EFEL features.
     As the approach for creating multispiking model fits also contained contingent tests, the error surface is complex and Rastrigin-like}
     \label{fig:real_problem_nontrivial_surface-1}

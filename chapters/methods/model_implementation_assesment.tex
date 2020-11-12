@@ -1,4 +1,4 @@
-\section{Approach to optimization using NeuronUnit}
+\section{Approach to Optimization using NeuronUnit}
 Model optimization follows the following basic approach:
 \begin{enumerate}
 	\item Identify a model class whose parameters are to be optimized, e.g. the Izhikevich model.
@@ -81,7 +81,7 @@ justify the reasons for re-implementing.\\
 \\
 This is in contrast to the brian2/neuraldynamics AdExp model, which took
 between 2 or 3 times longer to find a rheobase current injection value. However the slowness is not caused by the simulation backend (brian2 which is relatively fast and efficient). The slow down is caused by the way the model is defined. Specifically the
-model is defined in a middle code layer neurodynamics\cite{gerstner2014neuronal}.\\
+model is defined in a middle code layer neurodynamics \cite{gerstner2014neuronal}.\\
 \\
 It is very likely, that the model implementation is correct, since Gerstner is an author of one of the original adaptive exponential publications, and the neural dynamics book that the brian2 code is strongly affiliated with. Since Integrate and Fire models don't formally include spikes when an implementation does include spikes, it is an optional add on.\\
 \\
@@ -131,7 +131,7 @@ lazy evaluation, the simulation times may vary according to what else
 you are running on your computer. Not all models experience a speed up when executed in parallel, however
 this model was faster in the parallel Rheobase determination algorithm. Some common times are: $3.92,6.75,4.48,5.17$. Mean time was:
 
-\subsection{Comparison of Times Taken to Find Rheobase}
+\subsection{Comparison of Time to Find Rheobase}
 
 Custom implementation JIT enabled implementation: $4.0s$. 
 Brian2 taken to find Rheobase: $4.40s$ (serial), $3.976s$ (parallel).
@@ -142,7 +142,7 @@ integrator are similar. Both have average rheobase solution times of approximate
 \begin{figure}
 \centering
 \includegraphics[scale=0.45]{figures/backend_check_files/backend_check_12_10}
-\caption{Model parameterization of the brian2 simulator with the customization: interpolated spike height, forced to be above $0mV$}
+\caption{Model Parameterization of the brian2 Simulator with the customization: interpolated spike height, forced to be above $0mV$}
 \label{fig:sub1}
 \end{figure}
 

@@ -12,7 +12,7 @@ This model subserved as one of many component neurons in the original formulatio
 \begin{figure}%{.2\textwidth}
   \begin{center}
     \includegraphics[scale=0.8]{figures/morphology_view.png}
-    \caption[Visualization of a Reconstructed Layer 5 Pyramidal Neuron]{\textbf{Visualization of a Reconstructed Layer 5 Pyramidal Neuron}.
+    \caption[Visualization of a Reconstructed Layer 5 Pyramidal Neuron]{\textbf{Visualization of a Reconstructed Layer 5 Pyramidal Neuron.}
     Unlike the reduced model which has point geometry, the Layer 5 pyramidal neuron is spatially extended.
     Regions of the neuron with distinct sets of parameters are color coded: apical dendrites (magenta), basal dendrites (red), and axons (purple).
     }
@@ -32,7 +32,7 @@ This results in action potential waveforms far more complex than those produced 
 \begin{figure}
 \centering
 \includegraphics[scale=0.8]{figures/correct_active_l5pc.png}
-\caption[AP Waveform in the L5PC model (A)]{\textbf{AP Waveform in the L5PC model}.
+\caption[AP Waveform in the L5PC Model (A)]{\textbf{AP Waveform in the L5PC Model}.
 A current injection just sufficient for causing a single action potential (AP) is applied to the L5PC model soma, for one second from $100ms-1100ms$ in this model.
 The AP waveform is briefer but more complex than reduced model AP shapes.
 After the AP is complete, the somatic voltage plateaus at a depolarized level for the entire length of the simulation.
@@ -46,7 +46,7 @@ This phenomenon is driven by coupling to the distal dendrites, and are thus obvi
 \begin{figure}
  \begin{center}
 \includegraphics[scale=0.8]{figures/spike_shape.png}
-\caption[AP Waveform in the L5PC model (B)]{\textbf{AP Waveform in the L5PC model}.
+\caption[AP Waveform in the L5PC Model (B)]{\textbf{AP Waveform in the L5PC Model.}
 Same as Fig. \ref{fig:l5pc-a}, but zoomed into show spike onset and after hyperpolarization.}
 \label{fig:l5pc-b}
 \end{center}
@@ -94,9 +94,7 @@ gCa\_LVAstbar\_Ca\_LVAst.somatic &    0.000333 \\
 \bottomrule
 \end{tabular}
 \end{center}
-
-
-\caption[Subset of model parameters in the conductance-based L5PC neuron]{The Layer 5 Pyramidal Cell model (L5PC, \citep{van2016bluepyopt}
+\caption[Subset of Model Parameters for Conductance-based L5PC Neuron]{The Layer 5 Pyramidal Cell model (L5PC, \citep{van2016bluepyopt}
 ) contains hundreds of parameters, but only a subset of these are tunable.
 A subset of 20, spanning conductances in the soma, apical dendrite, and axon, are shown here.
 Most models considered in this thesis have $<14$ parameters; by contrast, having 20 parameters makes many approaches to model fitting intractable.
@@ -110,8 +108,8 @@ My optimizer explore the space spanned by these 20 parameters to produce a Prima
 
 %\end{figure}
 
-An existing model of a layer 5 somato sensory rat, hind leg region was acquired by cloning an the BluePyOpt GitHub Repository \citep{van2016bluepyopt}.
-In order to optimize this model using NeuronUnit tests I used a novel methodological approach described in the appendix (\label{sec:streaming}). I ``streamed" waveforms that were evoked in the complex model, and assigned them to a temporary  NeuronUnit model types as needed. This code I used to implement this approach is available in the public repository: \citep{l5pcnu}. 
+An existing model of a layer 5 somatosensory rat, hind leg region was acquired by cloning an the BluePyOpt GitHub Repository \citep{van2016bluepyopt}.
+In order to optimize this model using NeuronUnit tests, I used a novel methodological approach described in the Appendix (\label{sec:streaming}). I ``streamed" waveforms that were evoked in the complex model, and assigned them to a temporary  NeuronUnit model types as needed. The code used to implement this approach is available in the public repository: \citep{l5pcnu}. 
 %NeuronUnit model simulation backend for this complex conductance-based, multi-compartmental model class.
 
 I then applied my optimizer to this model and evaluated the quality of the resulting optimized model (Table \ref{table:l5pc-table}).
@@ -142,7 +140,7 @@ InjectedCurrentAPAmplitudeTest &     80.4 mV &      89.6 mV &   0.72 & 1.4
 InjectedCurrentAPThresholdTest &    -42.7 mV &     -59.6 mV &   -2.09 & 1.92\\
 \bottomrule
 \end{tabular}}
-\caption[Observed and Predicted features for the Layer 5 Pyramidal Cell]{\textbf{Observed and Predicted features for the Layer 5 Pyramidal Cell}.
+\caption[Observed and Predicted Features for Layer 5 Pyramidal Cell]{\textbf{Observed and Predicted features for the Layer 5 Pyramidal Cell}.
 After equipping the L5PC model for NeuronUnit testing, this model was optimized against L5PC data from NeuroElectro.
 Observed and predicted values could be made to agree on a subset of tests, such as rheobase and time constant, however in the larger test ensemble there was still a tradeoff in optimizing for one value vs another.
 While this model falls within the range of biological plausibility ($\chi^2=13.6; p=0.094$),
@@ -150,13 +148,13 @@ the failure of the optimized model to achieve Z-scores consistently near zero su
 \label{table:l5pc-table}
 \end{table}
 
-It is also worth noting that not optimized models vary depending upon which features are used to generated the constraining NeuronUnit test; one can improve optimization quality by choosing a subset of tests, as there was an irreconcilable trade-off between the membrane time constant, the action potential width, and the input resistance, with optimization only able to match the experimentally-reported means of only 1-2 (but not all 3) of these simultaneously.
+It is also worth noting that optimized models vary depending upon which features are used to generated the constraining NeuronUnit test; one can improve optimization quality by choosing a subset of tests, as there was an irreconcilable trade-off between the membrane time constant, the action potential width, and the input resistance, with optimization only able to match the experimentally-reported means of only 1-2 (but not all 3) of these simultaneously.
 Given this experimental variability and this trade-off between features, the optimization is at least satisfactory.
 However, the inability of the optimizer to find an even better solution, with $Z=0$ across all features, indicated that there are fundamental conflicts between reported mean values across NeuroElectro features.
 This conflict limits not only the possibility of optimizing reduced models, but also complex, multi-compartmental conductance-based models.
 Therefore, reduced models do not appear to be the limiting concern; rather, data quality/consistency is.
 
-\subsubsection{Caveats to the L5PC optimization}
+\subsubsection{Caveats to the L5PC Optimization}
 It is also likely that many of the reported values in NeuroElectro were taken from experiments conducted at non-physiological temperatures.
 Since temperature modulates action potential width \cite{goldin2017temperature} (and indeed all kinetic parameters), it is possible that a different result would be obtained if all data had been collected under the same, physiological temperature.
 

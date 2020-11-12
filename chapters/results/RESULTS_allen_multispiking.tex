@@ -1,4 +1,4 @@
-\section{Optimized single neurons}
+\section{Optimized Single Neurons}
 \label{sec:optimized-single-neurons}
 In the previous sections we saw that optimization of models to the mean features reported across many neurons, even of the same nominal type, is conceptually and empirically flawed.
 The remainder of the optimization results will focus instead on the optimization of single neurons.
@@ -12,7 +12,7 @@ These constaints were different from those used in the NeuronUnit tests for two 
 % Note to self, 
 % Table and caption represents an older approach. What is written is true, for the time that it was used, but it no longer reflects the features mainly used to guide optimization
 %%%
-\begin{table}[]
+\begin{table}
     \centering
     \resizebox{1\textwidth}{!}{
     \begin{tabular}{|c|c|c|}
@@ -92,7 +92,7 @@ The AdEx model is somewhat better at matching spike times than the Izhikevich mo
 \begin{figure}
     \centering
     \includegraphics{figures/IZHI_B95.png}
-    \caption[Optimized Izhikevich model from BBP]{\textbf{Izhikevich model optimized against BBP data}. Similar to Fig. \ref{fig:B95Adexp}, but instead using an Izhikevich model.
+    \caption[Optimized Izhikevich Model from BBP]{\textbf{Izhikevich Model Optimized against BBP Data}. Similar to Fig. \ref{fig:B95Adexp}, but instead using an Izhikevich model.
     Here optimisation is a bit worse, but not poorer than the best out-of-sample predictions of spike timing from previous efforts.}
     \label{fig:B95_IZHI}
 \end{figure}
@@ -106,7 +106,7 @@ The same optimized model was also capable of reproducing the patterns of spikes 
 \begin{figure}
     \centering
     \includegraphics[scale=1]{figures/adexp_fit_allen_spec_id_476053392.png}
-    \caption[Optimized AdEx model from Allen Cell Types (A)]{\textbf{AdEx model optimized against Allen Cell Types data}.
+    \caption[Optimized AdEx Model from Allen Cell Types (A)]{\textbf{AdEx Model Optimized against Allen Cell Types Data}.
     An AdEx Model was fitted to suprathreshold responses from Allen Cell Types cell id 476053392.
     The optimized model matches the spikes times of the experimental data in response to the same stimulus.}
     \label{fig:specimen_476053392_A}
@@ -115,7 +115,7 @@ The same optimized model was also capable of reproducing the patterns of spikes 
 \begin{figure}
     \centering
     \includegraphics[scale=1]{figures/28spikesB95}
-    \caption[Optimized AdEx model from Allen Cell Types (B)]{Same as above, but for a somatic current injection of a larger magnitude.}
+    \caption[Optimized AdEx Model from Allen Cell Types (B)]{\textbf{Optimized AdEx Model from Allen Cell Types (B).} Same as above, but for a somatic current injection of larger magnitude.}
     \label{fig:specimen_476053392_B}
 \end{figure}
 
@@ -128,7 +128,7 @@ The same optimized model was also capable of reproducing the patterns of spikes 
 %    \label{fig:specimen_325479788}
 %\end{figure}
 
-\subsection{Comparison to Best-Case Scenarios}
+\subsection{Comparison to Best-case Scenarios}
 Since these result now concern fits to single neurons, I cannot use the $\chi^2$ measure of agreement between the optimized model and the distribution of the data; the distribution now has only a single member per optimization.
 Instead, I will compare the quality of these results to best-cases scenarios from prior research.
 I will use the ``variance explained ratio" between the experimentally recorded data and the model simulation in response to the same stimulus.
@@ -142,7 +142,7 @@ Optimization on derived features of spike timing and rate, such as statistics of
 \begin{figure}
     \centering
     \includegraphics[scale=5.0]{figures/IZHIkevich_fit_60Adexp_80.jpg}
-    \caption[Model Fits in Prior Work]{\textbf{Conflicts between spike timing and spike shape}.
+    \caption[Model Fits in Prior Work]{\textbf{Conflicts between Spike Timing and Spike Shape}.
     This figure from  \cite{rossant2011fitting} shows how reduced models that can fit spike times typically cannot also fit spike shape.
     Several models are shown in this figure including the Izhikevich model used in current work and a ``MAT2" model, which is a more well-equipped version of the AdEx model.
     The MAT2 model correctly predicts $86\%$ of experimental spike times, but exhibits a spike threshold (a components of spike shape) that is much higher in the model compared to the experiment.

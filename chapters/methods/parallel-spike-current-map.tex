@@ -18,14 +18,14 @@ Because the rheobase value partitions suprathreshold stimulus amplitudes from su
 In a search tree, the search space is adaptively narrowed between two endpoints until a target is identified.
 For the rheobase, this means asking (1) ``What is maximum current injected so far that resulted in zero spikes?" and (2) ``What is the minimum current so far that resulted in one or more spikes?" and then running a simulation at some current amplitude in between those two values (e.g. halfway between in the case of a binary search tree).
 
-\subsubsection{Serial rheobase determination}
+\subsubsection{Serial Rheobase Determination}
 The procedure above can be run in serial (i.e one simulation after another) until the rheobase is narrowed down to an acceptably narrow range, e.g. +/- 1 pA.
 The initial search begins with no knowledge of any minimum suprathreshold or maximum subthreshold current amplitudes, so I use the starting range 300 pA to -100 pA, respectively.
 A binary search is applied within this space, with additional code to handle edge cases outside this range.
 Ignoring those edge cases, such a binary search requires $log_2(I/i)$ simulations, where $I$ is the range being searched (here, 400 pA) and $i$ is the resolution of the solution (here, 1 pA).
 Thus, $\sim9$ simulations are required to obtain the rheobase using this binary search strategy.
 
-\subsubsection{Parallel rheobase determination}
+\subsubsection{Parallel Rheobase Determination}
 This process can be accelerated by running simulations in parallel.
 Each step of the search requires knowledge of the outcomes of the previous simulations, so there can be no parallelism across steps (other than brute force parallel search of the entire range of currents, which is extremely inefficient).
 However, it is possible to parallelize within each step, so I exploited this approach.
@@ -49,12 +49,12 @@ As architectures with hundreds of cores are now common, speedups of 7-10 fold ar
 \begin{figure}    
   \begin{center}
   \includegraphics[width=0.9\linewidth]{{figures/rheobase_algorithm.png}}
-    \caption[Parallel rheobase algorithm]{\textbf{Parallel Rheobase Algorithm.} I developed a generic algorithm which finds the minimal current injection value needed for one spike (rheobase). Rather than a brute force or binary search, I implemented an N-ary search that uses multiple parallel simulations to rapidly identify the rheobase. This leads to significant speed-ups for testing and optimization in all models.}
+    \caption[Parallel Rheobase Algorithm]{\textbf{Parallel Rheobase Algorithm.} I developed a generic algorithm which finds the minimal current injection value needed for one spike (rheobase). Rather than a brute force or binary search, I implemented an N-ary search that uses multiple parallel simulations to rapidly identify the rheobase. This leads to significant speed-ups for testing and optimization in all models.}
     \label{fig:rheobase}
   \end{center}
 \end{figure} 
     
-\subsection{Practical application}
+\subsection{Practical Application}
 I benchmarked this approach using simulations of multi-compartment neuron models.
 The parallel rheobase determination algorithm resulted in a significant speed up relative to the serial algorithm.
 To amplify the effect, I also considered a scenario where one wants to learn the value of the rheobase with much more precision (down to small fractions of a pA), for example in studies of dynamics in the neighborhood of a bifurcation where all other state variables can be considered nearly unchanged as one crosses incrementally between sub- and suprathreshold scenarios.
@@ -77,7 +77,7 @@ Speed up = 3.0x
 The total speedup approached but fell a bit short of the theoretical speedup due to overhead in the parallel search algorithm itself.
 As the complexity of each simulation increases, and as the number of CPU cores brought to bear increases, this overhead should become a vanishingly small fraction of the total rheobase determination time.
 
-\subsection{Generalization to target spike counts}
-This approach for determining rheobase was also generalized into a more fundamental algorithm (\url{https://github.com/russelljjarvis/neuronunit/blob/master/neuronunit/tests/target_spike_current.py}) for determining the amplitude of current required to generate any target number of action potentials.
-In other words, it can be used to invert a model's ``F-I" function, finding the ``I" associated with a given ``F".
+\subsection{Generalization to Target Spike Counts}
+This approach for determining rheobase was also generalized into a more fundamental algorithm for determining the amplitude of current required to generate any target number of action potentials.
+In other words, it can be used to invert a model's ``F-I" function, finding the ``I" associated with a given ``F". For more information, see the test at (\url{https://github.com/russelljjarvis/neuronunit/blob/master/neuronunit}).
 

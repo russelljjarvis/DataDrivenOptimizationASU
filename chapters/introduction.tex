@@ -1,3 +1,8 @@
+
+
+
+
+
 \chapter{Introduction}
 \section{Why model the brain?}
 Diseases of the brain are very widespread and cost world governments a significant amount of money \citep{who}.
@@ -17,12 +22,10 @@ AI may also help to push the frontier of scientific research itself.
 %big claims too hard to defend, and to solve or exacerbate existential problems facing humanity.
 Our medical understanding of the brain and digital implementations of brain algorithms would likely improve if existing models for neuron and neural circuits were more tractable, both conceptually and computationally.
 
-In this thesis I describe and document tools I developed that improve the speed and accuracy of some classes of neural models.
-The speed improvements come from the implementation of a low-level model simulation, largely relying on existing research, although I also identify and exploit some opportunities for faster model dispatch and simulation.
-The accuracy improvements--which constitute most of the novelty here--derive from application of optimization techniques to improve the agreement between models and corresponding ``wet lab" experiments in biological neurons.
+In this thesis, I describe and document tools I developed that improve the speed and accuracy of some classes of neural models. The speed improvements come from the implementation of a low-level model simulation, largely relying on existing research. I also identify and exploit some opportunities for faster model dispatch and simulation. The accuracy improvements, which constitute most of the novelty here, derive from application of optimization techniques to improve the agreement between models and corresponding ``wet lab" experiments in neurons.
 By improving single cell models, these tools will also serve as a basis for improved neural circuit models, of which many neuron types are among the components.
 Since network models many consist of many thousands (or more) of cell models, both speed and accuracy are essential.
-\\
+
 % https://www.sciencedirect.com/topics/immunology-and-microbiology/whole-cell-patch-clamp
 % Whole Cell Patch Clamp
 
@@ -52,7 +55,7 @@ The limitations expressed in the paragraph above may limit measurement quality.
 Ultimately, the question is whether results from the model system will translate to the biological system, and how and whether a good simulation platform can outperform an \emph{in vitro} animal model system is an open question.
 To achieve this, it is likely that the simulation platform will need to utilize model components as faithful to the biological system as possible, and thus it is important that reduced neural models are the most faithful to the cell behavior they represent. 
 
-\section{Why model neurons?}
+\section{Why Model Neurons?}
 The idea that neurons are the fundamental computational units of the brain dates to the 19th century \citep{shepherd2015foundations,jones1999golgi}.
 A large fraction of computational models have thus included the neuron, at some level of abstraction.  
 Conventionally, each neuron has been regarded as an independent generator of events (e.g. synaptic conductance's or currents in postsynaptic neurons) and selective receiver of the same events, these inputs summed in some fashion across time and space. 
@@ -92,18 +95,18 @@ When the spatial aspects of the electrical properties of a neuron are of interes
 \cite{rall1962electrophysiology} took the numerical methods used for modelling heat and electrical conductance in cables and showed that similar equations could be used to accurately predict current flow in a cable representing a neuron dendrite or axon.
 This cable equation forms the basis for the electrical properties in the multi-compartment approach.
 \\
-\begin{center}
-\begin{equation}
-I_{m(t)}=I_{C}+I_{ionic} 
-I_{C}=C_{m}\frac{dV(t)}{dt} 
-I_{ionic}=I_{Na}+I_{K}+I_{L}
-\end{equation}
-\end{center}
-\begin{equation}
-I_{ionic}=\\
-g_{Na}(V)[V(t)-V_{Na}]+\\
-g_{K}(V)[V(t)-V_{K}]+\\g_{L}[V(t)-V_{L}] 
-\end{equation}
+%\begin{center}
+%\begin{equation}
+%I_{m(t)}=I_{C}+I_{ionic} 
+%I_{C}=C_{m}\frac{dV(t)}{dt} 
+%I_{ionic}=I_{Na}+I_{K}+I_{L}
+%\end{equation}
+%\end{center}
+%\begin{equation}
+%I_{ionic}=\\
+%g_{Na}(V)[V(t)-V_{Na}]+\\
+%g_{K}(V)[V(t)-V_{K}]+\\g_{L}[V(t)-V_{L}] 
+%\end{equation}
 In the context of modelling realistic morphologies, conductance based, multicompartment models are typically slow to solve because they contain many (tens or more) coupled differential equations which must be solved at every discrete location across the neuron.
 These locations (segments or compartments) may have unique parameters, which are as simple as segment diameter (corresponding to e.g. tapering of dendrites) or as complex as distance-dependent changes in the distribution of specific ionic conductances.
 Many of these fine structural variations are incorporated into biophysically-detailed brain models.  
@@ -157,28 +160,34 @@ The 3D structure of biological cells is reduced to a point onto which currents i
 %\Theta v (t+) \leftarrow \Theta v(t-) 
 %\end{equation}
 
-\subsection{Adaptive Exponential Integrate and Fire Model}
-\begin{displaymath}
- C\frac{dV}{dt}=-g_{L}(V-E_{L})+
-g_{L} \Delta Texp(V-V_{T} \Delta T)-w+I 
-\tau_{w}\frac{dw}{dt} = a(V-E_{L})-w 
-\end{displaymath}
+%\subsection{Adaptive Exponential Integrate and Fire Model}
+%\begin{displaymath}
+% C\frac{dV}{dt}=-g_{L}(V-E_{L})+
+%g_{L} \Delta Texp(V-V_{T} \Delta T)-w+I 
+%\tau_{w}\frac{dw}{dt} = a(V-E_{L})-w 
+%\end{displaymath}
 The Adaptive Exponential (AdExp) IF model \citep{brette2005adaptive}, is another type of reduced neural model
 The AdExp model is a special instance of leaky integrate and Fire model. The AdEx model most often appears with an exponential spike shape.
 % I think rising phase is caused by exponential term. In Izhikevich its quadratic.
 This model's instantaneous spiking rate is calculated by consulting the recent spike history in a finite time "window". 
 Adaptation is achieved by looking back into the window and counting the number of spikes that occurred in the previous $10ms$, for example. 
+
 \subsubsection{Izhikevich Model}
 One existing family of neuron models, often referred to as the Izhikevich model \citep{izhikevich2003simple}, was published with parameter sets believed to produce model outputs that accurately align with a variety of outputs from experimentally derived neuron data.
 Is it possible to choose parameters for the Izhikevich model that allow the electrophysiological behavior of any neuron to be capture?.
 The original formulation of that model involves the integration of a quadratic function:
 
-\begin{displaymath}
-\frac{dv}{dt}=0.04v^{2}+5v+140-u+I
-\frac{du}{dt} = a(bv-u)
-if v>=30mV,
-\end{displaymath}
- then $ v \rightarrow c + u 	\rightarrow u+ d$.
+%\begin{displaymath}
+%\frac{dv}{dt}=0.04v^{2}+5v+140-u+I
+%\frac{du}{dt} = a(bv-u)
+%if v>=30mV,
+%\end{displaymath}
+% then $ v \rightarrow c + u 	\rightarrow u+ d$.
+ 
+%%%
+% Flagged by Jimmy.
+%%%
+ 
 An alternative, more versatile implementations (as used here) includes additional parameters, for example allowing the coefficients in the quadratic to vary.
 
 The Izhikevich model and the AdEx model are both related to simple Integrate and Fire model.
@@ -192,18 +201,17 @@ Yet there are no reports of large numbers of reduced models with demonstrated ag
 
 Because multi-compartment conductance models represent more details about the biophysical properties of the membrane, it is tempting to think that this modelling paradigm is likely to produce models that maximally agree with data, however, newer generations of simpler models such as the GLIF model, may actually be better at recapitulating some experimental measurements \citep{meunier2002playing}.
 
-%based models are based on from the botltom up, smaller models like ion channels,
 
-\subsection{Simulation of reduced models}
+\subsection{Simulation of Reduced Models}
 Although this class of model is in principle potentially fast due to the limited number of equations and state variables, python implementations of it are typically slow due to code that was written to make running populations of many neurons fast, at the expense of running single neurons. 
+
 %For instance, Brian2, and a related tool neurodynamics, have code for running AdExp neurons, however brian2 has network c-level Cython code that interferes with DEAP python code \citep{DEAP_JMLR2012}.
-\\
 %Its as if a reduced model is a black box representation of a neuron, and the reduced model is a transfer function that maps inputs to outputs. Typically reduced models are very fast to solve.\\
-%\\
 % - Kinds of reduced models and what they can do
 %\section{Introduction}
 % above.
 % 2-5pages
+
 \section{Parameter Fitting and Model Optimization}
 Model parameters dictate model behavior, but many parameters either (a) cannot be easily measured in experiments for technical reasons or (b) don't correspond to any measurable quantity.
 As an example of the latter, consider any ``emergent behavior" with observables that do not map directly onto any specific model parameter.
@@ -257,7 +265,7 @@ For example, given enough samples, a genetic algorithm will learn the global min
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.7\linewidth]{figures/GA_process.png}
-\caption[Schematic of genetic algorithm flow]{\textbf{Schematic of genetic algorithm flow.} Genetic algorithms (GA) find satisfactory solutions by incompletely sampling the solution space. The evolution of the algorithm is guided by the combined application of stochastic sampling and selective pressure. Stochastic contributions that guide GA sampling provide incentives for exploring regions beyond the local minima. Stochasticity is applied in the combined actions of cross-over and mutation. Model parameterizations are encoded as binary strings called genes. When genes breed, eligible pairs of genes are aligned and the status of a bit is exchanged at random locations.  
+\caption[Schematic of Genetic Algorithm Flow]{\textbf{Schematic of Genetic Algorithm Flow.} Genetic algorithms (GA) find satisfactory solutions by incompletely sampling the solution space. The evolution of the algorithm is guided by the combined application of stochastic sampling and selective pressure. Stochastic contributions that guide GA sampling provide incentives for exploring regions beyond the local minima. Stochasticity is applied in the combined actions of cross-over and mutation. Model parameterizations are encoded as binary strings called genes. When genes breed, eligible pairs of genes are aligned and the status of a bit is exchanged at random locations.  
 }
 \label{fig:GeneticAlgOver}
 \end{center}
@@ -268,6 +276,7 @@ I use genetic algorithms in the work presented here, and while there are many va
 \subsubsection{Chromosomes}
 In the context of genetic algorithms, a chromosome is the complete set of model parameters that are necessary to fully define the model being optimized, in this case a neuron model.
 These parameter sets are collections of floating point numbers, for example -65.7 for a reversal potential in mV.
+
 \subsubsection{Genes}
 In the context of genetic algorithms, a gene is a single model parameter.  Consequently, the number of genes in a chromosome is equal to the number of parameters in the model.
 There are at least two stochastic operations that over time provide a gentle ``exploratory drive" for the algorithm, that cause genes to either double down on exploration of a local minimum, or possibly ``jump" out of a local minimum to realize lower error.  These operations are applied, with some user-determined frequency, with each ``generation" of the population of chromosomes, to determined the members of the subsequent generation.
@@ -280,17 +289,16 @@ Later in this work I will talk about a property denoted $\eta$ this property con
 
 \begin{figure}
 \begin{center}
-
 %width=0.9
 %\includegraphics[scale=0.5]{figures/rastagrind}
 \includegraphics[scale=0.85]{figures/rastagrind.jpg}
-\caption[Rastrigin's function]{\textbf{Rastrigin's function} Rastrigin's function is challenging to optimize, as it contains hundreds of local optima which would trap a gradient descent algorithm \citep{rastrigin1974systems}. This function offers a paradigm for testing and examining the capabilities of an optimization algorithm.}
+\caption[Rastrigin's Function]{\textbf{Rastrigin's Function} Rastrigin's function is challenging to optimize, as it contains hundreds of local optima which would trap a gradient descent algorithm \citep{rastrigin1974systems}. This function offers a paradigm for testing and examining the capabilities of an optimization algorithm.}
 \label{fig:rastrigin}
 \end{center}
-
 \end{figure}
 
-\subsection{Local Minima} Many practical optimization problems have error surfaces that are not perfectly convex but instead are rippled, with multiple troughs of similarly low error value (local minima).
+\subsection{Local Minima} 
+Many practical optimization problems have error surfaces that are not perfectly convex but instead are rippled, with multiple troughs of similarly low error value (local minima).
 These ripples make navigating the error surface non-trivial.
 Rastrigin's function \citep{rastrigin1974systems}  is a function for creating error surfaces to test the robustness of algorithms that attempt to overcome moderately difficult error surfaces that are densely populated with local minima, but with a global convex shape.
 The surface described by the function is densely populated by local minima, each of which is placed on a globally convex envelope, such that the true minimum of Rastrigin's function is at its centre. As a certain number of genes are retained between generations, genes made on previous generations act as memories of previously experienced error surface. Due to this memory effect, the genetic algorithm is able to exploit the global shape of Rastrigrin's function \ref{fig:rastrigin}. It should be noted that there are error functions that contain no useful or learn-able information in the error surface. A satisfactory solution to such problems might still be obtained due to the exploratory and stochastic nature of the GA, however, much of the advantage of the genetic algorithm approach is lost, as the approach presupposes learn-able features about error surfaces. 
@@ -300,20 +308,23 @@ The number of chromosomes (model instantiations) in each generation is typically
 The remainder are often chosen from the fittest, i.e. lowest error, members of generation $n$, a strategy known as elitism.
 The degree of elitism essentially controls the amount of evolution that is allowed to occur in each generation.
 
-\subsection{Multi-objective optimization} Multi-objective optimization problems are a subset of optimization problems.
+\subsection{Multi-objective optimization} 
+Multi-objective optimization problems are a subset of optimization problems.
 In a multi-objective optimization, model fitness is evaluated using multiple ``objective functions" of model fitness, each contributing either independently or in conjunction to the error surface.
 Each function may ask a different question about the model; for example, one may ask how well the model reproduces the shapes of action potentials, and another function may ask how well the model reproduces the counts of action potentials.
 The output of each such function is a scalar, with a lower values representing greater model/data agreement, i.e. lower error.
 These functions are sometimes called constraints. 
 
-\subsubsection{Weighted optimization} A simple strategy is to turn a multi-objective optimization problem into a single objective optimization problem, for example by summing the outputs of objective functions together. 
+\subsubsection{Weighted optimization} 
+A simple strategy is to turn a multi-objective optimization problem into a single objective optimization problem, for example by summing the outputs of objective functions together. 
 This is an common strategy, but this approach comes with a significant price.
 Optimization using a sum over multiple error measurements leads to a situation where a single constraint has an especially deep error surface, such that the gradient of the overall summed error surface is dominated by that single constraint.
 In other words, minimizing overall error mostly corresponds to satisfying only one constraint.
 The optimizer invests most of its search effort achieving a low error on one constraint, leaving the others unacceptably high.
 This problem can in principle be ameliorated by re-scaling the objective functions to have similarly deep error surfaces, but in general the shapes of the error surfaces cannot be known in advance, so this sort of approach cannot generalize.
 
-\subsubsection{Non-dominated Sort} A less appreciated but perhaps more important drawback to collapsing multiple objectives to a single one is that it imposes an opinion about the relative importance of each objective.
+\subsubsection{Non-dominated Sort} 
+A less appreciated but perhaps more important drawback to collapsing multiple objectives to a single one is that it imposes an opinion about the relative importance of each objective.
 However, while there may underlying ``true values" for measured biological variables, there is no underlying truth about which variables are more important than others.
 In problems where not all measurements can be perfectly replicated by models (in part because the models are simplifications of biology), this problem becomes even more pressing.
 The experimental data may also come from multiple data sources, leading to solutions for a single objective that reflect the diversity of the underlying system (e.g. physiological diversity of neurons of a given type), which is lost with the collapse to a single objective.
@@ -344,7 +355,7 @@ Here, the two most frequently used scoring mechanisms are: (1) compute the ratio
 In both cases, the relevant experimental data distribution might be within trials, across trials, across recorded cells, or even across labs, producing many sources of hetereogeneity.
 For example, resting membrane potential (measured in $(mV)$), may vary in some dataset according to a distribution with a mean and standard deviation of $(\mu,\sigma)=(-65mV,15mV)$.
 The optimizer may sample a model (with some parameters) with a simulated resting potential of $-68mV$.  
-NeuronUnit would then use these values to compute a Z-Score of $(-68 - (-65)/15 = 0.2$.
+NeuronUnit would then use these values to compute a Z-Score of $(-68 - (-65))/15 = 0.2$.
 A model with a Z-Score of 0 would reflect perfect agreement with experimental data, and very low or very high values would represent poor agreement.
 Our lab previously showed models can be scored on very large numbers of such tests, corresponding to experimental data for particular neuron types, and then used to build biophysically detailed neuron models for the mammalian olfactory bulb \citep{birgiolas2019towards}.
 

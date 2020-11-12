@@ -89,7 +89,7 @@ In the remaining $1/3$, where this did not hold, I observed a small but still si
     \begin{center} 
     \includegraphics[scale=0.8]{figures/skewed_distribution.png}
     \end{center}
-    \caption[Example of Skewed  Distribution]{\textbf{Input Resistance Data Distribution for Layer 5 Pyramidal Cell.} Similar to Figure \ref{fig:normal-feature}, except for Input Resistance.
+    \caption[Example of Skewed Distribution]{\textbf{Input Resistance Data Distribution for Layer 5 Pyramidal Cell.} Similar to Figure \ref{fig:normal-feature}, except for Input Resistance.
     Unlike in that figure, the distribution shows a strong skew towards higher values.
     The mean and the mode are no longer well-aligned, and therefore the mean is no longer representative of the most typical value of this feature for this neuron type.}
     \label{fig:skewed-feature}
@@ -169,15 +169,18 @@ In the remaining $1/3$, where this did not hold, I observed a small but still si
 %\end{figure}
 
 \subsection{EFEL and The Allen Institute Cell Types Database}
-The Blue Brain Project developed the Electrophysiology Feature Extraction Library (EFEL) \citep{EFEL}. Although EFEL computes common spike train statistics related to spike timing, approximately 2/3rds of features extracted by EFEL pertain to spike shape, where some of these features are shown below. The Allen SDK comes with a very comprehensive python based feature extraction suite. Just like EFEL, the Allen suite does well to represent a large number of spike shape measurements as well as spike train statistics. Unfortunately, the Allen SDK feature extractor is significantly slower than EFEL as EFEL was implemented using the very fast language $C++$. The performance cost may not be felt when dispatching single runs, but slow performance is a significant impediment to optimization. In optimisation feature extraction is directly coupled to chromosome fitness calculations, and it is executed very often across the evolution of the genetic algorithm. Additionally by default, the AllenSDK feature extractor assumes that its user will be applying very high sample frequency and noisy traces encoded in the NeuronData Without Borders \citep{teeters2015neurodata} standardized format. These traces require filtering before computing the Allen features, where significant intervention is required to turn off filtering. Inappropriately applying filtering to model traces causes problems, because the the lower sampling frequency intrinsic to simulated model traces is not predicted by the digital filter. Overall, the EFEL was fast enough to be useful, and its default settings were appropriate to my use case. 
-% Membrane potential waveforms where already stored in a container Neo Neo 
-\cite{garcia2014neo}
+The Electrophysiology Feature Extraction Library (EFEL) \citep{EFEL} was developed as part of the Blue Brain Project. Although EFEL computes common spike train statistics related to spike timing, approximately 2/3rds of features extracted by EFEL pertain to spike shape, where some of these features are shown below. 
+The Allen SDK comes with a very comprehensive Python-based feature extraction suite. Like EFEL, the Allen suite well-represents a large number of spike shape measurements as well as spike train statistics. 
+Unfortunately, the Allen SDK feature extractor is significantly slower than EFEL, as EFEL was implemented using the very fast language $C++$. The performance cost may not be felt when dispatching single runs, but slow performance is a significant impediment to optimization. 
+In optimisation, feature extraction is directly coupled to chromosome fitness calculations, and it is executed very often across the evolution of the genetic algorithm. Additionally by default, the Allen SDK feature extractor assumes that the user will apply very high sample frequency and noisy traces encoded in the NeuronData Without Borders \citep{teeters2015neurodata} standardized format. 
+These traces require filtering before computing the Allen features, where significant intervention is required to turn off filtering. 
+Inappropriately applying filtering to model traces causes problems, because the the lower sampling frequency intrinsic to simulated model traces is not predicted by the digital filter. Overall, the EFEL was fast enough to be useful, and its default settings were appropriate to my use case \citep{garcia2014neo}.
 
 Data available through NeuroElectro cover a large number of cell types; however, recording conditions and measurement algorithms are heterogeneous.
 It is unclear whether the distribution of measurements across such an ensemble is actually a good summary of any one individual neuron.
 In order to ensure that reduced models could be optimized against data recorded exclusively from single neurons, I also used data from the Allen Institute Cell Types Database \citep{celltypes}, a project of the Allen Institute for Brain Science.
 This Cell Types database consists of summary physiological, morphological, and histological data for thousands of individual neurons (across a few dozen subtypes) from mouse visual cortex, obtained using patch clamp recordings in slices.
-Each experiment is done using exactly the same methods and with the same sequence of stimuli (described in \cite{celltypes}), ensuring not only that models generated using this data are directly comparable, but that each such model is reflective of an individual neuron.
+Each experiment is done using exactly the same methods and with the same sequence of stimuli \citep{celltypes}, ensuring not only that models generated using this data are directly comparable, but that each such model is reflective of an individual neuron.
 
 The Cell Types Database provides some limited pre-computed measures of action potential waveform characteristics. 
 However, the data are not organized in a way that makes it is useful for the types of optimization and data analysis performed here.

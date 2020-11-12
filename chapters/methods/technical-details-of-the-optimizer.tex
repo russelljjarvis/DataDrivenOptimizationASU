@@ -9,13 +9,12 @@ These mechanics have been described at length previously in \cite{omar2014collab
 \begin{figure}
 \begin{center}
     \includegraphics{figures/normal_distribution}
-    \caption[Z-scores for NeuronUnit Tests]{\textbf{[Z-scores for NeuronUnit Tests]}. As discussed in the section \ref{sec:neuronunit}, error functions were evaluated with the assistance of the \emph{NeuronUnit} library.
+    \caption[Z-scores for NeuronUnit Tests]{\textbf{Z-scores for NeuronUnit Tests}. As discussed in the section \ref{sec:neuronunit}, error functions were evaluated with the assistance of the \emph{NeuronUnit} library.
     This involves obtaining an experimental distribution over electrophysiology feature measurements for a cell type, measuring corresponding model output features, and then locating those features in that experimental distribution. 
     Scores that are closer to the experimental mean are identified as low error.
 	The Z-score encodes this information; a Z-score of 0 is the lowest possible error.}
 	\label{fig:normal-dist}
 \end{center}
-	
 \end{figure}
 %XXXX Something about Z-score vs RatioScore.
 
@@ -30,9 +29,9 @@ The Z-score does not specifically assume that the biological data are normally d
 In cases when the biological data from one neuron type comes from a single experiment on a single neuron (as with some data from the Allen Cell Types database or the Blue Brain Project), there is no mean or standard deviation, so I compute a \emph{RatioScore}:
 \begin{equation}
 Ratio-Score = \frac{s}{b}
-\end{equation}
+\end{equation}%%%Fixed error
 where $b$ is the observed biological feature value.
-Both types of scores were then normalized to produce a an error signal in the range $(0, \inf)$ for use by the optimizer.
+Both types of scores were then normalized to produce an error signal in the range $(0, \inf)$ for use by the optimizer.
 For example, suppose a feature(e.g. the rheobase current) had value $\mu \pm \sigma = (100pA \pm 40pA)$ in the biological data, and $110 pA$ in the simulated model output.
 Then the following steps were taken to transform it into an error signal:
 \begin{enumerate}
@@ -69,7 +68,7 @@ I also add several methods for inter-converting between representations of the m
 A created a \emph{NUFeature\_standard\_suite} class to convert NeuronUnit features to BluePyOpt objective functions, as outlined in simpler terms in the enumerated list above.
 These classes contain a complicated nesting of fault handling statements, as there are many reasons why a candidate model could return unusable simulation output (typically non-biological parameter values), resulting in values like $NaN$ and $\inf$; such values must be recast as poor but finite errors so that the optimizer can see a smooth error surface.
 There are two flavors of \emph{NUFeature\_standard\_suite}, one for supra-threshold simulation experiments and another for at threshold or sub-threshold experiments, since each experiment type produces different feature requiring different feature extractors, and producing different sets of edge cases to be handled independently.
-For example, there are more ways for a model to fail to elicit multiple action potentials (causing all ISI-based feature extraction functions to return $NaN$ values), then there are to fail to exhibit a hyperpolarizing response to a small outward current injection for the measurement of input resistance.
+For example, there are more ways for a model to fail to elicit multiple action potentials (causing all ISI-based feature extraction functions to return $NaN$ values), than there are to fail to exhibit a hyperpolarizing response to a small outward current injection for the measurement of input resistance.
  
 I created a \emph{model-parameters.py} file, a collection of ordered dictionaries, that informed the optimizer which parameters should be modifiable (in the highest-dimensional cases, all of them) and what are reasonable (biologically plausible) search boundaries.
 This file also contains example parameter sets representing notable dynamical regimes, such as those shown in \cite{izhikevich2003simple}.
@@ -94,13 +93,13 @@ A simpler ``select best" algorithm (labelled IBEA) dispenses with these tricks, 
 
 \subsection{Comparison to Previous Approaches to Optimization}
 
-\subsubsection{Time-dependent mutation}
+\subsubsection{Time-dependent Mutation}
 Other labs have previously developed schemes to optimize neuron models, e.g. \cite{druckmann2007novel}.
 I retained the conceptual insights of these approaches where they were useful for the problems at hand.
 For example, I utilized a time-dependent mutation magnitude ($\eta$).
 The idea is that big mutations are more helpful in the early stage of optimization, when it is important to explore the vast hyper-volume of parameter sets and get a general picture of the error surface, and that these mutations should be smaller during the later ``refinement" stage of optimization, as the best solutions are approached. Time diminishing $\eta$ did improve genetic algorithm on reduced model optimization problems.
 
-\subsubsection{Variants on somatic current injection}
+\subsubsection{Variants on Somatic Current Injection}
 Nearly all neuron optimization work (including this one) relies on the responses to somatically-injected current as the domain for optimization.
 This is largely motivated by the existence of a common and simple experimental analogue using patch clamp (which drives experimental design for both the Allen Cell Types Database and The Blue Brain Project).
 But there are three different strategies for choosing the subset of these experiments that are recapitulated in optimization.

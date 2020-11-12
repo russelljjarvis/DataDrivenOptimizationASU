@@ -11,8 +11,9 @@ This means that cannot simply be applied to the same membrane potential trace, a
 As discussed in the Methods, I wrote code to restructure the Allen Cell Types and Blue Brain Project data sets, sorting traces into (approximate) multiples of rheobase, and the interpolating to select the sweep (in one data set) that is most appropriate for computing the feature defined in an otherwise-incompatible feature library.
 In this way I was able to generate the same set of features from distinct datasets, even those that had use different stimuli.
 %To make these conflicting lab protocols interoperable I impute 1.5 $\times$ and 3 $\times$ rheobase where it was not provided by finding the stimulus sweep pair that is the closest approximation. In this way I find the nearest traces to those predicted values in the Allen and BBP collections of sweeps.
+
 One can conceive of more mathematically savvy types of imputation, and these could be the basis for future work.
-If a more robust form of imputation was achieve, it could act as a Rosetta stone to link all the above feature extraction libraries together, allowing nearly any \emph{in vitro} dataset that is being collected data to be used to produce a canonical and universal set of features for model optimization.
+If a more robust form of imputation was achieve, it could act as a Rosetta stone to link all the above feature extraction libraries together, allowing nearly any \emph{in vitro} dataset that is being collected to be used to produce a canonical and universal set of features for model optimization.
 %that is what I mean when I write imposing a new organisation on the sweep data.
 
 % It may be possible to generate predicted features from one stimulus convention based on observed features from the other, allowing imputation of a full set of features across all algorithms, but this is beyond the scope of my thesis work. ISNT THIS WHAT I DID IN SOMEWAYS? IF I COULDN"T COMPARE ACROSS LAB PROTOCALS THEN THE ANALYSIS I DID WAS POINTLESS WAS IT NOT?
@@ -42,47 +43,16 @@ However, the Izhikevich model did not have the lowest $\chi^{2}$ for every cell 
 The AdEx model suffered from its performance on the Olfactory Bulb Mitral Cell and the Cerebellum Purkinje cell (two of the largest cells types that were optimized). 
 However, if you remove these two cells, and then judge the optimized models for the remaining cell types, the AdEx model is the winner by $\chi^{2}$ (AdExp=$0.51$; Izhikevich=$0.99$).
 
-When consulting some of the traces for fitted models, it seemed as if either 1. AdExp and Izhikevich models lack the flexibility to model diverse cortical neuron activity, or 2. NeuroElectro data was difficult to fit.
+When consulting some of the traces for fitted models, it seemed as if either the AdExp and Izhikevich models lack the flexibility to model diverse cortical neuron activity, or the NeuroElectro data was difficult to fit.
 
-% 
 % In summary, the AdEx model is well-suited to cortical neuron types, but the Izhikevich model may have the flexibility to model the entire brain.
-
 %The GLIF model was worse than both of the other model classes, and was limited in the same way as the AdEx model.
-If you consider only Allen Cell Types data (all cortical neurons). On either of the following two sets of features:
-\\
 
-\begin{tabular}{|c|}
-\toprule
-Feature names \\
-\midrule
-RheobaseTest          \\
-TimeConstantTest      \\
-RestingPotentialTest  \\
-InputResistanceTest   \\
-\bottomrule
-\end{tabular}
-or:
-\begin{tabular}{|c|}
-\toprule
-Feature names \\
-\midrule
-RheobaseTest \\
-FITest      \\
-\bottomrule
-\end{tabular}
-\\
-\\
-the GLIF model has $\chi^{2}=1.0$, however, if you consider other neurons (and tests)the mean $\chi^{2}$ value jumps to $364.2$.
-The GLIF model were able to recapitulate FIslope exactly, however this caused conflicts with ability to fit time constant and rheobase, which was its downfall.
-Even when the GLIF model was able to optimize cells to be within a biologically plausible range, simulation was slow and the quality of fits was not astounding.
-It is unclear why anyone would choose to use this model outside of a very narrow range of applications.
 
-Why did the Izhikevich model perform best?
-I hypothesized that this was related to its broader coverage of dynamical regimes (as shown in \citep{izhikevich2003simple}).
-To test this, I asked how many of these dozens of regimes were ``occupied" by the optimization solutions obtained here.
-Specific optimization results (Section \ref{sec:appendix}).
-I developed the izhikevich model, such that regime type was an explicit integer model parameter. Numbers 3-7 encoded regime types 1-7, where regimes 1,2,3 follow identical governing equations and so do not require unique numeric identifiers.
-show that all but one of these regimes were occupied except for one associated with the activity of a dorsal LGN thalamocortical cell.
+Consider two sets of features: {RheobaseTest, TimeConstantTest, RestingPotentialTest, InputResistanceTest} or {RheobaseTest, FITest}. If you consider only the Allen Cell Types data (all cortical neurons), with these two sets of features, the GLIF model is associated with $\chi^{2}=1.0$; however, if you consider other neurons (and tests), the mean $\chi^{2}$ value jumps to $364.2$. The GLIF model was able to recapitulate the FI curve slope exactly; however, this caused conflicts with the ability to fit the time constant and rheobase. Even when the GLIF model was able to optimize cells to be within a biologically plausible range, simulation was slow and the quality of fits was not astounding. It is unclear why anyone would choose to use this model outside of a very narrow range of applications.
+
+Why did the Izhikevich model perform best? I hypothesized that this was related to its broader coverage of dynamical regimes (as shown in \citep{izhikevich2003simple}).
+To test this, I asked how many of these dozens of regimes were ``occupied" by the optimization solutions obtained here. Specific optimization results (Section \ref{sec:appendix}). I developed the Izhikevich model, such that regime type was an explicit integer model parameter. Numbers 3-7 encoded regime types 1-7, where regimes 1,2,3 follow identical governing equations and so do not require unique numeric identifiers. I show that all but one of these regimes were occupied except for one associated with the activity of a dorsal LGN thalamocortical cell.
 The ones associated with a barrel cortex low-threshold spiking (LTS) interneuron and a Layer 5 visual cortex fast-spiking (FS) interneuron were occupied the most often. 
 %Regimes $1-3$ in this case representing the "regular-spiking" regime. A little surprisingly the regimes $1-3$ were only used in one fit Allen specimen $id-623960880$.
 
@@ -98,9 +68,9 @@ An example of parameter boundaries from the literature is shown in Figure \ref{f
 \begin{figure}
     \centering
     \includegraphics[scale=0.65]{figures/cliff.png}
-    \caption[A plot of a cliff ledge framing a 2D error surface]{\textbf{Parameter boundaries can frame the search space}.
+    \caption[A Plot of a Cliff Ledge Framing a 2D Error Surface]{\textbf{Parameter Boundaries Can Frame the Search Space.}
 This error surface plot (from \cite{van2007neurofitter,van2008automated})
-shows how the model/data agreement varies as two conductances from a biophysically-realistic conductance-based model are varied.
+shows how model/data agreement varies as two conductances from a biophysically-realistic conductance-based model are varied.
 The large error values for $Na<2$ and $Kdr<2$ suggest that the decision not to search below the value 1 for either of these parameter was reasonable.
 Similar grid searches could help to justify the parameter boundaries for optimization problems, provided that they can be conducted at low computational cost relative to optimization itself.}
     \label{fig:best_at_edge}

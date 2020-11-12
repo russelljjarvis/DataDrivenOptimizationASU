@@ -6,13 +6,11 @@ This is especially obvious when the feature distribution is multi-modal (such as
 
 \begin{figure}
 \begin{center}
-
 \includegraphics[scale=0.65]{figures/eve_marder.png}
 \end{center}
-\caption[Lessons from Marder]{As shown in \cite{marder2011multiple}, when neurons of a given type are distributed through parameter space, the mean of these parameters across neurons (red cross) is at a separate location from the model one would obtain by using different neurons to contrain different parameters (blue triangle).}
+\caption[Lessons from Marder]{\textbf{Lessons from Marder.} As shown in \cite{marder2011multiple}, when neurons of a given type are distributed through parameter space, the mean of these parameters across neurons (red cross) is at a separate location from the model one would obtain by using different neurons to contrain different parameters (blue triangle).}
 \label{fig:eve_marder}
 \end{figure}
-
 
 Previously in the Methods (Section \ref{sec:neuroelectro}), we showed that some feature distributions are bimodal.
 Consider a cell type which had an underlying bimodal distribution for input resistance, with a mean exactly between the two modes.
@@ -40,7 +38,7 @@ While some of the differences between the two parameter sets may look small, thi
 \begin{figure}
 \begin{center}
 \includegraphics[]{figures/polar_coordinates.png}
-\caption[Mean of Random Models]{\textbf{Construction of a mean model.}
+\caption[Mean of Random Models]{\textbf{Construction of a Model from the Mean.}
 Two random AdEx models (yellow and purple traces) are drawn from multivariate uniformly distributed random number generators.
 The mean model (red trace) is defined as the location in parameter space exactly in between the two random models in every dimension.
 Logarithms and absolute values are used to scale the radial dimension for clarity.}
@@ -82,7 +80,7 @@ If $\alpha>1$, then the mean model produces entirely new feature values that wou
 \begin{figure}
     \centering
     \includegraphics{figures/model_differences.png}
-    \caption[Example of Mean Model vs Mean Feature Disagreement]{Similar to Figure \ref{fig:mean-model-3}, but now showing several disagreements, between mean model and mean feature value (in Capacitance, Time Constant, and AP Amplitude).}
+    \caption[Example of Mean Model vs Mean Feature Disagreement]{\textbf{Example of Mean Model vs Mean Feature Disagreement.} Similar to Figure \ref{fig:mean-model-3}, but now showing several disagreements, between mean model and mean feature value (in Capacitance, Time Constant, and AP Amplitude).}
     \label{fig:mean-model-4}
 \end{figure}
 
@@ -92,7 +90,7 @@ Therefore any model optimized against the mean feature value across neuron canno
 \begin{figure}
     \centering
     \includegraphics{figures/mean_model_vs_mean_measurement.png}
-    \caption[Mean Model vs Mean Features for AdEx]{For 100 pairs of randomly sampled AdEx models, I computed the index $\alpha$ of mean model vs mean feature agreement, defined (see text) such that a value of 0.5 indicates that the mean model produces features identical to those obtained by simply averaging feature values produced by the original models.
+    \caption[Mean Model vs Mean Features for AdEx]{\textbf{Mean Model vs Mean Features for AdEx Model.} For 100 pairs of randomly sampled AdEx models, I computed the index $\alpha$ of mean model vs mean feature agreement, defined (see text) such that a value of 0.5 indicates that the mean model produces features identical to those obtained by simply averaging feature values produced by the original models.
     The mode lies at $~0.5$, but density in other regions indicates that many mean models do not agree with the mean feature value.}
     \label{fig:mean-model-1}
 \end{figure}
@@ -100,7 +98,7 @@ Therefore any model optimized against the mean feature value across neuron canno
 \begin{figure}
     \centering
     \includegraphics{figures/reproduced_izhi.png}
-    \caption[Mean Model vs Mean Features for Izhikevich]{Same as Figure \ref{fig:mean-model-1}, but for the Izhikevich model.}
+    \caption[Mean Model vs Mean Features for Izhikevich]{\textbf{Mean Model vs Mean Features for the Izhikevich Model.} Same as Figure \ref{fig:mean-model-1}, but for the Izhikevich model.}
     \label{fig:mean-model-2}
 \end{figure}
 
@@ -126,7 +124,7 @@ This discrepancy appears more common in the Izhikevich model than in the AdEx mo
 %Although the peak identified in Figure \ref{fig:mean-model-2} looks taller in absolute size compared to Figure \ref{fig:mean-model-1}, the scale along the y-axis is different.
 %Figure \ref{fig:mean-model-1} exhibits more histogram counts at 0.5, i.e. the mean model was more likely to exhibit features very similar to the mean features of the two models.
 
-In conclusion, it is not safe to assume that the parameters space and the feature space are isomorphic, and thus fitting models to the mean feature values for a distribution of neurons is a dangerous exercise even if the data themselves are normal-like.
+In conclusion, it is not safe to assume that the parameters space and the feature space are isomorphic, and thus fitting models to the mean feature values for a distribution of neurons is a dangerous exercise even if the data are normal-like.
 
 %\begin{figure}
 %    \centering

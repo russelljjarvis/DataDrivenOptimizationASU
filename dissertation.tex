@@ -1,4 +1,57 @@
+
+
+%%
+% Formatting changes
+%%
+
+%The Graduate College Format Team has reviewed your document and provided feedback. All feedback is based on compliance with the ASU Format Manual (https://graduate.asu.edu/format-manual). Please see the list below for needed revisions:
+
+%1. On title page please only have one line between title and by-line, and by-line and your name. See format manual page 5 for guidance.
+
+%2. On title page please list both Sharon Crook and Rick Gerkin as Co-Chair, as this is how they appear in your iPOS. If this is incorrect, you must make all committee changes BEFORE your defense.
+
+%3. Please reformat page numbers to comport with the format manual. E.g., ABSTRACT should begin with page i, not 
+
+%2. Update table of contents after you revise all page numbers. See the format manual for instruction on how pages should be numbered.
+
+%4. Please add ABSTRACT section header.
+
+%5. Please remove colored boxes, e.g., red boxes in table of contents.
+
+%6. In TABLE OF CONTENTS please use all caps for chapter titles.
+
+%7. In TABLE OF CONTENTS please use title case for all chapter subheadings and sub-subheadings. For help with title case you can go to titlecase.com.
+
+%8. In TABLE OF CONTENTS please list APPENDICES or delete item if there are no appendices.
+
+%9. In LIST OF TABLES please ensure all captions/subheadings are in title case.
+
+%10. In LIST OF FIGUES please move Figure/Page to above listed items.
+
+%11. In LIST OF FIGURES please ensure all captions/subheadings are in title case.
+
+%12. Chapter 1 should begin with page 1. Update table of contents after this revision.
+
+%If applicable, you may wait until after your defense has been held to resubmit. Please be mindful of Graduate College deadlines, available at graduate.asu.edu.
+
+%It is important that students do not %assume the modifications we have listed %are the only items that should be %addressed. Please go through the entire %document to ensure the items we have %listed do not occur elsewhere in your %paper. In addition, please also make %sure any modifications made to the %document do not shift other sections or %any tables/images/figures that the %document may have.
+
+%Once you have made the above changes, as %well as any modifications your committee %may require, please resubmit your %document in Microsoft Word or PDF form %to your IPOS for further review. You %will be notified via email when it has %been completed. Please note that format %review should not be your sole resource %for revisions. It is the students %responsibility to ensure that their %document is in accordance with the %requirements and guidelines set by %Graduate College.
+
+%Please note that we may not approve the %document for ProQuest until Graduate %College has received your final %Pass/Fail form.
+
+%If you have further questions regarding %format, please refer to the ASU Graduate %College Format Manual at %https://graduate.asu.edu/current-student%s/completing-your-degree/formatting-your%-thesis-or-dissertation/asu-graduate-col%lege. If you have any additional %questions that are not addressed in the %format manual, please email %gradformat@asu.edu.  
+
+%Regards,
+
+%Format Review Team
+%Graduate College
+
+
+
 \documentclass[10pt]{report}
+\usepackage[hidelinks]{hyperref}
+
 \usepackage{fontspec}
 \setmainfont{Arial}
 \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
@@ -40,6 +93,9 @@
 \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
 \usepackage{upquote} % Upright quotes for verbatim code
 \usepackage{xcolor} % Allow colors to be defined
+% \pagenumbering{roman}
+
+
 
 % Hack from http://tex.stackexchange.com/a/47451/13684:
 \AtBeginDocument{%
@@ -47,7 +103,9 @@
 }
 
 \begin{document}
-\pagenumbering{arabic}
+%\pagenumbering{arabic}
+\pagenumbering{roman}
+
 \title{Neuronal Deep Fakes: Data-Driven Optimization of Reduced Neuronal Models}
 \author{Russell Jarrod Jarvis}
 \degreeName{Doctor of Philosophy}
@@ -55,13 +113,15 @@
 \defensemonth{November}
 \gradmonth{December}
 \gradyear{2020}
-\chair{Sharon Crook}
-\memberOne{Rick Gerkin, co-Chair}
-\memberTwo{Yi Zhou}
-\memberThree{James Abbas}
-\memberFour{ }
+%\chair{Sharon Crook, co-Chair}
+\memberOne{Sharon Crook, co-Chair}
+%\memberOne{}
+\memberTwo{Rick Gerkin, co-Chair}
+\memberThree{Yi Zhou}
+\memberFour{James Abbas}
 
 \maketitle
+
 \include{chapters/abstract}
 \dedicationpage{\input{chapters/acknowledgements}}
 \include{ack}
@@ -86,6 +146,10 @@
 \include{chapters/results}
 \include{chapters/discussion}
 \include{chapters/appendix}
+
+
+\let\mtcontentsname\contentsname
+\renewcommand\contentsname{\MakeUppercase\mtcontentsname}
 
 {\singlespace
 \addcontentsline{toc}{part}{REFERENCES}

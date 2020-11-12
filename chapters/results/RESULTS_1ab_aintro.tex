@@ -21,7 +21,7 @@ In general, however, these reduced models may have been developed with smaller, 
 Feature values extracted from multiple data sets appeared to be in conflict for some cell types.
 For example in the section below I show that the rheobase value was often incompatible with some passive electrophysiological feature values, such that good optimization could be achieved with one set or the other, but not both together.
 
-\subsubsection{Tradeoff Patterns in Data Driven  Tests in Sub and at Threshold Electrical Properties}
+\subsubsection{Tradeoff Patterns in Data-driven Tests in Subtheshold and at Threshold Electrical Properties}
 \label{sec:rh_incomp}
 Using data from the Allen Cell Types neuron with ID $471819401$,
 I was able to optimize both AdEx and Izhkevich models, such that both models would agree with rheobase, time constant, resting membrane potential, and input resistance, experimental values. Some tradeoffs were needed in order match all of the values, as these features could not all be perfectly matched at once.
@@ -93,6 +93,8 @@ InputResistanceTest  &  132.0 $M\Omega$ &  25.47 $M\Omega$ &     0.74 \\
 %\end{tabular}
 %\end{center}
 %\end{table}
+
+
 %\begin{table}
 \subsubsection{6239608801 AdEx}
 The need to match the rheobase appeared to be interfering with the ability of the optimizers to match many other features.
