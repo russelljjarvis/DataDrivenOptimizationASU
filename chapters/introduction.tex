@@ -2,9 +2,10 @@
 
 
 
+\pagenumbering{arabic}
 
-\chapter{Introduction}
-\section{Why model the brain?}
+\chapter{INTRODUCTION}
+\section{Why Model the Brain?}
 Diseases of the brain are very widespread and cost world governments a significant amount of money \citep{who}.
 The 2015 Global Burden of Disease study estimates that about a third of the population worldwide is affected by mental or neurological disorders across their lifespans.
 Disorders of the brain rank among the leading causes of ill-health and disability and account for 35\% of Europe’s total disease burden with a yearly cost of 800 billion euros, of which 60\% are related to direct health care and non-medical costs \citep{who}. 
@@ -160,22 +161,24 @@ The 3D structure of biological cells is reduced to a point onto which currents i
 %\Theta v (t+) \leftarrow \Theta v(t-) 
 %\end{equation}
 
-%\subsection{Adaptive Exponential Integrate and Fire Model}
+\subsection{Adaptive Exponential Integrate and Fire Model}
 %\begin{displaymath}
 % C\frac{dV}{dt}=-g_{L}(V-E_{L})+
 %g_{L} \Delta Texp(V-V_{T} \Delta T)-w+I 
 %\tau_{w}\frac{dw}{dt} = a(V-E_{L})-w 
 %\end{displaymath}
+
+
 The Adaptive Exponential (AdExp) IF model \citep{brette2005adaptive}, is another type of reduced neural model
-The AdExp model is a special instance of leaky integrate and Fire model. The AdEx model most often appears with an exponential spike shape.
+The AdExp model is a special instance of leaky integrate and Fire model. The AdEx model most often appears with an exponential spike shape. For a full derivation of the adaptive exponential model see the publication: \cite{brette2005adaptive}
 % I think rising phase is caused by exponential term. In Izhikevich its quadratic.
-This model's instantaneous spiking rate is calculated by consulting the recent spike history in a finite time "window". 
-Adaptation is achieved by looking back into the window and counting the number of spikes that occurred in the previous $10ms$, for example. 
+This model's instantaneous spiking rate is calculated by consulting the recent spike history in a time ``window". 
+Adaptation is achieved by looking back into the window and counting the number of spikes that occurred in the previous $10ms$, for example, the instantaneous value of firing frequency is able to reflect adaptation or slowing of firing frequency as observed in-vitro. 
 
 \subsubsection{Izhikevich Model}
 One existing family of neuron models, often referred to as the Izhikevich model \citep{izhikevich2003simple}, was published with parameter sets believed to produce model outputs that accurately align with a variety of outputs from experimentally derived neuron data.
 Is it possible to choose parameters for the Izhikevich model that allow the electrophysiological behavior of any neuron to be capture?.
-The original formulation of that model involves the integration of a quadratic function:
+The original formulation of that model involves the integration of a quadratic function. For the derivation of the Izhikevich equation see the publication: \cite{izhikevich2003simple}
 
 %\begin{displaymath}
 %\frac{dv}{dt}=0.04v^{2}+5v+140-u+I
@@ -188,7 +191,7 @@ The original formulation of that model involves the integration of a quadratic f
 % Flagged by Jimmy.
 %%%
  
-An alternative, more versatile implementations (as used here) includes additional parameters, for example allowing the coefficients in the quadratic to vary.
+An alternative, more versatile implementation (which is used here) includes additional parameters. The additional parameters allows the coefficients in the quadratic to vary.
 
 The Izhikevich model and the AdEx model are both related to simple Integrate and Fire model.
 The Izhikevich model accounts for the change in membrane potential, $\frac{dV_{M}}{dt}$, in response to and externally supplied current (e.g. from a patch pipette or a synaptic current), the membrane capacitance, and internal cellular mechanisms that are abstracted away.
@@ -308,14 +311,14 @@ The number of chromosomes (model instantiations) in each generation is typically
 The remainder are often chosen from the fittest, i.e. lowest error, members of generation $n$, a strategy known as elitism.
 The degree of elitism essentially controls the amount of evolution that is allowed to occur in each generation.
 
-\subsection{Multi-objective optimization} 
+\subsection{Multi-objective Optimization} 
 Multi-objective optimization problems are a subset of optimization problems.
 In a multi-objective optimization, model fitness is evaluated using multiple ``objective functions" of model fitness, each contributing either independently or in conjunction to the error surface.
 Each function may ask a different question about the model; for example, one may ask how well the model reproduces the shapes of action potentials, and another function may ask how well the model reproduces the counts of action potentials.
 The output of each such function is a scalar, with a lower values representing greater model/data agreement, i.e. lower error.
 These functions are sometimes called constraints. 
 
-\subsubsection{Weighted optimization} 
+\subsubsection{Weighted Optimization} 
 A simple strategy is to turn a multi-objective optimization problem into a single objective optimization problem, for example by summing the outputs of objective functions together. 
 This is an common strategy, but this approach comes with a significant price.
 Optimization using a sum over multiple error measurements leads to a situation where a single constraint has an especially deep error surface, such that the gradient of the overall summed error surface is dominated by that single constraint.
@@ -325,7 +328,7 @@ This problem can in principle be ameliorated by re-scaling the objective functio
 
 \subsubsection{Non-dominated Sort} 
 A less appreciated but perhaps more important drawback to collapsing multiple objectives to a single one is that it imposes an opinion about the relative importance of each objective.
-However, while there may underlying ``true values" for measured biological variables, there is no underlying truth about which variables are more important than others.
+However, while there may be underlying ``true values" for measured biological variables, there is no underlying truth about which variables are more important than others.
 In problems where not all measurements can be perfectly replicated by models (in part because the models are simplifications of biology), this problem becomes even more pressing.
 The experimental data may also come from multiple data sources, leading to solutions for a single objective that reflect the diversity of the underlying system (e.g. physiological diversity of neurons of a given type), which is lost with the collapse to a single objective.
 
@@ -392,7 +395,7 @@ NEURON focuses on efficient simulation of multi-compartmental models, while Neur
 However, neither tool was designed with the optimization of reduced models in mind.
 In optimization, the same model may be re-executed hundreds of thousands of times (with different parameter sets), so any computational overhead (for example, associated with reading/writing a file) is quite costly.  
 There are other tools that may result in faster optimizations, but as I show here, even these are not optimally fast.
-Consequently, it is best to think of tools like NEURON and NeuroML has useful for running and sharing optimized models, but not necessarily useful for the optimization process.  
+Consequently, it is best to think of tools like NEURON and NeuroML as useful for running and sharing optimized models, but not necessarily useful for the optimization process.  
 
 \section{Analysis of Model and Experimental Variance}
 It is common to observe large variations in measurements of a single electrophysiological entity from neurons of the same classification \citep{tripathy2014neuroelectro}.

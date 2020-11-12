@@ -57,7 +57,7 @@ I compute a p-value by comparing the observed $chi^2$ statistic to the cumulativ
 If this p-value is small (e.g. $<0.05$), that can serve as evidence to reject the null hypothesis, indicating that the optimized model did not ``fit in" well with the observed biological data.
 In contrast, failure to reject the null hypothesis would suggests that the optimized model was somewhat convincing in its mimicry of a biological neuron, for the features in question.
 
-\subsection{Mechanics of Optimization using NeuronUnit}
+\subsection{Mechanics of Optimization Using NeuronUnit}
 Here I will describe how I generate these scores concurrently for many parameterizations of the same model and how they guide the optimization path.
 I created two different optimization code bases based on the DEAP Python package for genetic optimization \citep{DEAP_JMLR2012}, one that relied on DEAP directly, and one that relied on the BluePyOpt package produced by The Human Brain Project \citep{bluepyopt} (These have since been merged together), in order to achieve optimization using NeuronUnit.
 A few key modules are essential to both approaches.

@@ -18,7 +18,7 @@
 
 
 \subsection{Experiment Fitted Model Results on Reported Data Types} 
-Because some features derived from the data were incompatible or unreliable, it was necessary to created additional NeuronUnit tests from other feature extraction libraries, as described in the Methods.
+Because some features derived from the data were incompatible or unreliable, it was necessary to create additional NeuronUnit tests from other feature extraction libraries, as described in the Methods.
 We used data from four different distinct cell types with data obtained from NeuroElectro and four different single cortical cells from the Allen Cell Types database, for a total of eight sets of feature data to optimize.
 We then optimized against this data using a suite of nine NeuronUnit tests. Additionally, to explore if FITests, and Rheobase fitted better on their own, an additional four non-unique test sets where also created. The entire set of tests is presented in tabular form (\ref{table:tests_derived_from_reports}). See \ref{sec:allen_report_data} in the Appendix for the URLS for the data sources.
 
@@ -70,7 +70,7 @@ FITest                         &                            NaN &               
 \end{tabular}}
 \caption[Reported Cell Features]{Reported Cell Features for 12 cells.
 The first 4 are taken from NeuroElectro and the remaining 8 from the Allen Cell Types database.
-Missing values are encoded as ``NaN".}
+Unreported data values are encoded as ``NaN".}
 \label{table:tests_derived_from_reports}
 \end{table}
 
@@ -101,7 +101,7 @@ Model Type & Experimental Data ID & $\chi^{2}$ & p-value  \\
         IZHI &      Hippocampus CA1 pyramidal cell &     1.273070 &  9.958661e-01 \\
 \bottomrule
 \end{tabular}}
-\caption[Fit quality for AdEx and Izhikevich models]{Fit quality for two model types optimized against the data in Table \ref{table:tests_derived_from_reports}.
+\caption[Fit Quality for AdEx and Izhikevich Models]{Fit quality for two model types optimized against the data in Table \ref{table:tests_derived_from_reports}.
 Lower $\chi^2$ and higher p-value represents a better fit.
 p-values > 0.05 lack evidence to reject the null hypothesis that the optimized model comes from the same distribution as the experimental data.
 p=1 indicates perfects agreement between the optimized model and the experimental data on all measured features.}
@@ -128,7 +128,7 @@ p=1 indicates perfects agreement between the optimized model and the experimenta
       ADEXP &      Hippocampus CA1 pyramidal cell &     0.735616 &  9.994308e-01 \\
 \bottomrule
 \end{tabular}}
-\caption[Fit quality for AdEx models]{Same as Table \ref{tab:main_chi2-izhi}, but for AdEx models.}
+\caption[Fit Quality for AdEx models]{Same as Table \ref{tab:main_chi2-izhi}, but for AdEx models.}
 \label{tab:main_chi2-adex}
 \end{table}
 
@@ -150,7 +150,7 @@ conductance model & 6238931771 & 1.441259 & 0.993641 \\
 \bottomrule
 \end{tabular} 
 }
-\caption[Fit quality for Condutance-Based models]{Same as Table \ref{tab:main_chi2-izhi}, but for a single-compartment conductance-based model.}
+\caption[Fit Quality for Condutance-Based Models]{Same as Table \ref{tab:main_chi2-izhi}, but for a single-compartment conductance-based model.}
 \label{tab:HH_chi2}
 \end{table}
 
@@ -165,9 +165,9 @@ This is exactly the result one would expect from successful optimization.
 
 \subsection{Sources of Optimization Failures}
 When optimization was not successful, was this due to a fundamental inability of a given reduced model to represent the behavior of a given neuron type?
-In order to make this claim, I must first had to rule out alternative possibilities.
+In order to make this claim, I first had to rule out alternative possibilities.
 
-\subsubsection{Distributions Not Well-summarized by the Mean}
+\subsubsection{Distributions not Well-summarized by the Mean}
 The optimizer fits to the mean of a feature value, but as shown in section \ref{sec:neuroelectro}, the mean value of a feature is in some cases a misleading summary of the typical values.
 For example, the olfactory bulb Mitral cell exhibited bi-modal feature distributions (possibly due to lumping with the Tufted cell, a distinction that may not have been appreciated when the data was originally collected).
 Beyond that, the Neuroelectro data reflects a mean over different laboratories, animals, and recording epochs. The mean of a population can often be a robust summary, however there are circumstances when this is not true.
@@ -197,7 +197,7 @@ Neocortex pyramidal cell layer 5-6 &    128.87 &            1.92 &            0.
 \bottomrule
 \end{tabular}
 }
-\caption[Standard Error of the Mean across NeuroElectro Data Sources]{The standard error of the mean (SEM) described the uncertainty that the sample mean value of a feature (across neurons) is close to the population mean.
+\caption[Standard Error of the Mean Across NeuroElectro Data Sources]{The standard error of the mean (SEM) described the uncertainty that the sample mean value of a feature (across neurons) is close to the population mean.
 The SEM values describe that uncertainty for the sample means of various features for each of 4 cell types in NeuroElectro.}
 \label{table:neuroelectro-sem}
 \end{table}

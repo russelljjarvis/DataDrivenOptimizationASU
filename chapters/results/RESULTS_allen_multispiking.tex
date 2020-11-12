@@ -34,8 +34,7 @@ min-voltage-between-spikes & The minimum voltage between spike in $V_{M}$, while
 Spikecount & Number of spikes observed in model, given appropriate AP \\
 \bottomrule
     \end{tabular}}
-    \caption[Suprathreshold Features Used for Single Neuron Model Fits]{\textbf{Suprathreshold Features Used for Single Neuron Model Fits.}
-    These 14 features were identified from \cite{EFEL} as useful for fitting single neuron models for which responses to suprathreshold stimuli were available.
+    \caption[Suprathreshold Features Used for Single Neuron Model Fits]{These 14 features were identified from \cite{EFEL} as useful for fitting single neuron models for which responses to suprathreshold stimuli were available.
     Unlike the features used in NeuroElectro, these features can distinguish between different temporal patterns of spiking.
     Special care was taken to minimize the impact of AHP depth and Minimum Voltage between spikes, as reduced models struggle to match these due to inherently impoverished dynamics.}
     \label{tab:single-neuron-constraints}
@@ -82,7 +81,7 @@ The AdEx model is somewhat better at matching spike times than the Izhikevich mo
 \begin{figure}
     \centering
     \includegraphics[scale=0.75]{figures/bbp_multispiking_fit.png}
-    \caption[Optimized AdEx model from BBP]{\textbf{AdEx model optimized against BBP data}. An Adaptive Exponential (AdEx) model was optimized to both the spike times and shapes from a single neuron in the Blue Brain Project (BBP) Microcircuit Portal data (taken from animal ID B95).
+    \caption[Optimized AdEx model From BBP]{An Adaptive Exponential (AdEx) model was optimized to both the spike times and shapes from a single neuron in the Blue Brain Project (BBP) Microcircuit Portal data (taken from animal ID B95).
     The real biological neuron is the orange trace, and the simulated trace is shown in blue.
     %\url{http://microcircuits.epfl.ch/#/animal/8ecde7d1-b2d2-11e4-b949-6003088da632}
     While there as some ``misses" in the subthreshold behavior in between spikes, and in the amplitudes of the spikes, due to fundamental limitations in the dynamics of the model, the basic pattern of spiking is successfully recapitulated.}
@@ -92,7 +91,7 @@ The AdEx model is somewhat better at matching spike times than the Izhikevich mo
 \begin{figure}
     \centering
     \includegraphics{figures/IZHI_B95.png}
-    \caption[Optimized Izhikevich Model from BBP]{\textbf{Izhikevich Model Optimized against BBP Data}. Similar to Fig. \ref{fig:B95Adexp}, but instead using an Izhikevich model.
+    \caption[Optimized Izhikevich Model from BBP]{ Similar to Fig. \ref{fig:B95Adexp}, but instead using an Izhikevich model.
     Here optimisation is a bit worse, but not poorer than the best out-of-sample predictions of spike timing from previous efforts.}
     \label{fig:B95_IZHI}
 \end{figure}
@@ -106,8 +105,7 @@ The same optimized model was also capable of reproducing the patterns of spikes 
 \begin{figure}
     \centering
     \includegraphics[scale=1]{figures/adexp_fit_allen_spec_id_476053392.png}
-    \caption[Optimized AdEx Model from Allen Cell Types (A)]{\textbf{AdEx Model Optimized against Allen Cell Types Data}.
-    An AdEx Model was fitted to suprathreshold responses from Allen Cell Types cell id 476053392.
+    \caption[Optimized AdEx Model from Allen Cell Types (A)]{An AdEx Model was fitted to suprathreshold responses from Allen Cell Types cell id 476053392.
     The optimized model matches the spikes times of the experimental data in response to the same stimulus.}
     \label{fig:specimen_476053392_A}
 \end{figure}
@@ -115,7 +113,7 @@ The same optimized model was also capable of reproducing the patterns of spikes 
 \begin{figure}
     \centering
     \includegraphics[scale=1]{figures/28spikesB95}
-    \caption[Optimized AdEx Model from Allen Cell Types (B)]{\textbf{Optimized AdEx Model from Allen Cell Types (B).} Same as above, but for a somatic current injection of larger magnitude.}
+    \caption[Optimized AdEx Model From Allen Cell Types (B)]{\textbf{Optimized AdEx Model from Allen Cell Types (B).} Same as above, but for a somatic current injection of larger magnitude.}
     \label{fig:specimen_476053392_B}
 \end{figure}
 

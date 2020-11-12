@@ -62,7 +62,8 @@ NSGA2 is a fundamentally conservative and short-range approach to evolution, so 
 Unlike NSGA2, IBEA was less sensitive to such defects, and required a lower SNR to converge rapidly. 
 
 However, in any algorithm as the optimum is approached, the rate of mutation must slow down to enable efficient short-range exploitation of the peri-optimum region.
-one should not expect to see evidence of efficient-learning. In later stages of This is precisely the phase when the optimizer will be more sensitive to small amplitude corrugations, which become large relative to the small gains to by moving between, say, a parameter set $1\%$ away from the optimum and the optimum itself.
+one should not expect to see evidence of efficient-learning. In later phase of learning when the optimizer will be more sensitive to small amplitude corrugations, which become large relative to the smaller improvements of error.
+%to by moving between, say, a parameter set $1\%$ away from the optimum and the optimum itself.
 
 The multiobjective function is derived from the objective functions associated with each feature used in optimization.
 As such, the multiobjective function will be more corrugated if more of the component objective functions are corrugated.
@@ -216,7 +217,7 @@ Another approach is to dispense with the rheobase entirely, and simply test usin
 This seems extremely direct, but it in some cases it fails to explore the most interesting peri-threshold portion of the F-I curve, where the dynamics of single spikes contain a great deal of information about peri-threshold dynamics.
 For example, an after-hyperpolarization that is visible after single spike at rheobase may become completely swamped by the combination of inward pipette current and sodium current at values of injected current that are high above threshold.
 
-\subsection{Does a Genetic Algorithm adequately Report the Contours of the Error Surface?}
+\subsection{Does a Genetic Algorithm Adequately Report the Contours of the Error Surface?}
 The error surface is vast, corresponding to all possible combinations of parameters at infinite resolution.
 Naturally, this is only sparsely and strategically sampled.
 Consequently there is no guarantee that it is has been adequately explored, and that lower error parameter sets do not exist somewhere that the optimizer did not adequately explore.
@@ -294,7 +295,7 @@ However, successful optimization may benefit from periodic exhaustive, local gri
 %Case1 + RheobaseTest,
 %\end{verbatim}
 
-\section{Satisficing vs Optimizing}
+\section{Satisficing Versus Optimizing}
 %Genetic algorithms are favorable because they provide a good solution to the exploration/exploitation trade-off.
 Unless hunting for a new prime number, few are willing to run compute jobs lasting for months, thus there are steeply limited budgets for exploring solution spaces. It therefore seems prudent to accept solutions which are are not optimal but are ``good enough", especially if these solutions can be obtained in a small fraction of the time.
 Not all real neurons, even of the same nominal type, have identical properties, so perhaps we should embrace such variability in optimization results as well.

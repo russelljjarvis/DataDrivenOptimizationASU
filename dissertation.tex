@@ -131,13 +131,14 @@
 \addcontentsline{toc}{part}{LIST OF TABLES}
 \renewcommand{\cftlabel}{Table}
 \listoftables
-\addtocontents{lot}{Table~\hfill Page \par}
+%\addtocontents{lot}{Table~\hfill Page \par}
 \newpage
 \addcontentsline{toc}{part}{LIST OF FIGURES}
-\addtocontents{toc}{CHAPTER \par}
-\renewcommand{\cftlabel}{Figure}
 \listoffigures
-\addtocontents{lof}{Figure~\hfill Page \par}
+
+%\addtocontents{toc}{CHAPTER \par}
+%\renewcommand{\cftlabel}{Figure}
+%\addtocontents{lof}{Figure~\hfill Page \par}
 \setcounter{secnumdepth}{5}
 \allsectionsfont{\raggedright}
 
@@ -158,7 +159,7 @@
 
 \renewcommand{\chaptername}{APPENDIX}
 \addtocontents{toc}{APPENDIX \par}
-\appendix
-\include{appendix1}
+%\appendix
+%\include{appendix1}
 \include{vita}
 \end{document}

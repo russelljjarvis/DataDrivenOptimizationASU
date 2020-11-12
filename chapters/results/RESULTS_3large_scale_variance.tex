@@ -56,7 +56,7 @@ Ultimately, 47 features were used for the subsequent analysis (out of a total of
 \begin{figure}
     \begin{center}
     \includegraphics[width=0.6\linewidth]{figures/multi_spiking_large_allen}
-    \caption[Example from Cell Types Database]{\textbf{Example data from the Allen Cell Types database}.
+    \caption[Example From Cell Types Database]{\textbf{Example data from the Allen Cell Types database}.
     Response of a real cortical cell to a supra-threshold stimulus in the Allen Brain Institute cell types data base \citep{gouwens2018systematic}.}
     \label{fig:adaptionm}
     \end{center}
@@ -65,7 +65,7 @@ Ultimately, 47 features were used for the subsequent analysis (out of a total of
 \begin{figure}  
     \begin{center}
     \includegraphics[width=0.6\linewidth]{figures/multi_spiking_large_bbp}
-    \caption[Example from BBP]{\textbf{Example data from the Allen Cell Types database}.
+    \caption[Example From BBP]{\textbf{Example Data From the Allen Cell Types database}.
     Response of a real cortical cell to a supra-threshold stimulus in the Blue Brain Microcircuit Portal \citep{toledo}.}
     \label{fig:bbp_trace_adaption_late_spike}
     \end{center}
@@ -138,7 +138,7 @@ min-AHP-indices & Indexs into array where minimum After Hyperpolarisation occur 
 \bottomrule
 \end{tabular}
 }
-\caption[Features of first principal component in sparse PCA]{\textbf{Sparse PCA Component 1}.
+\caption[Features of First Principal Component in Sparse PCA]{
 I identified the features associated with principal component 1 in the sparse PCA decomposition shown in Figure \ref{fig:spca-heatmap}.
 These features explained $\frac{1}{3}$ of all of the variance (across models and data together), and were mainly associated with the timing of spikes and spike-associated events.
 Notably, this principal component was not useful for separate models from experimental data.}
@@ -161,7 +161,7 @@ upstroke-index & Index into array when first upward phase of a spike commences &
 threshold-index & Index into array when threshold(s) are surpassed & Allen & $3.0 \times$ Rheobase \\
 \bottomrule
 \end{tabular}}
-\caption[Features of second principal component in sparse PCA]{\textbf{Sparse PCA Component 2}.
+\caption[Features of Second Principal Component in Sparse PCA]{
 The second principal component from the sparse PCA of Figure \ref{fig:spca-heatmap} contained features which describe spike shape.
 Here, ``index" describes the location in the array of the extracted spike where an event occurs, thus it is relative to the timing of the spike itself, not to the timing of the stimulus.
 These features contributed to the separation of models from experimental data.}
@@ -205,8 +205,7 @@ This suggests that the Allen SDK might be nearly sufficient for both characteriz
 \begin{center} \includegraphics[width=1.0\linewidth]{figures/cortical_model_data_agreement_52_1}
 \label{fig:}
 \end{center}
-\caption[Sparse PCA Clusters and Variance Explained]{\textbf{Sparse PCA Clusters and Variance Explained}.
-Left panel: Sparse PCA could explain $\sim95\%$ of the variance in the ensemble of model and experimental data features using $\sim15$ components, but the first two were sufficient to explain $\sim50\%$ of the variance.
+\caption[Sparse PCA Clusters and Variance Explained]{Left panel: Sparse PCA could explain $\sim95\%$ of the variance in the ensemble of model and experimental data features using $\sim15$ components, but the first two were sufficient to explain $\sim50\%$ of the variance.
 Right panel: A cluster analysis revealed revealed three major clusters of feature values.
 Models and experimental data could be distinguished by PC 2.
 Individual dots refer to experiments from the Allen Institute Cell Types database (blue), model published by the Allen Institute (orange), experiments published by the Blue Brain Project (red), and models published by the Blue Brain Project (orange).
@@ -234,7 +233,7 @@ Neuronunits ability to do evaluate a $\chi^{2}$ hypothesis test constitutes a va
 \begin{center} 
 \includegraphics[width=0.5\linewidth]{figures/data_experiment_fits.png}
 \end{center}
-\caption[PCA with Cluster Centers]{\textbf{PCA with Cluster Centers.} Similar Dimensionality reduction to above, but instead PCA is used instead of TSNE, and cluster centers drawn. The purpose of this plot is to introduce the prototype of a validation pathway, although specific data points shown here are spurious.}
+\caption[PCA with Cluster Centers]{ Similar Dimensionality reduction to above, but instead PCA is used instead of TSNE, and cluster centers drawn. The purpose of this plot is to introduce the prototype of a validation pathway, although specific data points shown here are spurious.}
 \label{fig:pca_cluster}
 \end{figure}    
 
@@ -267,7 +266,7 @@ The diversity of feature values in real neurons is simply not being adequately c
 \begin{figure}
     \centering
     \includegraphics[scale=0.5]{figures/fast_trough}
-    \caption[Comparison of Model and Experiment Feature Distributions (A)]{\textbf{Comparison of Model and Experiment Feature Distributions}. The variance of single features across biological neurons (blue) is much greater than that observed in published models.
+    \caption[Comparison of Model and Experiment Feature Distributions (A)]{The variance of single features across biological neurons (blue) is much greater than that observed in published models.
     The feature shown here (fast-trough-index) reflects the latencies of the post-spike trough relative to its peak.
     Biological neurons clearly exhibit a wide range of such latencies, where as models exhibit a narrow range possibly limited by their underlying dynamics.
     }
@@ -277,8 +276,7 @@ The diversity of feature values in real neurons is simply not being adequately c
 \begin{figure}
     \centering
     \includegraphics[scale=0.75]{figures/spike_count_at_3rheobase.png}
-    \caption[Comparison of Model and Experiment Feature Distributions (A)]{\textbf{Comparison of Model and Experiment Feature Distributions}.
-    Unlike Figure \ref{fig:from-poster-disagree}, some features showed comparably wide distributions in model and biological neurons.
+    \caption[Comparison of Model and Experiment Feature Distributions (A)]{Unlike Figure \ref{fig:from-poster-disagree}, some features showed comparably wide distributions in model and biological neurons.
     The distribution of spike counts is similarly skewed in both cases.
     This suggests that, in contrast to spike shapes, reduced models are able to reflect the diversity of overall firing rate statistics seen in biology.
     %The sparse PCA graph is very abstract, it's important to understand that much variance found by the sparse PCA algorithm originates from differences between model distributions and experiment distributions Simple stacked histograms of data are able to show such differences. By "Fast" in fast trough indexs, all that is meant is the beginning time of troughs occurrence, this would contrast with the "slow" or ending time of the spikes. This is arguably a bad naming scheme.
