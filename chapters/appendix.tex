@@ -7,8 +7,6 @@ All of the optimization work newly described here depends on code I developed in
 \item BluepyOpt \url{https://github.com/russelljjarvis/BluePyOpt}
 \item Features \url{https://github.com/russelljjarvis/AllenEFELDruckmanFeatures}
 \item JIT models \url{https://github.com/russelljjarvis/jit_hub}
-
-
 \end{itemize}
 
 \subsection{Complex Models and Streaming Remote Data}
@@ -36,15 +34,15 @@ for data in NeuroMLDB_requests:
 \end{minted}
 \label{code:idiom2}
 
-This idiom was also utilized for complex models that lack neuronunit support.
+This idiom was also utilized for complex models that lack NeuronUnit support.
 In the majority of cases not much is gained by re-implenting complex model simulator code.
 Instead, one can simply source simulated models as if they are being streamed remotely when in fact they coexist in the same python program.
 
 %In order to assess how difference 
 
-\subsection{Analysis of Variarance in Experiments and Models}
-Druckmann 
-\citep{birgiolas2019towards}, \citep{birgiolas2016rapid} \citep{druckmann2007novel}
+%\subsection{Analysis of Variance in Experiments and Models}
+%Druckmann 
+%\citep{birgiolas2019towards}, \citep{birgiolas2016rapid} %\citep{druckmann2007novel}
 
 %\subsection{Allen Experimental Data From Web pages in Ephysiological Report Form}
 %Move to appendix: report form specimen
@@ -102,11 +100,9 @@ Hippocampus CA1 pyramidal cell     &  100.863146 &  0.713266 & -65.220970 & -45.
 \caption[Best Model Fitted Parameters Izhikevich model]{Best Model Fitted Parameters Izhikevich model, the final parameter value, regime number, is a meta parameter that usually modifies $u$ the recovery variable in the Izhikevich equation. Notice too, that it looks like many row elements are duplicated except for differing by '1'. Row elements that are purely numeric denote Allen cell type specimen id's. The extra '1' denotes an easy test set consisting of only FITest, and Rheobase Test.}
 \end{table}
 \clearpage
-\subsubsection{Best Model Fitted Parameters AdEx}
 
 \begin{table}
 \resizebox{\textwidth}{!}{
-
 \begin{tabular}{lrrrrrrrrrrr}
 \toprule
 {} &          cm &    v\_spike &    v\_reset &     v\_rest &      tau\_m &          a &          b &   delta\_T &       tau\_w &   v\_thresh &  spike\_delta \\
@@ -178,8 +174,7 @@ conductance model & 482493761 &  0.036 &  0.99 \\
 \bottomrule
 \end{tabular} 
 }
-
-\caption[Comparable $\chi^{2}$ for optimized results of the conductance based model]{Comparable $\chi^{2}$ for optimized results of the conductance based model. Not all models could be evaluated, as optimization took a long time.}
+\caption[Comparable $\chi^{2}$ for Optimized Results of the Conductance Based Model]{Comparable $\chi^{2}$ for optimized results of the conductance based model. Not all models could be evaluated, as optimization took a long time.}
 \end{table}
 
 \clearpage
@@ -986,6 +981,7 @@ InjectedCurrentAPAmplitudeTest &        71.23 mV &        13.95 mV &    18.99 \\
 InjectedCurrentAPThresholdTest &       -46.89 mV &        -0.76 mV &    24.17 \\
 \bottomrule
 \end{tabular}
+
 \subsubsection{Hippocampus CA1 pyramidal cell GLIF}\begin{tabular}{lr}
 \toprule
 {} &           0 \\
@@ -1001,6 +997,7 @@ p\_value    &    0.000000 \\
 0 &     -0.081522 &  6.466133e-09 &        0.055339 &  0.019979 &     -0.050365 &         42.389787 &  2.341151e+09 &  0.156409 \\
 \bottomrule
 \end{tabular}
+
 \begin{tabular}{llll}
 \toprule
 {} &    observations &     predictions & Z-Scores \\
@@ -1012,6 +1009,7 @@ CapacitanceTest      &         89.8 pF &         0.04 pF &     2.36 \\
 RestingPotentialTest &       -65.23 mV &       -49.05 mV &     6.97 \\
 \bottomrule
 \end{tabular}
+
 \subsubsection{Neocortex pyramidal cell layer 5-6 GLIF}\begin{tabular}{lr}
 \toprule
 {} &           0 \\
@@ -1038,6 +1036,7 @@ CapacitanceTest      &       150.58 pF &       -108.15 pF &     2.75 \\
 RestingPotentialTest &       -68.25 mV &         -0.05 mV &    10.44 \\
 \bottomrule
 \end{tabular}
+
 \subsubsection{olf_mit GLIF}\begin{tabular}{lr}
 \toprule
 {} &           0 \\
@@ -1198,6 +1197,7 @@ p\_value    &  0.982309 \\
 \bottomrule
 \end{tabular}
 
+
 optimal model parameters
 \begin{tabular}{lrrrrrrrrrr}
 \toprule
@@ -1217,7 +1217,6 @@ CapacitanceTest      &         89.8 pF &      132.04 pF &     0.84 \\
 RestingPotentialTest &       -65.23 mV &      -67.63 mV &     0.47 \\
 \bottomrule
 \label{tab:conductance_CA1}
-
 \end{tabular}
 
 \subsubsection{olf_mit NEURONHH}

@@ -31,7 +31,7 @@ This makes the task of neuronal model optimization, much more supervised and muc
 \subsection{Speed of Optimization}
 \subsubsection{Speed of the Objective Function}
 A large fraction of the compute cycles spent evaluating each parameter set are expended on identifying the rheobase current, thus unlocking the calculation of several subsequent measurements.
-Fortunately, for slower model implementations this can be sped up significantly through parallelism, as described in section \ref{sec:parallel-rheobase}.
+Fortunately, for slower model implementations this can be sped up significantly through parallelism, as described in Section \ref{sec:parallel-rheobase}.
 In some applications, parallel code scheduling is incompatible with with the just-in-time (JIT) compilation approach described in Section \ref{sec:new-models}, so parallelism sometimes trade off against raw model simulation speed. 
 
 \subsubsection{Speed of Parallel Exploration}
