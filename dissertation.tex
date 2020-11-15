@@ -48,7 +48,6 @@
 %Graduate College
 
 
-
 \documentclass[10pt]{report}
 \usepackage[hidelinks]{hyperref}
 %\usepackage{abstract}
@@ -86,6 +85,7 @@
 \floatplacement{figure}{H} % forces figures to be placed at the correct location
 \usepackage{geometry}
 \usepackage{tocloft}
+%\usepackage[titles]{tocloft}%
 \usepackage{natbib}
 \usepackage{asudis}
 \usepackage{graphicx}
@@ -114,9 +114,21 @@
 \AtBeginDocument{%
     \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
 }
+
+ %\geometry{
+ %a4paper,
+% total={170mm,257mm},
+% left=20mm,
+% top=60mm,
+% }
 \cftsetindents{chapter}{1.5em}{1.5em}
 \cftsetindents{section}{3.0em}{2.3em}
 \cftsetindents{subsection}{5.3em}{3.2em}
+%\AtBeginDocument{
+%   \setlength{\absparindent}{\parindent}{1.5em}
+%}
+\topmargin -1.5cm
+%\usepackage{atbegshi}
 \begin{document}
 %\pagenumbering{arabic}
 \pagenumbering{roman}
@@ -137,19 +149,63 @@
 
 \maketitle
 
+
+%0em
+%\cftbeforeZtitleskip
+
+%\setlength{\parindent}{0em}
+
+
 \include{chapters/abstract}
 \dedicationpage{\input{chapters/acknowledgements}}
 \include{ack}
+\setlength{\cftbeforetoctitleskip}{0.15em}
+
 \tableofcontents
+
 \addtocontents{toc}{~\hfill Page\par}
 \newpage
-\addcontentsline{toc}{part}{LIST OF TABLES}
-\renewcommand{\cftlabel}{Table}
-\listoftables
-%\addtocontents{lot}{Table~\hfill Page \par}
-\newpage
+
+%\setlength{\cftbeforetoctitleskip}{0.01em}
+%\topmargin = -60pt
+\setlength{\cftbeforetoctitleskip}{0.1em}
+%\topmargin = -60pt
+\thispagestyle{empty}
+%\newgeometry{left=3cm,right=2.5cm,top=6cm,bottom=2.5cm}
+\large \lineskip 2.5em%
+
+%}{0pt}{-6em}{1.5\parskip}
+
+\restoregeometry  
+
+\addtocontents{toc}{CHAPTER}
 \addcontentsline{toc}{part}{LIST OF FIGURES}
+
+%\newcommand\MyShipoutHook{\chapter*{\contentsname}}
+\addtocontents{lof}{FIGURE\protect\vspace*{3ex}}
+%\renewcommand\MyShipoutHook{\chapter*{\listfigurename}}
+%\repeat
+\addcontentsline{toc}{part}{LIST OF TABLES}
+
+\addtocontents{lot}{TABLE\protect\vspace*{3ex}}
+
+%\renewcommand{\cftlabel}{Table}
+
+\listoftables
+%\addtocontents{toc}{TABLE\par}
+
+\newpage
+
+
+
+
+%\addcontentsline{toc}{chapter}{Chapter}
+%\renewcommand{\cftlabel}{Figure}
+%\addtocontents{toc}{FIGURE\par}
+
 \listoffigures
+\newpage
+%\addtocontents{lof}{FIGURE\protect\vspace*{3ex}}
 
 %\addtocontents{toc}{CHAPTER \par}
 %\renewcommand{\cftlabel}{Figure}
@@ -161,7 +217,7 @@
 \include{chapters/methods}
 \include{chapters/results}
 \include{chapters/discussion}
-\include{chapters/appendix}
+%\include{chapters/appendix}
 
 
 \let\mtcontentsname\contentsname
@@ -172,9 +228,16 @@
 \bibliographystyle{chapters/asudis}
 \bibliography{chapters/dis}}
 
-\renewcommand{\chaptername}{APPENDIX}
+
+\appendix
+\include{chapters/appendix}
+
+
+%\renewcommand{\chaptername}{APPENDIX}
+\addcontentsline{toc}{part}{APPENDIX}
+
 \addtocontents{toc}{APPENDIX \par}
 %\appendix
 %\include{appendix1}
-\include{vita}
+%\include{vita}
 \end{document}
