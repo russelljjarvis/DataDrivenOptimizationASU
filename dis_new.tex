@@ -27,6 +27,53 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (Some) Packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage{setspace}   %Allows double spacing with the \doublespacing command
+
+\usepackage{fontspec}
+\setmainfont{Arial}
+\usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+\adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+\usepackage{array}
+\usepackage{afterpage}
+\usepackage{amsmath,amssymb,amsbsy}
+\usepackage{booktabs}
+\usepackage[font=doublespacing,font=footnotesize]{caption}
+%\captionsetup{font={large,stretch=1.3}}
+\usepackage{comment}
+\usepackage{courier}
+\usepackage{dcolumn}
+\usepackage{enumerate} % Needed for markdown enumerations to work
+\usepackage{eurosym} % defines \euro
+\usepackage{fancyhdr}
+\usepackage{fancyvrb} % verbatim replacement that allows latex
+\usepackage{float}
+\floatplacement{figure}{H} % forces figures to be placed at the correct location
+\usepackage{geometry}
+\usepackage{tocloft}
+%\usepackage[titles]{tocloft}%
+\usepackage{natbib}
+\usepackage{asudis}
+\usepackage{graphicx}
+\usepackage{grffile} % extends the file name processing of package graphics 
+\usepackage{hyperref}
+\usepackage{listings}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=0pt,frame=single}
+\usepackage{longtable}
+\usepackage{minted}
+
+\usepackage{sectsty}
+%\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
+\usepackage{textcomp} % defines textquotesingle
+
+\usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+\usepackage{upquote} % Upright quotes for verbatim code
+\usepackage{xcolor} % Allow colors to be defined
+
+
 \usepackage{graphicx}                   % For importing image files
 \usepackage{etoolbox}                   % For advanced commands throughout preamble
 \usepackage{minted}
@@ -55,7 +102,7 @@
                                         %   split the title across lines,
                                         %   use another \listadd command for the
                                         %   second line
-\newcommand*\Author{Russell Jarvis}          %<Enter your name; must match official transcript
+\newcommand*\Author{Russell Jarrod Jarvis}          %<Enter your name; must match official transcript
 \newcommand*{\documentname}%
   {Dissertation}                        %<Enter the type of document (capitalized)
 \newcommand*{\degreename}
@@ -64,18 +111,34 @@
                                         %   the oral defense
 %\listadd{\committeechair}{Chair Name}   %<Enter committee chair name; use \listadd for
 %\listadd{\committeechair}{Another name}%   for additional names
-\newcommand*{\chairlabel}{Co-Chair}        %<If you have co-chairs, replace this text with
-                                        %   'Co-Chair'
-\listadd{\committeemember}{Member Name} %<Enter committee member names; use \listadd for
-\listadd{\committeemember}{Member Name} %   additional names
-\newcommand*{\gradmonth}{Month}         %<Enter the graduation date; month can only be:
+\newcommand*{\chairlabel}{Co-Chair Sharon M. Crook}        %<If you have co-chairs, replace this text with
+\newcommand*{\chairlabel}{Co-Chair Rick Gerkin}        %<If you have co-chairs, replace this text with                                        %   'Co-Chair'
+\listadd{\committeemember}{Yi Zhou} %<Enter committee member names; use \listadd for
+\listadd{\committeemember}{James J Abbas} %   additional names
+\newcommand*{\gradmonth}{November}         %<Enter the graduation date; month can only be:
                                         %  May, August, or December
-\newcommand*{\gradyear}{Year}           %<Enter the graduation year, e.g. 2014
+\newcommand*{\gradyear}{2020}           %<Enter the graduation year, e.g. 2014
 
-\listadd{\keywords}{keyword 1}          %<Enter keywords; use \listadd for
-\listadd{\keywords}{keyword 2}          %   additional names (up to 6)
+\listadd{\keywords}{genetic algorithms}          %<Enter keywords; use \listadd for
+\listadd{\keywords}{optimisation}          %   additional names (up to 6)
 \newcommand*{\graddate}{\gradmonth%     % Compose full graduation date
   \space\gradyear}
+
+
+
+%\title{Neuronal Deep Fakes: Data-Driven Optimization of Reduced Neuronal Models}
+%\author{Russell Jarrod Jarvis}
+%\degreeName{Doctor of Philosophy}
+%\paperType{Dissertation}
+%\defensemonth{November}
+%\gradmonth{December}
+%\gradyear{2020}
+%\chair{Sharon Crook, co-Chair}
+%\memberOne{Sharon Crook, Co-Chair}
+%\memberOne{}
+%\memberTwo{Rick Gerkin, Co-Chair}
+%\memberThree{Yi Zhou}
+%\memberFour{James Abbas}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Page layout
@@ -1073,7 +1136,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Copyright page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\copyrightpageASU                       %~If you don't want to have a copyright page,
+%\copyrightpageASU                       %~If you don't want to have a copyright page,
                                         %   comment out this line
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
