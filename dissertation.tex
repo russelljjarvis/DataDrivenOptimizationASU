@@ -51,6 +51,19 @@
 
 \documentclass[10pt]{report}
 \usepackage[hidelinks]{hyperref}
+%\usepackage{abstract}
+
+\renewenvironment{abstract}{
+  \setcounter{page}{1}
+  \begin{center}
+    \doublespace
+    ABSTRACT
+  \end{center}
+} {
+  \clearpage
+}
+
+%\usepackage{setspace}   %Allows double spacing with the \doublespacing command
 
 \usepackage{fontspec}
 \setmainfont{Arial}
@@ -101,7 +114,9 @@
 \AtBeginDocument{%
     \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
 }
-
+\cftsetindents{chapter}{1.5em}{1.5em}
+\cftsetindents{section}{3.0em}{2.3em}
+\cftsetindents{subsection}{5.3em}{3.2em}
 \begin{document}
 %\pagenumbering{arabic}
 \pagenumbering{roman}
@@ -114,9 +129,9 @@
 \gradmonth{December}
 \gradyear{2020}
 %\chair{Sharon Crook, co-Chair}
-\memberOne{Sharon Crook, co-Chair}
+\memberOne{Sharon Crook, Co-Chair}
 %\memberOne{}
-\memberTwo{Rick Gerkin, co-Chair}
+\memberTwo{Rick Gerkin, Co-Chair}
 \memberThree{Yi Zhou}
 \memberFour{James Abbas}
 

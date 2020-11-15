@@ -63,17 +63,17 @@ It must be initialized with boundaries that contain plausible parameter values.
 If these boundaries are too narrow, they may exclude the optimal set of parameter values.
 However, if they are too wide, then parameter sets that produce models well outside the range of biological plausibility will be produced.
 Such implausible models undermine the assumptions of the features being calculated, and result in discontinuous or otherwise uninformative error surfaces where the optimizer wastes time exploring and may struggle to escape.
-An example of parameter boundaries from the literature is shown in Figure \ref{fig:best_at_edge}.
+An example of parameter boundaries from the literature is shown in Figure \ref{fig:best_at_edge_2}.
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.65]{figures/cliff.png}
     \caption[A Plot of a Cliff Ledge Framing a 2D Error Surface]{\textbf{Parameter Boundaries Can Frame the Search Space.}
-This error surface plot (from \cite{van2007neurofitter,van2008automated})
-shows how model/data agreement varies as two conductances from a biophysically-realistic conductance-based model are varied.
-The large error values for $Na<2$ and $Kdr<2$ suggest that the decision not to search below the value 1 for either of these parameter was reasonable.
-Similar grid searches could help to justify the parameter boundaries for optimization problems, provided that they can be conducted at low computational cost relative to optimization itself.}
-    \label{fig:best_at_edge}
+    This error surface plot (from \cite{van2007neurofitter,van2008automated})
+    shows how model/data agreement varies as two conductances from a biophysically-realistic conductance-based model are varied.
+    The large error values for $Na<2$ and $Kdr<2$ suggest that the decision not to search below the value 1 for either of these parameter was reasonable.
+    Similar grid searches could help to justify the parameter boundaries for optimization problems, provided that they can be conducted at low computational cost relative to optimization itself.}
+    \label{fig:best_at_edge_1}
 \end{figure}
 
 For example, some parameter sets may cause a divergence in either the simulated membrane potential or in the features extracted from it.
@@ -84,7 +84,7 @@ The error surface is locally ``flat" in a sense, and thus uninformative.
 In order for the optimizer to survive the existence of such regions, the population size must be sufficiently large that a large number of chromosomes will avoid being initialized there.
 
 In the opposite case, consider what might happen if the parameter boundaries are too narrow.
-Figure \ref{fig:best_at_edge} shows another case from the literature, and in this case the global minimum error is positioned in a deep and narrow well.
+Figure \ref{fig:best_at_edge_2} shows another case from the literature, and in this case the global minimum error is positioned in a deep and narrow well.
 It would be easy to have chosen parameter boundaries that miss this well entirely, resulting in a failure to obtain the optimal parameter set. 
 
 \begin{figure}
@@ -94,7 +94,7 @@ It would be easy to have chosen parameter boundaries that miss this well entirel
     Again from \cite{van2008automated} I show an example of well-chosen parameter boundaries.
     These boundaries enclose the (narrow, deep) global minimum.
     Notably, choosing to explore only one quadrant of this space, where the error is roughly invariant to the parameter values, would have led to missing this global minimum entirely.}
-    \label{fig:best_at_edge}
+    \label{fig:best_at_edge_2}
 \end{figure}
 
 A possible solution the problems above is to employ algorithms that peek beyond parameter boundaries and reports back on model stability.

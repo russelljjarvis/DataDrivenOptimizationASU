@@ -103,21 +103,23 @@ By contrast, the second Principal Component discriminated models and experiments
 It's non-zero loadings are shown in Table \ref{table:spca-component2}.
 Models and experiments shared the same breadth of variability across the first principal component, with only slightly more variance in the experiments than in the data.
 Allen Cell Types Database experiments exhibited the greatest variability out of all models and experiments (Figure \ref{fig:pca_data_points}).
-Altogether, these two principal components were sufficient to partition models and data into three separate clusters (right panel in Figure \label{fig:pca_data_points}).
-The full set of PCs are shown in Figure \ref{fig:spca-heatmap}.
+Altogether, these two principal components were sufficient to partition models and data into three separate clusters (right panel in Figure \ref{fig:pca_data_points}).
+The full set of PCs are shown in the figure below.
 Perhaps surprisingly, models clustered tightly and varied less than experimental data--one subset of Allen Cell Types database experiments even formed their own cluster--suggesting that perhaps past modeling efforts have been insufficiently bold in accounting for the diversity of cortical neuron types.
 
 \begin{figure}    
     \begin{center}
     \includegraphics[scale=0.75]{figures/cortical_model_data_agreement_54_1.png}
-    \caption[Sparse PCA Components]{\textbf{Sparse PCA Components}. Sparse PCA was applied to the collection of features extracted from models and data features.
+    \caption[Sparse PCA Components]{Sparse PCA was applied to the collection of features extracted from models and data features.
     Component loadings from each feature were examined.
-    Features are organized hierarchically, such that features with similar PC loadings are near each other.}
+    Features are organized hierarchically, such that features with similar PC loadings are near each other.
+    \label{fig:spca-heatmap}
+    }
 %fast_trough_indexes : numpy array of indexes at the start of the trough (i.e. end of the spike)
 %adp_indexes : numpy array of adp indexes (np.nan if there was no ADP in that ISI
 %slow_trough_indexes : numpy array of indexes at the minimum of the slow phase of the trough
     \end{center}
-    \label{fig:spca-heatmap}
+    
 \end{figure}    
 
 \begin{table}
@@ -138,7 +140,7 @@ min-AHP-indices & Indexs into array where minimum After Hyperpolarisation occur 
 \bottomrule
 \end{tabular}
 }
-\caption[Features of First Principal Component in Sparse PCA]{I identified the features associated with principal component 1 in the sparse PCA decomposition shown in Figure \ref{fig:spca-heatmap}.
+\caption[Features of First Principal Component in Sparse PCA]{I identified the features associated with principal component 1 in the sparse PCA decomposition shown in the figure below: \ref{fig:spca-heatmap}.
 These features explained $\frac{1}{3}$ of all of the variance (across models and data together), and were mainly associated with the timing of spikes and spike-associated events.
 Notably, this principal component was not useful for separate models from experimental data.}
 \label{table:spca-component1}
