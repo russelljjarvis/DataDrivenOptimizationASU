@@ -30,8 +30,8 @@
 
 %\usepackage{setspace}   %Allows double spacing with the \doublespacing command
 
-\usepackage{fontspec}
-\setmainfont{Arial}
+%\usepackage{fontspec}
+%\setmainfont{Arial}
 \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
 \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
 \usepackage{array}
@@ -53,7 +53,7 @@
 \usepackage{tocloft}
 %\usepackage[titles]{tocloft}%
 \usepackage{natbib}
-\usepackage{asudis}
+%\usepackage{asudis}
 \usepackage{graphicx}
 \usepackage{grffile} % extends the file name processing of package graphics 
 \usepackage{hyperref}
@@ -63,7 +63,7 @@
 \usepackage{longtable}
 \usepackage{minted}
 
-\usepackage{sectsty}
+%\usepackage{sectsty}
 %\usepackage{setspace}
 \usepackage{siunitx}
 \usepackage{tcolorbox}
@@ -102,7 +102,7 @@
                                         %   split the title across lines,
                                         %   use another \listadd command for the
                                         %   second line
-\newcommand*\Author{Russell Jarrod Jarvis}          %<Enter your name; must match official transcript
+\newcommand*\Author{Russell J Jarvis}          %<Enter your name; must match official transcript
 \newcommand*{\documentname}%
   {Dissertation}                        %<Enter the type of document (capitalized)
 \newcommand*{\degreename}
@@ -111,13 +111,15 @@
                                         %   the oral defense
 %\listadd{\committeechair}{Chair Name}   %<Enter committee chair name; use \listadd for
 %\listadd{\committeechair}{Another name}%   for additional names
-\newcommand*{\chairlabel}{Co-Chair Sharon M. Crook}        %<If you have co-chairs, replace this text with
-\newcommand*{\chairlabel}{Co-Chair Rick Gerkin}        %<If you have co-chairs, replace this text with                                        %   'Co-Chair'
-\listadd{\committeemember}{Yi Zhou} %<Enter committee member names; use \listadd for
-\listadd{\committeemember}{James J Abbas} %   additional names
-\newcommand*{\gradmonth}{November}         %<Enter the graduation date; month can only be:
+%\newcommand*{\chairlabel}{Co-Chair Sharon M. Crook}        %<If you have co-chairs, replace this text with
+%\newcommand*{\committeemember}{Co-Chair Rick Gerkin}        %<If you have co-chairs, replace this text with        \memberOne{Sharon Crook, Co-Chair}
+%\memberOne{}
+                          %   'Co-Chair'
+%\listadd{\committeemember}{Yi Zhou} %<Enter committee member names; use \listadd for
+%\listadd{\committeemember}{James J Abbas} %   additional names
+%\newcommand*{\gradmonth}{November}         %<Enter the graduation date; month can only be:
                                         %  May, August, or December
-\newcommand*{\gradyear}{2020}           %<Enter the graduation year, e.g. 2014
+%\newcommand*{\gradyear}{2020}           %<Enter the graduation year, e.g. 2014
 
 \listadd{\keywords}{genetic algorithms}          %<Enter keywords; use \listadd for
 \listadd{\keywords}{optimisation}          %   additional names (up to 6)
@@ -303,11 +305,17 @@
     \vfill                              % Vertically center the portion below
     Approved \defdate~by the \\
     Graduate Supervisory Committee: \\[\baselineskip]
-    \renewcommand*{\do}[1]{##1, \chairlabel \\}
-    \dolistloop{\committeechair}
-    \renewcommand*{\do}[1]{##1 \\}
-    \dolistloop{\committeemember}
-    \vfill                              % Vertically center the portion above
+    %\renewcommand*{\do}[1]{##1, \chairlabel \\}
+    %\dolistloop{\committeechair}
+    %\renewcommand*{\do}[1]{##1 \\}
+    %\dolistloop{\committeemember}
+    \memberOne{Sharon M Crook, Co-Chair}\\
+    \memberTwo{Rick C Gerkin, Co-Chair}\\
+    \memberThree{Yi Zhou}\\
+    \memberFour{James J Abbas}\\
+    \vfill        
+    
+    % Vertically center the portion above
     ARIZONA STATE UNIVERSITY \\[\baselineskip]
     \graddate
   \end{center}
@@ -852,7 +860,7 @@
 
 \providetoggle{usebiblatex}             % True = a biblatex package is being used;
                                         %   False = 'natbib' is being used
-\settoggle{usebiblatex}{true}           %~Set to 'false' to use 'natbib' intead of
+\settoggle{usebiblatex}{false}           %~Set to 'false' to use 'natbib' intead of
                                         %   biblatex; I strongly recommend using biblatex
                                         %   because natbib is rather old and will break
                                         %   for innocuous things like underscores in URLs
