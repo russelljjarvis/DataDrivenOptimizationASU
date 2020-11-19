@@ -1,6 +1,11 @@
+
 \chapter{APPENDIX}
+\renewcommand{\thesubsection}{\Alph{subsection}}
+
 \label{sec:appendix}
-\section{Code Details}
+\subsection{CODE DETAILS}*
+%1. In the APPENDIX section the cover page should say APPENDIX A then underneath it should be the title.
+
 All of the optimization work newly described here depends on code I developed in two GitHub repositories:
 \begin{itemize}
 \item Neuronunit \url{https://github.com/russelljjarvis/neuronunit}
@@ -9,7 +14,7 @@ All of the optimization work newly described here depends on code I developed in
 \item JIT models \url{https://github.com/russelljjarvis/jit_hub}
 \end{itemize}
 
-\subsection{Complex Models and Streaming Remote Data}
+\subsection{COMPLEX MODELS AND STREAMING REMOTE DATA}*
 \label{sec:streaming}
 Often model data is streamed from a remote machine for example NeuroML-DB.
 In such cases where local simulator capabilities are not required, it is more useful to make ``streamed" remote models eligible for NeuronUnit tests.
@@ -44,7 +49,7 @@ Instead, one can simply source simulated models as if they are being streamed re
 %Druckmann 
 %\citep{birgiolas2019towards}, \citep{birgiolas2016rapid} %\citep{druckmann2007novel}
 
-\subsection{Allen Experimental Data From Web pages in Ephysiological Report Form}
+\subsection{ALLEN EXPERIMENTAL DATA FROM WEB PAGES IN EPHYSIOLOGICAL REPORT FORM}*
 
 \label{sec:allen_report_data}
 %Move to appendix: report form specimen
@@ -60,7 +65,7 @@ specimen id 471819401 \\
 }
 %\label{sec:allen_report_data}
 
-\subsection{Julia Implementation}
+\subsection{JULIA IMPLEMENTATION}*
 I also created an implementation of some cell models in the Julia programming language.
 This provides even more rapid simulation, intuitive code, and no specialized computing hardware.
 These are documented at
@@ -78,7 +83,8 @@ These are documented at
 %\end{table} 
 %\end{figure}
 
-\subsection{Tables of Fitted Parameters and Test Scores for Models and Data Used Here}
+\subsection{TABLES OF FITTED PARAMETERS AND TEST SCORES FOR MODELS AND DATA USED HERE}*
+%Tables of Fitted Parameters and Test Scores for Models and Data Used Here}
 
 \begin{table}
 \resizebox{\textwidth}{!}{
@@ -131,7 +137,7 @@ Hippocampus CA1 pyramidal cell     &  113.878716 & -27.492145 & -30.350509 & -65
 \end{table}
 
 
-\subsection{Across Model Performance Comparisons}
+\subsection{ACROSS MODEL PERFORMANCE COMPARISONS}*
 \begin{tabular}{lllrr}
 \toprule
 {} & model type &                            exp\_cell &   $\chi^{2}$ &       p-value \\

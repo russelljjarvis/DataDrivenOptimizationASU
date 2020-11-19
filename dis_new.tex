@@ -96,7 +96,7 @@
 % Title page, input
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \listadd{\titlelines}%
-  {Towards Neuronal Deep Fakes:}             %<Enter the title of the dissertation
+  {Neuronal Deep Fakes}             %<Enter the title of the dissertation
 \listadd{\titlelines}%
   {Data Driven Optimization of Reduced Neuronal Models}            % If you want to
                                         %   split the title across lines,
@@ -107,7 +107,7 @@
   {Dissertation}                        %<Enter the type of document (capitalized)
 \newcommand*{\degreename}
   {Doctor of Philosophy}                %<Enter the type of degree (capitalized)
-\newcommand*\defdate{Nov 2020}        %<Give month (written out fully) and year of
+\newcommand*\defdate{November 2020}        %<Give month (written out fully) and year of
                                         %   the oral defense
 %\listadd{\committeechair}{Chair Name}   %<Enter committee chair name; use \listadd for
 %\listadd{\committeechair}{Another name}%   for additional names
@@ -122,9 +122,13 @@
 %\newcommand*{\gradyear}{2020}           %<Enter the graduation year, e.g. 2014
 
 \listadd{\keywords}{genetic algorithms}          %<Enter keywords; use \listadd for
-\listadd{\keywords}{optimisation}          %   additional names (up to 6)
-\newcommand*{\graddate}{\gradmonth%     % Compose full graduation date
-  \space\gradyear}
+\listadd{\keywords}{optimisation}         
+
+\newcommand{\gradmonth}{December}
+\newcommand{\gradyear}{2020}
+
+%   additional names (up to 6)
+\newcommand*{\graddate}{\gradmonth   \space\gradyear}
 
 
 
@@ -854,8 +858,11 @@
   chapters/dis%                   %   reference information for sources cited in
 }%                                      %   the text. God help you if you're doing
                                         %   citations manually.
+\addtocontents{toc}{\protect\newpage}
 
-\newcommand{\bibheading}{References}    %<Enter the heading for the references section:
+\newcommand{\bibheading}{REFERENCES}    %<Enter the heading for the references section:
+\addtocontents{toc}{\protect\newpage}
+
                                         %   'References', 'Works Cited', or 'Bibliography'
 
 \providetoggle{usebiblatex}             % True = a biblatex package is being used;
@@ -1244,6 +1251,7 @@
 \include{chapters/methods}
 \include{chapters/results}
 \include{chapters/discussion}
+
 %\include{chapter1}                     %<Insert your chapters here; I recommend to use
 %\include{chapter2}                     %   \include rather than \input for chapters
 %\include{chapter3}% etc.
@@ -1306,15 +1314,14 @@
   \bibliographystyle{\natbibstyle}      % Using 'natbib' to print bibliography
   \bibliography{chapters/dis}
 }
-
-\appendix                               % Indicate start of appendices
+%\appendix                               % Indicate start of appendices
                                         % Appendices are considered 'mainmatter' in this
                                         %   documentclass
 \tolerance \defaulttolerance            % Set tolerance back to default
 \hbadness \defaulttolerance
 
 \addtocontents{toc}{\protect%           % Only include appendix title in table of contents
-  \setcounter{tocdepth}{0}}%            %   and omit sub-headings
+  \setcounter{tocdepth}{3}}%            %   and omit sub-headings
 \renewcommand*{\chapnamefont}%          % Reset font for 'Appendix' in chapter titles
     {\normalfont\MakeTextUppercase}
 \makeatletter                           % Clear page after printing appendix title
@@ -1325,15 +1332,27 @@
     \@afterheading
   }
 \makeatother
+\clearpage
+%\newpage
 
-\phantomsection                         % Need '\phantomsection' to place hyperref
-                                        %   bookmark more accurately
-\addcontentsline{toc}{part}{Appendix}   %~Add "Appendix" to TOC here; comment out this
-                                        %   line if you're not including appendices
+%\addtocontents{toc}{\protect\newpage}
+%\addtocontents{toc}{\protect\newpage}
+
+%\phantomsection                         % Need '\phantomsection' to place hyperref
+%\center{                                        %   bookmark more accurately
+
+%~Add "Appendix" to TOC here; comment out this
+%}                                        %   line if you're not including appendices
 
 %\phantomsection                        %!This is the one part of the template that I
-%\addtocontents{toc}%                   %   could not get to work properly. After you
-%  {\protect\markboth{APPENDIX}{Page}}  %   start listing appendices in the TOC,
+%\addcontentsline{toc}{chapter}{List of Tables}
+
+\appendix
+%\section*{Appendices}
+%\addcontentsline{toc}{section}{Appendices}
+\addtocontents{toc}%                   %   could not get to work properly. After you
+%\addcontentsline{toc}{part}{\hfill Appendix \hfill}   
+%{\protect\markboth{APPENDIX}{Page}}  %   start listing appendices in the TOC,
                                         %   subsequent TOC pages should use "APPENDIX in
                                         %   the header instead of "CHAPTER"; however,
                                         %   this code will make "APPENDIX" appear on the
@@ -1344,15 +1363,18 @@
                                         %   the appendices are listed. Keep moving these
                                         %   lines down and checking the output until
                                         %   the TOC headers appear correctly
+%\appendix
 
-%\include{appendix1}                     %~Insert your appendices here; I recommend to use
+\include{chapters/appendix}                     
+%~Insert 
+
+%your appendices here; I recommend to use
 %\include{appendix2}                     %   \include rather than \input for appendices.
 %\include{appendix3}% etc.               %   All heading commands are the same as above,
                                          %   e.g., \chapter, \section, etc.
-\iftoggle{sample}{%
+%\iftoggle{sample}{%
 %  \include{chapters/appendix}%
-}{}
-\include{chapters/appendix}%
+%}{}
 
 \backmatter                             % Start back matter according to documentclass
 \makeatletter                           % Do not clear page after printing title for
