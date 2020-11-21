@@ -548,6 +548,11 @@
     {\protect\addvspace{0pt}}%          %   different chapters; remove this extra space.
   \addtocontents{lot}%
     {\protect\addvspace{0pt}}%
+  %%
+  %
+  \addcontentsline{toc}{part}{APPENDIX}
+  %
+  %%
 }
 
 %%% Horizontal Space %%%
@@ -1346,13 +1351,20 @@
 
 %\phantomsection                        %!This is the one part of the template that I
 %\addcontentsline{toc}{chapter}{List of Tables}
+%{\protect\markboth{APPENDIX}{Page}}  %   start 
+\addcontentsline{toc}{part}{\hfill APPENDIX \hfill}  
+%\section*{Appendices}
+\addtocontents{toc}%
+\addcontentsline{toc}{chapter}{%      % Add a chapter-level heading for
+\hspace{-\cftchapterindent}%        %  a biographical sketch to the ToC
+APPENDIX%
+}%
+%   could not get to work properly. After you
+
 
 \appendix
-%\section*{Appendices}
-%\addcontentsline{toc}{section}{Appendices}
-\addtocontents{toc}%                   %   could not get to work properly. After you
-%\addcontentsline{toc}{part}{\hfill Appendix \hfill}   
-%{\protect\markboth{APPENDIX}{Page}}  %   start listing appendices in the TOC,
+
+%listing appendices in the TOC,
                                         %   subsequent TOC pages should use "APPENDIX in
                                         %   the header instead of "CHAPTER"; however,
                                         %   this code will make "APPENDIX" appear on the
